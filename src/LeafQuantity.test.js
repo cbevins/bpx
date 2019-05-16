@@ -17,5 +17,11 @@ it('creates a new LeafQuantity "leafQuantity"', () => {
   expect(leaf.units('fireDistance')).toEqual(leaf);
   expect(leaf.units()).toEqual('fireDistance');
 
-  expect(() => { leaf.ensureUnits('noSuchUnits', 'LeafQuantity.test.js.it()'); }).toThrow();
+  function badUnits() {
+    leaf.ensureUnits('noSuchUnits', 'LeafQuantity.test.js.it.badUnits()');
+  }
+  expect(badUnits).toThrow();
+  expect(badUnits).toThrowError(/invalid units/);
+  expect(badUnits).toThrowError(/noSuchUnits/);
+  expect(badUnits).toThrowError(/badUnits()/);
 });

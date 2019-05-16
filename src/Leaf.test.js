@@ -1,7 +1,8 @@
 import Leaf from './Leaf';
 
-it('creates a new Leaf "someLeaf"', () => {
-  const leaf = new Leaf(null, 'someLeaf');
+const leaf = new Leaf(null, 'someLeaf');
+
+it('1: Leaf initial state', () => {
   expect(leaf.name()).toEqual('someLeaf');
   expect(leaf.cost()).toEqual(0);
   expect(leaf.desc()).toEqual('');
@@ -18,7 +19,9 @@ it('creates a new Leaf "someLeaf"', () => {
   expect(leaf.isRequired()).toEqual(false);
   expect(leaf.isSelected()).toEqual(false);
   expect(leaf.required()).toEqual(0);
+});
 
+it('2: Leaf getters and setters', () => {
   expect(leaf.value(123).value(456).value(789)).toEqual(leaf);
   expect(leaf.value()).toEqual(789);
 
@@ -30,4 +33,21 @@ it('creates a new Leaf "someLeaf"', () => {
 
   expect(leaf.setSelected()).toEqual(leaf);
   expect(leaf.isSelected()).toEqual(true);
+
+  expect(leaf.setSelected(false)).toEqual(leaf);
+  expect(leaf.isSelected()).toEqual(false);
+
+  expect(leaf.setSelected(true)).toEqual(leaf);
+  expect(leaf.isSelected()).toEqual(true);
+
+  expect(leaf.required()).toEqual(0);
+  expect(leaf.isRequired()).toEqual(false);
+
+  expect(leaf.setRequired()).toEqual(leaf);
+  expect(leaf.isRequired()).toEqual(true);
+  expect(leaf.required()).toEqual(1);
+
+  expect(leaf.setRequired()).toEqual(leaf);
+  expect(leaf.isRequired()).toEqual(true);
+  expect(leaf.required()).toEqual(2);
 });
