@@ -9,7 +9,7 @@
 import Branch from './Branch';
 
 // A helper/convenience class used by Leaf
-class LeafConfig {
+class LeafCfg {
   constructor(method, args = null, config = null, value = null) {
     this.config = config;
     this.value = value;
@@ -55,7 +55,7 @@ class Leaf extends Branch {
     if (!(leaf instanceof Leaf)) {
       throw new Error(`Config error on '${this.fullName()}':\nbind() references an undefined or non-Leaf object\nDid you mean to use fixed()/fixedIf() on a value?\n`);
     }
-    this.own.configs.push(new LeafConfig(this.updateBound, leaf));
+    this.own.configs.push(new LeafCfg(this.updateBound, leaf));
     return this;
   }
 
@@ -70,7 +70,7 @@ class Leaf extends Branch {
         `Config error on '${this.fullName()}':\nbind()/bindIf() references an undefined or non-Leaf object\nDid you mean to use fixed()/fixedIf() on a value?\n`,
       );
     }
-    this.own.configs.push(new LeafConfig(this.updateBound, leaf, config, configValue));
+    this.own.configs.push(new LeafCfg(this.updateBound, leaf, config, configValue));
     return this;
   }
 
@@ -78,7 +78,7 @@ class Leaf extends Branch {
     if (typeof method !== 'function') {
       throw new Error(`Config error on '${this.fullName()}':\ncalc() method arg is not a function\n`);
     }
-    this.own.configs.push(new LeafConfig(method, args));
+    this.own.configs.push(new LeafCfg(method, args));
     return this;
   }
 
@@ -89,7 +89,7 @@ class Leaf extends Branch {
     if (!config.isConfig()) {
       throw new Error(`Config error on '${this.label()}':\ncalcIf() configuration object is not a Config\n`);
     }
-    this.own.configs.push(new LeafConfig(method, args, config, configValue));
+    this.own.configs.push(new LeafCfg(method, args, config, configValue));
     return this;
   }
 
@@ -157,7 +157,11 @@ class Leaf extends Branch {
     return this;
   }
 
-  cost() {
+  cost(value = undefined) {
+    if (value !== undefined) {
+      this.own.cost = value;
+      return this;
+    }
     return this.own.cost;
   }
 
@@ -172,7 +176,7 @@ class Leaf extends Branch {
     if (fixedValue instanceof Leaf) {
       throw new Error(`Config error on '${this.fullName()}':\nfixed() has Leaf arg\nDid you mean to use bind()/bindIf()?`);
     }
-    this.own.configs.push(new LeafConfig(this.updateFixed, fixedValue));
+    this.own.configs.push(new LeafCfg(this.updateFixed, fixedValue));
     this.own.value = fixedValue;
     return this;
   }
@@ -187,13 +191,13 @@ class Leaf extends Branch {
     if (fixedValue instanceof Leaf) {
       throw new Error(`Config error on '${this.fullName()}':\nfixedIf() has Leaf arg\nDid you mean to use bind()/bindIf()?`);
     }
-    this.own.configs.push(new LeafConfig(this.updateFixed, fixedValue, config, configValue));
+    this.own.configs.push(new LeafCfg(this.updateFixed, fixedValue, config, configValue));
     this.own.value = fixedValue;
     return this;
   }
 
   input() {
-    this.own.configs.push(new LeafConfig(this.updateInput));
+    this.own.configs.push(new LeafCfg(this.updateInput));
     return this;
   }
 
@@ -201,7 +205,7 @@ class Leaf extends Branch {
     if (!config.isConfig()) {
       throw new Error(`Config error on '${this.label()}':\ninputIf() configuration object is not a Config\n`);
     }
-    this.own.configs.push(new LeafConfig(this.updateInput, null, config, configValue));
+    this.own.configs.push(new LeafCfg(this.updateInput, null, config, configValue));
     return this;
   }
 
@@ -241,19 +245,27 @@ class Leaf extends Branch {
     return this.own.selected;
   }
 
+  order(value = undefined) {
+    if (value !== undefined) {
+      this.own.order = value;
+      return this;
+    }
+    return this.own.order;
+  }
+
   required() {
     return this.own.required;
   }
 
-  setCost(cost) {
-    this.own.cost = cost;
-    return this;
-  }
+  // setCost(cost) {
+  //   this.own.cost = cost;
+  //   return this;
+  // }
 
-  setDesc(desc) {
-    this.own.desc = desc;
-    return this;
-  }
+  // setDesc(desc) {
+  //   this.own.desc = desc;
+  //   return this;
+  // }
 
   setInputValues(inputValuesArray) {
     this.own.inputs = inputValuesArray;
@@ -261,10 +273,10 @@ class Leaf extends Branch {
     return this;
   }
 
-  setOrder(order) {
-    this.own.order = order;
-    return this;
-  }
+  // setOrder(order) {
+  //   this.own.order = order;
+  //   return this;
+  // }
 
   setRequired(toggle = true) {
     this.own.required = toggle ? this.own.required + 1 : 0;
