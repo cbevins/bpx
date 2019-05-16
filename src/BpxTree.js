@@ -1,4 +1,5 @@
 import Branch from './Branch';
+import BpxTreeFuel from './BpxTreeFuel';
 import BpxTreeMoisture from './BpxTreeMoisture';
 import { BpxConfigFuelPrimary, BpxConfigFuelSecondary,
   BpxConfigFuelMoisture, BpxConfigFuelCuredHerbFraction,
@@ -16,7 +17,7 @@ class BpxTreeSite extends Branch {
 class BpxTreeSurface extends Branch {
   constructor(parent, name = 'surface') {
     super(parent, name);
-    //new Fuel(this);
+    new BpxTreeFuel(this);
   }
 }
 
@@ -35,15 +36,15 @@ class BpxTreeConfigs extends Branch {
   constructor(parent, name = 'configs') {
     super(parent, name);
     new BpxTreeConfigFuel(this);
-    // new BpxTreeConfigFire(this);
+    // \TODO new BpxTreeConfigFire(this);
   }
 }
 
 class BpxTree extends Branch {
   constructor(name) {
     super(null, name);
-    //new BpxTreeConfigs(this);
-    //new BpxTreeSite(this);
+    new BpxTreeConfigs(this);
+    new BpxTreeSite(this);
     new BpxTreeSurface(this);
   }
 }

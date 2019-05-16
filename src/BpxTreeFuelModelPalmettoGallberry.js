@@ -8,7 +8,7 @@
 import Branch from './Branch';
 import BpxLibFuelPalmettoGallberry from './BpxLibFuelPalmettoGallberry';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafLeafQuantity';
+import LeafQuantity from './LeafQuantity';
 import { BpxLeafFuelDomain } from './BpxLeafOptions';
 
 /* eslint-disable no-new */

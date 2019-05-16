@@ -8,7 +8,7 @@
 import Branch from './Branch';
 import BpxLibFuelWesternAspen from './BpxLibFuelWesternAspen';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafLeafQuantity';
+import LeafQuantity from './LeafQuantity';
 import { BpxLeafFuelDomain, BpxLeafFuelAspenType } from './BpxLeafOptions';
 
 /* eslint-disable no-new */

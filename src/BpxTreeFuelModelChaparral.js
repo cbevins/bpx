@@ -8,7 +8,7 @@
 import Branch from './Branch';
 import BpxLibFuelChaparral from './BpxLibFuelChaparral';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafLeafQuantity';
+import LeafQuantity from './LeafQuantity';
 import { BpxLeafFuelDomain, BpxLeafFuelChaparralType } from './BpxLeafOptions';
 
 /* eslint-disable no-new */

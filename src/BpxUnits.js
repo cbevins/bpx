@@ -1,5 +1,6 @@
 /**
- * @file Defines the bpx units-of-measure, validation parameters (min, max, etc),
+ * @file Defines all the units-of-measure used by BehavePlus Explorer LeafQuantity item,
+ * including their validation parameters (min, max, etc)
  * and decorators (conversions, decimal digits, etc).
  * @copyright Systems for Environmentl Management 2019
  * @author Collin D. Bevins

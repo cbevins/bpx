@@ -21,13 +21,9 @@
  *    - BpxTreeFuelModel
  *    - BpxTreeFuelBed
  *
- * - BpxTreeSurfaceFuel composed of:
+ * - BpxTreeFuel composed of:
  *    - BpxTreeFuelComplexPrimary
  *    - BpxTreeFuelComplexSecondary
- *
- * - BpxTreeSurface composed
- *    - BpxTreeSurfaceFuel
- *    - BpxTreeSUrfaceFire
  *
  * @copyright Systems for Environmentl Management 2019
  * @author Collin D. Bevins
@@ -52,7 +48,7 @@ import LeafText from './LeafText';
 
 /* eslint-disable no-new */
 
-class BpxTreeFuelParticle extends Branch {
+export class BpxTreeFuelParticle extends Branch {
   constructor(parent, name) {
     super(parent, name);
     // 8 input
@@ -133,7 +129,7 @@ class BpxTreeFuelParticle extends Branch {
   }
 }
 
-class BpxTreeFuelParticles extends Branch {
+export class BpxTreeFuelParticles extends Branch {
   constructor(parent, name = 'particle') {
     super(parent, name);
     new BpxTreeFuelParticle(this, 'class1');
@@ -144,7 +140,7 @@ class BpxTreeFuelParticles extends Branch {
   }
 }
 
-class BpxTreeFuelCategory extends Branch {
+export class BpxTreeFuelCategory extends Branch {
   constructor(parent, name = 'dead') {
     super(parent, name);
     // Branches
@@ -245,23 +241,23 @@ class BpxTreeFuelCategory extends Branch {
   }
 }
 
-class BpxTreeFuelCategoryDead extends BpxTreeFuelCategory {
+export class BpxTreeFuelCategoryDead extends BpxTreeFuelCategory {
   constructor(parent, name = 'dead') {
-   super(parent, name);
+    super(parent, name);
   }
 }
 
-class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
+export class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
   constructor(parent, name = 'live') {
     super(parent, name);
-      // Unique to the live fuel category
+    // Unique to the live fuel category
     new LeafQuantity(this, 'mxtk')
       .desc('live fuel category moisture of extinction centent factor')
       .units('factor').value(1);
   }
 }
 
-class BpxTreeFuelBed extends Branch {
+export class BpxTreeFuelBed extends Branch {
   constructor(parent, name = 'bed') {
     super(parent, name);
     // Fuel bed level Branches
@@ -433,7 +429,7 @@ class BpxTreeFuelBed extends Branch {
 // put following in their own files
 //---------------------------------
 
-class BpxTreeFuelModel extends Branch {
+export class BpxTreeFuelModel extends Branch {
   constructor(parent, name = 'model') {
     super(parent, name);
     // Branches
@@ -471,7 +467,7 @@ class BpxTreeFuelModel extends Branch {
   }
 }
 
-class BpxTreeFuelComplex extends Branch {
+export class BpxTreeFuelComplex extends Branch {
   constructor(parent, name = 'complex') {
     super(parent, name);
     new BpxTreeFuelBed(this);
@@ -670,9 +666,4 @@ class BpxTreeFuel extends Branch {
   }
 }
 
-module.exports = {
-  Fuel: BpxTreeFuel,
-  Model: BpxTreeFuelModel,
-  Bed: BpxTreeFuelBed,
-  Complex: BpxTreeFuelComplex,
-};
+export default BpxTreeFuel;
