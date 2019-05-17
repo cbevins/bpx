@@ -5,7 +5,7 @@
  * @version 0.1.0
  */
 
-export class BpxLibMath {
+export default class BpxLibMath {
   static and(a, b) {
     return a && b;
   }
@@ -82,5 +82,3 @@ export class BpxLibMath {
   }
   /* eslint-enable prefer-rest-params */
 }
-
-export default BpxLibMath;

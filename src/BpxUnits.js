@@ -275,6 +275,12 @@ const BpxUnits = {
     },
     min: 0,
   },
+  nonNegative: { // a generic non-negative real value
+    uom: {
+      base: { real: 0 },
+    },
+    min: 0,
+  },
   ratio: { // ratios outside the range [0..1] that convert fraction-to-percent
     uom: {
       base: { fraction: 1 },

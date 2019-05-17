@@ -3,13 +3,16 @@ import BpxTreeFuel from './BpxTreeFuel';
 import BpxTreeMoisture from './BpxTreeMoisture';
 import { BpxConfigFuelPrimary, BpxConfigFuelSecondary,
   BpxConfigFuelMoisture, BpxConfigFuelCuredHerbFraction,
-  BpxConfigFuelChaparralTotalLoad } from './BpxLeafConfigs';
+  BpxConfigFuelChaparralTotalLoad, BpxConfigSlope } from './BpxLeafConfigs';
+import BpxTreeMap from './BpxTreeMap';
+import BpxTreeSlope from './BpxTreeSlope';
 
 class BpxTreeSite extends Branch {
   constructor(parent, name = 'site') {
     super(parent, name);
     new BpxTreeMoisture(this);
-    // \TODO new BpxTreeSlope(this);
+    new BpxTreeMap(this);
+    new BpxTreeSlope(this);
     // \TODO new BpxTreeWind(this);
   }
 }
@@ -21,6 +24,7 @@ class BpxTreeSurface extends Branch {
   }
 }
 
+// Move into its own tree file
 class BpxTreeConfigFuel extends Branch {
   constructor(parent, name = 'fuel') {
     super(parent, name);
@@ -29,6 +33,14 @@ class BpxTreeConfigFuel extends Branch {
     new BpxConfigFuelMoisture(this);
     new BpxConfigFuelCuredHerbFraction(this);
     new BpxConfigFuelChaparralTotalLoad(this);
+    new BpxConfigSlope(this);
+  }
+}
+
+class BpxTreeConfigSlope extends Branch {
+  constructor(parent, name = 'slope') {
+    super(parent, name);
+    new BpxConfigSlope(this);
   }
 }
 
@@ -36,6 +48,7 @@ class BpxTreeConfigs extends Branch {
   constructor(parent, name = 'configs') {
     super(parent, name);
     new BpxTreeConfigFuel(this);
+    new BpxTreeConfigSlope(this);
     // \TODO new BpxTreeConfigFire(this);
   }
 }

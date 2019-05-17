@@ -60,3 +60,13 @@ export class BpxConfigFuelSecondary extends LeafConfig {
       .item('none', 'there are no secondary fuels', true);
   }
 }
+
+export class BpxConfigSlope extends LeafConfig {
+  constructor(branch) {
+    super(branch, 'steepness')
+      .header('Slope steepness is')
+      .item('ratio', 'entered as ratio of vertical rise to horizontal reach', true)
+      .item('degrees', 'entered as degrees of angle above the hoprizontal plane')   .item('map', 'chaparral dynamic fuel parameters')
+      .item('map', 'estimated from map measurements');
+  }
+}

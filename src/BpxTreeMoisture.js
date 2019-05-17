@@ -1,4 +1,11 @@
-import Branch from './Branch';
+/**
+ * @file Defines the BehavePlus Explorer fuel moisture tree and leafs.
+ * @copyright Systems for Environmentl Management 2019
+ * @author Collin D. Bevins
+ * @version 0.1.0
+ */
+
+ import Branch from './Branch';
 import LeafQuantity from './LeafQuantity';
 
 export class BpxTreeMoistureDead extends Branch {

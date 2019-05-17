@@ -23,6 +23,13 @@
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
+  "jest":{
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/ToBeRefactored/**"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
