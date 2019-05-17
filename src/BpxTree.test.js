@@ -2,7 +2,10 @@ import BpxTree from './BpxTree';
 import Dag from './Dag';
 
 function approx(actual, expected, prec = 12) {
-  return actual.toPrecision(prec) === expected.toPrecision(prec);
+  if (typeof expected === 'number') {
+    return actual.toPrecision(prec) === expected.toPrecision(prec);
+  }
+  return actual === expected;
 }
 
 it('1: BpxTree initial state', () => {

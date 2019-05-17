@@ -1,4 +1,4 @@
-const fm010In = {
+export const BenchmarkFm010In = {
   configs: {
     fuel: {
       curedHerbFraction: 'estimated',
@@ -30,7 +30,7 @@ const fm010In = {
   },
 };
 
-const fm010Out = {
+export const BenchmarkFm010Out = {
   surface: {
     fuel: {
       primary: {
@@ -209,8 +209,4 @@ const fm010Out = {
       },
     },
   },
-};
-
-module.exports = {
-  fm010In, fm010Out,
 };
