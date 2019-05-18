@@ -5,69 +5,69 @@
  * @version 0.1.0
  */
 
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 import BpxLibFuelBehave from './BpxLibFuelBehave';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafQuantity';
+import DagLeafQuantity from './DagLeafQuantity';
 import { BpxLeafFuelDomain } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
-class BpxTreeFuelModelBehave extends Branch {
+export default class BpxTreeFuelModelBehave extends DagBranch {
   constructor(parent, name = 'behave') {
     super(parent, name);
 
     new BpxLeafFuelDomain(this).value(BpxLibFuelBehave.domain());
 
     // Always input
-    const parms = new Branch(this, 'parms');
-    new LeafQuantity(parms, 'curedHerbFraction')
+    const parms = new DagBranch(this, 'parms');
+    new DagLeafQuantity(parms, 'curedHerbFraction')
       .desc('standard fuel model herb cured fraction')
       .units('fraction').value(0);
 
     // Input when fuel modeling
-    new LeafQuantity(parms, 'depth')
+    new DagLeafQuantity(parms, 'depth')
       .desc('standard fuel model depth')
       .units('fuelDepth').value(0.01);
-    new LeafQuantity(parms, 'deadMext')
+    new DagLeafQuantity(parms, 'deadMext')
       .desc('standard fuel model dead fuel moisture content of extinction')
       .units('fuelMois').value(.01);
-    new LeafQuantity(parms, 'totalHerbLoad')
+    new DagLeafQuantity(parms, 'totalHerbLoad')
       .desc('standard fuel model total (dead and live) herb oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(parms, 'dead1Load')
+    new DagLeafQuantity(parms, 'dead1Load')
       .desc('standard fuel model dead 1-h time-lag dead-and-down oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(parms, 'dead10Load')
+    new DagLeafQuantity(parms, 'dead10Load')
       .desc('standard fuel model dead 10-h time-lag dead-and-down oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(parms, 'dead100Load')
+    new DagLeafQuantity(parms, 'dead100Load')
       .desc('standard fuel model dead 100-h time-lag dead-and-down oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(parms, 'liveStemLoad')
+    new DagLeafQuantity(parms, 'liveStemLoad')
       .desc('standard fuel model live stem oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(parms, 'dead1Savr')
+    new DagLeafQuantity(parms, 'dead1Savr')
       .desc('standard fuel model dead 1-h time-lag fuel surface area-to-volume ratio')
       .units('fuelSavr').value(1);
-    new LeafQuantity(parms, 'liveHerbSavr')
+    new DagLeafQuantity(parms, 'liveHerbSavr')
       .desc('standard fuel model live herbaceous fuel surface area-to-volume ratio')
       .units('fuelSavr').value(1);
-    new LeafQuantity(parms, 'liveStemSavr')
+    new DagLeafQuantity(parms, 'liveStemSavr')
       .desc('standard fuel model live stem wood fuel surface area-to-volume ratio')
       .units('fuelSavr').value(1);
-    new LeafQuantity(parms, 'deadHeat')
+    new DagLeafQuantity(parms, 'deadHeat')
       .desc('standard fuel model dead fuel low heat of combustion')
       .units('fuelHeat').value(8000);
-    new LeafQuantity(parms, 'liveHeat')
+    new DagLeafQuantity(parms, 'liveHeat')
       .desc('standard fuel model live fuel low heat of combustion')
       .units('fuelHeat').value(8000);
 
       // Always derived
-    const derived = new Branch(this, 'derived');
-    new LeafQuantity(derived, 'deadHerbLoad')
+    const derived = new DagBranch(this, 'derived');
+    new DagLeafQuantity(derived, 'deadHerbLoad')
       .desc('standard fuel model dead herb oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveHerbLoad')
+    new DagLeafQuantity(derived, 'liveHerbLoad')
       .desc('standard fuel model live herb oven-dry load')
       .units('fuelLoad').value(0);
   }
@@ -154,5 +154,3 @@ class BpxTreeFuelModelBehave extends Branch {
       .calc(BpxLibFuelBehave.liveHerbLoad, parms.totalHerbLoad, parms.curedHerbFraction);
   }
 }
-
-export default BpxTreeFuelModelBehave;

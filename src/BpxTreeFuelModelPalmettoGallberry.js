@@ -5,14 +5,14 @@
  * @version 0.1.0
  */
 
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 import BpxLibFuelPalmettoGallberry from './BpxLibFuelPalmettoGallberry';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafQuantity';
+import DagLeafQuantity from './DagLeafQuantity';
 import { BpxLeafFuelDomain } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
-class BpxTreeFuelModelPalmettoGallberry extends Branch {
+export default class BpxTreeFuelModelPalmettoGallberry extends DagBranch {
   constructor(parent, name = 'palmettoGallberry') {
     super(parent, name);
 
@@ -20,46 +20,46 @@ class BpxTreeFuelModelPalmettoGallberry extends Branch {
       .value(BpxLibFuelPalmettoGallberry.domain());
 
     // Input when fuel modeling
-    const parms = new Branch(this, 'parms');
-    new LeafQuantity(parms, 'age')
+    const parms = new DagBranch(this, 'parms');
+    new DagLeafQuantity(parms, 'age')
       .desc('pametto-gallberry age of rough (years since last burn')
       .units('fuelAge').value(0);
-    new LeafQuantity(parms, 'basalArea')
+    new DagLeafQuantity(parms, 'basalArea')
       .desc('pametto-gallberry basal area of overstory stand')
       .units('basalArea').value(0);
-    new LeafQuantity(parms, 'cover')
+    new DagLeafQuantity(parms, 'cover')
       .desc('pametto-gallberry coverage')
       .units('fraction').value(0);
-    new LeafQuantity(parms, 'height')
+    new DagLeafQuantity(parms, 'height')
       .desc('pametto-gallberry height of understory')
       .units('fuelDepth').value(0);
 
     // Always derived
-    const derived = new Branch(this, 'derived');
-    new LeafQuantity(derived, 'depth')
+    const derived = new DagBranch(this, 'derived');
+    new DagLeafQuantity(derived, 'depth')
       .desc('palmetto-gallberry fuel bed depth')
       .units('fuelDepth').value(0.01);
 
-    new LeafQuantity(derived, 'deadFineLoad')
+    new DagLeafQuantity(derived, 'deadFineLoad')
       .desc('chaparral dead fine (0 - 0.25 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadSmallLoad')
+    new DagLeafQuantity(derived, 'deadSmallLoad')
       .desc('chaparral dead small (0.25 to 1 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadFoliageLoad')
+    new DagLeafQuantity(derived, 'deadFoliageLoad')
       .desc('chaparral dead foliage oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadLitterLoad')
+    new DagLeafQuantity(derived, 'deadLitterLoad')
       .desc('chaparral dead litter oven-dry load')
       .units('fuelLoad').value(0);
 
-    new LeafQuantity(derived, 'liveFineLoad')
+    new DagLeafQuantity(derived, 'liveFineLoad')
       .desc('chaparral live fine (0 - 0.25 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveSmallLoad')
+    new DagLeafQuantity(derived, 'liveSmallLoad')
       .desc('chaparral live small (0.25 to 1 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveFoliageLoad')
+    new DagLeafQuantity(derived, 'liveFoliageLoad')
       .desc('chaparral live foliage oven-dry load')
       .units('fuelLoad').value(0);
   }
@@ -116,5 +116,3 @@ class BpxTreeFuelModelPalmettoGallberry extends Branch {
       .calc(BpxLibFuelPalmettoGallberry.liveFoliageLoad, parms.age, parms.cover, parms.height);
   }
 }
-
-export default BpxTreeFuelModelPalmettoGallberry;

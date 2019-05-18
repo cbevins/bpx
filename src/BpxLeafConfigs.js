@@ -1,13 +1,13 @@
 /**
- * @file Defines all BehavePlus Explorer classes that extend LeafConfig.
- * @copyright Systems for Environmentl Management 2019
+ * @file Defines all BehavePlus Explorer classes that extend DagLeafConfig.
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import LeafConfig from './LeafConfig';
+import DagLeafConfig from './DagLeafConfig';
 
-export class BpxConfigFuelChaparralTotalLoad extends LeafConfig {
+export class BpxConfigFuelChaparralTotalLoad extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'chaparralTotalLoad')
       .header('Chaparral total fuel load is')
@@ -16,7 +16,7 @@ export class BpxConfigFuelChaparralTotalLoad extends LeafConfig {
   }
 }
 
-export class BpxConfigFuelCuredHerbFraction extends LeafConfig {
+export class BpxConfigFuelCuredHerbFraction extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'curedHerbFraction')
       .header('Behave fuel model cured herb fraction is')
@@ -25,7 +25,7 @@ export class BpxConfigFuelCuredHerbFraction extends LeafConfig {
   }
 }
 
-export class BpxConfigFuelMoisture extends LeafConfig {
+export class BpxConfigFuelMoisture extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'moisture')
       .header('Fuel moistures are specified by entering')
@@ -36,7 +36,7 @@ export class BpxConfigFuelMoisture extends LeafConfig {
   }
 }
 
-export class BpxConfigFuelPrimary extends LeafConfig {
+export class BpxConfigFuelPrimary extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'primary')
       .header('Primary fuels are specified by entering')
@@ -48,7 +48,7 @@ export class BpxConfigFuelPrimary extends LeafConfig {
   }
 }
 
-export class BpxConfigFuelSecondary extends LeafConfig {
+export class BpxConfigFuelSecondary extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'secondary')
       .header('Secondary fuels are specified by entering')
@@ -61,7 +61,7 @@ export class BpxConfigFuelSecondary extends LeafConfig {
   }
 }
 
-export class BpxConfigSlope extends LeafConfig {
+export class BpxConfigSlope extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'steepness')
       .header('Slope steepness is')

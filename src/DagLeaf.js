@@ -1,15 +1,15 @@
 /**
- * @file Defines the base Leaf class, which is extended by
- * LeafOption, LeafQuantity, and LeafString classes.
- * @copyright Systems for Environmentl Management 2019
+ * @file Defines the base DagLeaf class, which is extended by
+ * DagLeafOption, DagLeafQuantity, and DagLeafText classes.
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 
-// A helper/convenience class used by Leaf
-class LeafCfg {
+// A helper/convenience class used by DagLeaf
+class DagLeafCfg {
   constructor(method, args = null, config = null, value = null) {
     this.config = config;
     this.value = value;
@@ -18,7 +18,7 @@ class LeafCfg {
   }
 }
 
-class Leaf extends Branch {
+export default class DagLeaf extends DagBranch {
   constructor(branch, name) {
     super(branch, name);
     this.own.value = null;
@@ -26,18 +26,18 @@ class Leaf extends Branch {
     this.own.method = this.updateFixed;
     this.own.args = null;
     this.own.selected = false; // TRUE if selected for output
-    this.own.required = 0; // Number of dependent Leafs
+    this.own.required = 0; // Number of dependent DagLeafs
     this.own.inputs = [this.own.value];
     this.own.iptr = 0; // input index
-    this.own.provider = []; // Leaf objects that provide inputs for *this* Leaf's update()
-    this.own.user = []; // Leaf objects that use *this* Leaf for their update()
+    this.own.provider = []; // DagLeaf objects that provide inputs for *this* DagLeaf's update()
+    this.own.user = []; // DagLeaf objects that use *this* DagLeaf for their update()
     this.own.cost = 0;
     this.own.order = 0;
     this.own.results = [];
   }
 
   addProvider(providerLeaf) {
-    if (providerLeaf instanceof Leaf) {
+    if (providerLeaf instanceof DagLeaf) {
       this.own.provider.push(providerLeaf);
       providerLeaf.addUser(this);
     }
@@ -52,10 +52,10 @@ class Leaf extends Branch {
   }
 
   bind(leaf) {
-    if (!(leaf instanceof Leaf)) {
+    if (!(leaf instanceof DagLeaf)) {
       throw new Error(`Config error on '${this.fullName()}':\nbind() references an undefined or non-Leaf object\nDid you mean to use fixed()/fixedIf() on a value?\n`);
     }
-    this.own.configs.push(new LeafCfg(this.updateBound, leaf));
+    this.own.configs.push(new DagLeafCfg(this.updateBound, leaf));
     return this;
   }
 
@@ -65,12 +65,12 @@ class Leaf extends Branch {
         `Config error on '${this.label()}':\nbindIf() configuration object is not a Config\n`,
       );
     }
-    if (!(leaf instanceof Leaf)) {
+    if (!(leaf instanceof DagLeaf)) {
       throw new Error(
         `Config error on '${this.fullName()}':\nbind()/bindIf() references an undefined or non-Leaf object\nDid you mean to use fixed()/fixedIf() on a value?\n`,
       );
     }
-    this.own.configs.push(new LeafCfg(this.updateBound, leaf, config, configValue));
+    this.own.configs.push(new DagLeafCfg(this.updateBound, leaf, config, configValue));
     return this;
   }
 
@@ -78,7 +78,7 @@ class Leaf extends Branch {
     if (typeof method !== 'function') {
       throw new Error(`Config error on '${this.fullName()}':\ncalc() method arg is not a function\n`);
     }
-    this.own.configs.push(new LeafCfg(method, args));
+    this.own.configs.push(new DagLeafCfg(method, args));
     return this;
   }
 
@@ -89,7 +89,7 @@ class Leaf extends Branch {
     if (!config.isConfig()) {
       throw new Error(`Config error on '${this.label()}':\ncalcIf() configuration object is not a Config\n`);
     }
-    this.own.configs.push(new LeafCfg(method, args, config, configValue));
+    this.own.configs.push(new DagLeafCfg(method, args, config, configValue));
     return this;
   }
 
@@ -130,11 +130,11 @@ class Leaf extends Branch {
         this.addProvider(provider);
       });
     } else if (this.isFixed()) {
-      // No providers for fixed Leafs
+      // No providers for fixed DagLeafs
     } else if (this.isInput()) {
-      // No providers for fixed Leafs
+      // No providers for fixed DagLeafs
     }
-    // If this Leaf has config options, add *this* to their user list
+    // If this DagLeaf has config options, add *this* to their user list
     this.own.configs.forEach((cfg) => {
       if (cfg.config && cfg.config.itemCount() > 1) {
         cfg.config.addUser(this);
@@ -148,7 +148,7 @@ class Leaf extends Branch {
     this.own.provider.forEach((leaf) => {
       leaf.configRequired();
     });
-    // Set any config Leafs used by this as 'required'
+    // Set any config DagLeafs used by this as 'required'
     this.own.configs.forEach((cfg) => {
       if (cfg.config && cfg.config.itemCount() > 1) {
         cfg.config.configRequired();
@@ -173,10 +173,10 @@ class Leaf extends Branch {
     if (fixedValue === 'undefined') {
       throw new Error(`Config error on '${this.fullName()}':\nfixed() has undefined fixed value\n`);
     }
-    if (fixedValue instanceof Leaf) {
-      throw new Error(`Config error on '${this.fullName()}':\nfixed() has Leaf arg\nDid you mean to use bind()/bindIf()?`);
+    if (fixedValue instanceof DagLeaf) {
+      throw new Error(`Config error on '${this.fullName()}':\nfixed() has DagLeaf arg\nDid you mean to use bind()/bindIf()?`);
     }
-    this.own.configs.push(new LeafCfg(this.updateFixed, fixedValue));
+    this.own.configs.push(new DagLeafCfg(this.updateFixed, fixedValue));
     this.own.value = fixedValue;
     return this;
   }
@@ -188,16 +188,16 @@ class Leaf extends Branch {
     if (fixedValue === 'undefined') {
       throw new Error(`Config error on '${this.fullName()}':\nfixedIf() has undefined fixed value\n`);
     }
-    if (fixedValue instanceof Leaf) {
-      throw new Error(`Config error on '${this.fullName()}':\nfixedIf() has Leaf arg\nDid you mean to use bind()/bindIf()?`);
+    if (fixedValue instanceof DagLeaf) {
+      throw new Error(`Config error on '${this.fullName()}':\nfixedIf() has DagLeaf arg\nDid you mean to use bind()/bindIf()?`);
     }
-    this.own.configs.push(new LeafCfg(this.updateFixed, fixedValue, config, configValue));
+    this.own.configs.push(new DagLeafCfg(this.updateFixed, fixedValue, config, configValue));
     this.own.value = fixedValue;
     return this;
   }
 
   input() {
-    this.own.configs.push(new LeafCfg(this.updateInput));
+    this.own.configs.push(new DagLeafCfg(this.updateInput));
     return this;
   }
 
@@ -205,7 +205,7 @@ class Leaf extends Branch {
     if (!config.isConfig()) {
       throw new Error(`Config error on '${this.label()}':\ninputIf() configuration object is not a Config\n`);
     }
-    this.own.configs.push(new LeafCfg(this.updateInput, null, config, configValue));
+    this.own.configs.push(new DagLeafCfg(this.updateInput, null, config, configValue));
     return this;
   }
 
@@ -321,7 +321,7 @@ class Leaf extends Branch {
   updateCalculated() {
     const args = [];
     this.own.args.forEach((leaf) => {
-      const value = (leaf instanceof Leaf) ? leaf.value() : leaf;
+      const value = (leaf instanceof DagLeaf) ? leaf.value() : leaf;
       args.push(value);
     });
     this.own.value = this.own.method.apply(this, args);
@@ -369,5 +369,3 @@ class Leaf extends Branch {
     return this.own.value;
   }
 }
-
-export default Leaf;

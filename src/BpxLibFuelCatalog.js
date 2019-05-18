@@ -1,9 +1,10 @@
 /**
  * @file Class of static BehavePlus Explorer Fuel Catalog accessors.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
+
 const tpa = 2000.0 / 43560.0;
 
 const BpxLibFuelRecord = {
@@ -63,7 +64,7 @@ const BpxLibFuelRecord = {
   },
 }; // fuel
 
-class BpxLibFuelCatalog {
+export default class BpxLibFuelCatalog {
   static domain(key) {
     return BpxLibFuelRecord[key].domain;
   }
@@ -194,5 +195,3 @@ class BpxLibFuelCatalog {
       ? BpxLibFuelRecord[key].fuelType : 'none';
   }
 }
-
-export default BpxLibFuelCatalog;

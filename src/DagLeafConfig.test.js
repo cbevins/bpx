@@ -1,7 +1,7 @@
-import LeafConfig from './LeafConfig';
+import DagLeafConfig from './DagLeafConfig';
 
-it('creates a new LeafConfig "leafConfig"', () => {
-  const leaf = new LeafConfig(null, 'leafConfig');
+it('creates a new DagLeafConfig "leafConfig"', () => {
+  const leaf = new DagLeafConfig(null, 'leafConfig');
   expect(leaf.name()).toEqual('leafConfig');
   expect(leaf.desc()).toEqual('');
   expect(leaf.value()).toEqual(null);

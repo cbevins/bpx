@@ -5,14 +5,14 @@
  * @version 0.1.0
  */
 
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 import BpxLibFuelWesternAspen from './BpxLibFuelWesternAspen';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafQuantity';
+import DagLeafQuantity from './DagLeafQuantity';
 import { BpxLeafFuelDomain, BpxLeafFuelAspenType } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
-class BpxTreeFuelModelWesternAspen extends Branch {
+export default class BpxTreeFuelModelWesternAspen extends DagBranch {
   constructor(parent, name = 'westernAspen') {
     super(parent, name);
 
@@ -20,39 +20,39 @@ class BpxTreeFuelModelWesternAspen extends Branch {
       .value(BpxLibFuelWesternAspen.domain());
 
     // Input when fuel modeling
-    const parms = new Branch(this, 'parms');
+    const parms = new DagBranch(this, 'parms');
     new BpxLeafFuelAspenType(parms);
 
-    new LeafQuantity(parms, 'curingLevel')
+    new DagLeafQuantity(parms, 'curingLevel')
       .desc('Aspen curing level')
       .units('fraction').value(0);
 
     // Derived from model inputs
-    const derived = new Branch(this, 'derived');
-    new LeafQuantity(derived, 'depth')
+    const derived = new DagBranch(this, 'derived');
+    new DagLeafQuantity(derived, 'depth')
       .desc('aspen fuel depth')
       .units('fuelDepth').value(0.01);
 
-    new LeafQuantity(derived, 'deadFineLoad')
+    new DagLeafQuantity(derived, 'deadFineLoad')
       .desc('western aspen dead 1-h time-lag fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadSmallLoad')
+    new DagLeafQuantity(derived, 'deadSmallLoad')
       .desc('western aspen dead 10-h time-lag fuel oven-dry load')
       .units('fuelLoad').value(0);
 
-    new LeafQuantity(derived, 'deadFineSavr')
+    new DagLeafQuantity(derived, 'deadFineSavr')
       .desc('western aspen dead 1-h time-lag fuel surface area-to-volume ratio')
       .units('fuelLoad').value(0);
 
-    new LeafQuantity(derived, 'liveHerbLoad')
+    new DagLeafQuantity(derived, 'liveHerbLoad')
       .desc('western aspen live herb fuel oven-dry load')
       .units('fuelLoad').value(0);
 
-    new LeafQuantity(derived, 'liveStemLoad')
+    new DagLeafQuantity(derived, 'liveStemLoad')
       .desc('western aspen live woody fuel oven-dry load')
       .units('fuelLoad').value(0);
 
-    new LeafQuantity(derived, 'liveStemSavr')
+    new DagLeafQuantity(derived, 'liveStemSavr')
       .desc('western aspen live woody fuel surface area-to-volume ratio')
       .units('fuelLoad').value(0);
   }
@@ -100,5 +100,3 @@ class BpxTreeFuelModelWesternAspen extends Branch {
       .calc(BpxLibFuelWesternAspen.liveStemSavr, parms.aspenType, parms.curingLevel);
   }
 }
-
-export default BpxTreeFuelModelWesternAspen;

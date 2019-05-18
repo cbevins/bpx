@@ -1,21 +1,21 @@
 /**
  * @file Defines the BehavePlus Explorer slope model tree and leafs.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import Branch from './Branch';
-import LeafQuantity from './LeafQuantity';
+import DagBranch from './DagBranch';
+import DagLeafQuantity from './DagLeafQuantity';
 import BpxLibCompass from './BpxLibCompass';
 
-export class BpxTreeSlopeDirection extends Branch {
+export class BpxTreeSlopeDirection extends DagBranch {
   constructor(parent, name = 'direction') {
     super(parent, name);
-    new LeafQuantity(this, 'aspect')
+    new DagLeafQuantity(this, 'aspect')
       .desc('slope aspect (downslope direction) from North')
       .units('azimuth').value(180);
-    new LeafQuantity(this, 'upslope')
+    new DagLeafQuantity(this, 'upslope')
       .desc('upslope from North')
       .units('slopeSteepness').value(0);
   }
@@ -26,13 +26,13 @@ export class BpxTreeSlopeDirection extends Branch {
   }
 }
 
-export class BpxTreeSlopeSteepness extends Branch {
+export class BpxTreeSlopeSteepness extends DagBranch {
   constructor(parent, name = 'steepness') {
     super(parent, name);
-    new LeafQuantity(this, 'degrees')
+    new DagLeafQuantity(this, 'degrees')
       .desc('slope steepness in degrees from horizontal')
       .units('slopeSteepness').value(0);
-    new LeafQuantity(this, 'ratio')
+    new DagLeafQuantity(this, 'ratio')
       .desc('slope steepness ratio of vertical rise to horizonatl reach')
       .units('slopeSteepness').value(0);
   }
@@ -52,7 +52,7 @@ export class BpxTreeSlopeSteepness extends Branch {
   }
 }
 
-export default class BpxTreeSlope extends Branch {
+export default class BpxTreeSlope extends DagBranch {
   constructor(parent, name = 'slope') {
     super(parent, name);
     new BpxTreeSlopeDirection(this);

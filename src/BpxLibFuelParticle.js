@@ -1,13 +1,13 @@
 /**
  * @file Class of static BehavePlus Explorer fuel particle equations.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
 import BpxLibMath from './BpxLibMath';
 
-class BpxLibFuelParticle {
+export default class BpxLibFuelParticle {
   /**
    * Calculate and return the fuel particle surface area (ft+2)
    * given its load (lb+1 ft-2), surface area-to-volume ratio (ft-1),
@@ -182,5 +182,3 @@ class BpxLibFuelParticle {
     return (1.0 - stot) * load;
   }
 }
-
-export default BpxLibFuelParticle;

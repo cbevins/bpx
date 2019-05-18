@@ -1,13 +1,14 @@
 /**
  * @file Class of static BehavePlus Explorer fuel bed equations
  * as described by Rothermel (1972) and implemented by BehavePlus V6.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
+
 import BpxLibMath from './BpxLibMath';
 
-class BpxLibFuelBed {
+export default class BpxLibFuelBed {
   static beta(deadPprc, livePprc, depth) {
     return BpxLibMath.div((deadPprc + livePprc), depth);
   }
@@ -375,5 +376,3 @@ class BpxLibFuelBed {
     return (betr <= 0.0 || wndc <= 0.0) ? 0.0 : (betr ** wnde) / wndc;
   }
 }
-
-export default BpxLibFuelBed;

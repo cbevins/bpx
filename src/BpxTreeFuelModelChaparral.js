@@ -5,84 +5,84 @@
  * @version 0.1.0
  */
 
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 import BpxLibFuelChaparral from './BpxLibFuelChaparral';
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import LeafQuantity from './LeafQuantity';
+import DagLeafQuantity from './DagLeafQuantity';
 import { BpxLeafFuelDomain, BpxLeafFuelChaparralType } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
-class BpxTreeFuelModelChaparral extends Branch {
+export default class BpxTreeFuelModelChaparral extends DagBranch {
   constructor(parent, name = 'chaparral') {
     super(parent, name);
 
     new BpxLeafFuelDomain(this).value(BpxLibFuelChaparral.domain());
 
     // Input when fuel modeling
-    const parms = new Branch(this, 'parms');
+    const parms = new DagBranch(this, 'parms');
     new BpxLeafFuelChaparralType(parms);
 
-    new LeafQuantity(parms, 'deadFuelFraction')
+    new DagLeafQuantity(parms, 'deadFuelFraction')
       .desc('chaparral dead fuel fraction')
       .units('fraction').value(0);
-    new LeafQuantity(parms, 'depth')
+    new DagLeafQuantity(parms, 'depth')
       .desc('chaparral fuel depth')
       .units('fuelDepth').value(0.01);
-    new LeafQuantity(parms, 'totalLoad')
+    new DagLeafQuantity(parms, 'totalLoad')
       .desc('chaparral fuel total oven-dry load')
       .units('fuelLoad').value(0);
 
     // Derived from model inputs
-    const derived = new Branch(this, 'derived');
-    new LeafQuantity(derived, 'age')
+    const derived = new DagBranch(this, 'derived');
+    new DagLeafQuantity(derived, 'age')
     .desc('chaparral age (years since last burned)')
     .units('fuelAge').value(0);
-    new LeafQuantity(derived, 'averageMortality')
+    new DagLeafQuantity(derived, 'averageMortality')
       .desc('chaparral estimated dead fuel fraction under average mortality')
       .units('fraction').value(0);
-    new LeafQuantity(derived, 'severeMortality')
+    new DagLeafQuantity(derived, 'severeMortality')
       .desc('chaparral estimated dead fuel fraction under severe mortality')
       .units('fraction').value(0);
-    new LeafQuantity(derived, 'depth')
+    new DagLeafQuantity(derived, 'depth')
       .desc('chaparral fuel depth as estimated from age and type')
       .units('fuelDepth').value(0.01);
-    new LeafQuantity(derived, 'totalLoad')
+    new DagLeafQuantity(derived, 'totalLoad')
       .desc('chaparral fuel total oven-dry load as estimated from age and type')
       .units('fuelLoad').value(0);
 
-    new LeafQuantity(derived, 'deadLoad')
+    new DagLeafQuantity(derived, 'deadLoad')
       .desc('chaparral dead fuel category oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadFineLoad')
+    new DagLeafQuantity(derived, 'deadFineLoad')
       .desc('chaparral dead fine (0 - 0.25 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadSmallLoad')
+    new DagLeafQuantity(derived, 'deadSmallLoad')
       .desc('chaparral dead small (0.25 to 0.5 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadMediumLoad')
+    new DagLeafQuantity(derived, 'deadMediumLoad')
       .desc('chaparral dead medium (0.5 to 1 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'deadLargeLoad')
+    new DagLeafQuantity(derived, 'deadLargeLoad')
       .desc('chaparral dead large (1 to 3 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
 
 
-    new LeafQuantity(derived, 'liveLoad')
+    new DagLeafQuantity(derived, 'liveLoad')
       .desc('chaparral live fuel category oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveFineLoad')
+    new DagLeafQuantity(derived, 'liveFineLoad')
       .desc('chaparral live fine (0 to 0.25 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveSmallLoad')
+    new DagLeafQuantity(derived, 'liveSmallLoad')
       .desc('chaparral live small (0.25 to 0.5 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveMediumLoad')
+    new DagLeafQuantity(derived, 'liveMediumLoad')
       .desc('chaparral live medium (0.5 to 1 inch diameter) fuel oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveLargeLoad')
+    new DagLeafQuantity(derived, 'liveLargeLoad')
       .desc('chaparral live large (1 to 3 inch diameter) fuel oven-dry load')
       . units('fuelLoad').value(0);
-    new LeafQuantity(derived, 'liveLeafLoad')
+    new DagLeafQuantity(derived, 'liveLeafLoad')
       .desc('chaparral live leaf oven-dry load')
       . units('fuelLoad').value(0);
   }
@@ -164,5 +164,3 @@ class BpxTreeFuelModelChaparral extends Branch {
       .calc(BpxLibFuelChaparral.liveClass5Load, parms.totalLoad, parms.deadFuelFraction);
   }
 }
-
-export default BpxTreeFuelModelChaparral;

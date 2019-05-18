@@ -1,11 +1,11 @@
 /**
- * @file Defines the base Branch class, extended by Leaf and all Tree derivatives.
- * @copyright Systems for Environmentl Management 2019
+ * @file Defines the base DagBranch class, extended by DagLeaf and its derivatives.
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-class Branch {
+export default class DagBranch {
   /* eslint-disable no-param-reassign */
   constructor(parent, name, desc = '') {
     this.own = {
@@ -61,5 +61,3 @@ class Branch {
     return this.own.parent;
   }
 }
-
-export default Branch;

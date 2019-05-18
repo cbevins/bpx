@@ -1,26 +1,26 @@
 /**
  * @file Defines the BehavePlus Explorer fuel moisture tree and leafs.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
- import Branch from './Branch';
-import LeafQuantity from './LeafQuantity';
+import DagBranch from './DagBranch';
+import DagLeafQuantity from './DagLeafQuantity';
 
-export class BpxTreeMoistureDead extends Branch {
+export class BpxTreeMoistureDead extends DagBranch {
   constructor(parent, name = 'dead') {
     super(parent, name);
-    new LeafQuantity(this, 'tl1h')
+    new DagLeafQuantity(this, 'tl1h')
       .desc('site dead 1-h time-lag fuel moisture')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'tl10h')
+    new DagLeafQuantity(this, 'tl10h')
       .desc('site dead 10-h time-lag fuel moisture')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'tl100h')
+    new DagLeafQuantity(this, 'tl100h')
       .desc('site dead 100-h time-lag fuel moisture')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'category')
+    new DagLeafQuantity(this, 'category')
       .desc('site dead category fuel moisture')
       .units('fuelMois').value(5);
   }
@@ -43,16 +43,16 @@ export class BpxTreeMoistureDead extends Branch {
   }
 }
 
-export class BpxTreeMoistureLive extends Branch {
+export class BpxTreeMoistureLive extends DagBranch {
   constructor(parent, name = 'live') {
     super(parent, name);
-    new LeafQuantity(this, 'herb')
+    new DagLeafQuantity(this, 'herb')
       .desc('site live herbaceous fuel moisture')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'stem')
+    new DagLeafQuantity(this, 'stem')
       .desc('site live stem wood fuel moisture')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'category')
+    new DagLeafQuantity(this, 'category')
       .desc('site live category fuel moisture')
       .units('fuelMois').value(5);
   }
@@ -73,12 +73,10 @@ export class BpxTreeMoistureLive extends Branch {
   }
 }
 
-export class BpxTreeMoisture extends Branch {
+export default class BpxTreeMoisture extends DagBranch {
   constructor(parent, name = 'moisture') {
     super(parent, name);
     new BpxTreeMoistureDead(this, 'dead');
     new BpxTreeMoistureLive(this, 'live');
   }
 }
-
-export default BpxTreeMoisture;

@@ -1,22 +1,21 @@
 /**
- * @file Defines the base LeafText class, which is extended by
- * many of the Leaf* classes.
- * @copyright Systems for Environmentl Management 2019
+ * @file Defines the DagLeafText class.
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import Leaf from './Leaf';
+import DagLeaf from './DagLeaf';
 import BpxStrings from './BpxStrings';
 
-class LeafText extends Leaf {
+export default class DagLeafText extends DagLeaf {
   constructor(branch, name) {
     super(branch, name).value('');
     this.own.units = 'any';
   }
 
   ensureUnits(units, fn) {
-    if (!LeafText.hasUnits(units)) {
+    if (!DagLeafText.hasUnits(units)) {
       throw new Error(`${fn}' called on '${this.name()}' with invalid units '${units}'`);
     }
   }
@@ -27,12 +26,10 @@ class LeafText extends Leaf {
 
   units(units = undefined) {
     if (units !== undefined) {
-      this.ensureUnits(units, 'LeafText.units');
+      this.ensureUnits(units, 'DagLeafText.units');
       this.own.units = units;
       return this;
     }
     return this.own.units;
   }
 }
-
-export default LeafText;

@@ -1,14 +1,14 @@
 /**
- * @file Defines the base LeafOption class, which is extended by
- * all the LeafConfig class and many derived option variants.
+ * @file Defines the DagLeafOption class, which is extended by
+ * all the DagLeafConfig class and many derived option variants.
  * @copyright Systems for Environmentl Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import Leaf from './Leaf';
+import DagLeaf from './DagLeaf';
 
-class LeafOption extends Leaf {
+export default class DagLeafOption extends DagLeaf {
   constructor(branch, name) {
     super(branch, name);
     this.own.option = {
@@ -85,5 +85,3 @@ class LeafOption extends Leaf {
     return this.own.value;
   }
 }
-
-export default LeafOption;

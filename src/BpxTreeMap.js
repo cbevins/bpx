@@ -5,26 +5,26 @@
  * @version 0.1.0
  */
 
-import Branch from './Branch';
-import LeafQuantity from './LeafQuantity';
+import DagBranch from './DagBranch';
+import DagLeafQuantity from './DagLeafQuantity';
 import BpxLibMath from './BpxLibMath';
 
-export default class BpxTreeMap extends Branch {
+export default class BpxTreeMap extends DagBranch {
   constructor(parent, name = 'map') {
     super(parent, name);
-    new LeafQuantity(this, 'scale')
+    new DagLeafQuantity(this, 'scale')
       .desc('map scale (e.g., 24000)')
       .units('factor').value(1);
-    new LeafQuantity(this, 'factor')
+    new DagLeafQuantity(this, 'factor')
       .desc('map factor (1/scale)')
       .units('factor').value(1);
-    new LeafQuantity(this, 'contourInterval')
+    new DagLeafQuantity(this, 'contourInterval')
       .desc('map contour interval')
       .units('distanceFt').value(1);
-    new LeafQuantity(this, 'contoursCrossed')
+    new DagLeafQuantity(this, 'contoursCrossed')
       .desc('number of map contours crossed over the measured map distance')
       .units('nonNegative').value(0);
-    new LeafQuantity(this, 'mapDistance')
+    new DagLeafQuantity(this, 'mapDistance')
       .desc('measured map distance')
       .units('distanceFt').value(1);
   }

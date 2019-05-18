@@ -1,6 +1,6 @@
-import Leaf from './Leaf';
+import DagLeaf from './DagLeaf';
 
-const leaf = new Leaf(null, 'someLeaf');
+const leaf = new DagLeaf(null, 'someLeaf');
 
 it('1: Leaf initial state', () => {
   expect(leaf.name()).toEqual('someLeaf');

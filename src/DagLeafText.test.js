@@ -1,7 +1,7 @@
-import LeafText from './LeafText';
+import DagLeafText from './DagLeafText';
 
-it('creates a new LeafText "leafText"', () => {
-  const leaf = new LeafText(null, 'leafText');
+it('creates a new DagLeafText "leafText"', () => {
+  const leaf = new DagLeafText(null, 'leafText');
   expect(leaf.name()).toEqual('leafText');
   expect(leaf.desc()).toEqual('');
   expect(leaf.units()).toEqual('any');
@@ -10,14 +10,14 @@ it('creates a new LeafText "leafText"', () => {
   expect(leaf.value('abc').value(true).value('someString')).toEqual(leaf);
   expect(leaf.value()).toEqual('someString');
 
-  expect(LeafText.hasUnits('noSuchUnits')).toEqual(false);
-  expect(LeafText.hasUnits('fuelLabel')).toEqual(true);
+  expect(DagLeafText.hasUnits('noSuchUnits')).toEqual(false);
+  expect(DagLeafText.hasUnits('fuelLabel')).toEqual(true);
 
   expect(leaf.units('fuelLabel')).toEqual(leaf);
   expect(leaf.units()).toEqual('fuelLabel');
 
   function badUnits() {
-    leaf.ensureUnits('noSuchUnits', 'LeafText.test.js.it.badUnits()');
+    leaf.ensureUnits('noSuchUnits', 'DagLeafText.test.js.it.badUnits()');
   }
   expect(badUnits).toThrow();
   expect(badUnits).toThrowError(/invalid units/);

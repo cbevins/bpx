@@ -8,7 +8,7 @@ function approx(actual, expected, prec = 12) {
   return actual === expected;
 }
 
-it('1: BpxTree initial state', () => {
+test('1: BpxTree initial state', () => {
   const name = 'BehavePlusExplorer';
   const desc = 'BehavePlus Explorer in Javascript and React';
   const branch = new BpxTree(name).desc(desc);

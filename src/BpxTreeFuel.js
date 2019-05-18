@@ -1,15 +1,15 @@
 /**
- * @file Composes Branches and Leafs into the following objects:
+ * @file Composes DagBranches and DagLeafs into the following objects:
  *
- * - BpxTreeFuelBed composed of bed-level Leafs and:
- *    - BpxTreeFuelCategoryDead composed of dead category Leafs and:
+ * - BpxTreeFuelBed composed of bed-level DagLeafs and:
+ *    - BpxTreeFuelCategoryDead composed of dead category DagLeafs and:
  *      - BpxTreeFuelParticlesDead composed of 4 instances of
  *        - BpxTreeFuelParticle composed of
- *          - the 8 Fuel Leafs (Dens, Heat, Label, Load, Mois, Savr, Seff, Stot)
- *    - BpxTreeFuelCategoryLive composed of live category Leafs and:
+ *          - the 8 Fuel DagLeafs (Dens, Heat, Label, Load, Mois, Savr, Seff, Stot)
+ *    - BpxTreeFuelCategoryLive composed of live category DagLeafs and:
  *      - BpxTreeFuelParticlesLive composed of 5 instance of
  *        - BpxTreeFuelParticle composed of
- *          - the 8 Fuel Leafs (Dens, Heat, Label, Load, Mois, Savr, Seff, Stot)
+ *          - the 8 Fuel DagLeafs (Dens, Heat, Label, Load, Mois, Savr, Seff, Stot)
  *
  * - BpxTreeFuelModel composed of:
  *    - BpxTreeFuelModelBehave
@@ -25,12 +25,12 @@
  *    - BpxTreeFuelComplexPrimary
  *    - BpxTreeFuelComplexSecondary
  *
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 //const Fuel = require('./BpxLeafOptions');
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
 import BpxTreeFuelModelBehave from './BpxTreeFuelModelBehave';
@@ -43,74 +43,74 @@ import BpxLibFuelParticle from './BpxLibFuelParticle';
 import BpxLibFuelBed from './BpxLibFuelBed';
 
 import { BpxLeafFuelDomain } from './BpxLeafOptions';
-import LeafQuantity from './LeafQuantity';
-import LeafText from './LeafText';
+import DagLeafQuantity from './DagLeafQuantity';
+import DagLeafText from './DagLeafText';
 
 /* eslint-disable no-new */
 
-export class BpxTreeFuelParticle extends Branch {
+export class BpxTreeFuelParticle extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     // 8 input
-    new LeafQuantity(this, 'dens')
+    new DagLeafQuantity(this, 'dens')
       .desc('fuel particle density')
       .units('fuelDens').value(32);
-    new LeafQuantity(this, 'heat')
+    new DagLeafQuantity(this, 'heat')
       .desc('fuel particle low heat of combustion')
       .units('fuelHeat').value(8000);
-    new LeafText(this, 'label')
+    new DagLeafText(this, 'label')
       .desc('brief fuel particle description')
       .units('fuelLabel').value('unspecified');
-    new LeafQuantity(this, 'load')
+    new DagLeafQuantity(this, 'load')
       .desc('fuel particle oven-dry fuel load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'mois')
+    new DagLeafQuantity(this, 'mois')
       .desc('fuel particle moisture content')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'savr')
+    new DagLeafQuantity(this, 'savr')
       .desc('fuel paryicle surface area-to-volume ratio')
       .units('fuelSavr').value(1);
-    new LeafQuantity(this, 'seff')
+    new DagLeafQuantity(this, 'seff')
       .desc('fuel particle effective (silica-free) mineral content')
       .units('fuelSeff').value(0.01);
-    new LeafQuantity(this, 'stot')
+    new DagLeafQuantity(this, 'stot')
       .desc('fuel particle total mineral content')
       .units('fuelStot').value(0.0555);
     // 12 Derived
-    new LeafQuantity(this, 'area')
+    new DagLeafQuantity(this, 'area')
       .desc('fuel particle surface area')
       .units('fuelArea').value(0);
-    new LeafQuantity(this, 'awtg')
+    new DagLeafQuantity(this, 'awtg')
       .desc('fuel particle surface area weighting factor')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'diam')
+    new DagLeafQuantity(this, 'diam')
       .desc('fuel particle equivalent cylindrical diameter')
       .units('fuelDiam').value(0);
-    new LeafQuantity(this, 'efhn')
+    new DagLeafQuantity(this, 'efhn')
       .desc('fuel particle effective heating number; fraction of fuel involved in ignition')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'efld')
+    new DagLeafQuantity(this, 'efld')
       .desc('effective fuel load; load of fuel involved in ingition')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'efwl')
+    new DagLeafQuantity(this, 'efwl')
       .desc('effective fuel water load; amount of water within the effective fuel load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'pprc')
+    new DagLeafQuantity(this, 'pprc')
       .desc('fuel particle packing ratio contribution')
       .units('fuelDepth').value(0);
-    new LeafQuantity(this, 'qign')
+    new DagLeafQuantity(this, 'qign')
       .desc('fuel particle heat of pre-ignition')
       .units('fuelHeat').value(0);
-    new LeafQuantity(this, 'size')
+    new DagLeafQuantity(this, 'size')
       .desc('fuel particle size class [0..6]')
       .units('index').value(6);
-    new LeafQuantity(this, 'swtg')
+    new DagLeafQuantity(this, 'swtg')
       .desc('fuel particle size class surface area weighting factor')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'volm')
+    new DagLeafQuantity(this, 'volm')
       .desc('fuel particle equivalent cylindrical volume')
       .units('fuelVolm').value(0);
-    new LeafQuantity(this, 'wnet')
+    new DagLeafQuantity(this, 'wnet')
       .desc('fuel particle net (mineral-free) oven-dry load')
       .units('fuelLoad').value(0);
   }
@@ -129,7 +129,7 @@ export class BpxTreeFuelParticle extends Branch {
   }
 }
 
-export class BpxTreeFuelParticles extends Branch {
+export class BpxTreeFuelParticles extends DagBranch {
   constructor(parent, name = 'particle') {
     super(parent, name);
     new BpxTreeFuelParticle(this, 'class1');
@@ -140,67 +140,67 @@ export class BpxTreeFuelParticles extends Branch {
   }
 }
 
-export class BpxTreeFuelCategory extends Branch {
+export class BpxTreeFuelCategory extends DagBranch {
   constructor(parent, name = 'dead') {
     super(parent, name);
-    // Branches
+    // DagBranches
     new BpxTreeFuelParticles(this);
-    // Leafs
-    new LeafQuantity(this, 'area')
+    // DagLeafs
+    new DagLeafQuantity(this, 'area')
       .desc('life category fuel surface area')
       .units('fuelArea').value(0);
-    new LeafQuantity(this, 'awtg')
+    new DagLeafQuantity(this, 'awtg')
       .desc('life category surface area weighting factor')
       .units('fraction');
-    new LeafQuantity(this, 'mineralDamping')
+    new DagLeafQuantity(this, 'mineralDamping')
       .desc('life category mineral damping coefficient')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'moistureDamping')
+    new DagLeafQuantity(this, 'moistureDamping')
       .desc('life category moisture damping coefficient')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'heat')
+    new DagLeafQuantity(this, 'heat')
       .desc('life category weighted low heat of combustion')
       .units('fuelHeat').value(0);
-    new LeafQuantity(this, 'load')
+    new DagLeafQuantity(this, 'load')
       .desc('life category total fuel load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'efld')
+    new DagLeafQuantity(this, 'efld')
       .desc('life category total effective fuel load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'efwl')
+    new DagLeafQuantity(this, 'efwl')
       .desc('life category effective fuel water load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'mext')
+    new DagLeafQuantity(this, 'mext')
       .desc('life category moisture content of extinction')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'mois')
+    new DagLeafQuantity(this, 'mois')
       .desc('life category weighted fuel moisture content')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'efmc')
+    new DagLeafQuantity(this, 'efmc')
       .desc('life category effective fuel moisture content')
       .units('fuelMois').value(5);
-    new LeafQuantity(this, 'pprc')
+    new DagLeafQuantity(this, 'pprc')
       .desc('life category contribution to fuel bed packing ratio')
       .units('fuelDepth').value(0);
-    new LeafQuantity(this, 'qign')
+    new DagLeafQuantity(this, 'qign')
       .desc('life category heat of pre-ignition')
       .units('fuelHeat').value(0);
-    new LeafQuantity(this, 'rxi')
+    new DagLeafQuantity(this, 'rxi')
       .desc('life category reaction intensity')
       .units('fireRxi').value(0);
-    new LeafQuantity(this, 'rxiDry')
+    new DagLeafQuantity(this, 'rxiDry')
       .desc('life category oven-dry reaction intensity')
       .units('fireRxi').value(0);
-    new LeafQuantity(this,'savr')
+    new DagLeafQuantity(this,'savr')
       .desc('life category weighted surface area-to-volume ratio')
       .units('fuelSavr').value(1);
-    new LeafQuantity(this, 'seff')
+    new DagLeafQuantity(this, 'seff')
       .desc('life category weighted effective (silica-free) mineral content')
       .units('fuelSeff').value(0.01);
-    new LeafQuantity(this, 'swtg') // Actually an Array of weights
+    new DagLeafQuantity(this, 'swtg') // Actually an Array of weights
       .desc('life category surface area weighting factors by size class')
       .units('index'); //.value([0,0,0,0,0,0]);
-    new LeafQuantity(this, 'wnet')
+    new DagLeafQuantity(this, 'wnet')
       .desc('life category weighted effective (mineral-free) fuel load')
       .units('fuelLoad').value(0);
   }
@@ -251,105 +251,105 @@ export class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
   constructor(parent, name = 'live') {
     super(parent, name);
     // Unique to the live fuel category
-    new LeafQuantity(this, 'mxtk')
+    new DagLeafQuantity(this, 'mxtk')
       .desc('live fuel category moisture of extinction centent factor')
       .units('factor').value(1);
   }
 }
 
-export class BpxTreeFuelBed extends Branch {
+export class BpxTreeFuelBed extends DagBranch {
   constructor(parent, name = 'bed') {
     super(parent, name);
-    // Fuel bed level Branches
+    // Fuel bed level DagBranches
     new BpxTreeFuelCategoryDead(this, 'dead');
     new BpxTreeFuelCategoryLive(this, 'live');
-    // Fuel bed level Leafs
-    new LeafQuantity(this, 'area')
+    // Fuel bed level DagLeafs
+    new DagLeafQuantity(this, 'area')
       .desc('fuel bed total surface area')
       .units('fuelArea').value(0);
-    new LeafQuantity(this, 'bulkDensity')
+    new DagLeafQuantity(this, 'bulkDensity')
       .desc('fuel bed bulk density')
       .units('fuelDens').value(0);
-    new LeafQuantity(this, 'depth')
+    new DagLeafQuantity(this, 'depth')
       .desc('fuel bed depth')
       .units('fuelDepth').value(0.01);
     new BpxLeafFuelDomain(this, 'domain');
-    new LeafQuantity(this, 'ewsLimit')
+    new DagLeafQuantity(this, 'ewsLimit')
       .desc('fuel bed effective wind speed limit')
       .units('windSpeed').value(88000);
-    new LeafQuantity(this, 'heatPreignition')
+    new DagLeafQuantity(this, 'heatPreignition')
       .desc('fuel bed heat of pre-ignition')
       .units('fuelHeat').value(0)
-    new LeafQuantity(this, 'heatSink')
+    new DagLeafQuantity(this, 'heatSink')
       .desc('fuel bed heat sink')
       .units('fuelSink').value(0);
-    new LeafQuantity(this, 'hpua')
+    new DagLeafQuantity(this, 'hpua')
       .desc('fuel bed heat per unit area')
       .units('fireHpua').value(0);
-    new LeafQuantity(this, 'packingRatio')
+    new DagLeafQuantity(this, 'packingRatio')
       .desc('fuel bed packing ratio')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'packingRatioOptimum')
+    new DagLeafQuantity(this, 'packingRatioOptimum')
       .desc('fuel bed optimum packing ratio')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'packingRatioRatio')
+    new DagLeafQuantity(this, 'packingRatioRatio')
       .desc('ratio of fuel bed packing ratio-to-optimum packing ratio')
       .units('ratio').value(0);
-    new LeafQuantity(this, 'phiLimit')
+    new DagLeafQuantity(this, 'phiLimit')
       .desc('fuel bed wind-slope coefficient upper limit')
       .units('factor').value(1);
-    new LeafQuantity(this, 'propagatingFluxRatio')
+    new DagLeafQuantity(this, 'propagatingFluxRatio')
       .desc('fuel bed propagating flux ratio')
       .units('fraction').value(0);
-    new LeafQuantity(this, 'reactionVelocityExp')
+    new DagLeafQuantity(this, 'reactionVelocityExp')
       .desc('fuel bed reaction velocity exponent A')
       .units('factor').value(1);
-    new LeafQuantity(this, 'reactionIntensity')
+    new DagLeafQuantity(this, 'reactionIntensity')
       .desc('fuel bed reaction intensity')
       .units('fireRxi').value(0);
-    new LeafQuantity(this, 'reactionVelocityMax')
+    new DagLeafQuantity(this, 'reactionVelocityMax')
       .desc('fuel bed maximum reaction velocity')
       .units('fireRxv').value(0);
-    new LeafQuantity(this, 'reactionVelocityOpt')
+    new DagLeafQuantity(this, 'reactionVelocityOpt')
       .desc('fuel bed optimum reaction velocity')
       .units('fireRxv').value(0);
-    new LeafQuantity(this, 'flameResidenceTime')
+    new DagLeafQuantity(this, 'flameResidenceTime')
       .desc('fuel bed flame residence time')
       .units('timeMin').value(0);
-    new LeafQuantity(this, 'load')
+    new DagLeafQuantity(this, 'load')
       .desc('fuel bed total oven-dry load')
       .units('fuelLoad').value(0);
-    new LeafQuantity(this, 'ros0')
+    new DagLeafQuantity(this, 'ros0')
       .desc('fuel bed no-wind, no-slope fire spread rate')
       .units('fireRos').value(0);
-    new LeafQuantity(this, 'rosLimit')
+    new DagLeafQuantity(this, 'rosLimit')
       .desc('fuel bed fire spread rate upper limit')
       .units('fireRos').value(0);
-    new LeafQuantity(this, 'savr')
+    new DagLeafQuantity(this, 'savr')
       .desc('fuel bed weighted surface area-to-volume ratio')
       .units('fuelSavr').value(1);
-    new LeafQuantity(this, 'savr15')
+    new DagLeafQuantity(this, 'savr15')
       .desc('fuel bed weighted savr raised to the 1.5 power')
       .units('factor').value(1);
-    new LeafQuantity(this, 'slopeK')
+    new DagLeafQuantity(this, 'slopeK')
       .desc('fuel bed slope coefficient intermediate factor')
       .units('factor').value(1);
-    new LeafQuantity(this, 'windB')
+    new DagLeafQuantity(this, 'windB')
       .desc('fuel bed wind coefficient intermediate factor B')
       .units('factor').value(1);
-    new LeafQuantity(this, 'windB')
+    new DagLeafQuantity(this, 'windB')
       .desc('fuel bed wind coefficient intermediate factor B')
       .units('factor').value(1);
-    new LeafQuantity(this, 'windC')
+    new DagLeafQuantity(this, 'windC')
       .desc('fuel bed wind coefficient intermediate factor C')
       .units('factor').value(1);
-    new LeafQuantity(this, 'windE')
+    new DagLeafQuantity(this, 'windE')
       .desc('fuel bed wind coefficient intermediate factor E')
       .units('factor').value(1);
-    new LeafQuantity(this, 'windK')
+    new DagLeafQuantity(this, 'windK')
       .desc('fuel bed wind coefficient intermediate factor K')
       .units('factor').value(1);
-    new LeafQuantity(this, 'windI')
+    new DagLeafQuantity(this, 'windI')
       .desc('inverse of fuel bed wind coefficient intermediate factor K')
       .units('factor').value(1);
   }
@@ -429,17 +429,17 @@ export class BpxTreeFuelBed extends Branch {
 // put following in their own files
 //---------------------------------
 
-export class BpxTreeFuelModel extends Branch {
+export class BpxTreeFuelModel extends DagBranch {
   constructor(parent, name = 'model') {
     super(parent, name);
-    // Branches
+    // DagBranches
     new BpxTreeFuelModelBehave(this);
     new BpxTreeFuelModelChaparral(this);
     new BpxTreeFuelModelPalmettoGallberry(this);
     new BpxTreeFuelModelWesternAspen(this);
     // Leaves
     new BpxLeafFuelDomain(this, 'domain');
-    new LeafText(this, 'key')
+    new DagLeafText(this, 'key')
       .desc('fuel model catalog key')
       .units('fuelKey').value('10');
   }
@@ -467,7 +467,7 @@ export class BpxTreeFuelModel extends Branch {
   }
 }
 
-export class BpxTreeFuelComplex extends Branch {
+export class BpxTreeFuelComplex extends DagBranch {
   constructor(parent, name = 'complex') {
     super(parent, name);
     new BpxTreeFuelBed(this);
@@ -658,7 +658,7 @@ export class BpxTreeFuelComplex extends Branch {
   }
 }
 
-class BpxTreeFuel extends Branch {
+class BpxTreeFuel extends DagBranch {
   constructor(parent, name = 'fuel') {
     super(parent, name);
     new BpxTreeFuelComplex(this, 'primary');

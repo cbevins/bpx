@@ -1,9 +1,7 @@
-import Branch from './Branch';
+import Branch from './DagBranch';
 import BpxTreeFuel from './BpxTreeFuel';
 import BpxTreeMoisture from './BpxTreeMoisture';
-import { BpxConfigFuelPrimary, BpxConfigFuelSecondary,
-  BpxConfigFuelMoisture, BpxConfigFuelCuredHerbFraction,
-  BpxConfigFuelChaparralTotalLoad, BpxConfigSlope } from './BpxLeafConfigs';
+import BpxTreeConfigs from  './BpxTreeConfigs';
 import BpxTreeMap from './BpxTreeMap';
 import BpxTreeSlope from './BpxTreeSlope';
 
@@ -24,36 +22,7 @@ class BpxTreeSurface extends Branch {
   }
 }
 
-// Move into its own tree file
-class BpxTreeConfigFuel extends Branch {
-  constructor(parent, name = 'fuel') {
-    super(parent, name);
-    new BpxConfigFuelPrimary(this);
-    new BpxConfigFuelSecondary(this);
-    new BpxConfigFuelMoisture(this);
-    new BpxConfigFuelCuredHerbFraction(this);
-    new BpxConfigFuelChaparralTotalLoad(this);
-    new BpxConfigSlope(this);
-  }
-}
-
-class BpxTreeConfigSlope extends Branch {
-  constructor(parent, name = 'slope') {
-    super(parent, name);
-    new BpxConfigSlope(this);
-  }
-}
-
-class BpxTreeConfigs extends Branch {
-  constructor(parent, name = 'configs') {
-    super(parent, name);
-    new BpxTreeConfigFuel(this);
-    new BpxTreeConfigSlope(this);
-    // \TODO new BpxTreeConfigFire(this);
-  }
-}
-
-class BpxTree extends Branch {
+export default class BpxTree extends Branch {
   constructor(name) {
     super(null, name);
     new BpxTreeConfigs(this);
@@ -61,5 +30,3 @@ class BpxTree extends Branch {
     new BpxTreeSurface(this);
   }
 }
-
-export default BpxTree;

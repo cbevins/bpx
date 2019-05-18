@@ -1,7 +1,7 @@
 /**
  * @file Class of static BehavePlus Explorer chaparral dynamic fuel model equations
  * as described by Rothermel and Philpot (1973) and as implemented by BehavePlus V6.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
@@ -9,7 +9,7 @@
 export const BpxLibFuelChaparralTypeChamise = 'chamise';
 export const BpxLibFuelChaparralTypeMixed = 'mixed';
 
-class BpxLibFuelChaparral {
+export default class BpxLibFuelChaparral {
   /**
    * Estimates the chaparral age (years since last burned)
    * from the chaparral fuel depth and fuel type.
@@ -254,5 +254,3 @@ class BpxLibFuelChaparral {
     return totalFuelLoad * (0.1957 - 0.305 * deadFuelFraction);
   }
 }
-
-export default BpxLibFuelChaparral;

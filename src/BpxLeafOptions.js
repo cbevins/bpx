@@ -1,13 +1,13 @@
 /**
  * @file Defines all BehavePlus Explorer Option variants.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-import LeafOption from './LeafOption';
+import DagLeafOption from './DagLeafOption';
 
-export class BpxLeafFuelAspenType extends LeafOption {
+export class BpxLeafFuelAspenType extends DagLeafOption {
   constructor(branch, name = 'aspenType') {
     super(branch, name)
       .desc('western aspen fuel type')
@@ -20,7 +20,7 @@ export class BpxLeafFuelAspenType extends LeafOption {
   }
 }
 
-export class BpxLeafFuelDomain extends LeafOption {
+export class BpxLeafFuelDomain extends DagLeafOption {
   constructor(branch) {
     super(branch, 'domain')
       .desc('fuel model domain')
@@ -32,7 +32,7 @@ export class BpxLeafFuelDomain extends LeafOption {
   }
 }
 
-export class BpxLeafFuelChaparralType extends LeafOption {
+export class BpxLeafFuelChaparralType extends DagLeafOption {
   constructor(branch, name = 'chaparralType') {
     super(branch, name)
       .desc('chaparral fuel type')

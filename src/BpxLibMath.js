@@ -1,6 +1,6 @@
 /**
  * @file Class of static math functions used by other BehavePlus Explorer files.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */

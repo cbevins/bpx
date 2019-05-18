@@ -1,8 +1,8 @@
 
-import Leaf from './Leaf';
+import DagLeaf from './DagLeaf';
 import BpxTree from './BpxTree';
 
-class Dag {
+export default class Dag {
   constructor(name) {
     this.name = name;
     this.tree = new BpxTree(name);
@@ -15,12 +15,12 @@ class Dag {
     this.autoConfig = true;
     this.autoUpdate = true;
     this.batch = {
-      stack: [], // topologically ordered stack of required input, derived, and bound Leafs
-      bound: 0, // number of bound Leaf calls
-      config: 0, // number of Config Leaf  calls
-      derived: 0, // number of calculated Leaf calls
+      stack: [], // topologically ordered stack of required input, derived, and bound DagLeafs
+      bound: 0, // number of bound DagLeaf calls
+      config: 0, // number of Config DagLeaf  calls
+      derived: 0, // number of calculated DagLeaf calls
       fixed: 0, // number of fixed leaf calls
-      input: 0, // number of input Leaf calls
+      input: 0, // number of input DagLeaf calls
       results: 0, // number of results stored
       stored: 0, // number of items stored (results * stored)
       runLimit: 1000, // maximum number of results (iterations)
@@ -50,7 +50,7 @@ class Dag {
   connectItems(item) {
     Object.keys(item).forEach((child) => {
       item[child].connect(this.tree);
-      if (!(item[child] instanceof Leaf)) {
+      if (!(item[child] instanceof DagLeaf)) {
         this.connectItems(item[child]);
       }
     });
@@ -58,7 +58,7 @@ class Dag {
 
   constructLeafsArray(tree) {
     Object.keys(tree).forEach((item) => {
-      if (tree[item] instanceof Leaf) {
+      if (tree[item] instanceof DagLeaf) {
         this.leafs.push(tree[item]);
       } else {
         this.constructLeafsArray(tree[item]);
@@ -127,7 +127,7 @@ class Dag {
     }
   }
 
-  // Determines cost of a single Leaf
+  // Determines cost of a single DagLeaf
   reconfigure3LeafCostFor(leaf) {
     let cost = leaf.cost();
     if (cost === 0) {
@@ -272,11 +272,11 @@ class Dag {
     let leaf = null;
     this.batch = {
       stack: [],
-      bound: 0, // number of bound Leaf calls
-      config: 0, // number of Config Leaf  calls
-      derived: 0, // number of calculated Leaf calls
+      bound: 0, // number of bound DagLeaf calls
+      config: 0, // number of Config DagLeaf  calls
+      derived: 0, // number of calculated DagLeaf calls
       fixed: 0, // number of fixed leaf calls
-      input: 0, // number of input Leaf calls
+      input: 0, // number of input DagLeaf calls
       results: 0, // number of results stored
       stored: 0, // number of items stored (results * stored)
       steps: 0,
@@ -298,7 +298,7 @@ class Dag {
     });
     const last = this.batch.stack.length;
     if (debug) {
-      Dag.debug(`BATCH processing ${last} Leafs`);
+      Dag.debug(`BATCH processing ${last} DagLeafs`);
     }
     while (vidx >= 0) {
       this.batch.steps += 1;
@@ -399,13 +399,11 @@ class Dag {
     if (debug) {
       Dag.debug(`Batch run produced ${this.batch.results} results sets`);
       Dag.debug(`  ${this.batch.derived} calculated`);
-      Dag.debug(`  ${this.batch.bound} bound Leaf updates`);
-      Dag.debug(`  ${this.batch.config} config Leaf updates`);
-      Dag.debug(`  ${this.batch.fixed} fixed Leaf updates`);
-      Dag.debug(`  ${this.batch.input} input Leaf updates`);
+      Dag.debug(`  ${this.batch.bound} bound DagLeaf updates`);
+      Dag.debug(`  ${this.batch.config} config DagLeaf updates`);
+      Dag.debug(`  ${this.batch.fixed} fixed DagLeaf updates`);
+      Dag.debug(`  ${this.batch.input} input DagLeaf updates`);
       Dag.debug(`  ${this.batch.elasped} elapsed milliseconds`);
     }
   }
 }
-
-export default Dag;

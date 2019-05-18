@@ -28,8 +28,17 @@
       "**/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/ToBeRefactored/**"
-    ]
-  },
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coverageReporters": ["lcov", "text", "clover", "json"]
+},
   "eslintConfig": {
     "extends": "react-app"
   },

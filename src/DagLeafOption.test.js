@@ -1,7 +1,7 @@
-import LeafOption from './LeafOption';
+import DagLeafOption from './DagLeafOption';
 
-it('creates a new LeafOption "optionLeaf"', () => {
-  const leaf = new LeafOption(null, 'leafOption');
+it('creates a new DagLeafOption "optionDagLeaf"', () => {
+  const leaf = new DagLeafOption(null, 'leafOption');
   expect(leaf.name()).toEqual('leafOption');
   expect(leaf.desc()).toEqual('');
   expect(leaf.header()).toEqual('');

@@ -1,7 +1,7 @@
-import LeafBool from './LeafBool';
+import DagLeafBool from './DagLeafBool';
 
 it('creates a new LeafBool "leafBool"', () => {
-  const leaf = new LeafBool(null, 'leafBool');
+  const leaf = new DagLeafBool(null, 'leafBool');
   expect(leaf.name()).toEqual('leafBool');
   expect(leaf.desc()).toEqual('');
   expect(leaf.value()).toEqual(false);

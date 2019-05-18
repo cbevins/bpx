@@ -1,12 +1,12 @@
 /**
  * @file Class of static BehavePlus Explorer palmetto-gallberry dynamic fuel model equations
  * as described by Hough and Albini (1978) and as implemented by BehavePlus V6.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
-class BpxLibFuelPalmettoGallberry {
+export default class BpxLibFuelPalmettoGallberry {
   static domain() {
     return 'palmettoGallberry';
   }
@@ -50,5 +50,3 @@ class BpxLibFuelPalmettoGallberry {
     return Math.max(0.0, -0.0036 + 0.00253 * age + 0.00049 * cover + 0.00282 * ht * ht);
   }
 }
-
-export default BpxLibFuelPalmettoGallberry;

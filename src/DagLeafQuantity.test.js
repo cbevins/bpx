@@ -1,7 +1,7 @@
-import LeafQuantity from './LeafQuantity';
+import DagLeafQuantity from './DagLeafQuantity';
 
-it('creates a new LeafQuantity "leafQuantity"', () => {
-  const leaf = new LeafQuantity(null, 'leafQuantity');
+it('creates a new DagLeafQuantity "leafQuantity"', () => {
+  const leaf = new DagLeafQuantity(null, 'leafQuantity');
   expect(leaf.name()).toEqual('leafQuantity');
   expect(leaf.cost()).toEqual(0);
   expect(leaf.desc()).toEqual('');
@@ -11,14 +11,14 @@ it('creates a new LeafQuantity "leafQuantity"', () => {
   expect(leaf.isOption()).toEqual(false);
   expect(leaf.isConfig()).toEqual(false);
 
-  expect(LeafQuantity.hasUnits('ft')).toEqual(false);
-  expect(LeafQuantity.hasUnits('fireDistance')).toEqual(true);
+  expect(DagLeafQuantity.hasUnits('ft')).toEqual(false);
+  expect(DagLeafQuantity.hasUnits('fireDistance')).toEqual(true);
 
   expect(leaf.units('fireDistance')).toEqual(leaf);
   expect(leaf.units()).toEqual('fireDistance');
 
   function badUnits() {
-    leaf.ensureUnits('noSuchUnits', 'LeafQuantity.test.js.it.badUnits()');
+    leaf.ensureUnits('noSuchUnits', 'DagLeafQuantity.test.js.it.badUnits()');
   }
   expect(badUnits).toThrow();
   expect(badUnits).toThrowError(/invalid units/);

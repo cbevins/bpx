@@ -1,6 +1,10 @@
-import { BpxConfigFuelPrimary, BpxConfigFuelSecondary,
-  BpxConfigFuelMoisture, BpxConfigFuelCuredHerbFraction,
-  BpxConfigFuelChaparralTotalLoad } from './BpxLeafConfigs';
+import {
+  BpxConfigFuelPrimary,
+  BpxConfigFuelSecondary,
+  BpxConfigFuelMoisture,
+  BpxConfigFuelCuredHerbFraction,
+  BpxConfigFuelChaparralTotalLoad
+} from './BpxLeafConfigs';
 
   it('1: BpxConfigFuelChaparralTotalLoad', () => {
     const leaf = new BpxConfigFuelChaparralTotalLoad();

@@ -1,6 +1,13 @@
-import BpxLibMath from './BpxLibMath';
+/**
+ * @file Class of static math functions used by other BehavePlus Explorer files.
+ * @copyright Systems for Environmental Management 2019
+ * @author Collin D. Bevins <cbevins@montana.com>
+ * @version 0.1.0
+ */
 
-export class BpxLibCrown {
+ import BpxLibMath from './BpxLibMath';
+
+export default class BpxLibCanopy {
 
   // Crown length
   static crownLength(baseHt, ht) {

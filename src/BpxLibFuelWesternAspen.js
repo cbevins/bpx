@@ -1,7 +1,7 @@
 /**
  * @file Class of static BehavePlus Explorer western aspen dynamic fuel model equations
  * as described by Brown and Simmerman (1986) and implemented by BehavePlus V6.
- * @copyright Systems for Environmentl Management 2019
+ * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
@@ -55,7 +55,7 @@ const BpxLibFuelWesternAspenTable = {
   },
 };
 
-class BpxLibFuelWesternAspen {
+export default class BpxLibFuelWesternAspen {
   static interpolate(curingLevel, valueAtLevel) {
     const Curing = [0.0, 0.3, 0.5, 0.7, 0.9, 1.000000001];
     const cl = Math.min(Math.max(curingLevel, 0.0), 1.0);
@@ -137,5 +137,3 @@ class BpxLibFuelWesternAspen {
       : 1;
   }
 }
-
-export default BpxLibFuelWesternAspen;

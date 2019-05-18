@@ -1,5 +1,5 @@
 import Dag from './Dag';
-import { BpxTreeMoisture, BpxTreeMoistureDead, BpxTreeMoistureLive }
+import BpxTreeMoisture, { BpxTreeMoistureDead, BpxTreeMoistureLive }
   from './BpxTreeMoisture';
 
 const mois = new BpxTreeMoisture();
