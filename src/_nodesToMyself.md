@@ -15,3 +15,16 @@ For 'test', it invokes <code>bpx/node_modules/react-scripts/scripts/test.js</cod
 
 To force all tests to be run and all files included in the coverage report:
 - Edit <code>C:/cbevins/dev/www/bpx/node_modules/react-scripts/scripts/test.js</code> function isInGitRepository() to always return FALSE around line 45.
+
+# Wind
+
+Configurators:
+- configs.fuel.waf is 'input' or 'estimated'
+- configs.wind.speed is 'at10m', 'at20ft', or 'atMidflame'
+
+Each FuelBed ('primary' and 'secondary') has its own:
+- estimatedWaf based on its own fuel depth
+
+# To Do
+- Create and test BpxTreeCanopy.js
+- Connect BpxTreeFuelBed.{waf, midflameWindSpeed} in BpxTreeFuel.js

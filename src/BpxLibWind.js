@@ -20,7 +20,7 @@ export default class BpxLibWind {
     return (mwaf > 0.0) ? ( wsmid / mwaf ) : wsmid
   }
 
-  static atMid(ws20ft, mwaf) {
+  static atMidflame(ws20ft, mwaf) {
     return mwaf * ws20ft;
   }
 

@@ -1,4 +1,5 @@
 import Dag from './Dag';
+import BpxLibWind from './BpxLibWind';
 
 function approx(actual, expected, prec = 12) {
   if (typeof expected === 'number') {
@@ -9,6 +10,12 @@ function approx(actual, expected, prec = 12) {
     return result;
   }
   return actual === expected;
+}
+
+function logNames(leafArray) {
+  leafArray.forEach((leaf)=>{
+    console.log(leaf.name());
+  });
 }
 
 test('1: Wind direction', () => {
@@ -344,7 +351,7 @@ test('2: Wind directions', () => {
 
   data.forEach((rec) => {
     let [asp, up, hdgUp, srcUp, hdgNo, srcNo] = rec;
-    console.log(asp, up, hdgUp, srcUp, hdgNo, srcNo);
+    //console.log(asp, up, hdgUp, srcUp, hdgNo, srcNo);
     dag.setValues([[aspect, asp], [headingFromUpslope, hdgUp]]);
     expect(approx(aspect.value(), asp)).toEqual(true);
     expect(approx(upslope.value(), up)).toEqual(true);
@@ -353,4 +360,140 @@ test('2: Wind directions', () => {
     expect(approx(sourceFromUpslope.value(), srcUp)).toEqual(true);
     expect(approx(sourceFromNorth.value(), srcNo)).toEqual(true);
   })
+})
+
+test('3: Midflame wind speed and WAF', () => {
+  const name = 'worksheet1';
+  const dag = new Dag(name);
+  const { tree } = dag;
+  const { canopy, slope, wind } = tree.site;
+  const { upslope, aspect } = slope.direction;
+  const { headingFromUpslope, headingFromNorth } = wind.direction;
+  const { sourceFromNorth, sourceFromUpslope } = wind.direction;
+  const { at10m, at20ft, atMidflame, waf } = wind.speed;
+  const cfgDir = tree.configs.wind.direction;
+  const cfgSpd = tree.configs.wind.speed;
+  const cfgWaf = tree.configs.fuel.waf;
+  const cfgPrimary = tree.configs.fuel.primary;
+  const primary = tree.surface.fuel.primary;
+
+  dag.setValues([
+    [cfgDir, 'headingFromUpslope'],
+    [cfgSpd, 'atMidflame'],
+    [cfgWaf, 'input'],
+  ]);
+  expect(cfgDir.value()).toEqual('headingFromUpslope');
+  expect(cfgSpd.value()).toEqual('atMidflame');
+  expect(cfgWaf.value()).toEqual('input');
+
+  // Start with just wind speed at midflame height
+  dag.setSelected([atMidflame]);
+
+  let selectedLeafs = dag.getSelectedLeafs();
+  expect(selectedLeafs.length).toEqual(1);
+  expect(selectedLeafs).toContain(atMidflame);
+
+  let configLeafs = dag.getRequiredConfigLeafs();
+  expect(configLeafs.length).toEqual(1);
+  expect(configLeafs).toContain(cfgSpd);
+
+  let inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs.length).toEqual(1);
+  expect(inputLeafs).toContain(atMidflame);
+
+  // If we select at20ft, then waf and cfgWaf are required
+  dag.setSelected([at20ft]);
+
+  selectedLeafs = dag.getSelectedLeafs();
+  expect(selectedLeafs.length).toEqual(2);
+  expect(selectedLeafs).toContain(atMidflame);
+  expect(selectedLeafs).toContain(at20ft);
+
+  configLeafs = dag.getRequiredConfigLeafs();
+  expect(configLeafs.length).toEqual(2);
+  expect(configLeafs).toContain(cfgSpd);
+  expect(configLeafs).toContain(cfgWaf);
+
+  inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs.length).toEqual(2);
+  expect(inputLeafs).toContain(atMidflame);
+  expect(inputLeafs).toContain(waf);
+
+  dag.setValues([
+    [atMidflame, 10],
+    [waf, 0.5],
+  ]);
+  expect(atMidflame.value()).toEqual(10);
+  expect(waf.value()).toEqual(0.5);
+  expect(approx(at20ft.value(), 20)).toEqual(true);
+
+  // If we set cfgWaf to estimated, then we need a lot more inputs
+  dag.setValue(cfgWaf, 'estimated');
+
+  configLeafs = dag.getRequiredConfigLeafs();
+  expect(configLeafs.length).toEqual(3);
+  expect(configLeafs).toContain(cfgSpd);
+  expect(configLeafs).toContain(cfgWaf);
+  expect(configLeafs).toContain(cfgPrimary);
+
+  inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs.length).toEqual(5);
+  expect(inputLeafs).toContain(atMidflame);
+  expect(inputLeafs).toContain(canopy.crownBase);
+  expect(inputLeafs).toContain(canopy.crownHeight);
+  expect(inputLeafs).toContain(canopy.cover);
+  expect(inputLeafs).toContain(primary.model.key);
+
+  dag.setValues([
+    [atMidflame, 10],
+    [waf, 0.5],
+    [primary.model.key, '10'],
+    [canopy.cover, 0.5],
+    [canopy.crownBase, 10],
+    [canopy.crownHeight, 40]
+  ]);
+  expect(approx(primary.bed.depth.value(), 1)).toEqual(true);
+  expect(approx(canopy.crownLength.value(), 30)).toEqual(true);
+  expect(approx(canopy.crownRatio.value(), .75)).toEqual(true);
+  let fill = 0.75 * 0.5 / 3;  // 0.125
+  expect(approx(canopy.crownFill.value(), .125)).toEqual(true);
+  let w = BpxLibWind.mwafEst(canopy.cover.value(), canopy.crownHeight.value(),
+    canopy.crownFill.value(), primary.bed.depth.value());
+  expect(approx(waf.value(), 0.1313664741590494)).toEqual(true);
+  expect(approx(at20ft.value(), 10/0.1313664741590494)).toEqual(true);
+  //expect(canopy.sheltersFuels.value()).toEqual(true);
+
+  // NOTE: fuel depth is not used if the fuel is sheltered
+  // So lets unshelter it...
+  dag.setValue(canopy.cover, 0);
+  expect(approx(canopy.crownFill.value(), 0)).toEqual(true);
+  w = BpxLibWind.mwafEst(canopy.cover.value(), canopy.crownHeight.value(),
+    canopy.crownFill.value(), primary.bed.depth.value());
+  expect(approx(waf.value(), 0.36210426360602416)).toEqual(true);
+  expect(approx(at20ft.value(), 10/0.36210426360602416)).toEqual(true);
+
+  // Change primary fuel input to 'behave'
+  // and we must enter the primary behave model depth parameter
+  dag.setValue(cfgPrimary, 'behave');
+  dag.setValue(canopy.cover, 0.5);
+
+  inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs.length).toEqual(5);
+  expect(inputLeafs).toContain(atMidflame);
+  expect(inputLeafs).toContain(canopy.crownBase);
+  expect(inputLeafs).toContain(canopy.crownHeight);
+  expect(inputLeafs).toContain(canopy.cover);
+  expect(inputLeafs).toContain(primary.model.behave.parms.depth);
+
+  dag.setValue(primary.model.behave.parms.depth, 2);
+  expect(approx(waf.value(), 0.1313664741590494)).toEqual(true);
+  expect(approx(at20ft.value(), 10/0.1313664741590494)).toEqual(true);
+
+  dag.setValue(canopy.cover, 0);
+  expect(approx(canopy.crownFill.value(), 0)).toEqual(true);
+  w = BpxLibWind.mwafEst(canopy.cover.value(), canopy.crownHeight.value(),
+    canopy.crownFill.value(), primary.bed.depth.value());
+  expect(approx(waf.value(), 0.4179825632019431)).toEqual(true);
+
+  dag.setValue
 })

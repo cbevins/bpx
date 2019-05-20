@@ -1,4 +1,4 @@
-import Branch from './DagBranch';
+import DagBranch from './DagBranch';
 import {
   BpxConfigFuelPrimary,
   BpxConfigFuelSecondary,
@@ -11,34 +11,34 @@ import {
   BpxConfigWindSpeed
 } from './BpxLeafConfigs';
 
-class BpxTreeConfigFuel extends Branch {
+class BpxTreeConfigFuel extends DagBranch {
   constructor(parent, name = 'fuel') {
     super(parent, name);
     new BpxConfigFuelPrimary(this);
     new BpxConfigFuelSecondary(this);
     new BpxConfigFuelMoisture(this);
+    new BpxConfigWindAdjFactor(this);
     new BpxConfigFuelCuredHerbFraction(this);
     new BpxConfigFuelChaparralTotalLoad(this);
   }
 }
 
-class BpxTreeConfigSlope extends Branch {
+class BpxTreeConfigSlope extends DagBranch {
   constructor(parent, name = 'slope') {
     super(parent, name);
     new BpxConfigSlopeSteepness(this);
   }
 }
 
-class BpxTreeConfigWind extends Branch {
+class BpxTreeConfigWind extends DagBranch {
   constructor(parent, name = 'wind') {
     super(parent, name);
     new BpxConfigWindDirection(this);
     new BpxConfigWindSpeed(this);
-    new BpxConfigWindAdjFactor(this);
   }
 }
 
-export default class BpxTreeConfigs extends Branch {
+export default class BpxTreeConfigs extends DagBranch {
   constructor(parent, name = 'configs') {
     super(parent, name);
     new BpxTreeConfigFuel(this);

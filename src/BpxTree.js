@@ -1,4 +1,5 @@
 import Branch from './DagBranch';
+import BpxTreeCanopy from './BpxTreeCanopy';
 import BpxTreeFuel from './BpxTreeFuel';
 import BpxTreeMoisture from './BpxTreeMoisture';
 import BpxTreeConfigs from  './BpxTreeConfigs';
@@ -13,6 +14,7 @@ class BpxTreeSite extends Branch {
     new BpxTreeMap(this);
     new BpxTreeSlope(this);
     new BpxTreeWind(this);
+    new BpxTreeCanopy(this);
   }
 }
 

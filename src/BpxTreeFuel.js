@@ -41,6 +41,7 @@ import BpxTreeFuelModelWesternAspen from './BpxTreeFuelModelWesternAspen';
 import BpxLibMath from'./BpxLibMath';
 import BpxLibFuelParticle from './BpxLibFuelParticle';
 import BpxLibFuelBed from './BpxLibFuelBed';
+import BpxLibWind from './BpxLibWind';
 
 import { BpxLeafFuelDomain } from './BpxLeafOptions';
 import DagLeafQuantity from './DagLeafQuantity';
@@ -352,9 +353,24 @@ export class BpxTreeFuelBed extends DagBranch {
     new DagLeafQuantity(this, 'windI')
       .desc('inverse of fuel bed wind coefficient intermediate factor K')
       .units('factor').value(1);
+    new DagLeafQuantity(this, 'estimatedWaf')
+      .desc('estimated midflame wind speed adjustment factor from 20-ft wind speed')
+      .units('fraction').value(1);
+    new DagLeafQuantity(this, 'waf')
+      .desc('applied midflame wind speed adjustment factor')
+      .units('fraction').value(1);
+    new DagLeafQuantity(this, 'midflameWindSpeed')
+      .desc('midflame wind speed')
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(this, 'slopeSteepnessRatio')
+      .desc('slope steepness ratio')
+      .units('slopeSteepness').value(0);
+    new DagLeafQuantity(this, 'windHeadingFromUpslope')
+      .desc('wind heading direction from Upslope')
+      .units('azimuth').value(0);
   }
 
-  connect(/* tree */) {
+  connect(tree) {
     // Note that depth and dead mext are connected in FuelComplex,
     // which has access to, and is parent of, the FuelModel
 
@@ -422,6 +438,24 @@ export class BpxTreeFuelBed extends DagBranch {
     this.ewsLimit.calc(BpxLibFuelBed.ewsLimit, this.reactionIntensity);
     this.phiLimit.calc(BpxLibFuelBed.phiLimit, this.ewsLimit, this.windB, this.windK);
     this.rosLimit.calc(BpxLibFuelBed.rosLimit, this.ros0, this.phiLimit);
+
+    //
+    const canopy = tree.site.canopy;
+    const wind = tree.site.wind.speed;
+    const cfgSpd = tree.configs.wind.speed;
+    const cfgWaf = tree.configs.fuel.waf;
+
+    this.estimatedWaf
+      .calc(BpxLibWind.mwafEst, canopy.cover, canopy.crownHeight,
+        canopy.crownFill, this.depth);
+    this.waf
+      .bindIf(cfgWaf, 'input', wind.waf)
+      .bind(this.estimatedWaf);
+    this.midflameWindSpeed
+      .bindIf(cfgSpd, 'atMidflame', wind.atMidflame)
+      .calc(BpxLibWind.atMidflame, wind.at20ft, this.waf)
+    this.windHeadingFromUpslope.bind(tree.site.wind.direction.headingFromUpslope);
+    this.slopeSteepnessRatio.bind(tree.site.slope.steepness.ratio);
   }
 }
 

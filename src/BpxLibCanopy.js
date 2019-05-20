@@ -9,6 +9,12 @@
 
 export default class BpxLibCanopy {
 
+  // Canopy volumetric fill ratio; the volume under the canopy top that
+  // is filled with tree crowns (division by 3 assumes conical crown shapes).
+  static crownFill(cover, cratio) {
+    return BpxLibMath.fraction(cratio) * BpxLibMath.fraction(cover) / 3;
+  }
+
   // Crown length
   static crownLength(baseHt, ht) {
     return Math.max( 0, ht - baseHt);
@@ -20,14 +26,13 @@ export default class BpxLibCanopy {
   }
 
   // Crown ratio
-  static crownRatio(baseHt, ht) {
-    return BpxLibMath.div( Math.max(0, ht - baseHt), ht);
+  static crownRatio(length, ht) {
+    return Math.min(1., BpxLibMath.div(length, ht));
   }
 
-  // Canopy volumetric fill ratio; the volume under the canopy top that
-  // is filled with tree crowns (division by 3 assumes conical crown shapes).
-  static fillRatio(cover, cratio) {
-    return BpxLibMath.fraction(cratio) * BpxLibMath.fraction(cover) / 3;
+  // Canopy fuel load
+  static fuelLoad(bulk, length) {
+    return Math.max( 0, bulk * length);
   }
 
   // Canopy heat per unit area
@@ -35,13 +40,8 @@ export default class BpxLibCanopy {
     return Math.max(0, load * heat);
   }
 
-  // Canopy fuel load
-  static fuelLoad(bulk, ht, baseHt) {
-    return Math.max( 0, bulk * (ht - baseHt));
-  }
-
   // Canopy shelters fuel
-  static isSheltered(cover, ht, fill) {
+  static sheltersFuel(cover, ht, fill) {
     return cover >= 0.01 && fill >= 0.05 && ht >= 6;
   }
 }

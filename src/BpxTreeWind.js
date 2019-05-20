@@ -56,17 +56,34 @@ export class BpxTreeWindSpeed extends DagBranch {
     new DagLeafQuantity(this, 'at20ft')
       .desc('at 20-ft')
       .units('windSpeed').value(0);
+    new DagLeafQuantity(this, 'atMidflame')
+      .desc('at midflame height')
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(this, 'waf')
+      .desc('midflame wind speed adjustment factor')
+      .units('factor').value(1);
   }
 
   connect(tree) {
-    const cfg = tree.configs.wind.speed;
+    const cfgSpd = tree.configs.wind.speed;
+    const cfgWaf = tree.configs.fuel.waf;
+    const canopy = tree.site.canopy;
+    const fuelDepth = tree.surface.fuel.primary.bed.depth;
+
     this.at10m
-      .inputIf(cfg, 'at10m')
+      .inputIf(cfgSpd, 'at10m')
       .calc(BpxLibWind.at10m, this.at20ft);
     this.at20ft
-      .inputIf(cfg, 'at20ft')
-      //.calcIf(cfg, 'atMidflame', BpxLibWind.at20ftFromMidflame, wsmid, mwaf)
-      .calc(BpxLibWind.at20ft, this.at10m);
+      .inputIf(cfgSpd, 'at20ft')
+      .calcIf(cfgSpd, 'at10m', BpxLibWind.at20ft, this.at10m)
+      .calc(BpxLibWind.at20ftFromMidflame, this.atMidflame, this.waf);
+    this.atMidflame
+      .inputIf(cfgSpd, 'atMidflame')
+      .calc(BpxLibWind.atMidflame, this.at20ft, this.waf);
+    this.waf
+      .inputIf(cfgWaf, 'input')
+      .calc(BpxLibWind.mwafEst, canopy.cover, canopy.crownHeight,
+        canopy.crownFill, fuelDepth);
    }
 }
 
