@@ -61,12 +61,41 @@ export class BpxConfigFuelSecondary extends DagLeafConfig {
   }
 }
 
-export class BpxConfigSlope extends DagLeafConfig {
+export class BpxConfigSlopeSteepness extends DagLeafConfig {
   constructor(branch) {
     super(branch, 'steepness')
       .header('Slope steepness is')
       .item('ratio', 'entered as ratio of vertical rise to horizontal reach', true)
       .item('degrees', 'entered as degrees of angle above the hoprizontal plane')   .item('map', 'chaparral dynamic fuel parameters')
       .item('map', 'estimated from map measurements');
+  }
+}
+
+export class BpxConfigWindDirection extends DagLeafConfig {
+  constructor(branch) {
+    super(branch, 'direction')
+      .header('Wind direction is')
+      .item('sourceFromNorth', 'the direction FROM which the wind is blowing (degrees from NORTH)')
+      .item('headingFromUpslope', 'the direcion TOWARDS which the wind is blowing (degrees from UPSLOPE)', true)
+      .item('upslope', 'assumed to be blowing upslope');
+  }
+}
+
+export class BpxConfigWindSpeed extends DagLeafConfig {
+  constructor(branch) {
+    super(branch, 'speed')
+      .header('Wind speed is entered for')
+      .item('at10m', '10-m height')
+      .item('at20ft', '20-ft height', true)
+      .item('atMidflame', 'midflame height');
+  }
+}
+
+export class BpxConfigWindAdjFactor extends DagLeafConfig {
+  constructor(branch) {
+    super(branch, 'waf')
+      .header('Midflame wind speed adjustment factor is')
+      .item('input', 'entered as input', true)
+      .item('estimated', 'estimated from canopy and fuel parameters');
   }
 }
