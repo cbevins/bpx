@@ -46,53 +46,107 @@ test('2: verify BpxTree branch structure', () => {
   expect(waspen.name()).toEqual('westernAspen');
 });
 
-test('3: Try behave fuel model', () => {
+test('3: Behave Cured Herb Fraction', () => {
   const name = 'w1';
   const dag = new Dag(name);
+  expect(dag.getName()).toEqual('w1');
   const cfgChf = dag.tree.configs.fuel.curedHerbFraction;
-  const { moisture } = dag.tree.site;
-  const { model } = dag.tree.surface.fuel.primary;
-  const { behave } = model;
+  const cfgPrimary = dag.tree.configs.fuel.primary;
+  const cfgMoisture = dag.tree.configs.fuel.moisture;
+  const moisture = dag.tree.site.moisture;
+  const model = dag.tree.surface.fuel.primary.model;
+  const behave = model.behave;
 
+  // Simple Behave cured herb fraction submodel where CHF is input
   dag.setSelected([
     behave.parms.curedHerbFraction,
     behave.parms.dead1Load,
     behave.derived.deadHerbLoad,
     behave.derived.liveHerbLoad]);
 
-  dag.setValues([[model.key, '10'], [moisture.live.herb, 0.5]]);
+  let selectedLeafs = dag.getSelectedLeafs();
+  expect(selectedLeafs.length).toEqual(4);
+  expect(selectedLeafs).toContain(behave.parms.curedHerbFraction);
 
-  let leaf = cfgChf;
-  let expected = 'input';
-  expect(leaf.value()).toEqual(expected);
+  let requiredLeafs = dag.getRequiredLeafs();
+  expect(requiredLeafs.length).toEqual(8);
+  expect(requiredLeafs).toContain(model.key);
+  expect(requiredLeafs).toContain(behave.parms.curedHerbFraction);
+  expect(requiredLeafs).toContain(behave.parms.dead1Load);
+  expect(requiredLeafs).toContain(behave.parms.totalHerbLoad);
+  expect(requiredLeafs).toContain(behave.derived.deadHerbLoad);
+  expect(requiredLeafs).toContain(behave.derived.liveHerbLoad);
+  expect(requiredLeafs).toContain(cfgChf);
+  expect(requiredLeafs).toContain(cfgPrimary);
 
-  leaf = moisture.live.herb;
-  expected = 0.5;
-  expect(leaf.value()).toEqual(expected);
+ // expect(requiredLeafs).toContain(cfgMoisture);
+ // expect(requiredLeafs).toContain(moisture.live.herb);
+ // expect(configLeafs).toContain(cfgMoisture);
+ // expect(inputLeafs).toContain(moisture.live.herb);
 
-  leaf = behave.parms.dead1Load;
-  expected = 0.138;
-  expect(leaf.value()).toEqual(expected);
+  let configLeafs = dag.getRequiredConfigLeafs();
+  expect(configLeafs.length).toEqual(2);
+  expect(configLeafs).toContain(cfgChf);
+  expect(configLeafs).toContain(cfgPrimary);
 
+  expect(cfgChf.value()).toEqual('input');
+  expect(cfgPrimary.value()).toEqual('catalog');
+
+  let inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs).toContain(model.key);
+  expect(inputLeafs).toContain(behave.parms.curedHerbFraction);
+
+  dag.setValues([
+    [model.key, '10'],
+    [behave.parms.curedHerbFraction, 0.5]]);
+
+  expect(model.key.value()).toEqual('10');
+  expect(behave.parms.curedHerbFraction.value()).toEqual(0.5);
+  expect(behave.parms.dead1Load.value()).toEqual(0.138);
+  expect(behave.parms.totalHerbLoad.value()).toEqual(0.0);
+  expect(behave.derived.deadHerbLoad.value()).toEqual(0.0);
+  expect(behave.derived.liveHerbLoad.value()).toEqual(0.0);
+
+  // Use FM 124 with estimated CHF
   dag.setValues([[model.key, '124']]);
+  expect(model.key.value()).toEqual('124');
 
   dag.setValues([[cfgChf, 'estimated']]);
+  expect(cfgChf.value()).toEqual('estimated');
 
-  leaf = cfgChf;
-  expected = 'estimated';
-  expect(leaf.value()).toEqual(expected);
+  // Same number of selected Leafs
+  selectedLeafs = dag.getSelectedLeafs();
+  expect(selectedLeafs.length).toEqual(4);
+  expect(selectedLeafs).toContain(behave.parms.curedHerbFraction);
 
-  leaf = behave.parms.dead1Load;
-  expected = 1.9 * 2000 / 43560;
+  // Now have two more required Leafs:
+  // the fuel moisture LeafConfig
+  // the live herb fuel moisture as an input
+  requiredLeafs = dag.getRequiredLeafs();
+  expect(requiredLeafs.length).toEqual(10);
+  expect(requiredLeafs).toContain(cfgMoisture);
+  expect(requiredLeafs).toContain(moisture.live.herb);
+
+  expect(cfgMoisture.value()).toEqual('individual');
+  dag.setValues([[moisture.live.herb, 0.5]]);
+  expect(moisture.live.herb.value()).toEqual(0.5);
+
+  let leaf = behave.parms.dead1Load;
+  let expected = 1.9 * 2000 / 43560;
   expect(approx(leaf.value(), expected)).toEqual(true);
-
-  leaf = moisture.live.herb;
-  expected = 0.5;
-  expect(leaf.value()).toEqual(expected);
 
   leaf = behave.parms.curedHerbFraction;
   expected = 0.778;
   expect(approx(leaf.value(), expected)).toEqual(true);
+
+  dag.unSelect([
+    behave.parms.curedHerbFraction,
+    behave.derived.liveHerbLoad]);
+  expect(dag.getSelectedLeafs().length).toEqual(2);
+
+  dag.clearSelected();
+  expect(dag.getSelectedLeafs().length).toEqual(0);
+
 });
 
 test('4: Fuel config propagation thru fuel domain', () => {

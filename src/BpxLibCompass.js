@@ -32,11 +32,11 @@
    * @return float The compass azimuth constrained to the range [0 <= azimuth < 360] degrees.
    */
   static constrain(degrees) {
-    while (degress >= 360) {
-      degress -= 360;
+    while (degrees >= 360) {
+      degrees -= 360;
     }
     while (degrees < 0) {
-      deggrees += 360;
+      degrees += 360;
     }
     return degrees;
   }
@@ -131,14 +131,14 @@
    * Calculate slope steepness ratio from map measurements.
    *
    * @param float $mapScale Map sacle factor (Greater than 1, i.e., 24000)
-   * @param float $interval Map contour interval (in same units-of-measure as $distance)
+   * @param float $contourInterval Map contour interval (in same units-of-measure as $distance)
    * @param float $contours Number of contours crossed in the measurement
-   * @param float $distance Map distance covered in the measurement
+   * @param float $mapDistance Map distance covered in the measurement
    *
    * @return float Slope steepness ratio
    */
   static slopeRatioMap(mapScale, contourInterval, contours, mapDistance) {
-    let reach = mapScale * Mapdistance;
+    let reach = mapScale * mapDistance;
     let rise = contours * contourInterval;
     return (reach <= 0) ? 0 : (rise / reach);
   }

@@ -20,12 +20,12 @@ export default class BpxLibMath {
 
   // Safe division
   static div(a, b) {
-    return (b === 0.0) ? 0.0 : a / b;
+    return (b === 0) ? 0 : a / b;
   }
 
   // Constrains `a` to range [0..1]
   static fraction(a) {
-    return Math.max(0.0, Math.min(1.0, a));
+    return Math.max(0, Math.min(1, a));
   }
 
   static ge(a, b) {
@@ -34,6 +34,11 @@ export default class BpxLibMath {
 
   static gt(a, b) {
     return a > b;
+  }
+
+  // Safe division
+  static inverse(a) {
+    return (a === 0) ? 0 : 1 / a;
   }
 
   static le(a, b) {

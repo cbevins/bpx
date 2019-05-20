@@ -80,8 +80,28 @@ export default class Dag {
     console.log(msg);
   }
 
-  name() {
+  getName() {
     return this.name;
+  }
+
+  // Returns array of references to required Leafs.
+  getRequiredLeafs() {
+    return this.requiredLeafs;
+  }
+
+  // Returns array of references to required LeafConfigs.
+  getRequiredConfigLeafs() {
+    return this.requiredConfigLeafs;
+  }
+
+  // Returns array of references to required input Leafs.
+  getRequiredInputLeafs() {
+    return this.requiredInputLeafs;
+  }
+
+  // Returns array of references to selected Leafs.
+  getSelectedLeafs() {
+    return this.selectedLeafs;
   }
 
   reconfigure() {

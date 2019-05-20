@@ -1,8 +1,8 @@
-import Branch from './Branch';
+import DagBranch from './DagBranch';
 
-it('creates a new Branch named "mainBranch"', () => {
+it('creates a new DagBranch named "mainBranch"', () => {
   const name = 'mainBranch';
-  const branch = new Branch(null, name);
+  const branch = new DagBranch(null, name);
   expect(branch.name()).toEqual(name);
   expect(branch.desc()).toEqual('');
   expect(branch.fullName()).toEqual(name);
@@ -16,7 +16,7 @@ it('creates a new Branch named "mainBranch"', () => {
   expect(branch.label('A new label')).toEqual(branch);
   expect(branch.label()).toEqual('A new label');
 
-  const branch2 = new Branch(branch, 'subBranch');
+  const branch2 = new DagBranch(branch, 'subBranch');
   expect(branch2.parent()).toEqual(branch);
   expect(branch2.fullName()).toEqual('mainBranch.subBranch');
 });

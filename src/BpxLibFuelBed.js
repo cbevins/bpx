@@ -144,11 +144,11 @@ export default class BpxLibFuelBed {
   static pick(domain, behave, chaparral, palmetto, waspen) {
     if (domain === 'behave') {
       return behave;
-    } if (domain === 'chaparral') {
+    } else if (domain === 'chaparral') {
       return chaparral;
-    } if (domain === 'palmettoGallberry') {
+    } else if (domain === 'palmettoGallberry') {
       return palmetto;
-    } if (domain === 'westernAspen') {
+    } else if (domain === 'westernAspen') {
       return waspen;
     }
     throw new Error(`Unknown domain '${domain}'`);
@@ -225,17 +225,18 @@ export default class BpxLibFuelBed {
       : rxvm * (betr ** rxve) * Math.exp(rxve * (1.0 - betr));
   }
 
+  // DEPRECATED - The size class surface area calculations are now done inside swtg()
   // Accumulate fuel particle surface area by size class
   // for fuel particles with size class idx
-  static scArea(idx, s1, a1, s2, a2, s3, a3, s4, a4, s5, a5) {
-    let area = 0;
-    area += (idx === s1) ? a1 : 0;
-    area += (idx === s2) ? a2 : 0;
-    area += (idx === s3) ? a3 : 0;
-    area += (idx === s4) ? a4 : 0;
-    area += (idx === s5) ? a5 : 0;
-    return area;
-  }
+  // static scArea(idx, s1, a1, s2, a2, s3, a3, s4, a4, s5, a5) {
+  //   let area = 0;
+  //   area += (idx === s1) ? a1 : 0;
+  //   area += (idx === s2) ? a2 : 0;
+  //   area += (idx === s3) ? a3 : 0;
+  //   area += (idx === s4) ? a4 : 0;
+  //   area += (idx === s5) ? a5 : 0;
+  //   return area;
+  // }
 
   /**
    * Calculate the fuel bed slope coeffient `phiS` slope factor.
@@ -264,7 +265,7 @@ export default class BpxLibFuelBed {
   }
 
   // Returns an array of 6 size class area weighting factors
-  static swtg(a1, s1, a2, s2, a3, s3, a4, s4, a5 = 0, s5 = 0) {
+  static swtg(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5) {
     const a = [a1, a2, a3, a4, a5];
     const s = [s1, s2, s3, s4, s5];
     let tarea = 0.0;

@@ -26,6 +26,7 @@
   "jest":{
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
+      "!**/coverage/**",
       "!**/node_modules/**",
       "!**/ToBeRefactored/**"
     ],

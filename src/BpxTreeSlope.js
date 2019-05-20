@@ -45,9 +45,10 @@ export class BpxTreeSlopeSteepness extends DagBranch {
       .calc(BpxLibCompass.slopeDegrees, this.ratio);
 
     this.ratio
-      .calcIf(cfgSlope, 'degrees',BpxLibCompass.slopeDegrees, this.degrees)
-      .calcIf(cfgSlope, 'map', BpxLibCompass.slopeRatioMap,
-        map.scl, map.cint, map.cont, map.dist)
+      .calcIf(cfgSlope, 'degrees', BpxLibCompass.slopeRatio, this.degrees)
+      .bindIf(cfgSlope, 'map', map.slope )
+      // .calcIf(cfgSlope, 'map', BpxLibCompass.slopeRatioMap,
+      //   map.scale, map.interval, map.contours, map.distance)
       .input();
   }
 }
