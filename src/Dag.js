@@ -221,8 +221,11 @@ export default class Dag {
     });
   }
 
-  setSelected(leaves, toggle = true) {
-    const leafArray = Array.isArray(leaves) ? leaves : [leaves];
+  setSelected(leafArray, toggle = true) {
+    //const leafArray = Array.isArray(leaves) ? leaves : [leaves];
+    if (!Array.isArray(leafArray)) {
+      throw new Error('Dag.setSelected() arg must be an array of DagLeafs');
+    }
     leafArray.forEach((leaf) => {
       Dag.ensureDefined('Dag.setSelected', { leaf });
       leaf.setSelected(toggle);

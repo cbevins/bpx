@@ -5,7 +5,10 @@ import {
   BpxConfigFuelMoisture,
   BpxConfigFuelCuredHerbFraction,
   BpxConfigFuelChaparralTotalLoad,
-  BpxConfigSlope
+  BpxConfigSlopeSteepness,
+  BpxConfigWindAdjFactor,
+  BpxConfigWindDirection,
+  BpxConfigWindSpeed
 } from './BpxLeafConfigs';
 
 class BpxTreeConfigFuel extends Branch {
@@ -16,14 +19,22 @@ class BpxTreeConfigFuel extends Branch {
     new BpxConfigFuelMoisture(this);
     new BpxConfigFuelCuredHerbFraction(this);
     new BpxConfigFuelChaparralTotalLoad(this);
-    new BpxConfigSlope(this);
   }
 }
 
 class BpxTreeConfigSlope extends Branch {
   constructor(parent, name = 'slope') {
     super(parent, name);
-    new BpxConfigSlope(this);
+    new BpxConfigSlopeSteepness(this);
+  }
+}
+
+class BpxTreeConfigWind extends Branch {
+  constructor(parent, name = 'wind') {
+    super(parent, name);
+    new BpxConfigWindDirection(this);
+    new BpxConfigWindSpeed(this);
+    new BpxConfigWindAdjFactor(this);
   }
 }
 
@@ -32,6 +43,7 @@ export default class BpxTreeConfigs extends Branch {
     super(parent, name);
     new BpxTreeConfigFuel(this);
     new BpxTreeConfigSlope(this);
+    new BpxTreeConfigWind(this);
     // \TODO new BpxTreeConfigFire(this);
   }
 }

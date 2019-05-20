@@ -4,6 +4,7 @@ import BpxTreeMoisture from './BpxTreeMoisture';
 import BpxTreeConfigs from  './BpxTreeConfigs';
 import BpxTreeMap from './BpxTreeMap';
 import BpxTreeSlope from './BpxTreeSlope';
+import BpxTreeWind from './BpxTreeWind';
 
 class BpxTreeSite extends Branch {
   constructor(parent, name = 'site') {
@@ -11,7 +12,7 @@ class BpxTreeSite extends Branch {
     new BpxTreeMoisture(this);
     new BpxTreeMap(this);
     new BpxTreeSlope(this);
-    // \TODO new BpxTreeWind(this);
+    new BpxTreeWind(this);
   }
 }
 

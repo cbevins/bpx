@@ -3,7 +3,11 @@ import {
   BpxConfigFuelSecondary,
   BpxConfigFuelMoisture,
   BpxConfigFuelCuredHerbFraction,
-  BpxConfigFuelChaparralTotalLoad
+  BpxConfigFuelChaparralTotalLoad,
+  BpxConfigSlopeSteepness,
+  BpxConfigWindAdjFactor,
+  BpxConfigWindDirection,
+  BpxConfigWindSpeed
 } from './BpxLeafConfigs';
 
   it('1: BpxConfigFuelChaparralTotalLoad', () => {
@@ -54,6 +58,45 @@ import {
   it('5: BpxConfigFuelCuredHerbFraction', () => {
     const leaf = new BpxConfigFuelCuredHerbFraction(this);
     expect(leaf.name()).toEqual('curedHerbFraction');
+    expect(leaf.value()).toEqual('input');
+    expect(leaf.value('estimated').value()).toEqual('estimated');
+    expect(leaf.value('input').value()).toEqual('input');
+    expect(() => { leaf.value('junk'); }).toThrow();
+  });
+
+  it('6: BpxConfigSlopeSteepness', () => {
+    const leaf = new BpxConfigSlopeSteepness(this);
+    expect(leaf.name()).toEqual('steepness');
+    expect(leaf.value()).toEqual('ratio');
+    expect(leaf.value('degrees').value()).toEqual('degrees');
+    expect(leaf.value('map').value()).toEqual('map');
+    expect(leaf.value('ratio').value()).toEqual('ratio');
+    expect(() => { leaf.value('junk'); }).toThrow();
+  });
+
+  it('7: BpxConfigWindDirection', () => {
+    const leaf = new BpxConfigWindDirection(this);
+    expect(leaf.name()).toEqual('direction');
+    expect(leaf.value()).toEqual('headingFromUpslope');
+    expect(leaf.value('upslope').value()).toEqual('upslope');
+    expect(leaf.value('sourceFromNorth').value()).toEqual('sourceFromNorth');
+    expect(leaf.value('headingFromUpslope').value()).toEqual('headingFromUpslope');
+    expect(() => { leaf.value('junk'); }).toThrow();
+  });
+
+  it('7: BpxConfigWindSpeed', () => {
+    const leaf = new BpxConfigWindSpeed(this);
+    expect(leaf.name()).toEqual('speed');
+    expect(leaf.value()).toEqual('at20ft');
+    expect(leaf.value('at10m').value()).toEqual('at10m');
+    expect(leaf.value('at20ft').value()).toEqual('at20ft');
+    expect(leaf.value('atMidflame').value()).toEqual('atMidflame');
+    expect(() => { leaf.value('junk'); }).toThrow();
+  });
+
+  it('8: BpxConfigWindAdjFactor', () => {
+    const leaf = new BpxConfigWindAdjFactor(this);
+    expect(leaf.name()).toEqual('waf');
     expect(leaf.value()).toEqual('input');
     expect(leaf.value('estimated').value()).toEqual('estimated');
     expect(leaf.value('input').value()).toEqual('input');

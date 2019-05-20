@@ -1,5 +1,4 @@
 import Dag from './Dag';
-import { exportAllDeclaration } from '@babel/types';
 
 function approx(actual, expected, prec = 12) {
   if (typeof expected === 'number') {
@@ -8,7 +7,7 @@ function approx(actual, expected, prec = 12) {
   return actual === expected;
 }
 
-test('1: Slope aspect', () => {
+test('1: Slope direction and steepness', () => {
   const name = 'worksheet1';
   const dag = new Dag(name);
   const { tree } = dag;
@@ -33,11 +32,11 @@ test('1: Slope aspect', () => {
   let configLeafs = dag.getRequiredConfigLeafs();
   expect(configLeafs.length).toEqual(0);
 
-  let requiredLeafs = dag.getRequiredInputLeafs();
+  let requiredLeafs = dag.getRequiredLeafs();
   expect(requiredLeafs.length).toEqual(1);
   expect(requiredLeafs).toContain(aspect);
 
-  let inputLeafs = dag.getRequiredLeafs();
+  let inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs).toContain(aspect);
 
   // Add upslope to selected list
