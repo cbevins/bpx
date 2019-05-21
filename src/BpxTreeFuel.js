@@ -354,6 +354,8 @@ export class BpxTreeFuelBed extends DagBranch {
     new DagLeafQuantity(this, 'windI')
       .desc('inverse of fuel bed wind coefficient intermediate factor K')
       .units('factor').value(1);
+
+    // Continue adding leafs for fire spread inputs
     new DagLeafQuantity(this, 'estimatedWaf')
       .desc('estimated midflame wind speed adjustment factor from 20-ft wind speed')
       .units('fraction').value(1);
@@ -369,6 +371,9 @@ export class BpxTreeFuelBed extends DagBranch {
     new DagLeafQuantity(this, 'windHeadingFromUpslope')
       .desc('wind heading direction from Upslope')
       .units('azimuth').value(0);
+
+    // Continue adding leafs for fire spread outputs
+
   }
 
   connect(tree) {
@@ -458,6 +463,18 @@ export class BpxTreeFuelBed extends DagBranch {
       .calc(BpxLibWind.atMidflame, speed.at20ft, this.waf)
     this.windHeadingFromUpslope.bind(direction.headingFromUpslope);
     this.slopeSteepnessRatio.bind(ratio);
+  }
+}
+
+export class BpxTreeFuelBedCanopy extends BpxTreeFuelBed {
+  constructor(parent, name = 'bed') {
+    super(parent, name);
+  }
+  connect(tree) {
+    BpxTreeFuelBed.prototype.connect.call(this, tree);
+    this.waf.fixed(0.4);
+    this.windHeadingFromUpslope.fixed(0);
+    this.slopeSteepnessRatio.fixed(0);
   }
 }
 

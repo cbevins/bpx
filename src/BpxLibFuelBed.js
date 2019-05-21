@@ -22,7 +22,7 @@ export default class BpxLibFuelBed {
    * @return float The fuel bed optimum packing ratio (fraction).
    */
   static beto(savr) {
-    return (savr <= 0.0) ? 0.0 : 3.348 / (savr ** 0.8189);
+    return (savr <= 0) ? 0 : 3.348 / (savr ** 0.8189);
   }
 
   /**
@@ -34,7 +34,7 @@ export default class BpxLibFuelBed {
    */
   static etam(mois, mext) {
     const r = BpxLibMath.div(mois, mext);
-    return BpxLibMath.fraction(1.0 - 2.59 * r + 5.11 * r * r - 3.52 * r * r * r);
+    return BpxLibMath.fraction(1 - 2.59 * r + 5.11 * r * r - 3.52 * r * r * r);
   }
 
   /**
@@ -44,7 +44,7 @@ export default class BpxLibFuelBed {
    * @return float Dead or live fuel category mineral damping coefficient.
    */
   static etas(seff) {
-    const etas = (seff <= 0.0) ? 1.0 : (0.174 / (seff ** 0.19));
+    const etas = (seff <= 0) ? 1 : (0.174 / (seff ** 0.19));
     return BpxLibMath.fraction(etas);
   }
 
@@ -87,7 +87,7 @@ export default class BpxLibFuelBed {
    * @return real The 'live' fuel category  moisture content of extinction (ratio).
    */
   static mext(mextk, dfmc, dmext) {
-    const dry = 1.0 - BpxLibMath.div(dfmc, dmext);
+    const dry = 1 - BpxLibMath.div(dfmc, dmext);
     const lmext = mextk * dry - 0.226;
     return Math.max(lmext, dmext);
   }
@@ -119,7 +119,7 @@ export default class BpxLibFuelBed {
    * @returns {number} The upper limit of the effective wind speed coefficient (dl).
    */
   static phiLimit(ewsLimit, wndb, wndk) {
-    return (ewsLimit <= 0.0) ? 0.0 : wndk * (ewsLimit ** wndb);
+    return (ewsLimit <= 0) ? 0 : wndk * (ewsLimit ** wndb);
   }
 
   /**
@@ -136,9 +136,9 @@ export default class BpxLibFuelBed {
    * @return float The fuel bed no-wind propagating flux ratio (ratio).
    */
   static pflx(savr, beta) {
-    return (savr <= 0.0) ? 0.0
+    return (savr <= 0) ? 0
       : Math.exp((0.792 + 0.681 * Math.sqrt(savr)) * (beta + 0.1))
-        / (192.0 + 0.2595 * savr);
+        / (192 + 0.2595 * savr);
   }
 
   static pick(domain, behave, chaparral, palmetto, waspen) {
@@ -163,11 +163,11 @@ export default class BpxLibFuelBed {
    * @return The no-wind no-slope fire spread rate (ft+1 min-1).
    */
   static ros0(rxi, pflx, sink) {
-    return (sink <= 0.0) ? 0.0 : pflx * rxi / sink;
+    return (sink <= 0) ? 0 : pflx * rxi / sink;
   }
 
   static rosLimit(ros0, phil) {
-    return ros0 * (1.0 + phil);
+    return ros0 * (1 + phil);
   }
 
   /**
@@ -195,7 +195,7 @@ export default class BpxLibFuelBed {
    * @return float Fuel bed reaction velocity exponent 'A' (ratio).
    */
   static rxva(savr) {
-    return (savr <= 0.0) ? 0.0 : 133.0 / (savr ** 0.7913);
+    return (savr <= 0) ? 0 : 133 / (savr ** 0.7913);
   }
 
   /**
@@ -207,7 +207,7 @@ export default class BpxLibFuelBed {
    * @return float Fuel bed maximum reaction velocity (min-1).
    */
   static rxvm(sv15) {
-    return (sv15 <= 0.0) ? 0.0 : sv15 / (495.0 + 0.0594 * sv15);
+    return (sv15 <= 0) ? 0 : sv15 / (495 + 0.0594 * sv15);
   }
 
   /**
@@ -221,8 +221,8 @@ export default class BpxLibFuelBed {
    * @return float Fuel bed optimum reaction velocity (min-1).
    */
   static rxvo(betr, rxvm, rxve) {
-    return (betr <= 0.0 || betr === 1.0) ? 0.0
-      : rxvm * (betr ** rxve) * Math.exp(rxve * (1.0 - betr));
+    return (betr <= 0 || betr === 1) ? 0
+      : rxvm * (betr ** rxve) * Math.exp(rxve * (1 - betr));
   }
 
   // DEPRECATED - The size class surface area calculations are now done inside swtg()
@@ -239,6 +239,17 @@ export default class BpxLibFuelBed {
   // }
 
   /**
+   * Calculate the often-used intermediate parameter of the fuel bed's
+   * characteristics surface area-to-volume ratio raised to the 1.5 power.
+   *
+   * @param float savr Fuel bed characteristic surface area-to-volume ratio (ft-1).
+   * @return float Fuel bed parameter (ratio).
+   */
+  static savr15(savr) {
+    return savr ** 1.5;
+  }
+
+  /**
    * Calculate the fuel bed slope coeffient `phiS` slope factor.
    *
    * This factor is an intermediate parameter that is constant for a fuel bed,
@@ -250,18 +261,7 @@ export default class BpxLibFuelBed {
    * @return float Factor used to derive the slope coefficient `phiS' (ratio).
    */
   static slopeK(beta) {
-    return (beta <= 0.0) ? 0.0 : 5.275 * (beta ** -0.3);
-  }
-
-  /**
-   * Calculate the often-used intermediate parameter of the fuel bed's
-   * characteristics surface area-to-volume ratio raised to the 1.5 power.
-   *
-   * @param float savr Fuel bed characteristic surface area-to-volume ratio (ft-1).
-   * @return float Fuel bed parameter (ratio).
-   */
-  static savr15(savr) {
-    return savr ** 1.5;
+    return (beta <= 0) ? 0 : 5.275 * (beta ** -0.3);
   }
 
   // Returns an array of 6 size class area weighting factors
@@ -269,12 +269,12 @@ export default class BpxLibFuelBed {
     const a = [a1, a2, a3, a4, a5];
     const s = [s1, s2, s3, s4, s5];
     let tarea = 0.0;
-    const scar = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+    const scar = [0, 0, 0, 0, 0, 0];
     for (let idx = 0; idx < 5; idx += 1) {
       scar[s[idx]] += a[idx];
       tarea += a[idx];
     }
-    const scwt = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+    const scwt = [0, 0, 0, 0, 0, 0];
     if (tarea > 0.0) {
       for (let idx = 0; idx < 6; idx += 1) {
         scwt[idx] = scar[idx] / tarea;
@@ -292,7 +292,7 @@ export default class BpxLibFuelBed {
    * @return float Fuel bed flame residence time (min+1).
    */
   static taur(savr) {
-    return (savr <= 0.0) ? 0.0 : (384.0 / savr);
+    return (savr <= 0) ? 0 : (384 / savr);
   }
 
   /**
@@ -354,7 +354,7 @@ export default class BpxLibFuelBed {
    * @return float Factor used to derive the wind coefficient `phiW' (ratio).
    */
   static windK(betr, wnde, wndc) {
-    return (betr <= 0.0) ? 0.0 : wndc * (betr ** -wnde);
+    return (betr <= 0) ? 0 : wndc * (betr ** -wnde);
   }
 
   /**
@@ -374,6 +374,6 @@ export default class BpxLibFuelBed {
    * @return float Factor used to derive the wind coefficient `phiW' (ratio).
    */
   static windI(betr, wnde, wndc) {
-    return (betr <= 0.0 || wndc <= 0.0) ? 0.0 : (betr ** wnde) / wndc;
+    return (betr <= 0.0 || wndc <= 0) ? 0 : (betr ** wnde) / wndc;
   }
 }
