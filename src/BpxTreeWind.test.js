@@ -494,6 +494,46 @@ test('3: Midflame wind speed and WAF', () => {
   w = BpxLibWind.mwafEst(canopy.cover.value(), canopy.crownHeight.value(),
     canopy.crownFill.value(), primary.bed.depth.value());
   expect(approx(waf.value(), 0.4179825632019431)).toEqual(true);
+})
 
-  dag.setValue
+test('3: Midflame wind speed from waf and at20ft', () => {
+  const name = 'worksheet1';
+  const dag = new Dag(name);
+  const { tree } = dag;
+  const { canopy, slope, wind } = tree.site;
+  const { at10m, at20ft, atMidflame, waf } = wind.speed;
+  const cfgSpd = tree.configs.wind.speed;
+  const cfgWaf = tree.configs.fuel.waf;
+
+  dag.setValues([
+    [cfgSpd, 'at20ft'],
+    [cfgWaf, 'input'],
+  ]);
+  expect(cfgSpd.value()).toEqual('at20ft');
+  expect(cfgWaf.value()).toEqual('input');
+
+  // Start with just wind speed at midflame height
+  dag.setSelected([atMidflame]);
+
+  let selectedLeafs = dag.getSelectedLeafs();
+  expect(selectedLeafs.length).toEqual(1);
+  expect(selectedLeafs).toContain(atMidflame);
+
+  let configLeafs = dag.getRequiredConfigLeafs();
+  expect(configLeafs.length).toEqual(2);
+  expect(configLeafs).toContain(cfgSpd);
+  expect(configLeafs).toContain(cfgWaf);
+
+  let inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs.length).toEqual(2);
+  expect(inputLeafs).toContain(at20ft);
+  expect(inputLeafs).toContain(waf);
+
+  dag.setValues([
+    [at20ft, 10],
+    [waf, 0.5],
+  ]);
+  expect(at20ft.value()).toEqual(10);
+  expect(waf.value()).toEqual(0.5);
+  expect(atMidflame.value()).toEqual(5);
 })

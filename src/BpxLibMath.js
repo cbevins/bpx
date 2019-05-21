@@ -67,7 +67,7 @@ export default class BpxLibMath {
 
   // Safe division with contraint to [0..1]
   static portion(a, b) {
-    return Bp7LibMath.fraction(Bp7LibMath.div(a, b));
+    return BpxLibMath.fraction(BpxLibMath.div(a, b));
   }
 
   static sum(...theArgs) {

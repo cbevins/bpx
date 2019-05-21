@@ -213,7 +213,8 @@ export class BpxTreeFuelCategory extends DagBranch {
       ? BpxLibFuelParticle.efld : BpxLibFuelParticle.efll;
     // Fuel particle derived properties
     particles.forEach((c) => {
-      c.awtg.calc(BpxLibMath.div, c.area, this.area);
+      //c.awtg.calc(BpxLibMath.div, c.area, this.area);
+      c.awtg.calc(BpxLibFuelParticle.awtg, c.area, this.area);
       c.efld.calc(efld, c.savr, c.load); // NOTE calls 'efld' for dead, 'efll' for live
       c.swtg.calc(BpxLibFuelParticle.swtg, c.size, this.swtg);
     });
@@ -441,7 +442,8 @@ export class BpxTreeFuelBed extends DagBranch {
 
     //
     const canopy = tree.site.canopy;
-    const wind = tree.site.wind.speed;
+    const { speed, direction } = tree.site.wind;
+    const { ratio } = tree.site.slope.steepness;
     const cfgSpd = tree.configs.wind.speed;
     const cfgWaf = tree.configs.fuel.waf;
 
@@ -449,13 +451,13 @@ export class BpxTreeFuelBed extends DagBranch {
       .calc(BpxLibWind.mwafEst, canopy.cover, canopy.crownHeight,
         canopy.crownFill, this.depth);
     this.waf
-      .bindIf(cfgWaf, 'input', wind.waf)
+      .bindIf(cfgWaf, 'input', speed.waf)
       .bind(this.estimatedWaf);
     this.midflameWindSpeed
-      .bindIf(cfgSpd, 'atMidflame', wind.atMidflame)
-      .calc(BpxLibWind.atMidflame, wind.at20ft, this.waf)
-    this.windHeadingFromUpslope.bind(tree.site.wind.direction.headingFromUpslope);
-    this.slopeSteepnessRatio.bind(tree.site.slope.steepness.ratio);
+      .bindIf(cfgSpd, 'atMidflame', speed.atMidflame)
+      .calc(BpxLibWind.atMidflame, speed.at20ft, this.waf)
+    this.windHeadingFromUpslope.bind(direction.headingFromUpslope);
+    this.slopeSteepnessRatio.bind(ratio);
   }
 }
 

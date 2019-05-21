@@ -99,15 +99,6 @@ export default class BpxLibFuelParticle {
     return BpxLibMath.div(volm, (Math.PI * 0.25 * diam * diam));
   }
 
-  // Simply returns a reference to the object named by `fuelDomain`
-  static pick(fuelDomain, behave, chaparral, palmetto, waspen) {
-    if (fuelDomain === 'behave') return behave;
-    if (fuelDomain === 'chaparral') return chaparral;
-    if (fuelDomain === 'palmettoGallberry') return palmetto;
-    if (fuelDomain === 'westernAspen') return waspen;
-    throw new Error(`Invalid fuel domain '${fuelDomain}'`);
-  }
-
   // Particle packing ratio contribution (ratio)
   static pprc(load, dens) {
     return BpxLibMath.div(load, dens);
