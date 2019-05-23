@@ -478,18 +478,14 @@ export class BpxTreeFuelBedCanopy extends BpxTreeFuelBed {
   }
 }
 
-//---------------------------------
-// put following in their own files
-//---------------------------------
-
 export class BpxTreeFuelModel extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     // DagBranches
-    new BpxTreeFuelModelBehave(this);
-    new BpxTreeFuelModelChaparral(this);
-    new BpxTreeFuelModelPalmettoGallberry(this);
-    new BpxTreeFuelModelWesternAspen(this);
+    new BpxTreeFuelModelBehave(this, 'behave');
+    new BpxTreeFuelModelChaparral(this, 'chaparral');
+    new BpxTreeFuelModelPalmettoGallberry(this, 'palmettoGallberry');
+    new BpxTreeFuelModelWesternAspen(this, 'westernAspen');
     // Leaves
     new BpxLeafFuelDomain(this, 'domain');
     new DagLeafText(this, 'key')
