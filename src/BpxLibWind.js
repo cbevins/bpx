@@ -31,12 +31,12 @@ export default class BpxLibWind {
     if (cpyCover < 0.01 || cpyFill < 0.05 || cpyHt < 6.0) {
       // Open or unsheltered canopy
       if ( fdepth > 0.01 ) {
-        mwaf = 1.83 / Math.log((20.0 + 0.36 * fdepth ) / ( 0.13 * fdepth ) )
+        mwaf = 1.83 / Math.log((20.0 + 0.36 * fdepth ) / ( 0.13 * fdepth ) );
       }
     } else {
       // Sheltered canopy
       mwaf = 0.555 / (Math.sqrt( cpyFill * cpyHt ) *
-        Math.log( ( 20.0 + 0.36 * cpyHt ) / (0.13 * cpyHt ) ) )
+        Math.log( ( 20.0 + 0.36 * cpyHt ) / (0.13 * cpyHt ) ) );
     }
     // Constrain the result
     return BpxLibMath.fraction( mwaf );

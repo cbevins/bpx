@@ -131,7 +131,7 @@ export class BpxTreeFuelParticle extends DagBranch {
 }
 
 export class BpxTreeFuelParticles extends DagBranch {
-  constructor(parent, name = 'particle') {
+  constructor(parent, name) {
     super(parent, name);
     new BpxTreeFuelParticle(this, 'class1');
     new BpxTreeFuelParticle(this, 'class2');
@@ -142,10 +142,10 @@ export class BpxTreeFuelParticles extends DagBranch {
 }
 
 export class BpxTreeFuelCategory extends DagBranch {
-  constructor(parent, name = 'dead') {
+  constructor(parent, name) {
     super(parent, name);
     // DagBranches
-    new BpxTreeFuelParticles(this);
+    new BpxTreeFuelParticles(this, 'particle');
     // DagLeafs
     new DagLeafQuantity(this, 'area')
       .desc('life category fuel surface area')
@@ -244,13 +244,13 @@ export class BpxTreeFuelCategory extends DagBranch {
 }
 
 export class BpxTreeFuelCategoryDead extends BpxTreeFuelCategory {
-  constructor(parent, name = 'dead') {
+  constructor(parent, name) {
     super(parent, name);
   }
 }
 
 export class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
-  constructor(parent, name = 'live') {
+  constructor(parent, name) {
     super(parent, name);
     // Unique to the live fuel category
     new DagLeafQuantity(this, 'mxtk')
@@ -260,7 +260,7 @@ export class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
 }
 
 export class BpxTreeFuelBed extends DagBranch {
-  constructor(parent, name = 'bed') {
+  constructor(parent, name) {
     super(parent, name);
     // Fuel bed level DagBranches
     new BpxTreeFuelCategoryDead(this, 'dead');
@@ -467,7 +467,7 @@ export class BpxTreeFuelBed extends DagBranch {
 }
 
 export class BpxTreeFuelBedCanopy extends BpxTreeFuelBed {
-  constructor(parent, name = 'bed') {
+  constructor(parent, name) {
     super(parent, name);
   }
   connect(tree) {
@@ -483,7 +483,7 @@ export class BpxTreeFuelBedCanopy extends BpxTreeFuelBed {
 //---------------------------------
 
 export class BpxTreeFuelModel extends DagBranch {
-  constructor(parent, name = 'model') {
+  constructor(parent, name) {
     super(parent, name);
     // DagBranches
     new BpxTreeFuelModelBehave(this);
@@ -521,10 +521,10 @@ export class BpxTreeFuelModel extends DagBranch {
 }
 
 export class BpxTreeFuelComplex extends DagBranch {
-  constructor(parent, name = 'complex') {
+  constructor(parent, name) {
     super(parent, name);
-    new BpxTreeFuelBed(this);
-    new BpxTreeFuelModel(this);
+    new BpxTreeFuelBed(this, 'bed');
+    new BpxTreeFuelModel(this, 'model');
   }
 
   /**
@@ -711,12 +711,10 @@ export class BpxTreeFuelComplex extends DagBranch {
   }
 }
 
-class BpxTreeFuel extends DagBranch {
-  constructor(parent, name = 'fuel') {
+export default class BpxTreeFuel extends DagBranch {
+  constructor(parent, name) {
     super(parent, name);
     new BpxTreeFuelComplex(this, 'primary');
     new BpxTreeFuelComplex(this, 'secondary');
   }
 }
-
-export default BpxTreeFuel;

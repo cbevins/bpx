@@ -1,4 +1,5 @@
 import DagLeaf from './DagLeaf';
+import DagLeafConfig from './DagLeafConfig';
 
 const leaf = new DagLeaf(null, 'someLeaf');
 
@@ -51,3 +52,40 @@ it('2: Leaf getters and setters', () => {
   expect(leaf.isRequired()).toEqual(true);
   expect(leaf.required()).toEqual(2);
 });
+
+it('3: Leaf errors', () => {
+  const nonLeaf = {};
+  const realLeaf = new DagLeaf();
+  const nonConfig = {};
+  const nonMethod = {};
+  const method = Math.max;
+  const config = new DagLeafConfig(this,'dummy')
+    .header('Dummy config for testing purposes')
+    .item('item', 'Item 1', true);
+  expect(() => { leaf.bind(nonLeaf); }).toThrow();
+  expect(() => { leaf.bindIf(nonConfig, 'junk', nonLeaf); }).toThrow();
+  expect(() => { leaf.bindIf(config, 'junk', nonLeaf); }).toThrow();
+  expect(() => { leaf.bindIf(config, 'item', nonLeaf); }).toThrow();
+
+  expect(() => { leaf.calc(nonMethod); }).toThrow();
+  expect(() => { leaf.calcIf(nonConfig, 'junk'); }).toThrow();
+  expect(() => { leaf.calcIf(nonConfig, 'junk', nonMethod); }).toThrow();
+  expect(() => { leaf.calcIf(nonConfig, 'junk', method); }).toThrow();
+  expect(() => { leaf.calcIf(nonConfig, 'item', method); }).toThrow();
+  expect(() => { leaf.calcIf(config, 'junk', nonMethod); }).toThrow();
+  expect(() => { leaf.calcIf(config, 'junk', method); }).toThrow();
+  expect(() => { leaf.calcIf(config, 'item', nonMethod); }).toThrow();
+
+  expect(() => { leaf.fixed(); }).toThrow();
+  expect(() => { leaf.fixed(realLeaf); }).toThrow();
+  expect(() => { leaf.fixedIf(nonConfig, 'junk'); }).toThrow();
+  expect(() => { leaf.fixedIf(nonConfig, 'junk', realLeaf); }).toThrow();
+  expect(() => { leaf.fixedIf(nonConfig, 'item', realLeaf); }).toThrow();
+  expect(() => { leaf.fixedIf(config, 'junk', realLeaf); }).toThrow();
+  expect(() => { leaf.fixedIf(config, 'junk', 1); }).toThrow();
+  expect(() => { leaf.fixedIf(config, 'item', realLeaf); }).toThrow();
+  expect(() => { leaf.fixedIf(config, 'item'); }).toThrow();
+
+  expect(() => { leaf.inputIf(nonConfig); }).toThrow();
+  expect(() => { leaf.inoputIf(nonConfig, 'junk'); }).toThrow();
+})

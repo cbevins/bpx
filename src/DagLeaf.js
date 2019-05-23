@@ -7,6 +7,7 @@
  */
 
 import DagBranch from './DagBranch';
+import { isFlowBaseAnnotation } from '@babel/types';
 
 // A helper/convenience class used by DagLeaf
 class DagLeafCfg {
@@ -60,11 +61,12 @@ export default class DagLeaf extends DagBranch {
   }
 
   bindIf(config, configValue, leaf) {
-    if (!config.isConfig()) {
+    if (! DagLeaf.ensureLeafConfig(config) ) {
       throw new Error(
         `Config error on '${this.label()}':\nbindIf() configuration object is not a Config\n`,
       );
     }
+    config.ensureOption(configValue, 'DagLeaf.calcIf()');
     if (!(leaf instanceof DagLeaf)) {
       throw new Error(
         `Config error on '${this.fullName()}':\nbind()/bindIf() references an undefined or non-Leaf object\nDid you mean to use fixed()/fixedIf() on a value?\n`,
@@ -86,9 +88,10 @@ export default class DagLeaf extends DagBranch {
     if (typeof method !== 'function') {
       throw new Error(`Config error on '${this.label()}':\ncalcIf() method arg is not a function\n`);
     }
-    if (!config.isConfig()) {
+    if (! DagLeaf.ensureLeafConfig(config)) {
       throw new Error(`Config error on '${this.label()}':\ncalcIf() configuration object is not a Config\n`);
     }
+    config.ensureOption(configValue, 'DagLeaf.calcIf()');
     this.own.configs.push(new DagLeafCfg(method, args, config, configValue));
     return this;
   }
@@ -165,12 +168,20 @@ export default class DagLeaf extends DagBranch {
     return this.own.cost;
   }
 
+  static ensureLeafConfig(obj) {
+    return ( typeof(obj) === 'undefined'
+        || typeof(obj) === 'null'
+        || typeof(obj) !== 'object'
+        || ! ('isConfig' in obj )
+        || ! obj.isConfig() ) ? false : true;
+  }
+
   fetch(runIdx) {
     return this.own.results[runIdx];
   }
 
   fixed(fixedValue) {
-    if (fixedValue === 'undefined') {
+    if (typeof(fixedValue) === 'undefined') {
       throw new Error(`Config error on '${this.fullName()}':\nfixed() has undefined fixed value\n`);
     }
     if (fixedValue instanceof DagLeaf) {
@@ -182,10 +193,11 @@ export default class DagLeaf extends DagBranch {
   }
 
   fixedIf(config, configValue, fixedValue) {
-    if (!config.isConfig()) {
+    if (! DagLeaf.ensureLeafConfig(config)) {
       throw new Error(`Config error on '${this.label()}':\nfixedIf() configuration object is not a Config\n`);
     }
-    if (fixedValue === 'undefined') {
+    config.ensureOption(configValue, 'DagLeaf.fixedIf()');
+    if (typeof(fixedValue) === 'undefined') {
       throw new Error(`Config error on '${this.fullName()}':\nfixedIf() has undefined fixed value\n`);
     }
     if (fixedValue instanceof DagLeaf) {
@@ -202,9 +214,10 @@ export default class DagLeaf extends DagBranch {
   }
 
   inputIf(config, configValue) {
-    if (!config.isConfig()) {
+    if (! DagLeaf.ensureLeafConfig(config)) {
       throw new Error(`Config error on '${this.label()}':\ninputIf() configuration object is not a Config\n`);
     }
+    config.ensureOption(configValue, 'DagLeaf.calcIf()');
     this.own.configs.push(new DagLeafCfg(this.updateInput, null, config, configValue));
     return this;
   }

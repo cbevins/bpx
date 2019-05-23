@@ -8,7 +8,7 @@ import BpxTreeSlope from './BpxTreeSlope';
 import BpxTreeWind from './BpxTreeWind';
 
 class BpxTreeSite extends Branch {
-  constructor(parent, name = 'site') {
+  constructor(parent, name) {
     super(parent, name);
     new BpxTreeMoisture(this);
     new BpxTreeMap(this);
@@ -19,17 +19,17 @@ class BpxTreeSite extends Branch {
 }
 
 class BpxTreeSurface extends Branch {
-  constructor(parent, name = 'surface') {
+  constructor(parent, name) {
     super(parent, name);
-    new BpxTreeFuel(this);
+    new BpxTreeFuel(this, 'fuel');
   }
 }
 
 export default class BpxTree extends Branch {
   constructor(name) {
     super(null, name);
-    new BpxTreeConfigs(this);
-    new BpxTreeSite(this);
-    new BpxTreeSurface(this);
+    new BpxTreeConfigs(this, 'configs');
+    new BpxTreeSite(this, 'site');
+    new BpxTreeSurface(this, 'surface');
   }
 }

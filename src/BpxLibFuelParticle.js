@@ -96,7 +96,9 @@ export default class BpxLibFuelParticle {
    * @return float Fuel particle length (ft+1).
    */
   static leng(diam, volm) {
-    return BpxLibMath.div(volm, (Math.PI * 0.25 * diam * diam));
+    const radius = diam / 2;
+    const area = Math.PI * radius * radius;
+    return BpxLibMath.div(volm, area);
   }
 
   // Particle packing ratio contribution (ratio)

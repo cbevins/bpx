@@ -5,6 +5,7 @@ import { BpxTreeFuelParticle,
   BpxTreeFuelCategoryDead,
   BpxTreeFuelCategoryLive,
   BpxTreeFuelBed,
+  BpxTreeFuelBedCanopy,
   BpxTreeFuelModel,
   BpxTreeFuelComplex
 } from './BpxTreeFuel';
@@ -46,21 +47,28 @@ test('5: new BpxTreeFuelCategoryLive()', () => {
 
 test('6: new BpxTreeFuelBed()', () => {
   const root = new DagBranch(null, 'root');
-  const subtree = new BpxTreeFuelBed(root);
   const name = 'bed';
+  const subtree = new BpxTreeFuelBed(root, name);
   expect(subtree.name()).toEqual(name);
 });
 
 test('7: new BpxTreeFuelModel()', () => {
   const root = new DagBranch(null, 'root');
-  const subtree = new BpxTreeFuelModel(root);
   const name = 'model';
+  const subtree = new BpxTreeFuelModel(root, name);
   expect(subtree.name()).toEqual(name);
 });
 
 test('8: new BpxTreeFuelComplex() Primary', () => {
   const root = new DagBranch(null, 'root');
-  const subtree = new BpxTreeFuelComplex(root, 'primary');
   const name = 'primary';
+  const subtree = new BpxTreeFuelComplex(root, name);
+  expect(subtree.name()).toEqual(name);
+});
+
+test('9: new BpxTreeFuelBedCanopy()', () => {
+  const root = new DagBranch(null, 'root');
+  const name = 'bed';
+  const subtree = new BpxTreeFuelBedCanopy(root, name);
   expect(subtree.name()).toEqual(name);
 });

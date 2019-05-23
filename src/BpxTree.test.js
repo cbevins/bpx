@@ -1,5 +1,6 @@
-import BpxTree from './BpxTree';
 import Dag from './Dag';
+import BpxTree from './BpxTree';
+import BpxLibFuelParticle from './BpxLibFuelParticle';
 
 function approx(actual, expected, prec = 12) {
   if (typeof expected === 'number') {
@@ -231,4 +232,48 @@ test('4: Fuel config propagation thru fuel domain', () => {
 });
 
 
+test('5: BpxLibFuelParticle tests for full code coverage', () => {
+  const dag = new Dag('w1');
+  const { bed, model } = dag.tree.surface.fuel.primary;
+  const cfgFuel = dag.tree.configs.fuel.primary;
+  const {diam, volm} = bed.dead.particle.class1;
 
+  dag.setSelected([diam, volm]);
+  let inputLeafs = dag.getRequiredInputLeafs();
+  expect(inputLeafs.length).toEqual(1);
+  expect(inputLeafs).toContain(model.key);
+
+  let configLeafs = dag.getRequiredConfigLeafs();
+  //expect(configLeafs.length).toEqual(1);
+  expect(configLeafs).toContain(cfgFuel);
+
+  dag.setValue(model.key, '10');
+  let diameter = 4/2000;
+  expect(diam.value()).toEqual(diameter);
+  let volume = 0.138 / 32;
+  expect(volm.value()).toEqual(volume);
+
+  // FM 10 10-h
+  diameter = 4/192;   // 0,02083333 ft, 0.25 in
+  volume = 0.092/32;  // 0.002875 ft3, 4.968 in3
+  const length = BpxLibFuelParticle.leng(diameter, volume);
+  //console.log(length);// 8.43393 ft
+  expect(length).toEqual(volume/(Math.PI * 0.25 * diameter*diameter));
+
+  expect(BpxLibFuelParticle.size(3000)).toEqual(0);
+  expect(BpxLibFuelParticle.size(1200)).toEqual(0);
+
+  expect(BpxLibFuelParticle.size(1199)).toEqual(1);
+  expect(BpxLibFuelParticle.size(192)).toEqual(1);
+
+  expect(BpxLibFuelParticle.size(191)).toEqual(2);
+  expect(BpxLibFuelParticle.size(96)).toEqual(2);
+
+  expect(BpxLibFuelParticle.size(95)).toEqual(3);
+  expect(BpxLibFuelParticle.size(48)).toEqual(3);
+
+  expect(BpxLibFuelParticle.size(47)).toEqual(4);
+  expect(BpxLibFuelParticle.size(16)).toEqual(4);
+
+  expect(BpxLibFuelParticle.size(15)).toEqual(5);
+})
