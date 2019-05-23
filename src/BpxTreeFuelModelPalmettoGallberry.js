@@ -13,7 +13,7 @@ import { BpxLeafFuelDomain } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
 export default class BpxTreeFuelModelPalmettoGallberry extends DagBranch {
-  constructor(parent, name = 'palmettoGallberry') {
+  constructor(parent, name) {
     super(parent, name);
 
     new BpxLeafFuelDomain(this)

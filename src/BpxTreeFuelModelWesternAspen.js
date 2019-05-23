@@ -13,7 +13,7 @@ import { BpxLeafFuelDomain, BpxLeafFuelAspenType } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
 export default class BpxTreeFuelModelWesternAspen extends DagBranch {
-  constructor(parent, name = 'westernAspen') {
+  constructor(parent, name) {
     super(parent, name);
 
     new BpxLeafFuelDomain(this)

@@ -13,7 +13,7 @@ import { BpxLeafFuelDomain, BpxLeafFuelChaparralType } from './BpxLeafOptions';
 
 /* eslint-disable no-new */
 export default class BpxTreeFuelModelChaparral extends DagBranch {
-  constructor(parent, name = 'chaparral') {
+  constructor(parent, name) {
     super(parent, name);
 
     new BpxLeafFuelDomain(this).value(BpxLibFuelChaparral.domain());
