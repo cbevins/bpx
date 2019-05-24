@@ -321,6 +321,9 @@ export class BpxTreeFuelBed extends DagBranch {
     new DagLeafQuantity(this, 'load')
       .desc('fuel bed total oven-dry load')
       .units('fuelLoad').value(0);
+    new DagLeafQuantity(this, 'openWaf')
+      .desc('fuel bed open-canopy midflame windspeed adjustment factor')
+      .units('fraction').value(1);
     new DagLeafQuantity(this, 'ros0')
       .desc('fuel bed no-wind, no-slope fire spread rate')
       .units('fireRos').value(0);
@@ -356,9 +359,6 @@ export class BpxTreeFuelBed extends DagBranch {
       .units('factor').value(1);
 
     // Continue adding leafs for fire spread inputs
-    new DagLeafQuantity(this, 'estimatedWaf')
-      .desc('estimated midflame wind speed adjustment factor from 20-ft wind speed')
-      .units('fraction').value(1);
     new DagLeafQuantity(this, 'waf')
       .desc('applied midflame wind speed adjustment factor')
       .units('fraction').value(1);
@@ -439,6 +439,7 @@ export class BpxTreeFuelBed extends DagBranch {
     this.windE.calc(BpxLibFuelBed.windE, this.savr);
     this.windK.calc(BpxLibFuelBed.windK, this.packingRatioRatio, this.windE, this.windC);
     this.windI.calc(BpxLibFuelBed.windI, this.packingRatioRatio, this.windE, this.windC);
+    this.openWaf.calc(BpxLibFuelBed.openWaf, this.depth);
 
     // Fuel bed effective wind, wind coefficient, and spread rate limits
     this.ewsLimit.calc(BpxLibFuelBed.ewsLimit, this.reactionIntensity);
@@ -452,12 +453,13 @@ export class BpxTreeFuelBed extends DagBranch {
     const cfgSpd = tree.configs.wind.speed;
     const cfgWaf = tree.configs.fuel.waf;
 
-    this.estimatedWaf
-      .calc(BpxLibWind.mwafEst, canopy.cover, canopy.crownHeight,
-        canopy.crownFill, this.depth);
+    // The fuel bed WAF is either from the site's WAF input
+    // or calculated from canopy inputs
     this.waf
       .bindIf(cfgWaf, 'input', speed.waf)
-      .bind(this.estimatedWaf);
+      .calc(BpxLibFuelBed.waf, canopy.sheltersFuel, canopy.shelteredWaf, this.openWaf);
+    // Midflame wind speed is either from the site midflame windspeed,
+    // or estimated from the site's 20-ft windspeed and this fuel bed's WAF
     this.midflameWindSpeed
       .bindIf(cfgSpd, 'atMidflame', speed.atMidflame)
       .calc(BpxLibWind.atMidflame, speed.at20ft, this.waf)

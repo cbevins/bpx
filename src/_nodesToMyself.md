@@ -26,5 +26,5 @@ Each FuelBed ('primary' and 'secondary') has its own:
 - estimatedWaf based on its own fuel depth
 
 # To Do
-- Create and test BpxTreeCanopy.js
-- Connect BpxTreeFuelBed.{waf, midflameWindSpeed} in BpxTreeFuel.js
+- Test WAF methods in BpxTreeCanopy.js
+- Test WAF methods in in BpxTreeFuel.js

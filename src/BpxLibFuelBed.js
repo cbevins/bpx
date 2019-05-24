@@ -114,6 +114,17 @@ export default class BpxLibFuelBed {
   }
 
   /**
+   * Calculate the open-canopy midflame wind speed adjustment factor.
+   *
+   * @param fuelDepth Fuel bed depth (ft+1)
+   * @return Wind speed adjustment factor
+   */
+  static openWaf(fuelDepth) {
+    let f = Math.min(6, Math.max(fuelDepth, 0.1));
+    return 1.83 / Math.log((20.0 + 0.36 * f) / (0.13 * f) );
+  }
+
+  /**
    * Upper limit of the effective wind speed coefficient `phi`
    * @param {number} ewsLimit The effective wind speed limit (ft+1 min-1)
    * @returns {number} The upper limit of the effective wind speed coefficient (dl).
@@ -293,6 +304,10 @@ export default class BpxLibFuelBed {
    */
   static taur(savr) {
     return (savr <= 0) ? 0 : (384 / savr);
+  }
+
+  static waf(fuelSheltered, shelteredWaf, openWaf) {
+    return (fuelSheltered) ? Math.min(shelteredWaf, openWaf) : openWaf;
   }
 
   /**

@@ -42,6 +42,9 @@ export default class BpxTreeCanopy extends DagBranch {
     new DagLeafBool(this, 'sheltersFuel')
       .desc('canopy crown shelters the fuel from wind')
       .value(false);
+    new DagLeafQuantity(this, 'shelteredWaf')
+      .desc('canopy sheltered midflame windspeed adjustment factor')
+      .units('fraction').value(1);
   }
 
   connect( /*tree */) {
@@ -59,5 +62,6 @@ export default class BpxTreeCanopy extends DagBranch {
     this.fuelLoad.calc(BpxLibCanopy.fuelLoad, this.bulkDensity, this.crownLength);
     this.hpua.calc(BpxLibCanopy.hpua, this.fuelLoad, this.fuelHeat);
     this.sheltersFuel.calc(BpxLibCanopy.sheltersFuel, this.cover, this.crownHeight, this.crownFill);
+    this.shelteredWaf.calc(BpxLibCanopy.waf, this.cover, this.crownHeight, this.crownFill);
   }
 }

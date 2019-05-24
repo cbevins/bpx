@@ -210,11 +210,12 @@ export default class Dag {
     this.leafs.forEach((leaf) => {
       leaf.clearResults();
     });
+    this.results = [];
   }
 
   // Array of [leaf, [inputValues]] records
   // Does not trigger a reconfigure
-  static setBatchInputs(inputsArray) {
+  setBatchInputs(inputsArray) {
     inputsArray.forEach((input) => {
       const [leaf, valuesArray] = input;
       leaf.setInputValues(valuesArray);
@@ -312,7 +313,7 @@ export default class Dag {
     let p = ''; // \TODO Remove after debugging
     let fid = null;
     let val = null;
-    this.clearResults();
+    this.reconfigure9ClearResults();
     // Thin the stack
     this.requiredLeafs.forEach((required) => {
       if (!required.isConfig() && !required.isFixed()) {

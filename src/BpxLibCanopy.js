@@ -44,4 +44,14 @@ export default class BpxLibCanopy {
   static sheltersFuel(cover, ht, fill) {
     return cover >= 0.01 && fill >= 0.05 && ht >= 6;
   }
+
+  // Canopy induced midflame windspeed adjustment factor
+  static waf(cover, ht, fill) {
+    let waf = 1;
+    if (BpxLibCanopy.sheltersFuel(cover, ht, fill)) {
+      waf = 0.555 / (Math.sqrt(fill * ht) *
+        Math.log( (20.0 + 0.36 * ht) / (0.13 * ht) ) );
+    }
+    return BpxLibMath.fraction(waf);
+  }
 }
