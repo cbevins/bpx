@@ -1,5 +1,7 @@
+import Dag from './Dag';
 import DagBranch from './DagBranch';
-import { BpxTreeFuelParticle,
+import BpxTreeFuelParticle from './BpxTreeFuelParticle';
+import {
   BpxTreeFuelParticles,
   BpxTreeFuelCategory,
   BpxTreeFuelCategoryDead,
@@ -9,6 +11,23 @@ import { BpxTreeFuelParticle,
   BpxTreeFuelModel,
   BpxTreeFuelComplex
 } from './BpxTreeFuel';
+
+function approx(actual, expected, prec = 12) {
+  if (typeof expected === 'number') {
+    let result = actual.toPrecision(prec) === expected.toPrecision(prec);
+    if ( ! result ) {
+      console.log('*** Expected='+expected+' Actual='+actual);
+    }
+    return result;
+  }
+  return actual === expected;
+}
+
+function logNames(leafArray) {
+  leafArray.forEach((leaf)=>{
+    console.log(leaf.fullName());
+  });
+}
 
  test('1: new BpxTreeFuelParticle()', () => {
   const root = new DagBranch(null, 'root');
@@ -72,3 +91,44 @@ test('9: new BpxTreeFuelBedCanopy()', () => {
   const subtree = new BpxTreeFuelBedCanopy(root, name);
   expect(subtree.name()).toEqual(name);
 });
+
+test('10: Fuel bed wind and slope coefficients', () => {
+  const name = 'worksheet1';
+  const dag = new Dag(name);
+  const { tree } = dag;
+  const { canopy, slope, wind } = tree.site;
+  const { at10m, at20ft, atMidflame, waf } = wind.speed;
+  const { bed, model } = tree.surface.fuel.primary;
+  const cfgPrimary = tree.configs.fuel.primary;
+  const cfgCuredHerb = tree.configs.fuel.curedHerbFraction;
+  const cfgChaparral = tree.configs.fuel.chaparralTotalLoad;
+  const cfgWindSpeed = tree.configs.wind.speed;
+  const cfgSteepness = tree.configs.slope.steepness;
+  const cfgWaf = tree.configs.fuel.waf;
+
+  dag.setSelected([bed.phiS]);
+  let configLeafs = dag.getRequiredConfigLeafs();
+  expect(configLeafs.length).toEqual(4);
+  expect(configLeafs).toContain(cfgPrimary);
+  expect(configLeafs).toContain(cfgCuredHerb);
+  expect(configLeafs).toContain(cfgChaparral);
+  expect(configLeafs).toContain(cfgSteepness);
+
+  dag.setValues([
+    [cfgPrimary, 'catalog'],
+    [cfgCuredHerb, 'input'],
+    [cfgChaparral, 'input'],
+    [cfgWindSpeed, 'atMidflame'],
+    [cfgSteepness, 'ratio'],
+    [cfgWaf, 'input'],
+  ]);
+
+  let inputLeafs = dag.getRequiredInputLeafs();
+  //logNames(inputLeafs);
+  expect(inputLeafs.length).toEqual(3);
+  expect(inputLeafs).toContain(model.key);
+  expect(inputLeafs).toContain(model.behave.parms.curedHerbFraction);
+  expect(inputLeafs).toContain(slope.steepness.ratio);
+
+
+})

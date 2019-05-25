@@ -31,6 +31,8 @@
  */
 
 import DagBranch from './DagBranch';
+import BpxTreeFuelParticle from './BpxTreeFuelParticle';
+
 //const Fuel = require('./BpxLeafOptions');
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
 import BpxTreeFuelModelBehave from './BpxTreeFuelModelBehave';
@@ -39,8 +41,9 @@ import BpxTreeFuelModelPalmettoGallberry from './BpxTreeFuelModelPalmettoGallber
 import BpxTreeFuelModelWesternAspen from './BpxTreeFuelModelWesternAspen';
 
 import BpxLibMath from'./BpxLibMath';
-import BpxLibFuelParticle from './BpxLibFuelParticle';
 import BpxLibFuelBed from './BpxLibFuelBed';
+import BpxLibFuelParticle from './BpxLibFuelParticle';
+import BpxLibSurfaceFire from './BpxLibSurfaceFire';
 import BpxLibWind from './BpxLibWind';
 
 import { BpxLeafFuelDomain } from './BpxLeafOptions';
@@ -48,87 +51,6 @@ import DagLeafQuantity from './DagLeafQuantity';
 import DagLeafText from './DagLeafText';
 
 /* eslint-disable no-new */
-
-export class BpxTreeFuelParticle extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-    // 8 input
-    new DagLeafQuantity(this, 'dens')
-      .desc('fuel particle density')
-      .units('fuelDens').value(32);
-    new DagLeafQuantity(this, 'heat')
-      .desc('fuel particle low heat of combustion')
-      .units('fuelHeat').value(8000);
-    new DagLeafText(this, 'label')
-      .desc('brief fuel particle description')
-      .units('fuelLabel').value('unspecified');
-    new DagLeafQuantity(this, 'load')
-      .desc('fuel particle oven-dry fuel load')
-      .units('fuelLoad').value(0);
-    new DagLeafQuantity(this, 'mois')
-      .desc('fuel particle moisture content')
-      .units('fuelMois').value(5);
-    new DagLeafQuantity(this, 'savr')
-      .desc('fuel paryicle surface area-to-volume ratio')
-      .units('fuelSavr').value(1);
-    new DagLeafQuantity(this, 'seff')
-      .desc('fuel particle effective (silica-free) mineral content')
-      .units('fuelSeff').value(0.01);
-    new DagLeafQuantity(this, 'stot')
-      .desc('fuel particle total mineral content')
-      .units('fuelStot').value(0.0555);
-    // 12 Derived
-    new DagLeafQuantity(this, 'area')
-      .desc('fuel particle surface area')
-      .units('fuelArea').value(0);
-    new DagLeafQuantity(this, 'awtg')
-      .desc('fuel particle surface area weighting factor')
-      .units('fraction').value(0);
-    new DagLeafQuantity(this, 'diam')
-      .desc('fuel particle equivalent cylindrical diameter')
-      .units('fuelDiam').value(0);
-    new DagLeafQuantity(this, 'efhn')
-      .desc('fuel particle effective heating number; fraction of fuel involved in ignition')
-      .units('fraction').value(0);
-    new DagLeafQuantity(this, 'efld')
-      .desc('effective fuel load; load of fuel involved in ingition')
-      .units('fuelLoad').value(0);
-    new DagLeafQuantity(this, 'efwl')
-      .desc('effective fuel water load; amount of water within the effective fuel load')
-      .units('fuelLoad').value(0);
-    new DagLeafQuantity(this, 'pprc')
-      .desc('fuel particle packing ratio contribution')
-      .units('fuelDepth').value(0);
-    new DagLeafQuantity(this, 'qign')
-      .desc('fuel particle heat of pre-ignition')
-      .units('fuelHeat').value(0);
-    new DagLeafQuantity(this, 'size')
-      .desc('fuel particle size class [0..6]')
-      .units('index').value(6);
-    new DagLeafQuantity(this, 'swtg')
-      .desc('fuel particle size class surface area weighting factor')
-      .units('fraction').value(0);
-    new DagLeafQuantity(this, 'volm')
-      .desc('fuel particle equivalent cylindrical volume')
-      .units('fuelVolm').value(0);
-    new DagLeafQuantity(this, 'wnet')
-      .desc('fuel particle net (mineral-free) oven-dry load')
-      .units('fuelLoad').value(0);
-  }
-
-  connect(/* tree */) {
-    // Following can be determined from own properties
-    this.area.calc(BpxLibFuelParticle.area, this.load, this.savr, this.dens);
-    this.diam.calc(BpxLibFuelParticle.diam, this.savr);
-    this.efhn.calc(BpxLibFuelParticle.efhn, this.savr);
-    this.efwl.calc(BpxLibFuelParticle.efwl, this.efld, this.mois);
-    this.pprc.calc(BpxLibFuelParticle.pprc, this.load, this.dens);
-    this.qign.calc(BpxLibFuelParticle.qign, this.mois, this.efhn);
-    this.size.calc(BpxLibFuelParticle.size, this.savr);
-    this.volm.calc(BpxLibFuelParticle.volm, this.load, this.dens);
-    this.wnet.calc(BpxLibFuelParticle.wnet, this.load, this.stot);
-  }
-}
 
 export class BpxTreeFuelParticles extends DagBranch {
   constructor(parent, name) {
@@ -373,7 +295,35 @@ export class BpxTreeFuelBed extends DagBranch {
       .units('azimuth').value(0);
 
     // Continue adding leafs for fire spread outputs
+    new DagLeafQuantity(this, 'phiS')
+      .desc('spread rate slope coefficient')
+      .units('factor').value(0);
+    new DagLeafQuantity(this, 'phiW')
+      .desc('spread rate wind coefficient')
+      .units('factor').value(0);
+    new DagLeafQuantity(this, 'phiEw')
+      .desc('spread rate cross-slope, cross-wind effective wind coefficient')
+      .units('factor').value(1);
 
+    // Fire spread direction branch
+    new DagLeafQuantity(this, 'dirRosSlope')
+      .desc('spread rate due to the slope coefficient')
+      .units('fireRos').value(0);
+    new DagLeafQuantity(this, 'dirRosWind')
+      .desc('spread rate due to the wind coefficient')
+      .units('fireRos').value(0);
+    new DagLeafQuantity(this, 'dirXComp')
+      .desc('directional spread rate x-component')
+      .units('factor').value(0);
+    new DagLeafQuantity(this, 'dirYComp')
+      .desc('directional spread rate y-component')
+      .units('factor').value(0);
+    new DagLeafQuantity(this, 'dirRosVector')
+      .desc('directional spread rate at vector')
+      .units('fireRos').value(0);
+    new DagLeafQuantity(this, 'headingFromUpslope')
+      .desc('direction of maximum spread, degrees clockwise from upslope')
+      .units('azimuth').value(0);
   }
 
   connect(tree) {
@@ -446,25 +396,43 @@ export class BpxTreeFuelBed extends DagBranch {
     this.phiLimit.calc(BpxLibFuelBed.phiLimit, this.ewsLimit, this.windB, this.windK);
     this.rosLimit.calc(BpxLibFuelBed.rosLimit, this.ros0, this.phiLimit);
 
-    //
+    // Access these from outside the class
     const canopy = tree.site.canopy;
     const { speed, direction } = tree.site.wind;
-    const { ratio } = tree.site.slope.steepness;
+    const { steepness } = tree.site.slope;
     const cfgSpd = tree.configs.wind.speed;
     const cfgWaf = tree.configs.fuel.waf;
+    const fireLib = BpxLibSurfaceFire;
+
+    this.windHeadingFromUpslope.bind(direction.headingFromUpslope);
+    this.slopeSteepnessRatio.bind(steepness.ratio);
 
     // The fuel bed WAF is either from the site's WAF input
     // or calculated from canopy inputs
     this.waf
       .bindIf(cfgWaf, 'input', speed.waf)
       .calc(BpxLibFuelBed.waf, canopy.sheltersFuel, canopy.shelteredWaf, this.openWaf);
+
     // Midflame wind speed is either from the site midflame windspeed,
     // or estimated from the site's 20-ft windspeed and this fuel bed's WAF
     this.midflameWindSpeed
       .bindIf(cfgSpd, 'atMidflame', speed.atMidflame)
       .calc(BpxLibWind.atMidflame, speed.at20ft, this.waf)
-    this.windHeadingFromUpslope.bind(direction.headingFromUpslope);
-    this.slopeSteepnessRatio.bind(ratio);
+
+    this.phiW.calc(fireLib.phiW, this.midflameWindSpeed, this.windB, this.windK);
+    this.phiS.calc(fireLib.phiS, this.slopeSteepnessRatio, this.slopeK);
+
+    // Direction of maximum spread
+    this.dirRosSlope.calc(fireLib.spreadDirSlopeRate, this.ros0, this.phiS);
+    this.dirRosWind.calc(fireLib.spreadDirWindRate, this.ros0, this.phiW);
+    this.dirXComp.calc(fireLib.spreadDirXComp,
+      this.rosWind, this.rosSlope, this.windHeadingFromUpslope);
+    this.dirYComp.calc(fireLib.spreadDirXComp,
+      this.rosWind, this.windHeadingFromUpslope);
+    this.dirRosVector.calc(fireLib.spreadDirVectorRate,
+      this.dirXComp, this.dirYComp);
+    this.headingFromUpslope.calc(fireLib.spreadDirFromUpslope,
+      this.dirXComp, this.dirYComp, this.RosVector);
   }
 }
 
