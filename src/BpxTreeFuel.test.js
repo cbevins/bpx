@@ -1,6 +1,7 @@
 import Dag from './Dag';
 import DagBranch from './DagBranch';
 import BpxTreeFuelBed from './BpxTreeFuelBed';
+import BpxTreeFuelBedCanopy from './BpxTreeFuelBedCanopy';
 import BpxTreeFuelModel from './BpxTreeFuelModel';
 import BpxTreeFuelParticle from './BpxTreeFuelParticle';
 import {
@@ -10,7 +11,6 @@ import {
   BpxTreeFuelCategoryLive,
 } from './BpxTreeFuelCategory';
 import {
-  BpxTreeFuelBedCanopy,
   BpxTreeFuelComplex,
 } from './BpxTreeFuel';
 

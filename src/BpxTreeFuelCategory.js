@@ -23,7 +23,9 @@ export class BpxTreeFuelParticles extends DagBranch {
     new BpxTreeFuelParticle(this, 'class4');
     new BpxTreeFuelParticle(this, 'class5');
   }
-  connect(/* tree */){}
+  connect(/* tree */){
+    // No outside DagLeaf references are required.
+  }
 }
 
 export class BpxTreeFuelCategory extends DagBranch {
@@ -134,6 +136,7 @@ export class BpxTreeFuelCategoryDead extends BpxTreeFuelCategory {
   constructor(parent, name) {
     super(parent, name);
   }
+  // Use the parent's connect() only!!
 }
 
 export class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
@@ -144,4 +147,5 @@ export class BpxTreeFuelCategoryLive extends BpxTreeFuelCategory {
       .desc('live fuel category moisture of extinction centent factor')
       .units('factor').value(1);
   }
+  // Use the parent's connect() only
 }

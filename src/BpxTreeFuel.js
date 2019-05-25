@@ -36,19 +36,6 @@ import BpxTreeFuelModel from './BpxTreeFuelModel';
 
 import BpxLibFuelBed from './BpxLibFuelBed';
 
-
-export class BpxTreeFuelBedCanopy extends BpxTreeFuelBed {
-  constructor(parent, name) {
-    super(parent, name);
-  }
-  connect(tree) {
-    BpxTreeFuelBed.prototype.connect.call(this, tree);
-    this.waf.fixed(0.4);
-    this.windHeadingFromUpslope.fixed(0);
-    this.slopeSteepnessRatio.fixed(0);
-  }
-}
-
 export class BpxTreeFuelComplex extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
