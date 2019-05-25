@@ -16,11 +16,12 @@ export default class BpxTreeFuelModelChaparral extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
-    new BpxLeafFuelDomain(this).value(BpxLibFuelChaparral.domain());
+    new BpxLeafFuelDomain(this)
+      .value(BpxLibFuelChaparral.domain());
 
     // Input when fuel modeling
     const parms = new DagBranch(this, 'parms');
-    new BpxLeafFuelChaparralType(parms);
+    new BpxLeafFuelChaparralType(parms, 'chaparralType');
 
     new DagLeafQuantity(parms, 'deadFuelFraction')
       .desc('chaparral dead fuel fraction')

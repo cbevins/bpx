@@ -21,7 +21,7 @@ export default class BpxTreeFuelModelWesternAspen extends DagBranch {
 
     // Input when fuel modeling
     const parms = new DagBranch(this, 'parms');
-    new BpxLeafFuelAspenType(parms);
+    new BpxLeafFuelAspenType(parms, 'aspenType');
 
     new DagLeafQuantity(parms, 'curingLevel')
       .desc('Aspen curing level')
