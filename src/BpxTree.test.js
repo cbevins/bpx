@@ -277,3 +277,7 @@ test('5: BpxLibFuelParticle tests for full code coverage', () => {
 
   expect(BpxLibFuelParticle.size(15)).toEqual(5);
 })
+
+test('6: Fire direction tests', () => {
+  const dag = new Dag('w1');
+})

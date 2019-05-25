@@ -159,7 +159,7 @@ export default class BpxTreeFuelFire extends DagBranch {
       this.ros0, this.wind.phi);
     this.direction.xComp.calc(BpxLibSurfaceFire.spreadDirXComp,
       this.direction.windRos, this.direction.slopeRos, this.wind.headingFromUpslope);
-    this.direction.yComp.calc(BpxLibSurfaceFire.spreadDirXComp,
+    this.direction.yComp.calc(BpxLibSurfaceFire.spreadDirYComp,
       this.direction.windRos, this.wind.headingFromUpslope);
     this.direction.vectorRos.calc(BpxLibSurfaceFire.spreadDirVectorRate,
       this.direction.xComp, this.direction.yComp);

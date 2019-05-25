@@ -227,8 +227,8 @@ export const BenchmarkFm010Out = {
         },
         fire: {
           direction: {
-            slopeRos: null,
-            windRos: null,
+            slopeRos: 0.67900860922904482 * 1.1144632487759358,
+            windRos: 0.67900860922904482 * 26.298112107312534,
             vectorRos: null,
             xComp: null,
             yComp: null,
@@ -244,17 +244,18 @@ export const BenchmarkFm010Out = {
             ratio: 0.25,
           },
           wind: {
-            atMidflame: null,
+            atMidflame: 880,
             b: 1.4308256324729873,
             c: 0.0022260828565431375,
             e: 0.37951243437053556,
+            headingFromUpslope: 90,
             k: 0.0016102128596515481,
             i: 621.03590466691537,
             phi: 26.298112107312534,
-            waf: null,
+            waf: 1,
           },
           flameResidenceTime: 0.21764611427384198,
-          //headingFromUpslope: 87.573367385837855,
+          headingFromUpslope: 87.573367385837855,
           hpua: 5794.6954002291168 * 0.21764611427384198, // about 1261.192937
           reactionIntensity: 5794.6954002291168,
           ros0: 0.67900860922904482,
