@@ -15,16 +15,19 @@ function approx(desc, actual, expected, prec = 12) {
 
 let tests = [];
 function getTests(treeItem, outItem) {
-  Object.keys(outItem).forEach((child) => {
-    if (typeof outItem[child] === 'object') {
-      getTests(treeItem[child], outItem[child]);
-    } else {
-      tests.push({
-        leaf: treeItem[child],
-        expected: outItem[child],
-      });
-    }
-  });
+  if ( outItem !== null ) {
+    Object.keys(outItem).forEach((child) => {
+      if (typeof outItem[child] === 'object') {
+        getTests(treeItem[child], outItem[child]);
+      } else {
+        //console.log(treeItem[child].fullName());
+        tests.push({
+          leaf: treeItem[child],
+          expected: outItem[child],
+        });
+      }
+    });
+  }
 }
 
 function setInputs(treeItem, inpItem) {

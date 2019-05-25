@@ -61,36 +61,25 @@ export const BenchmarkFm010Out = {
     fuel: {
       primary: {
         bed: {
-          depth: 1.0,
           area: 13.4665,
           bulkDensity: 0.552,
-          ewsLimit: 5215.2258602062057,
-          //headingFromUpslope: 87.573367385837855,
-          // heatPreignition:
+          depth: 1.0,
+          domain: 'behave',
+          heatPreignition: null,
           heatSink: 412.34037227937284,
+          load: 0.552,
+          openWaf: 0.36210426360602416,
           packingRatio: 0.01725,
           packingRatioOptimum: 0.0073478593798598172,
           packingRatioRatio: 2.3476224990480286,
-          hpua: 5794.6954002291168 * 0.21764611427384198, // about 1261.192937
-          load: 0.552,
-          phiS: 1.1144632487759358,
-          phiW: 26.298112107312534,
-//          phiEw: 26.321715915373524,
           propagatingFluxRatio: 0.048317062998571636,
           reactionIntensity: 5794.6954002291168,
           reactionVelocityExp: 0.35878365060452616,
-          reactionVelocityOpt: 12.674359628667819,
           reactionVelocityMax: 15.133318877566580,
-          flameResidenceTime: 0.21764611427384198,
+          reactionVelocityOpt: 12.674359628667819,
           ros0: 0.67900860922904482,
           savr: 1764.3319812126388,
           savr15: 74108.915800396862,
-          slopeK: 17.831411980414973,
-          windB: 1.4308256324729873,
-          windC: 0.0022260828565431375,
-          windE: 0.37951243437053556,
-          windK: 0.0016102128596515481,
-          windI: 621.03590466691537,
           dead: {
             area: 9.154,
             awtg: 0.67976088812980362,
@@ -99,8 +88,8 @@ export const BenchmarkFm010Out = {
             efmc: 0.053892078848839550,
             heat: 8000,
             load: 0.46,
-            // pprc:
-            // qign:
+            pprc: null,
+            qign: null,
             mext: 0.25,
             mineralDamping: 0.41739692790939131,
             mois: 0.051626884422110553,
@@ -109,7 +98,7 @@ export const BenchmarkFm010Out = {
             rxiDry: 5539.9575948899355,
             savr: 1888.8602386934672,
             seff: 0.01,
-            // swtg:
+            swtg: null,
             // wnet: (1 - 0.0555) * 0.46,
             particle: {
               class1: {
@@ -169,11 +158,11 @@ export const BenchmarkFm010Out = {
             area: 4.31250,
             awtg: 0.32023911187019644,
             efld: 0.065920880572788609,
-            // efwl:
-            // efmc:
+            efwl: null,
+            efmc: null,
             load: 0.092,
-            // pprc:
-            // qign:
+            pprc: null,
+            qign: null,
             moistureDamping: 0.59341294014849078,
             mois: 1.5,
             rxi: 2182.2879930337140,
@@ -222,21 +211,56 @@ export const BenchmarkFm010Out = {
             parms: {
               curedHerbFraction: 0.778,
               depth: 1.0,
-              // deadMext:
-              // dead1Load:
-              // dead10Load:
-              // dead100Load:
-              // liveStemLoad:
-              // totalHerbLoad:
-              // dead1Savr:
-              // liveHerbSavr:
-              // liveStemSavr:
+              deadMext: null,
+              dead1Load: null,
+              dead10Load: null,
+              dead100Load: null,
+              liveStemLoad: null,
+              totalHerbLoad: null,
+              dead1Savr: null,
+              liveHerbSavr: null,
+              liveStemSavr: null,
               deadHeat: 8000,
               liveHeat: 8000,
             },
           },
         },
-      },
-    },
-  },
+        fire: {
+          direction: {
+            slopeRos: null,
+            windRos: null,
+            vectorRos: null,
+            xComp: null,
+            yComp: null,
+          },
+          limit: {
+            ews: 5215.2258602062057,
+            phi: null,
+            ros: null,
+          },
+          slope: {
+            k: 17.831411980414973,
+            phi: 1.1144632487759358,
+            ratio: 0.25,
+          },
+          wind: {
+            atMidflame: null,
+            b: 1.4308256324729873,
+            c: 0.0022260828565431375,
+            e: 0.37951243437053556,
+            k: 0.0016102128596515481,
+            i: 621.03590466691537,
+            phi: 26.298112107312534,
+            waf: null,
+          },
+          flameResidenceTime: 0.21764611427384198,
+          //headingFromUpslope: 87.573367385837855,
+          hpua: 5794.6954002291168 * 0.21764611427384198, // about 1261.192937
+          reactionIntensity: 5794.6954002291168,
+          ros0: 0.67900860922904482,
+          //phiEw: 26.321715915373524,
+        },  // fire
+      },  // primary
+    },  // fuel
+  },  // surface
 };

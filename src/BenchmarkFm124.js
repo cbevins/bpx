@@ -61,36 +61,21 @@ export const BenchmarkFm124Out = {
     fuel: {
       primary: {
         bed: {
-          depth: 2.1,
           area: 29.062930440771346,
           bulkDensity: 0.27985482530937067,
-          ewsLimit: 11679.023599646920,
-          flameResidenceTime: 0.23541979977677915,
+          depth: 2.1,
           heatPreignition: 319.21640437931171 / 0.27985482530937067,
           heatSink: 319.21640437931171,
           packingRatio: 0.0087454632909178334,
           packingRatioOptimum: 0.0078357185983373434,
           packingRatioRatio: 1.1161022669667500,
-          //headingFromUpslope: 87.613728665173383,
-          hpua: 12976.692888496578 * 0.23541979977677915, // about 3054.970442,
-          // phiLimit:
-          phiS: 1.3663678507662047,
-          phiW: 32.788325298000515,
-    //    phiEw: 32.816782854703028,
           propagatingFluxRatio: 0.035258653482453904,
           reactionIntensity: 12976.692888496578,
           reactionVelocityExp: 0.38177694461561407,
-          reactionVelocityOpt: 14.908876941781589,
           reactionVelocityMax: 14.944549319976806,
+          reactionVelocityOpt: 14.908876941781589,
           ros0: 1.4333245773924823,
-          // rosLimit:
           savr: 1631.1287341340956,
-          slopeK: 21.861885612259275,
-          windB: 1.3714405772749918,
-          windC: 0.0031370920040753444,
-          windE: 0.39810163107222579,
-          windK: 0.0030028678448152332,
-          windI: 333.01498823086911,
           dead: {
             area: 11.030790863177224,
             awtg: 0.37954847277556436,
@@ -202,7 +187,43 @@ export const BenchmarkFm124Out = {
             },
           },
         },
-      },
-    },
-  },
+        fire: {
+          direction: {
+            slopeRos: null,
+            windRos: null,
+            vectorRos: null,
+            xComp: null,
+            yComp: null,
+          },
+          limit: {
+            ews: 11679.023599646920,
+            phi: null,
+            ros: null,
+          },
+          slope: {
+            k: 21.861885612259275,
+            phi: 1.3663678507662047,
+            ratio: 0.25,
+          },
+          wind: {
+            atMidflame: null,
+            b: 1.3714405772749918,
+            c: 0.0031370920040753444,
+            e: 0.39810163107222579,
+            k: 0.0030028678448152332,
+            i: 333.01498823086911,
+            phi: 32.788325298000515,
+            waf: null,
+          },
+          flameResidenceTime: 0.23541979977677915,
+          // headingFromUpslope: 87.613728665173383,
+          hpua: 12976.692888496578 * 0.23541979977677915, // about 3054.970442,
+          // phiEw: 32.816782854703028,
+          flameResidenceTime: null,
+          reactionIntensity: 12976.692888496578,
+          ros0: 1.4333245773924823,
+        },  // fire
+      },  // primary
+    },  // fuel
+  },  // surface
 };
