@@ -1,5 +1,5 @@
 /**
- * @file Defines all BehavePlus Explorer Option variants.
+ * @file Defines all BehavePlus Explorer DagLeafOption variants.
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
@@ -8,7 +8,7 @@
 import DagLeafOption from './DagLeafOption';
 
 export class BpxLeafFuelAspenType extends DagLeafOption {
-  constructor(branch, name = 'aspenType') {
+  constructor(branch, name) {
     super(branch, name)
       .desc('western aspen fuel type')
       .header('western aspen fuel type')
@@ -33,7 +33,7 @@ export class BpxLeafFuelDomain extends DagLeafOption {
 }
 
 export class BpxLeafFuelChaparralType extends DagLeafOption {
-  constructor(branch, name = 'chaparralType') {
+  constructor(branch, name) {
     super(branch, name)
       .desc('chaparral fuel type')
       .header('chaparral fuel type')
