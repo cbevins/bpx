@@ -1,9 +1,19 @@
 export const BenchmarkFm124In = {
   configs: {
     fuel: {
-      curedHerbFraction: 'estimated',
-      moisture: 'individual',
       primary: 'catalog',
+      secondary: 'none',
+      moisture: 'individual',
+      waf: 'input',
+      curedHerbFraction: 'estimated',
+      chaparralTotalLoad: 'input',
+    },
+    slope: {
+      steepness: 'ratio',
+    },
+    wind: {
+      direction: 'sourceFromNorth',
+      speed: 'atMidflame',
     },
   },
   site: {
@@ -16,6 +26,22 @@ export const BenchmarkFm124In = {
       live: {
         herb: 0.5,
         stem: 1.5,
+      },
+    },
+    slope: {
+      direction: {
+        aspect: 180,
+      },
+      steepness: {
+        ratio: 0.25,
+      },
+    },
+    wind: {
+      direction: {
+        sourceFromNorth: 270,
+      },
+      speed: {
+        atMidflame: 880,  // 10 mph
       },
     },
   },
@@ -45,8 +71,12 @@ export const BenchmarkFm124Out = {
           packingRatio: 0.0087454632909178334,
           packingRatioOptimum: 0.0078357185983373434,
           packingRatioRatio: 1.1161022669667500,
+          //headingFromUpslope: 87.613728665173383,
           hpua: 12976.692888496578 * 0.23541979977677915, // about 3054.970442,
           // phiLimit:
+          phiS: 1.3663678507662047,
+          phiW: 32.788325298000515,
+    //    phiEw: 32.816782854703028,
           propagatingFluxRatio: 0.035258653482453904,
           reactionIntensity: 12976.692888496578,
           reactionVelocityExp: 0.38177694461561407,

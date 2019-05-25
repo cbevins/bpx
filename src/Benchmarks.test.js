@@ -2,9 +2,13 @@ import Dag from './Dag';
 import { BenchmarkFm010In, BenchmarkFm010Out } from './BenchmarkFm010';
 import { BenchmarkFm124In, BenchmarkFm124Out } from './BenchmarkFm124';
 
-function approx(actual, expected, prec = 12) {
+function approx(desc, actual, expected, prec = 12) {
   if (typeof expected === 'number') {
-    return actual.toPrecision(prec) === expected.toPrecision(prec);
+    let result = actual.toPrecision(prec) === expected.toPrecision(prec);
+    if ( ! result ) {
+      console.log(`*** ${desc}`);
+    }
+    return result;
   }
   return actual === expected;
 }
@@ -51,7 +55,7 @@ test('1: FM 124 Benchmark', () => {
 
   tests.forEach((t) => {
     let desc = `${t.leaf.label()}: expected='${t.expected}', actual='${t.leaf.value()}'`;
-    expect(approx(t.leaf.value(), t.expected)).toEqual(true);
+    expect(approx(desc, t.leaf.value(), t.expected)).toEqual(true);
   });
 });
 
@@ -73,6 +77,6 @@ test('2: FM 010 Benchmark', () => {
 
   tests.forEach((t) => {
     let desc = `${t.leaf.label()}: expected='${t.expected}', actual='${t.leaf.value()}'`;
-    expect(approx(t.leaf.value(), t.expected)).toEqual(true);
+    expect(approx(desc, t.leaf.value(), t.expected)).toEqual(true);
   });
 });
