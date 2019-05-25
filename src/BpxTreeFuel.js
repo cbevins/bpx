@@ -1,29 +1,31 @@
 /**
- * @file Composes DagBranches and DagLeafs into the following objects:
+ * @file Composes the BehavePlus Explorer fuel sub-tree.
  *
- * - BpxTreeFuelBed composed of bed-level DagLeafs and:
- *    - BpxTreeFuelCategoryDead composed of dead category DagLeafs and:
- *      - BpxTreeFuelParticlesDead composed of 4 instances of
- *        - BpxTreeFuelParticle composed of
- *          - the 8 Fuel DagLeafs (Dens, Heat, Label, Load, Mois, Savr, Seff, Stot)
- *    - BpxTreeFuelCategoryLive composed of live category DagLeafs and:
- *      - BpxTreeFuelParticlesLive composed of 5 instance of
- *        - BpxTreeFuelParticle composed of
- *          - the 8 Fuel DagLeafs (Dens, Heat, Label, Load, Mois, Savr, Seff, Stot)
+ * BpxTreeFuel is composed of:
+ * - 'primary' BpxTreeFuelComplex
+ *  - 'bed' BpxTreeFuelBed
+ *  - 'model' BpxTreeFuelModel
+ *  - 'fire' BpxTreeFuelFire
+ * - 'secondary' BpxTreeFuelComplex
+ *  - 'bed' BpxTreeFuelBed
+ *  - 'model' BpxTreeFuelModel
+ *  - 'fire' BpxTreeFuelFire
  *
- * - BpxTreeFuelModel composed of:
- *    - BpxTreeFuelModelBehave
- *    - BpxTreeFuelModelChaparral
- *    - BpxTreeFuelModelPalmettoGallberry
- *    - BpxTreeFuelModelWesternAspen
+ * - Each BpxTreeFuelBed is composed of:
+ *    - 'dead' BpxTreeFuelCategoryDead
+ *      - 'particle' BpxTreeFuelBedPartricles
+ *        - 'class1' - 'class5' BpxTreeFuelParticles
+ *          - 8 DagLeafs (dens, heat, label, load, mois, savr, seff, stot, ...)
+ *    - 'live' BpxTreeFuelCategoryLive
+ *      - 'particle' BpxTreeFuelParticles
+ *        - 'class1' - 'class5' BpxTreeFuelParticles
+ *          - 8 DagLeafs (dens, heat, label, load, mois, savr, seff, stot, ...)
  *
- * - BpxTreeFuelComplex composed of:
- *    - BpxTreeFuelModel
- *    - BpxTreeFuelBed
- *
- * - BpxTreeFuel composed of:
- *    - BpxTreeFuelComplexPrimary
- *    - BpxTreeFuelComplexSecondary
+ * - Each BpxTreeFuelModel is composed of:
+ *    - 'behave' BpxTreeFuelModelBehave
+ *    - 'chaparral' BpxTreeFuelModelChaparral
+ *    - 'palmettoGallberry' BpxTreeFuelModelPalmettoGallberry
+ *    - 'westernAspen' BpxTreeFuelModelWesternAspen
  *
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
@@ -52,6 +54,11 @@ export class BpxTreeFuelComplex extends DagBranch {
    * and connect() here deals with complexity of assignment to the single FuelBed.
    */
   connect(tree) {
+    // External leaf references
+    const { tl1h, tl10h, tl100h } = tree.site.moisture.dead;
+    const { herb, stem } = tree.site.moisture.live;
+
+    // Convenience vars
     const pdead = this.bed.dead.particle;
     const plive = this.bed.live.particle;
     const b = this.model.behave;
@@ -161,15 +168,10 @@ export class BpxTreeFuelComplex extends DagBranch {
     plive.class5.stot.calc(pick, domain, 0.0555, 0.055, 0.03, 0.055);
 
     // Mois for 5 dead and 5 live classes
-    const d1 = tree.site.moisture.dead.tl1h;
-    const d10 = tree.site.moisture.dead.tl10h;
-    const d100 = tree.site.moisture.dead.tl100h;
-    const { herb } = tree.site.moisture.live;
-    const { stem } = tree.site.moisture.live;
-    pdead.class1.mois.calc(pick, domain, d1, d1, d1, d1);
-    pdead.class2.mois.calc(pick, domain, d10, d10, d10, d10);
-    pdead.class3.mois.calc(pick, domain, d100, d10, d1, 5);
-    pdead.class4.mois.calc(pick, domain, d1, d100, d100, 5);
+    pdead.class1.mois.calc(pick, domain, tl1h, tl1h, tl1h, tl1h);
+    pdead.class2.mois.calc(pick, domain, tl10h, tl10h, tl10h, tl10h);
+    pdead.class3.mois.calc(pick, domain, tl100h, tl10h, tl1h, 5);
+    pdead.class4.mois.calc(pick, domain, tl1h, tl100h, tl100h, 5);
     pdead.class5.mois.fixed(5);
     plive.class1.mois.calc(pick, domain, herb, stem, stem, herb);
     plive.class2.mois.calc(pick, domain, stem, stem, stem, stem);

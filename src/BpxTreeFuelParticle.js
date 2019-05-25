@@ -1,4 +1,4 @@
-/*
+/**
  * @file Defines the BehavePlus Explorer Fuel Particle sub-tree.
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins

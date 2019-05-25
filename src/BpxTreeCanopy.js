@@ -1,10 +1,17 @@
+/**
+ * @file Defines the BehavePlus Explorer crown canopy model.
+ * @copyright Systems for Environmental Management 2019
+ * @author Collin D. Bevins
+ * @version 0.1.0
+ */
+
 import DagBranch from './DagBranch';
 import DagLeafQuantity from './DagLeafQuantity';
 import DagLeafBool from './DagLeafBool';
 import BpxLibCanopy from './BpxLibCanopy';
 
 export default class BpxTreeCanopy extends DagBranch {
-  constructor(parent, name = 'canopy') {
+  constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'bulkDensity')
       .desc('canopy bulk density')

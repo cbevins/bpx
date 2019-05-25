@@ -1,3 +1,24 @@
+/**
+ * @file Composes the BehavePlus Explorer DAG tree.
+ *
+ * BpxTree is composed of:
+ *  - 'configs' BpxTreeConfigs
+ *  - 'site' BpxTreeSite
+ *    - 'canopy' BpxTreeCanopy
+ *    - 'map' BpxTreeMap
+ *    - 'moisture' BpxTreeMoisture
+ *    - 'slope' BpxTreeSlope
+ *    - 'wind' BpxTreeWind
+ *  - 'surface' BpxTreeSurface
+ *    - 'fuel' BpxTreeFuel
+ *      - 'primary' BpxTreeFuelComplex
+ *      - 'secondary' BpxTreeFuelComplex
+ *
+ * @copyright Systems for Environmental Management 2019
+ * @author Collin D. Bevins
+ * @version 0.1.0
+ */
+
 import Branch from './DagBranch';
 import BpxTreeCanopy from './BpxTreeCanopy';
 import BpxTreeFuel from './BpxTreeFuel';
@@ -10,11 +31,11 @@ import BpxTreeWind from './BpxTreeWind';
 class BpxTreeSite extends Branch {
   constructor(parent, name) {
     super(parent, name);
-    new BpxTreeMoisture(this);
-    new BpxTreeMap(this);
-    new BpxTreeSlope(this);
-    new BpxTreeWind(this);
-    new BpxTreeCanopy(this);
+    new BpxTreeCanopy(this, 'canopy');
+    new BpxTreeMap(this, 'map');
+    new BpxTreeMoisture(this, 'moisture');
+    new BpxTreeSlope(this, 'slope');
+    new BpxTreeWind(this, 'wind');
   }
 }
 

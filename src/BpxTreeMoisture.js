@@ -9,7 +9,7 @@ import DagBranch from './DagBranch';
 import DagLeafQuantity from './DagLeafQuantity';
 
 export class BpxTreeMoistureDead extends DagBranch {
-  constructor(parent, name = 'dead') {
+  constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'tl1h')
       .desc('site dead 1-h time-lag fuel moisture')
@@ -44,7 +44,7 @@ export class BpxTreeMoistureDead extends DagBranch {
 }
 
 export class BpxTreeMoistureLive extends DagBranch {
-  constructor(parent, name = 'live') {
+  constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'herb')
       .desc('site live herbaceous fuel moisture')
@@ -74,7 +74,7 @@ export class BpxTreeMoistureLive extends DagBranch {
 }
 
 export default class BpxTreeMoisture extends DagBranch {
-  constructor(parent, name = 'moisture') {
+  constructor(parent, name) {
     super(parent, name);
     new BpxTreeMoistureDead(this, 'dead');
     new BpxTreeMoistureLive(this, 'live');

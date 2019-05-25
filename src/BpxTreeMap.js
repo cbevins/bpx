@@ -11,7 +11,7 @@ import BpxLibMath from './BpxLibMath';
 import BpxLibCompass from './BpxLibCompass';
 
 export default class BpxTreeMap extends DagBranch {
-  constructor(parent, name = 'map') {
+  constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'scale')
       .desc('map scale (e.g., 24000)')
@@ -41,5 +41,5 @@ export default class BpxTreeMap extends DagBranch {
     this.factor.calc(BpxLibMath.div, 1, this.scale);
     this.slope.calc(BpxLibCompass.slopeRatioMap,
       this.scale, this.interval, this.contours, this.distance);
-}
+  }
 }

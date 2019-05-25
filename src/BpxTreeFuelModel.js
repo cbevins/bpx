@@ -1,12 +1,11 @@
-/*
- * @fule Defines the BehavePlus Explorer Fuel Model sub-tree.
+/**
+ * @file Defines the BehavePlus Explorer Fuel Model sub-tree.
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
  */
 
 import DagBranch from './DagBranch';
-import DagLeafQuantity from './DagLeafQuantity';
 import DagLeafText from './DagLeafText';
 
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';

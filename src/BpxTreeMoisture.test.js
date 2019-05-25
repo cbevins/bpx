@@ -1,18 +1,6 @@
 import Dag from './Dag';
-import BpxTreeMoisture, { BpxTreeMoistureDead, BpxTreeMoistureLive }
-  from './BpxTreeMoisture';
 
-const mois = new BpxTreeMoisture();
-const dead = new BpxTreeMoistureDead(mois);
-const live = new BpxTreeMoistureLive(mois);
-
-it('1: Moisture tree names', () => {
-  expect(mois.name()).toEqual('moisture');
-  expect(dead.name()).toEqual('dead');
-  expect(live.name()).toEqual('live');
-});
-
-test('2: Moisture DAG ops', () => {
+test('1: Moisture DAG ops', () => {
   const name = 'worksheet1';
   const dag = new Dag(name);
   const { tree } = dag;
