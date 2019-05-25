@@ -7,9 +7,11 @@ import {
   BpxTreeFuelCategory,
   BpxTreeFuelCategoryDead,
   BpxTreeFuelCategoryLive,
+} from './BpxTreeFuelCategory';
+import {
   BpxTreeFuelBed,
   BpxTreeFuelBedCanopy,
-  BpxTreeFuelComplex
+  BpxTreeFuelComplex,
 } from './BpxTreeFuel';
 
 function approx(actual, expected, prec = 12) {
