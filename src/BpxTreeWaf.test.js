@@ -24,7 +24,7 @@ test('1: Select open-canopy WAF only', () => {
   const { tree } = dag;
   const { canopy, slope, wind } = tree.site;
   const { at10m, at20ft, atMidflame, waf } = wind.speed;
-  const { bed, model } = tree.surface.fuel.primary;
+  const { bed, model, fire } = tree.surface.fuel.primary;
   const cfgPrimary = tree.configs.fuel.primary;
   const cfgSpeed = tree.configs.wind.speed;
   const cfgWaf = tree.configs.fuel.waf;
@@ -76,7 +76,7 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
   const { tree } = dag;
   const { canopy, slope, wind } = tree.site;
   const { speed, dir } = wind;
-  const { bed, model } = tree.surface.fuel.primary;
+  const { bed, model, fire } = tree.surface.fuel.primary;
   const cfgPrimary = tree.configs.fuel.primary;
   const cfgSpeed = tree.configs.wind.speed;
   const cfgWaf = tree.configs.fuel.waf;
@@ -87,10 +87,10 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
   expect(cfgSpeed.value()).toEqual('at20ft');
 
   // Selecting fuel bed WAF with input WAF
-  dag.setSelected([bed.waf]);
+  dag.setSelected([fire.wind.waf]);
   let selectedLeafs = dag.getSelectedLeafs();
   expect(selectedLeafs.length).toEqual(1);
-  expect(selectedLeafs).toContain(bed.waf);
+  expect(selectedLeafs).toContain(fire.wind.waf);
 
   let configLeafs = dag.getRequiredConfigLeafs();
   expect(configLeafs.length).toEqual(1);
@@ -104,9 +104,9 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
     [speed.waf, [0, .5, 1]]
   ]);
   dag.updateBatch();
-  expect(bed.waf.fetch(0)).toEqual(0);
-  expect(bed.waf.fetch(1)).toEqual(.5);
-  expect(bed.waf.fetch(2)).toEqual(1);
+  expect(fire.wind.waf.fetch(0)).toEqual(0);
+  expect(fire.wind.waf.fetch(1)).toEqual(.5);
+  expect(fire.wind.waf.fetch(2)).toEqual(1);
 
   // If WAF is estimated, we need canopy and depth inputs
   dag.setValue(cfgWaf, 'estimated');
@@ -151,7 +151,7 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
   //   canopy.crownFill.value());
   expect(approx(canopy.shelteredWaf.value(), 0.1313664741590494)).toEqual(true);
   expect(canopy.sheltersFuel.value()).toEqual(true);
-  expect(approx(bed.waf.value(), 0.1313664741590494)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.1313664741590494)).toEqual(true);
   expect(bed.openWaf.value()).toEqual(0.36210426360602416);
   //expect(approx(at20ft.value(), 10/0.1313664741590494)).toEqual(true);
 
@@ -161,18 +161,18 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
   expect(approx(canopy.shelteredWaf.value(), 1)).toEqual(true);
   expect(canopy.sheltersFuel.value()).toEqual(false);
   expect(bed.openWaf.value()).toEqual(0.36210426360602416);
-  expect(approx(bed.waf.value(), 0.36210426360602416)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.36210426360602416)).toEqual(true);
   //expect(approx(at20ft.value(), 10/0.36210426360602416)).toEqual(true);
 
   dag.setValues([[canopy.cover, 0.5],[canopy.crownHeight, 5]]);
   expect(canopy.sheltersFuel.value()).toEqual(false);
   expect(bed.openWaf.value()).toEqual(0.36210426360602416);
-  expect(approx(bed.waf.value(), 0.36210426360602416)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.36210426360602416)).toEqual(true);
 
   dag.setValues([[canopy.crownBase, 40],[canopy.crownHeight, 40]]);
   expect(canopy.sheltersFuel.value()).toEqual(false);
   expect(bed.openWaf.value()).toEqual(0.36210426360602416);
-  expect(approx(bed.waf.value(), 0.36210426360602416)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.36210426360602416)).toEqual(true);
 
   dag.setValues([
     [canopy.cover, 0.5],
@@ -182,7 +182,7 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
   expect(canopy.sheltersFuel.value()).toEqual(true);
   expect(approx(canopy.shelteredWaf.value(), 0.1313664741590494)).toEqual(true);
   expect(bed.openWaf.value()).toEqual(0.36210426360602416);
-  expect(approx(bed.waf.value(), 0.1313664741590494)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.1313664741590494)).toEqual(true);
 
   // Change primary fuel input to 'behave'
   // and we must enter the primary behave model depth parameter
@@ -197,7 +197,7 @@ test('2: Fuel bed WAF with input vs estimated WAF', () => {
 
   dag.setValue(model.behave.parms.depth, 2);
   expect(bed.openWaf.value()).toEqual( 0.4179825632019431);
-  expect(approx(bed.waf.value(), 0.1313664741590494)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.1313664741590494)).toEqual(true);
   // expect(approx(at20ft.value(), 10/0.1313664741590494)).toEqual(true);
 })
 
@@ -207,7 +207,7 @@ test('3: Fuel bed midflame wind speed', () => {
   const { tree } = dag;
   const { canopy, slope, wind } = tree.site;
   const { speed, dir } = wind;
-  const { bed, model } = tree.surface.fuel.primary;
+  const { bed, model, fire } = tree.surface.fuel.primary;
   const cfgPrimary = tree.configs.fuel.primary;
   const cfgSpeed = tree.configs.wind.speed;
   const cfgWaf = tree.configs.fuel.waf;
@@ -218,10 +218,10 @@ test('3: Fuel bed midflame wind speed', () => {
   expect(cfgSpeed.value()).toEqual('at20ft');
 
   // Selecting fuel bed midflame wind speed
-  dag.setSelected([bed.midflameWindSpeed]);
+  dag.setSelected([fire.wind.atMidflame]);
   let selectedLeafs = dag.getSelectedLeafs();
   expect(selectedLeafs.length).toEqual(1);
-  expect(selectedLeafs).toContain(bed.midflameWindSpeed);
+  expect(selectedLeafs).toContain(fire.wind.atMidflame);
 
   // WAF is input, so no need for fuel
   let configLeafs = dag.getRequiredConfigLeafs();
@@ -236,10 +236,10 @@ test('3: Fuel bed midflame wind speed', () => {
   expect(inputLeafs).toContain(speed.waf);
 
   dag.setValues([[speed.at20ft, 20],[speed.waf, 0.5]]);
-  expect(bed.midflameWindSpeed.value()).toEqual(10);
+  expect(fire.wind.atMidflame.value()).toEqual(10);
   dag.setValue(cfgSpeed, 'at10m');
   dag.setValues([[speed.at10m, 20],[speed.waf, 0.5]]);
-  expect(bed.midflameWindSpeed.value()).toEqual(10/1.13);
+  expect(fire.wind.atMidflame.value()).toEqual(10/1.13);
 
   // Set wind speed input to 'atMidflame'
   dag.setValue(cfgSpeed, 'atMidflame');
@@ -254,7 +254,7 @@ test('3: Fuel bed midflame wind speed', () => {
   expect(inputLeafs).toContain(speed.atMidflame);
 
   dag.setValue(speed.atMidflame, 12.3);
-  expect(bed.midflameWindSpeed.value()).toEqual(12.3);
+  expect(fire.wind.atMidflame.value()).toEqual(12.3);
 
   // Change wind speed back to 20ft
   dag.setValue(cfgSpeed, 'at20ft');
@@ -302,7 +302,7 @@ test('3: Fuel bed midflame wind speed', () => {
   //   canopy.crownFill.value());
   expect(approx(canopy.shelteredWaf.value(), 0.1313664741590494)).toEqual(true);
   expect(canopy.sheltersFuel.value()).toEqual(true);
-  expect(approx(bed.waf.value(), 0.1313664741590494)).toEqual(true);
+  expect(approx(fire.wind.waf.value(), 0.1313664741590494)).toEqual(true);
   expect(bed.openWaf.value()).toEqual(0.36210426360602416);
-  expect(approx(bed.midflameWindSpeed.value(), 10 * 0.1313664741590494)).toEqual(true);
+  expect(approx(fire.wind.atMidflame.value(), 10 * 0.1313664741590494)).toEqual(true);
 })

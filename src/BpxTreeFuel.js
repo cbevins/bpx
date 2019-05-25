@@ -33,15 +33,16 @@
  */
 
 import DagBranch from './DagBranch';
-import BpxTreeFuelBed from './BpxTreeFuelBed';
-import BpxTreeFuelModel from './BpxTreeFuelModel';
-
 import BpxLibFuelBed from './BpxLibFuelBed';
+import BpxTreeFuelBed from './BpxTreeFuelBed';
+import BpxTreeFuelFire from './BpxTreeFuelFire';
+import BpxTreeFuelModel from './BpxTreeFuelModel';
 
 export class BpxTreeFuelComplex extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeFuelBed(this, 'bed');
+    new BpxTreeFuelFire(this, 'fire');
     new BpxTreeFuelModel(this, 'model');
   }
 
