@@ -31,14 +31,11 @@
  */
 
 import DagBranch from './DagBranch';
+import BpxTreeFuelModel from './BpxTreeFuelModel';
 import BpxTreeFuelParticle from './BpxTreeFuelParticle';
 
 //const Fuel = require('./BpxLeafOptions');
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
-import BpxTreeFuelModelBehave from './BpxTreeFuelModelBehave';
-import BpxTreeFuelModelChaparral from './BpxTreeFuelModelChaparral';
-import BpxTreeFuelModelPalmettoGallberry from './BpxTreeFuelModelPalmettoGallberry';
-import BpxTreeFuelModelWesternAspen from './BpxTreeFuelModelWesternAspen';
 
 import BpxLibMath from'./BpxLibMath';
 import BpxLibFuelBed from './BpxLibFuelBed';
@@ -445,44 +442,6 @@ export class BpxTreeFuelBedCanopy extends BpxTreeFuelBed {
     this.waf.fixed(0.4);
     this.windHeadingFromUpslope.fixed(0);
     this.slopeSteepnessRatio.fixed(0);
-  }
-}
-
-export class BpxTreeFuelModel extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-    // DagBranches
-    new BpxTreeFuelModelBehave(this, 'behave');
-    new BpxTreeFuelModelChaparral(this, 'chaparral');
-    new BpxTreeFuelModelPalmettoGallberry(this, 'palmettoGallberry');
-    new BpxTreeFuelModelWesternAspen(this, 'westernAspen');
-    // Leaves
-    new BpxLeafFuelDomain(this, 'domain');
-    new DagLeafText(this, 'key')
-      .desc('fuel model catalog key')
-      .units('fuelKey').value('10');
-  }
-
-  connect(tree) {
-    const cfgFuel = tree.configs.fuel.primary;
-    const cfgCuredHerb = tree.configs.fuel.curedHerbFraction;
-    const cfgTotalLoad = tree.configs.fuel.chaparralTotalLoad;
-    const liveHerbMois = tree.site.moisture.live.herb;
-
-    this.key.input();
-    this.domain
-      .calcIf(cfgFuel, 'catalog', BpxLibFuelCatalog.domain, this.key)
-      .fixedIf(cfgFuel, this.behave.domain.value(), this.behave.domain.value())
-      .fixedIf(cfgFuel, this.chaparral.domain.value(), this.chaparral.domain.value())
-      .fixedIf(cfgFuel, this.palmettoGallberry.domain.value(),
-        this.palmettoGallberry.domain.value())
-      .fixedIf(cfgFuel, this.westernAspen.domain.value(), this.westernAspen.domain.value())
-      .fixed('none');
-
-    this.behave.subconnect(cfgFuel, cfgCuredHerb, liveHerbMois, this.key);
-    this.chaparral.subconnect(cfgFuel, cfgTotalLoad, this.key);
-    this.palmettoGallberry.subconnect(cfgFuel, this.key);
-    this.westernAspen.subconnect(cfgFuel, this.key);
   }
 }
 

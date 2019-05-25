@@ -1,5 +1,6 @@
 import Dag from './Dag';
 import DagBranch from './DagBranch';
+import BpxTreeFuelModel from './BpxTreeFuelModel';
 import BpxTreeFuelParticle from './BpxTreeFuelParticle';
 import {
   BpxTreeFuelParticles,
@@ -8,7 +9,6 @@ import {
   BpxTreeFuelCategoryLive,
   BpxTreeFuelBed,
   BpxTreeFuelBedCanopy,
-  BpxTreeFuelModel,
   BpxTreeFuelComplex
 } from './BpxTreeFuel';
 
