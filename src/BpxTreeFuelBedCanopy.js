@@ -1,5 +1,5 @@
 /*
- * @file Defines the BehavePlus Explorer Fuel Bed Canopy
+ * @file Defines the BehavePlus Explorer Fuel Bed Canopy for crown fire fuels.
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
