@@ -51,7 +51,6 @@ class BpxTreeConfigFuel extends DagBranch {
       .item('input', 'entered as input', true)
       .item('estimated', 'estimated from Chaparral depth');
   }
-  connect(/* tree */) {}
 }
 
 class BpxTreeConfigSlope extends DagBranch {
@@ -66,7 +65,6 @@ class BpxTreeConfigSlope extends DagBranch {
       .item('degrees', 'entered as degrees of angle above the horizontal plane')
       .item('map', 'estimated from map measurements');
   }
-  connect(/* tree */) {}
 }
 
 class BpxTreeConfigWind extends DagBranch {
@@ -88,7 +86,6 @@ class BpxTreeConfigWind extends DagBranch {
       .item('at20ft', '20-ft height', true)
       .item('atMidflame', 'midflame height');
   }
-  connect(/* tree */) {}
 }
 
 class BpxTreeConfigFire extends DagBranch {
@@ -115,7 +112,6 @@ class BpxTreeConfigFire extends DagBranch {
     // bp6 #9 Surface > Input Options > Directions > Spread is [head, back, flank, psi, beta]
     // BPX implements all spread direction options at any time
   }
-  connect(/* tree */) {}
 }
 
 class BpxTreeConfigCrown extends DagBranch {
@@ -162,7 +158,6 @@ class BpxTreeConfigCrown extends DagBranch {
     //   .item('estimated', 'estimated from canopy ht and crown base ht', true)
     //   .item('input', 'entered as input');
   }
-  connect(/* tree */) {}
 }
 
 export default class BpxTreeConfigs extends DagBranch {
@@ -174,5 +169,4 @@ export default class BpxTreeConfigs extends DagBranch {
     new BpxTreeConfigFire(this, 'fire');
     new BpxTreeConfigCrown(this, 'crown');
   }
-  connect(/* tree */) {}
 }

@@ -23,9 +23,6 @@ export class BpxTreeFuelParticles extends DagBranch {
     new BpxTreeFuelParticle(this, 'class4');
     new BpxTreeFuelParticle(this, 'class5');
   }
-  connect(/* tree */){
-    // No outside DagLeaf references are required.
-  }
 }
 
 export class BpxTreeFuelCategory extends DagBranch {
