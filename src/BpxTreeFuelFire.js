@@ -17,7 +17,7 @@ export default class BpxTreeFuelFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
-    // Fire spread direction branch
+    // Fire spread direction sub-branch
     const dir = new DagBranch(this, 'direction');
     new DagLeafQuantity(dir, 'slopeRos')
       .desc('spread rate due to the slope coefficient')
@@ -35,7 +35,7 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('directional spread rate at vector')
       .units('fireRos').value(0);
 
-    // Limit branch
+    // Limit sub-branch
     const limit = new DagBranch(this, 'limit');
     new DagLeafQuantity(limit, 'ews')
       .desc('upper limit of the effective wind speed')
@@ -47,7 +47,7 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('upper limit of the fire spread rate')
       .units('fireRos').value(0);
 
-    // Slope branch
+    // Slope sub-branch
     const slope = new DagBranch(this, 'slope');
     new DagLeafQuantity(slope, 'k')
       .desc('slope spread rate coefficient intermediate factor')
@@ -59,7 +59,88 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('slope steepness ratio')
       .units('slopeSteepness').value(0);
 
-    // Wind branch
+    // Spread sub-branch
+    const spread = new DagBranch(this, 'spread');
+
+    // Spread step 1 sub-branch
+    const step1 = new DagBranch(spread, 'step1');
+    let conditions =  ' under upslope wind conditons';
+    new DagLeafQuantity(step1, 'ews')
+      .desc('effective wind speed'+conditions)
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(step1, 'phiEw')
+      .desc('effective wind coefficient'+conditions)
+      .units('factor').value(1);
+    new DagLeafQuantity(step1, 'ros')
+      .desc('spread rate'+conditions)
+      .units('fireRos').value(0);
+
+    // Spread step 2 sub-branch
+    const step2 = new DagBranch(spread, 'step2');
+    conditions = ' under under cross-slope wind conditions without limits';
+    new DagLeafQuantity(step2, 'ews')
+      .desc('effective wind speed'+conditions)
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(step2, 'phiEw')
+      .desc('effective wind coefficient'+conditions)
+      .units('factor').value(1);
+    new DagLeafQuantity(step2, 'ros')
+      .desc('spread rate'+conditions)
+      .units('fireRos').value(0);
+
+    // Spread step 3a sub-branch
+    const step3a = new DagBranch(spread, 'step3a');
+    conditions = ' under cross-slope wind conditions with only the effective wind speed limit applied';
+    new DagLeafQuantity(step3a, 'ews')
+      .desc('effective wind speed'+conditions)
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(step3a, 'phiEw')
+      .desc('effective wind coefficien'+conditions)
+      .units('factor').value(1);
+    new DagLeafQuantity(step3a, 'ros')
+      .desc('spread rate'+conditions)
+      .units('fireRos').value(0);
+
+    // Spread step 3b sub-branch
+    const step3b = new DagBranch(spread, 'step3b');
+    conditions = ' under cross-slope wind conditions with only the rate--of-spread limit applied';
+    new DagLeafQuantity(step3b, 'ews')
+      .desc('effective wind speed'+conditions)
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(step3b, 'phiEw')
+      .desc('effective wind coefficien'+conditions)
+      .units('factor').value(1);
+    new DagLeafQuantity(step3b, 'ros')
+      .desc('spread rate'+conditions)
+      .units('fireRos').value(0);
+
+    // Spread step 4 sub-branch
+    const step4 = new DagBranch(spread, 'step4');
+    conditions = ' under cross-slope wind conditions with limits applied';
+    new DagLeafQuantity(step4, 'ews')
+      .desc('effective wind speed'+conditions)
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(step4, 'phiEw')
+      .desc('effective wind coefficien'+conditions)
+      .units('factor').value(1);
+    new DagLeafQuantity(step4, 'ros')
+      .desc('spread rate'+conditions)
+      .units('fireRos').value(0);
+
+    // Spread step 5 sub-branch
+    const step5 = new DagBranch(spread, 'step5');
+    conditions = ' under current configuration';
+    new DagLeafQuantity(step5, 'ews')
+      .desc('effective wind speed'+conditions)
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(step5, 'phiEw')
+      .desc('effective wind coefficien'+conditions)
+      .units('factor').value(1);
+    new DagLeafQuantity(step5, 'ros')
+      .desc('spread rate'+conditions)
+      .units('fireRos').value(0);
+
+    // Wind sub-branch
     const wind = new DagBranch(this, 'wind');
     new DagLeafQuantity(wind, 'atMidflame')
       .desc('midflame wind speed')
@@ -104,11 +185,8 @@ export default class BpxTreeFuelFire extends DagBranch {
     new DagLeafQuantity(this, 'ros0')
       .desc('no-wind, no-slope fire spread rate')
       .units('fireRos').value(0);
-
-    new DagLeafQuantity(this, 'phiEw')
-      .desc('spread rate cross-slope, cross-wind effective wind coefficient')
-      .units('factor').value(1);
   }
+
   connect( tree ) {
     // External references
     const cfgSpd = tree.configs.wind.speed;
@@ -165,5 +243,18 @@ export default class BpxTreeFuelFire extends DagBranch {
       this.direction.xComp, this.direction.yComp);
     this.headingFromUpslope.calc(BpxLibSurfaceFire.spreadDirFromUpslope,
       this.direction.xComp, this.direction.yComp, this.direction.vectorRos);
+
+    // Step 1 - EWS, WSC, and ROS under Upslope Wind Condition
+
+    // Calculate wind-slope coefficient (phiEw') using method 1
+    this.spread.step1.phiEw.calc(BpxLibMath.sum, this.phiW, this.phiS);
+
+    // Calculate effective wind speed using method 1 from the wind-slope coefficient
+    this.spread.step1.ews.calc(BpxLibSurfaceFire.effectiveWindSpeed,
+      this.spread.step1.phiEw, this.wind.b, this.wind.i);
+
+    // Calculate maximum fire spread rate using method 1
+    this.spread.step1.ros.calc(BpxLibSurfaceFire.rosMax,
+      this.ros0, this.spread.step1.phiEw);
   }
 }
