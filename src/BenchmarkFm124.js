@@ -17,6 +17,9 @@ export const BenchmarkFm124In = {
     },
   },
   site: {
+    map: {
+      scale: 24000,
+    },
     moisture: {
       dead: {
         tl1h: 0.05,
@@ -37,10 +40,12 @@ export const BenchmarkFm124In = {
       },
     },
     temp: {
-      //air: 95,
+      air: 95,
     },
     time: {
-      //sinceIgnition: 60,
+      fire: {
+        sinceIgnition: 60,
+      },
     },
     wind: {
       direction: {
@@ -230,6 +235,7 @@ export const BenchmarkFm124Out = {
             phi: 32.788325298000515,
             waf: 1,
           },
+          distance: 2908.225560,
           effectiveWindSpeed: 880.55684333220040,
           firelineIntensity: 2467.928645,
           flameLength: 16.356317,
@@ -241,7 +247,7 @@ export const BenchmarkFm124Out = {
           reactionIntensity: 12976.692888496578,
           ros: 48.470425993990560,
           ros0: 1.4333245773924823,
-          //scorchHt: 215.682771,
+          scorchHt: 215.682771,
           // ellipse: {
           //   area: 1978607.419499,
           //   length: 2970.072383,

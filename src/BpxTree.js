@@ -8,6 +8,8 @@
  *    - 'map' BpxTreeMap
  *    - 'moisture' BpxTreeMoisture
  *    - 'slope' BpxTreeSlope
+ *    - 'temp' BpxTreeTemp
+ *    - 'time' BpxTreeTime
  *    - 'wind' BpxTreeWind
  *  - 'surface' BpxTreeSurface
  *    - 'fuel' BpxTreeFuel
@@ -26,6 +28,8 @@ import BpxTreeMoisture from './BpxTreeMoisture';
 import BpxTreeConfigs from  './BpxTreeConfigs';
 import BpxTreeMap from './BpxTreeMap';
 import BpxTreeSlope from './BpxTreeSlope';
+import BpxTreeTemp from './BpxTreeTemp';
+import BpxTreeTime from './BpxTreeTime';
 import BpxTreeWind from './BpxTreeWind';
 
 class BpxTreeSite extends Branch {
@@ -35,6 +39,8 @@ class BpxTreeSite extends Branch {
     new BpxTreeMap(this, 'map');
     new BpxTreeMoisture(this, 'moisture');
     new BpxTreeSlope(this, 'slope');
+    new BpxTreeTemp(this, 'temp');
+    new BpxTreeTime(this, 'time');
     new BpxTreeWind(this, 'wind');
   }
 }

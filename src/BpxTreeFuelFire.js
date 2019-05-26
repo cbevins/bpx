@@ -168,9 +168,9 @@ export default class BpxTreeFuelFire extends DagBranch {
       .units('fraction').value(1);
 
     // Directly under *this* BpxTreeFuelFire branch:
-    // new DagLeafQuantity(this, 'distance')
-    //   .desc('maximum fire spread distance')
-    //   .units('fireDistance').value(0);
+    new DagLeafQuantity(this, 'distance')
+      .desc('maximum fire spread distance')
+      .units('fireDistance').value(0);
     new DagLeafQuantity(this, 'effectiveWindSpeed')
       .desc('effective wind speed')
       .units('windSpeed').value(0);
@@ -204,9 +204,9 @@ export default class BpxTreeFuelFire extends DagBranch {
     new DagLeafQuantity(this, 'ros0')
       .desc('no-wind no-slope spread rate')
       .units('fireRos').value(0);
-    // new DagLeafQuantity(this, 'scorchHt')
-    //   .desc('maximum scorch height')
-    //   .units('fireScorch').value(0);
+    new DagLeafQuantity(this, 'scorchHt')
+      .desc('maximum scorch height')
+      .units('fireScorch').value(0);
   }
 
   connect( tree ) {
@@ -226,10 +226,10 @@ export default class BpxTreeFuelFire extends DagBranch {
     const wind = tree.site.wind;
 
     // Access to elapsed time for distance and map distance
-    // const time = tree.site.time.sinceIgnition;
+    const time = tree.site.time;
 
     // Access to air temperature for scorch height
-    // const airTemp = tree.site.temp.air
+    const temp = tree.site.temp;
 
     // Access to map scale for map distances
     const map = tree.site.map;
@@ -489,23 +489,20 @@ export default class BpxTreeFuelFire extends DagBranch {
       .calc(BpxLibSurfaceFire.lengthToWidthRatio,
         this.effectiveWindSpeed);
 
-    // this.scorchHeight
-    //   .calc(BpxLibSurfaceFire.scorchHt,
-    //     this.firelineIntensity,
-    //     this.wind.atMidflame,
-    //     this.temp.air);
+    this.scorchHt
+      .calc(BpxLibSurfaceFire.scorchHt,
+        this.firelineIntensity,
+        this.wind.atMidflame,
+        temp.air);
 
-    // this.distance
-    //   .calc(BpxMathLib.mul,
-    //     this.ros,
-    //     this.time.sinceIgnition);
+    this.distance
+      .calc(BpxLibMath.mul,
+        this.ros,
+        time.fire.sinceIgnition);
 
     // this.map.distance
     //   .calc(BpxLibMath.div,
     //     this.distance,
-    //     this.map.scale);
-
-    // this.area
-    //  .calc()
+    //     map.scale);
   }
 }
