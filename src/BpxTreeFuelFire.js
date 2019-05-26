@@ -6,6 +6,7 @@
  */
 
 import DagBranch from './DagBranch';
+import DagLeafBool from './DagLeafBool';
 import DagLeafQuantity from './DagLeafQuantity';
 
 import BpxLibFuelBed from './BpxLibFuelBed';
@@ -34,6 +35,15 @@ export default class BpxTreeFuelFire extends DagBranch {
     new DagLeafQuantity(dir, 'vectorRos')
       .desc('directional spread rate at vector')
       .units('fireRos').value(0);
+
+    // Exceeded sub-branch
+    const exceeded = new DagBranch(this, 'exceeded');
+    new DagLeafBool(exceeded, 'ews')
+      .desc('effective wind speed limit is exceeded')
+      .value(false);
+    new DagLeafBool(exceeded, 'ros')
+      .desc('spread rate limit is exceeded')
+      .value(false);
 
     // Limit sub-branch
     const limit = new DagBranch(this, 'limit');
@@ -95,7 +105,7 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('effective wind speed'+conditions)
       .units('windSpeed').value(0);
     new DagLeafQuantity(step3a, 'phiEw')
-      .desc('effective wind coefficien'+conditions)
+      .desc('effective wind coefficient'+conditions)
       .units('factor').value(1);
     new DagLeafQuantity(step3a, 'ros')
       .desc('spread rate'+conditions)
@@ -108,7 +118,7 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('effective wind speed'+conditions)
       .units('windSpeed').value(0);
     new DagLeafQuantity(step3b, 'phiEw')
-      .desc('effective wind coefficien'+conditions)
+      .desc('effective wind coefficient'+conditions)
       .units('factor').value(1);
     new DagLeafQuantity(step3b, 'ros')
       .desc('spread rate'+conditions)
@@ -121,22 +131,9 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('effective wind speed'+conditions)
       .units('windSpeed').value(0);
     new DagLeafQuantity(step4, 'phiEw')
-      .desc('effective wind coefficien'+conditions)
+      .desc('effective wind coefficient'+conditions)
       .units('factor').value(1);
     new DagLeafQuantity(step4, 'ros')
-      .desc('spread rate'+conditions)
-      .units('fireRos').value(0);
-
-    // Spread step 5 sub-branch
-    const step5 = new DagBranch(spread, 'step5');
-    conditions = ' under current configuration';
-    new DagLeafQuantity(step5, 'ews')
-      .desc('effective wind speed'+conditions)
-      .units('windSpeed').value(0);
-    new DagLeafQuantity(step5, 'phiEw')
-      .desc('effective wind coefficien'+conditions)
-      .units('factor').value(1);
-    new DagLeafQuantity(step5, 'ros')
       .desc('spread rate'+conditions)
       .units('fireRos').value(0);
 
@@ -170,91 +167,345 @@ export default class BpxTreeFuelFire extends DagBranch {
       .desc('applied midflame wind speed adjustment factor')
       .units('fraction').value(1);
 
+    // Directly under *this* BpxTreeFuelFire branch:
+    // new DagLeafQuantity(this, 'distance')
+    //   .desc('maximum fire spread distance')
+    //   .units('fireDistance').value(0);
+    new DagLeafQuantity(this, 'effectiveWindSpeed')
+      .desc('effective wind speed')
+      .units('windSpeed').value(0);
+    new DagLeafQuantity(this, 'firelineIntensity')
+      .desc('maximum fireline intensity')
+      .units('fireFli').value(0);
+    new DagLeafQuantity(this, 'flameLength')
+      .desc('maximum flame length')
+      .units('fireFlame').value(0);
     new DagLeafQuantity(this, 'flameResidenceTime')
       .desc('flame residence time')
       .units('timeMin').value(0);
     new DagLeafQuantity(this, 'headingFromUpslope')
       .desc('direction of maximum spread, degrees clockwise from upslope')
       .units('azimuth').value(0);
-    new DagLeafQuantity(this, 'hpua')
+    new DagLeafQuantity(this, 'heatPerUnitArea')
       .desc('heat per unit area')
       .units('fireHpua').value(0);
+    new DagLeafQuantity(this, 'lengthToWidthRatio')
+      .desc('fire ellipse length-to-width ratio')
+      .units('fireLwr').value(1);
+    new DagLeafQuantity(this, 'phiEw')
+      .desc('effective wind coefficient')
+      .units('factor').value(1);
     new DagLeafQuantity(this, 'reactionIntensity')
       .desc('reaction intensity')
       .units('fireRxi').value(0);
-    new DagLeafQuantity(this, 'ros0')
-      .desc('no-wind, no-slope fire spread rate')
+    new DagLeafQuantity(this, 'ros')
+      .desc('maximum spread rate')
       .units('fireRos').value(0);
+    new DagLeafQuantity(this, 'ros0')
+      .desc('no-wind no-slope spread rate')
+      .units('fireRos').value(0);
+    // new DagLeafQuantity(this, 'scorchHt')
+    //   .desc('maximum scorch height')
+    //   .units('fireScorch').value(0);
   }
 
   connect( tree ) {
-    // External references
+    // Required external references
+    // Access to bed.{reactionIntensity, ros0, openWaf}
+    const bed = this.own.parent.bed;
+    // Acces to wind speed and WAF configuration
+    const cfgEws = tree.configs.fire.ewsLimit;
     const cfgSpd = tree.configs.wind.speed;
     const cfgWaf = tree.configs.fuel.waf;
+    // Access to canopy.{sheltersFuel, shelteredWaf}
     const canopy = tree.site.canopy;
+    // Access to slope.steepness.ratio
     const slope = tree.site.slope;
+    // Access to wind.speed.{at20ft, atMidflame, waf},
+    // and wind.direction.headingFromUpslope
     const wind = tree.site.wind;
-    const bed = this.own.parent.bed;
 
-    this.reactionIntensity.bind(bed.reactionIntensity);
-    this.ros0.bind(bed.ros0);
-    this.slope.ratio.bind(slope.steepness.ratio);
-    this.wind.headingFromUpslope.bind(wind.direction.headingFromUpslope);
+    // Access to elapsed time for distance and map distance
+    // const time = tree.site.time.sinceIgnition;
+
+    // Access to air temperature for scorch height
+    // const airTemp = tree.site.temp.air
+
+    // Access to map scale for map distances
+    const map = tree.site.map;
+
+    this.reactionIntensity
+      .bind(bed.reactionIntensity);
+    this.ros0
+      .bind(bed.ros0);
+    this.slope.ratio
+      .bind(slope.steepness.ratio);
+    this.wind.headingFromUpslope
+      .bind(wind.direction.headingFromUpslope);
 
     // WAF is either from the site's input WAF or calculated from canopy inputs and fuel depth
     this.wind.waf
       .bindIf(cfgWaf, 'input', wind.speed.waf)
-      .calc(BpxLibFuelBed.waf, canopy.sheltersFuel, canopy.shelteredWaf, bed.openWaf);
+      .calc(BpxLibFuelBed.waf,
+        canopy.sheltersFuel,
+        canopy.shelteredWaf,
+        bed.openWaf);
 
     // Midflame wind speed is either from the site midflame windspeed,
     // or estimated from the site's 20-ft windspeed and this fuel bed's WAF
     this.wind.atMidflame
       .bindIf(cfgSpd, 'atMidflame', wind.speed.atMidflame)
-      .calc(BpxLibWind.atMidflame, wind.speed.at20ft, this.wind.waf)
+      .calc(BpxLibWind.atMidflame,
+        wind.speed.at20ft,
+        this.wind.waf)
 
-    this.flameResidenceTime.calc(BpxLibFuelBed.taur, bed.savr);
-    this.hpua.calc(BpxLibMath.mul, this.reactionIntensity, this.flameResidenceTime);
+    this.flameResidenceTime
+      .calc(BpxLibFuelBed.taur,
+        bed.savr);
+    this.heatPerUnitArea
+      .calc(BpxLibMath.mul,
+        this.reactionIntensity,
+        this.flameResidenceTime);
 
     // Fuel bed wind-slope factors
-    this.slope.k.calc(BpxLibFuelBed.slopeK, bed.packingRatio);
-    this.slope.phi.calc(BpxLibSurfaceFire.phiS, this.slope.ratio, this.slope.k);
-    this.wind.b.calc(BpxLibFuelBed.windB, bed.savr);
-    this.wind.c.calc(BpxLibFuelBed.windC, bed.savr);
-    this.wind.e.calc(BpxLibFuelBed.windE, bed.savr);
-    this.wind.k.calc(BpxLibFuelBed.windK, bed.packingRatioRatio, this.wind.e, this.wind.c);
-    this.wind.i.calc(BpxLibFuelBed.windI, bed.packingRatioRatio, this.wind.e, this.wind.c);
-    this.wind.phi.calc(BpxLibSurfaceFire.phiW, this.wind.atMidflame, this.wind.b, this.wind.k);
+    this.slope.k
+      .calc(BpxLibFuelBed.slopeK,
+        bed.packingRatio);
+    this.slope.phi
+      .calc(BpxLibSurfaceFire.phiS,
+        this.slope.ratio,
+        this.slope.k);
+    this.wind.b
+      .calc(BpxLibFuelBed.windB,
+        bed.savr);
+    this.wind.c
+      .calc(BpxLibFuelBed.windC,
+        bed.savr);
+    this.wind.e
+      .calc(BpxLibFuelBed.windE,
+        bed.savr);
+    this.wind.k
+      .calc(BpxLibFuelBed.windK,
+        bed.packingRatioRatio,
+        this.wind.e,
+        this.wind.c);
+    this.wind.i
+      .calc(BpxLibFuelBed.windI,
+        bed.packingRatioRatio,
+        this.wind.e,
+        this.wind.c);
+    this.wind.phi
+      .calc(BpxLibSurfaceFire.phiW,
+        this.wind.atMidflame,
+        this.wind.b,
+        this.wind.k);
 
     // Fuel bed effective wind, wind coefficient, and spread rate limits
-    this.limit.ews.calc(BpxLibFuelBed.ewsLimit, this.reactionIntensity);
-    this.limit.phi.calc(BpxLibFuelBed.phiLimit, this.limit.ews, this.wind.b, this.wind.k);
-    this.limit.ros.calc(BpxLibFuelBed.rosLimit, this.ros0, this.limit.phi);
+    this.limit.ews
+      .calc(BpxLibFuelBed.ewsLimit,
+        this.reactionIntensity);
+    this.limit.phi
+      .calc(BpxLibFuelBed.phiLimit,
+        this.limit.ews,
+        this.wind.b,
+        this.wind.k);
+    this.limit.ros
+      .calc(BpxLibFuelBed.rosLimit,
+        this.ros0,
+        this.limit.phi);
 
     // Direction of maximum spread
-    this.direction.slopeRos.calc(BpxLibSurfaceFire.spreadDirSlopeRate,
-      this.ros0, this.slope.phi);
-    this.direction.windRos.calc(BpxLibSurfaceFire.spreadDirWindRate,
-      this.ros0, this.wind.phi);
-    this.direction.xComp.calc(BpxLibSurfaceFire.spreadDirXComp,
-      this.direction.windRos, this.direction.slopeRos, this.wind.headingFromUpslope);
-    this.direction.yComp.calc(BpxLibSurfaceFire.spreadDirYComp,
-      this.direction.windRos, this.wind.headingFromUpslope);
-    this.direction.vectorRos.calc(BpxLibSurfaceFire.spreadDirVectorRate,
-      this.direction.xComp, this.direction.yComp);
-    this.headingFromUpslope.calc(BpxLibSurfaceFire.spreadDirFromUpslope,
-      this.direction.xComp, this.direction.yComp, this.direction.vectorRos);
+    this.direction.slopeRos
+      .calc(BpxLibSurfaceFire.spreadDirSlopeRate,
+        this.ros0,
+        this.slope.phi);
+    this.direction.windRos
+      .calc(BpxLibSurfaceFire.spreadDirWindRate,
+        this.ros0,
+        this.wind.phi);
+    this.direction.xComp
+      .calc(BpxLibSurfaceFire.spreadDirXComp,
+        this.direction.windRos,
+        this.direction.slopeRos,
+        this.wind.headingFromUpslope);
+    this.direction.yComp
+      .calc(BpxLibSurfaceFire.spreadDirYComp,
+        this.direction.windRos,
+        this.wind.headingFromUpslope);
+    this.direction.vectorRos
+      .calc(BpxLibSurfaceFire.spreadDirVectorRate,
+        this.direction.xComp,
+        this.direction.yComp);
+    this.headingFromUpslope
+      .calc(BpxLibSurfaceFire.spreadDirFromUpslope,
+        this.direction.xComp,
+        this.direction.yComp,
+        this.direction.vectorRos);
 
     // Step 1 - EWS, WSC, and ROS under Upslope Wind Condition
 
     // Calculate wind-slope coefficient (phiEw') using method 1
-    this.spread.step1.phiEw.calc(BpxLibMath.sum, this.phiW, this.phiS);
+    this.spread.step1.phiEw
+      .calc(BpxLibMath.sum,
+        this.phiW,
+        this.phiS);
 
     // Calculate effective wind speed using method 1 from the wind-slope coefficient
-    this.spread.step1.ews.calc(BpxLibSurfaceFire.effectiveWindSpeed,
-      this.spread.step1.phiEw, this.wind.b, this.wind.i);
+    this.spread.step1.ews
+      .calc(BpxLibSurfaceFire.effectiveWindSpeed,
+        this.spread.step1.phiEw,
+        this.wind.b,
+        this.wind.i);
 
     // Calculate maximum fire spread rate using method 1
-    this.spread.step1.ros.calc(BpxLibSurfaceFire.rosMax,
-      this.ros0, this.spread.step1.phiEw);
+    this.spread.step1.ros
+      .calc(BpxLibSurfaceFire.rosMax,
+        this.ros0,
+        this.spread.step1.phiEw);
+
+    // Step 2 - EWS, WSC, and ROS under *Cross-slope Wind Condition* without Limits
+
+    // Calculate maximum fire spread rate using method 2
+    this.spread.step2.ros
+      .calc(BpxLibSurfaceFire.rosMaxCrossSlopeWind,
+        this.ros0,
+        this.direction.vectorRos);
+
+    // Calculate wind-slope coefficient (phiEw') using method 2
+    this.spread.step2.phiEw
+      .calc(BpxLibSurfaceFire.phiEwInferred,
+        this.ros0,
+        this.spread.step2.ros);
+
+    // Calculate effective wind speed using method 1 from the wind-slope coefficient
+    this.spread.step2.ews
+      .calc(BpxLibSurfaceFire.effectiveWindSpeed,
+        this.spread.step2.phiEw,
+        this.wind.b,
+        this.wind.i);
+
+    // Step 3A - EWS, WSC, and ROS under Cross-slope Wind Condition
+    //           with Only the Effective Wind Speed Limit Applied
+
+    // Is the effective wind speed limit exceeded?
+    this.exceeded.ews
+      .calc(BpxLibMath.gt,
+        this.spread.step2.ews,
+        this.limit.ews);
+
+    // Effective wind speed 3A is the minimum of EWS from Step 2 and the EWS limit
+    this.spread.step3a.ews
+      .calc(Math.min,
+        this.spread.step2.ews,
+        this.limit.ews);
+
+    // Wind-slope coefficient 3A is the mimimum of WSC from Step 2 and the WSC limit
+    this.spread.step3a.phiEw
+      .calc(Math.min,
+        this.spread.step2.phiEw,
+        this.limit.phiEw);
+
+    // Maximum spread rate 3A is the minimum of ROS from Step 2 and the Max ROS limit
+    this.spread.step3a.ros
+      .calc(Math.min,
+        this.spread.step2.ros,
+        this.limit.ros);
+
+    // Step 3B - EWS, WSC, and ROS under Cross-slope Wind Condition
+    //           with Only the Rate of Spread Limit Applied
+    // because Pat sez fire spread rate cannot exceed the effective wind speed
+
+    // Maximum fire spread rate is ROS and EWS from Step 2 with ros limit applied
+    this.spread.step3b.ros
+      .calc(BpxLibSurfaceFire.rosMaxRosLimitApplied,
+        this.spread.step2.ros,
+        this.spread.step2.ews)
+
+    // ROS limit is exceeded if ROS from Step 2 is greater than ROS from Step 3b
+    this.exceeded.ros
+      .calc(BpxLibMath.gt,
+        this.spread.step2.ros,
+        this.spread.step3b.ros);
+
+    // Wind-slope coefficient must be recalculated using method 2
+    this.spread.step3b.phiEw
+      .calc(BpxLibSurfaceFire.phiEwInferred,
+        this.ros0,
+        this.spread.step3b.ros);
+
+    // The effective wind speed must be recalculated using method 1
+    this.spread.step3b.ews
+      .calc(BpxLibSurfaceFire.effectiveWindSpeed,
+        this.spread.step3b.phiEw,
+        this.wind.b,
+        this.wind.i);
+
+    // Step 4 - Cross-slope Wind Condition with BOTH the Effective Wnd Speed
+    //          AND the Spread Rate Limits Applied
+
+    // Apply the ROS limits to the EWS-limited spread rate
+    this.spread.step4.ros
+      .calc(BpxLibSurfaceFire.rosMaxRosLimitApplied,
+        this.spread.step3a.ros,
+        this.spread.step3a.ews)
+
+    // Wind-slope coefficient must be recalculated using method 2
+    this.spread.step4.phiEw
+    .calc(BpxLibSurfaceFire.phiEwInferred,
+      this.ros0,
+      this.spread.step4.ros);
+
+    // The effective wind speed must be recalculated using method 1
+    this.spread.step4.ews
+      .calc(BpxLibSurfaceFire.effectiveWindSpeed,
+        this.spread.step4.phiEw,
+        this.wind.b,
+        this.wind.i);
+
+    // Step 5 - Final ROS, EWS, and WSC values based on client preferences
+    this.ros
+      .bindIf(cfgEws, 'applied', this.spread.step4.ros)
+      .bind(this.spread.step3b.ros);
+
+    this.phiEw
+      .bindIf(cfgEws, 'applied', this.spread.step4.phiEw)
+      .bind(this.spread.step3b.phiEw);
+
+    this.effectiveWindSpeed
+      .bindIf(cfgEws, 'applied', this.spread.step4.ews)
+      .bind(this.spread.step3b.ews);
+
+    this.firelineIntensity
+      .calc(BpxLibSurfaceFire.firelineIntensity,
+        this.ros,
+        this.reactionIntensity,
+        this.flameResidenceTime);
+
+    this.flameLength
+      .calc(BpxLibSurfaceFire.flameLength,
+        this.firelineIntensity);
+
+    this.lengthToWidthRatio
+      .calc(BpxLibSurfaceFire.lengthToWidthRatio,
+        this.effectiveWindSpeed);
+
+    // this.scorchHeight
+    //   .calc(BpxLibSurfaceFire.scorchHt,
+    //     this.firelineIntensity,
+    //     this.wind.atMidflame,
+    //     this.temp.air);
+
+    // this.distance
+    //   .calc(BpxMathLib.mul,
+    //     this.ros,
+    //     this.time.sinceIgnition);
+
+    // this.map.distance
+    //   .calc(BpxLibMath.div,
+    //     this.distance,
+    //     this.map.scale);
+
+    // this.area
+    //  .calc()
   }
 }

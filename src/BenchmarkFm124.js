@@ -36,6 +36,12 @@ export const BenchmarkFm124In = {
         ratio: 0.25,
       },
     },
+    temp: {
+      //air: 95,
+    },
+    time: {
+      //sinceIgnition: 60,
+    },
     wind: {
       direction: {
         sourceFromNorth: 270,
@@ -64,8 +70,11 @@ export const BenchmarkFm124Out = {
           area: 29.062930440771346,
           bulkDensity: 0.27985482530937067,
           depth: 2.1,
+          domain: 'behave',
           heatPreignition: 319.21640437931171 / 0.27985482530937067,
           heatSink: 319.21640437931171,
+          load: null,
+          openWaf: null,
           packingRatio: 0.0087454632909178334,
           packingRatioOptimum: 0.0078357185983373434,
           packingRatioRatio: 1.1161022669667500,
@@ -76,24 +85,27 @@ export const BenchmarkFm124Out = {
           reactionVelocityOpt: 14.908876941781589,
           ros0: 1.4333245773924823,
           savr: 1631.1287341340956,
+          savr15: null,
           dead: {
             area: 11.030790863177224,
             awtg: 0.37954847277556436,
-            // efld:
+            efld: null,
             efwl: 0.0098866289779641001,
             efmc: 0.050405399380187531,
-            // pprc:
-            // qign:
-            moistureDamping: 0.74884711762612932,
-            mois: 0.050100676116867547,
-            rxi: 7316.0935560142625,
             heat: 8000,
+            load: null,
+            //loadWtd: 0.20777819078484744,  // wtd
+            mext: 0.4,
             mineralDamping: 0.41739692790939131,
+            mois: 0.050100676116867547,
+            moistureDamping: 0.74884711762612932,
+            pprc: null,
+            qign: null,
+            rxi: 7316.0935560142625,
             rxiDry: 9769.8093293148086,
             savr: 1682.0151742581315,
             seff: 0.01,
-            // swtg: [0.99535641166386157, 0.0, 0.0042533708289000296, 0.0,
-            // 0.00039021750723853486, 0.0],
+            // swtg: [0.99535641166386157, 0.0, 0.0042533708289000296, 0.0, 0.00039021750723853486, 0.0],
             wnet: (1 - 0.0555) * 0.20777819078484744,
             particle: {
               class1: {
@@ -129,17 +141,19 @@ export const BenchmarkFm124Out = {
           live: {
             area: 18.032139577594119,
             awtg: 0.62045152722443553,
-            // efld:
-            // efwl:
-            // efmc:
-            // pprc:
-            // qign:
-            moistureDamping: 0.33380976126895767,
-            mois: 1.4039058919386871,
-            rxi: 5660.5993324823157,
-            mineralDamping: 0.41739692790939131,
+            efld: null,
+            efwl: null,
+            efmc: null,
             heat: 8000,
-            // herbLoad: 0.034655647382920124,
+            //load: 0.034655647382920124,
+            load: 0.36064279155188239,
+            mineralDamping: 0.41739692790939131,
+            mois: 1.4039058919386871,
+            moistureDamping: 0.33380976126895767,
+            pprc: null,
+            qign: null,
+            rxi: 5660.5993324823157,
+            //herbLoad: 0.034655647382920124,
             mext: 1.6581421656244677,
             mxtk: 2.1558023634049093,
             rxiDry: 16957.560830348066,
@@ -216,13 +230,33 @@ export const BenchmarkFm124Out = {
             phi: 32.788325298000515,
             waf: 1,
           },
+          effectiveWindSpeed: 880.55684333220040,
+          firelineIntensity: 2467.928645,
+          flameLength: 16.356317,
           flameResidenceTime: 0.23541979977677915,
           headingFromUpslope: 87.613728665173383,
-          hpua: 12976.692888496578 * 0.23541979977677915, // about 3054.970442,
-          // phiEw: 32.816782854703028,
-          flameResidenceTime: null,
+          heatPerUnitArea: 12976.692888496578 * 0.23541979977677915, // about 3054.970442,
+          lengthToWidthRatio: 3.501582,
+          phiEw: 32.816782854703028,
           reactionIntensity: 12976.692888496578,
+          ros: 48.470425993990560,
           ros0: 1.4333245773924823,
+          //scorchHt: 215.682771,
+          // ellipse: {
+          //   area: 1978607.419499,
+          //   length: 2970.072383,
+          //   perimeter: 6469.728229;
+          //   width: 848.208733,
+          //   head: {
+          //     distance: 2908.225560,
+          //   },
+          //   flank: {
+          //     distance: 424.104367,
+          //   },
+          //   back: {
+          //     distance: 61.846824,
+          //   },
+          // }
         },  // fire
       },  // primary
     },  // fuel

@@ -36,6 +36,12 @@ export const BenchmarkFm010In = {
         ratio: 0.25,
       },
     },
+    temp: {
+      //air: 95,
+    },
+    time: {
+      //sinceIgnition: 60,
+    },
     wind: {
       direction: {
         sourceFromNorth: 270,
@@ -88,18 +94,18 @@ export const BenchmarkFm010Out = {
             efmc: 0.053892078848839550,
             heat: 8000,
             load: 0.46,
-            pprc: null,
-            qign: null,
             mext: 0.25,
             mineralDamping: 0.41739692790939131,
             mois: 0.051626884422110553,
             moistureDamping: 0.65206408989980214,
+            pprc: null,
+            qign: null,
             rxi: 3612.4074071954024,
             rxiDry: 5539.9575948899355,
             savr: 1888.8602386934672,
             seff: 0.01,
             swtg: null,
-            // wnet: (1 - 0.0555) * 0.46,
+            wnet: (1 - 0.0555) * 0.13859233668341708,
             particle: {
               class1: {
                 area: 8.625,
@@ -160,16 +166,16 @@ export const BenchmarkFm010Out = {
             efld: 0.065920880572788609,
             efwl: null,
             efmc: null,
+            heat: 8000,
             load: 0.092,
-            pprc: null,
-            qign: null,
+            mext: 5.1935979022741359,
+            mineralDamping: 0.41739692790939131,
             moistureDamping: 0.59341294014849078,
             mois: 1.5,
-            rxi: 2182.2879930337140,
-            mineralDamping: 0.41739692790939131,
-            heat: 8000,
-            mext: 5.1935979022741359,
             mxtk: 6.9089482342948010,
+            pprc: null,
+            qign: null,
+            rxi: 2182.2879930337140,
             rxiDry: 3677.5200629895871,
             savr: 1500,
             seff: 0.01,
@@ -254,12 +260,33 @@ export const BenchmarkFm010Out = {
             phi: 26.298112107312534,
             waf: 1,
           },
+          effectiveWindSpeed: 880.55194372010692,
+          firelineIntensity: 389.954137,
+          flameLength: 6.999689,
           flameResidenceTime: 0.21764611427384198,
           headingFromUpslope: 87.573367385837855,
-          hpua: 5794.6954002291168 * 0.21764611427384198, // about 1261.192937
+          heatPerUnitArea: 5794.6954002291168 * 0.21764611427384198, // about 1261.192937
+          lengthToWidthRatio: 3.501568,
+          phiEw: 26.321715915373524,
           reactionIntensity: 5794.6954002291168,
+          ros: 18.551680325448835,
           ros0: 0.67900860922904482,
-          //phiEw: 26.321715915373524,
+          //scorchHt: 39.580182,
+        //   ellipse: {
+        //     area: 289850.691417,
+        //     length: 1136.772409,
+        //     perimeter: 2476.240100,
+        //     width: 324.646673,
+        //     head:{
+        //       distance: 1113.100820,
+        //     },
+        //     flank: {
+        //       distance: 162.3233337,
+        //     },
+        //     back: {
+        //       distance: 23.671589,
+        //     },
+        //   },
         },  // fire
       },  // primary
     },  // fuel

@@ -2,7 +2,7 @@ import Dag from './Dag';
 import { BenchmarkFm010In, BenchmarkFm010Out } from './BenchmarkFm010';
 import { BenchmarkFm124In, BenchmarkFm124Out } from './BenchmarkFm124';
 
-function approx(desc, actual, expected, prec = 9) {
+function approx(desc, actual, expected, prec = 7) {
   if (typeof expected === 'number') {
     let result = actual.toPrecision(prec) === expected.toPrecision(prec);
     if ( ! result ) {

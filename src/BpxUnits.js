@@ -92,6 +92,13 @@ const BpxUnits = {
     },
     min: 0,
   },
+  fireLwr: {
+    uom: {
+      base: { fraction: 1 },
+      alt1: { percent: 1 },
+    },
+    min: 1,
+  },
   fireRos: {
     uom: {
       base: { ft: 1, min: -1 },
@@ -112,6 +119,13 @@ const BpxUnits = {
   fireRxv: {
     uom: {
       base: { min: -1 },
+    },
+    min: 0,
+  },
+  fireScorch: {
+    uom: {
+      base: { ft: 1 },
+      alt1: { m: 1 },
     },
     min: 0,
   },
