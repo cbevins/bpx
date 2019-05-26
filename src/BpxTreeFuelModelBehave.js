@@ -72,7 +72,7 @@ export default class BpxTreeFuelModelBehave extends DagBranch {
       .units('fuelLoad').value(0);
   }
 
-  // Called from [primary|secondary|crown].connect()
+  // Called from parent BpxTreeFuelModel.connect()
   subconnect(cfgFuel, cfgCuredHerb, moistureLiveHerb, modelKey) {
     // Dag.ensureDefined('BpxTreeFuelModelBehave.subconnect',
     //   {cfgCuredHerb, cfgFuel, moistureLiveHerb, modelKey});

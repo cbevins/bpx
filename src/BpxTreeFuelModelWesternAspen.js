@@ -57,6 +57,7 @@ export default class BpxTreeFuelModelWesternAspen extends DagBranch {
       .units('fuelLoad').value(0);
   }
 
+  // Called from parent BpxTreeFuelModel.connect()
   subconnect(cfgFuel, modelKey) {
     const { parms } = this;
     const { derived } = this;
