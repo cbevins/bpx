@@ -15,6 +15,9 @@
  *    - 'fuel' BpxTreeFuel
  *      - 'primary' BpxTreeFuelComplex
  *      - 'secondary' BpxTreeFuelComplex
+ *    - 'fire' BpxTreeSurfaceFire
+ *      - 'weighted' BpxTreeFireWeighted
+ *      - 'ellipse' BpxTreeFireEllipse
  *
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
@@ -23,6 +26,7 @@
 
 import Branch from './DagBranch';
 import BpxTreeCanopy from './BpxTreeCanopy';
+import BpxTreeFireWeighted from './BpxTreeFireWeighted';
 import BpxTreeFuel from './BpxTreeFuel';
 import BpxTreeMoisture from './BpxTreeMoisture';
 import BpxTreeConfigs from  './BpxTreeConfigs';
@@ -45,10 +49,19 @@ class BpxTreeSite extends Branch {
   }
 }
 
+class BpxTreeSurfaceFire extends Branch {
+  constructor(parent, name) {
+    super(parent, name);
+    new BpxTreeFireWeighted(this, 'weighted');
+    //new BpxTreeFireEllipse(this, 'ellipse');
+  }
+}
+
 class BpxTreeSurface extends Branch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeFuel(this, 'fuel');
+    new BpxTreeSurfaceFire(this, 'fire');
   }
 }
 

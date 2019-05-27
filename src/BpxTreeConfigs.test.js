@@ -87,8 +87,8 @@ test('1: verify BpxTreeConfigs branch structure', () => {
   expect(leaf.value('applied').value()).toEqual('applied');
   expect(() => { leaf.value('junk'); }).toThrow();
 
-  leaf = configs.fire.maxRos;
-  expect(leaf.name()).toEqual('maxRos');
+  leaf = configs.fire.weightingMethod;
+  expect(leaf.name()).toEqual('weightingMethod');
   expect(leaf.value()).toEqual('harmonic');
   expect(leaf.value('arithmetic').value()).toEqual('arithmetic');
   expect(leaf.value('expected').value()).toEqual('expected');

@@ -97,7 +97,7 @@ class BpxTreeConfigFire extends DagBranch {
       .item('applied', 'applied', true)
       .item('ignored', 'ignored');
     // New to BPX
-    new DagLeafConfig(this, 'maxRos')
+    new DagLeafConfig(this, 'weightingMethod')
       .header('Maximum fire spread rate of 2 surface fuel types is based on')
       .item('arithmetic', 'arithmetic mean spread rate')
       .item('expected', 'expected value spread rate')

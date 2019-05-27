@@ -142,7 +142,7 @@ export default class BpxTreeFuelFire extends DagBranch {
     new DagLeafQuantity(wind, 'atMidflame')
       .desc('midflame wind speed')
       .units('windSpeed').value(0);
-      new DagLeafQuantity(wind, 'b')
+    new DagLeafQuantity(wind, 'b')
       .desc('wind spread rate coefficient intermediate factor B')
       .units('factor').value(1);
     new DagLeafQuantity(wind, 'c')
@@ -168,9 +168,9 @@ export default class BpxTreeFuelFire extends DagBranch {
       .units('fraction').value(1);
 
     // Directly under *this* BpxTreeFuelFire branch:
-    new DagLeafQuantity(this, 'distance')
-      .desc('maximum fire spread distance')
-      .units('fireDistance').value(0);
+    // new DagLeafQuantity(this, 'distance')
+    //   .desc('maximum fire spread distance')
+    //   .units('fireDistance').value(0);
     new DagLeafQuantity(this, 'effectiveWindSpeed')
       .desc('effective wind speed')
       .units('windSpeed').value(0);
@@ -204,35 +204,26 @@ export default class BpxTreeFuelFire extends DagBranch {
     new DagLeafQuantity(this, 'ros0')
       .desc('no-wind no-slope spread rate')
       .units('fireRos').value(0);
-    new DagLeafQuantity(this, 'scorchHt')
-      .desc('maximum scorch height')
-      .units('fireScorch').value(0);
+    // new DagLeafQuantity(this, 'scorchHt')
+    //   .desc('maximum scorch height')
+    //   .units('fireScorch').value(0);
   }
 
   connect( tree ) {
     // Required external references
-    // Access to bed.{reactionIntensity, ros0, openWaf}
+    // Requires 3 bed leafs: reactionIntensity, ros0, openWaf
     const bed = this.own.parent.bed;
-    // Acces to wind speed and WAF configuration
+    // Requires 3 configurations:
     const cfgEws = tree.configs.fire.ewsLimit;
     const cfgSpd = tree.configs.wind.speed;
     const cfgWaf = tree.configs.fuel.waf;
-    // Access to canopy.{sheltersFuel, shelteredWaf}
+    // Requires 2 canopy leafs: sheltersFuel, shelteredWaf
     const canopy = tree.site.canopy;
-    // Access to slope.steepness.ratio
+    // Requires 1 slope.steepness leaf: ratio
     const slope = tree.site.slope;
-    // Access to wind.speed.{at20ft, atMidflame, waf},
-    // and wind.direction.headingFromUpslope
+    // Requires 3 wind.speed leafs: at20ft, atMidflame, waf
+    // and 1 wind.direction leaf: headingFromUpslope
     const wind = tree.site.wind;
-
-    // Access to elapsed time for distance and map distance
-    const time = tree.site.time;
-
-    // Access to air temperature for scorch height
-    const temp = tree.site.temp;
-
-    // Access to map scale for map distances
-    const map = tree.site.map;
 
     this.reactionIntensity
       .bind(bed.reactionIntensity);
@@ -488,21 +479,5 @@ export default class BpxTreeFuelFire extends DagBranch {
     this.lengthToWidthRatio
       .calc(BpxLibSurfaceFire.lengthToWidthRatio,
         this.effectiveWindSpeed);
-
-    this.scorchHt
-      .calc(BpxLibSurfaceFire.scorchHt,
-        this.firelineIntensity,
-        this.wind.atMidflame,
-        temp.air);
-
-    this.distance
-      .calc(BpxLibMath.mul,
-        this.ros,
-        time.fire.sinceIgnition);
-
-    // this.map.distance
-    //   .calc(BpxLibMath.div,
-    //     this.distance,
-    //     map.scale);
   }
 }

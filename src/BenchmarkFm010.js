@@ -265,7 +265,6 @@ export const BenchmarkFm010Out = {
             phi: 26.298112107312534,
             waf: 1,
           },
-          distance: 1113.100820,
           effectiveWindSpeed: 880.55194372010692,
           firelineIntensity: 389.954137,
           flameLength: 6.999689,
@@ -277,7 +276,6 @@ export const BenchmarkFm010Out = {
           reactionIntensity: 5794.6954002291168,
           ros: 18.551680325448835,
           ros0: 0.67900860922904482,
-          scorchHt: 39.580182,
         //   ellipse: {
         //     area: 289850.691417,
         //     length: 1136.772409,
@@ -285,6 +283,7 @@ export const BenchmarkFm010Out = {
         //     width: 324.646673,
         //     head:{
         //       distance: 1113.100820,
+        //       scorchHt: 39.580182,
         //     },
         //     flank: {
         //       distance: 162.3233337,

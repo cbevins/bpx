@@ -16,10 +16,9 @@
  * @license MIT
 **/
 
-import BpxLibCompass from './BpxLibCompass';
 import BpxLibFuelBed from './BpxLibFuelBed';
 
-export default class BpxLibSurfaceFuel {
+export default class BpxLibSurfaceFire {
   /**
    * Calculate the distance given the velocity and elapsed time.
    *
