@@ -67,7 +67,7 @@ export const BenchmarkFm124In = {
   },
 };
 
-export const BenchmarkFm124Out = {
+export const BenchmarkFm124FuelOut = {
   surface: {
     fuel: {
       primary: {
@@ -184,7 +184,7 @@ export const BenchmarkFm124Out = {
               },
             },
           }, // live
-        },
+        },  // bed
         model: {
           key: '124',
           domain: 'behave',
@@ -205,14 +205,23 @@ export const BenchmarkFm124Out = {
               liveHeat: 8000,
             },
           },
-        },
+        },  // model
+      },  // primary
+    },  // fuel
+  },  // surface
+}
+
+export const BenchmarkFm124FireOut = {
+  surface: {
+    fuel: {
+      primary: {
         fire: {
           direction: {
-            slopeRos: null,
-            windRos: null,
-            vectorRos: null,
-            xComp: null,
-            yComp: null,
+            slopeRos: 1.9584486222621447,
+            windRos: 46.996312501163828,
+            vectorRos: 47.037101416598077,
+            xComp: 1.9584486126230398,
+            yComp: 46.996312501163828,
           },
           limit: {
             ews: 11679.023599646920,
@@ -246,24 +255,62 @@ export const BenchmarkFm124Out = {
           reactionIntensity: 12976.692888496578,
           ros: 48.470425993990560,
           ros0: 1.4333245773924823,
-          // ellipse: {
-          //   area: 1978607.419499,
-          //   length: 2970.072383,
-          //   perimeter: 6469.728229;
-          //   width: 848.208733,
-          //   head: {
-          //     distance: 2908.225560,
-          //     scorchHt: 215.682771,
-          //   },
-          //   flank: {
-          //     distance: 424.104367,
-          //   },
-          //   back: {
-          //     distance: 61.846824,
-          //   },
-          // }
         },  // fire
       },  // primary
     },  // fuel
+  },  // surface
+}
+
+export const BenchmarkFm124EllipseOut = {
+  surface: {
+    fire: {
+      ellipse: {
+        axis: {
+          eccentricity: 0.95835332217217739,
+          lengthToWidthRatio: 3.5015819412846603,
+          major: 1.0307803973340242 + 48.470425993990560,
+          minor: 2 * 7.0684061120619655,
+          f: 1485.0361917397374 / 60.,
+          g: 1423.1893678996960 / 60.,
+          h: 424.10436672371787 / 60.,
+        },
+        size: {
+          area: 45.422576205218135*(66.*660.),
+          length: 2970.0723834794749,
+          perimeter: 6469.7282289420209,
+          width: 848.20873344743575,
+        },
+        map: {
+          area: 45.422576205218135*(66.*660.) / 24000 / 24000,
+          length: 2970.0723834794749 / 24000,
+          perimeter: 6469.7282289420209 / 24000,
+          width: 848.20873344743575 / 24000,
+        },
+        head: {
+          ros: 48.470425993990560,
+          firelineIntensity: 2467.9286450361865,
+          flameLength: 16.356316633171140,
+          distance: 2908.2255596394334,
+          mapDistance: 2908.2255596394334 / 24000,
+          scorchHt: null,
+        },
+        back: {
+          ros: 1.0307803973340242,
+          firelineIntensity: 52.483394093499705,
+          flameLength: 2.7824194067294856,
+          distance: 61.846823840041452,
+          mapDistance: 61.846823840041452 / 24000,
+          scorchHt: 4.3824121071933915,
+        },
+        flank: {
+          ros: 7.0684061120619655,
+          firelineIntensity: 359.89619544220318,
+          flameLength: 6.7461198324614715,
+          distance: 424.10436672371793,
+          mapDistance: 424.10436672371793 / 24000,
+          scorchHt: 36.440372402518008,
+        },
+      },  // ellipse
+    },  // fire
   },  // surface
 };

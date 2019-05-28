@@ -26,5 +26,11 @@ Each FuelBed ('primary' and 'secondary') has its own:
 - estimatedWaf based on its own fuel depth
 
 # To Do
-- Test WAF methods in BpxTreeCanopy.js
-- Test WAF methods in in BpxTreeFuel.js
+- All DagLeaf* declarations should be made in BASE BpxTree* classes
+  without any connect() implementation.
+
+- The implemented BpxTree* classes
+  - inherit from one of the BASE classes and
+  - has a connect() implementation.
+
+- This isolates tree implementation, especially relating to leaf bindings and inputs, from the (re-usable) structure.

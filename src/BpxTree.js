@@ -26,6 +26,7 @@
 
 import Branch from './DagBranch';
 import BpxTreeCanopy from './BpxTreeCanopy';
+import BpxTreeFireEllipse from './BpxTreeFireEllipse';
 import BpxTreeFireWeighted from './BpxTreeFireWeighted';
 import BpxTreeFuel from './BpxTreeFuel';
 import BpxTreeMoisture from './BpxTreeMoisture';
@@ -53,7 +54,7 @@ class BpxTreeSurfaceFire extends Branch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeFireWeighted(this, 'weighted');
-    //new BpxTreeFireEllipse(this, 'ellipse');
+    new BpxTreeFireEllipse(this, 'ellipse');
   }
 }
 

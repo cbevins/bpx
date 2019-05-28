@@ -1,6 +1,16 @@
 import Dag from './Dag';
-import { BenchmarkFm010In, BenchmarkFm010Out } from './BenchmarkFm010';
-import { BenchmarkFm124In, BenchmarkFm124Out } from './BenchmarkFm124';
+import {
+  BenchmarkFm010In,
+  BenchmarkFm010FuelOut,
+  BenchmarkFm010FireOut,
+  BenchmarkFm010EllipseOut,
+} from './BenchmarkFm010';
+import {
+  BenchmarkFm124In,
+  BenchmarkFm124FuelOut,
+  BenchmarkFm124FireOut,
+  BenchmarkFm124EllipseOut,
+} from './BenchmarkFm124';
 
 function approx(desc, actual, expected, prec = 7) {
   if (typeof expected === 'number') {
@@ -40,15 +50,15 @@ function setInputs(treeItem, inpItem) {
   });
 }
 
-test('1: FM 124 Benchmark', () => {
-  const name = 'fm124';
+function runTest(runLabel, testIn, testOut, precision) {
+  const name = 'benchmark';
   const dag = new Dag(name);
   const { tree } = dag;
   expect(tree.name()).toEqual(name);
 
-  setInputs(tree, BenchmarkFm124In);
+  setInputs(tree, testIn);
   tests = [];
-  getTests(tree, BenchmarkFm124Out);
+  getTests(tree, testOut);
 
   const selected = [];
   tests.forEach((t) => {
@@ -57,29 +67,19 @@ test('1: FM 124 Benchmark', () => {
   dag.setSelected(selected);
 
   tests.forEach((t) => {
-    let desc = `${t.leaf.label()}:\nexpected='${t.expected}'\n  actual='${t.leaf.value()}'`;
-    expect(approx(desc, t.leaf.value(), t.expected)).toEqual(true);
+    let desc = `${runLabel} ${t.leaf.label()}:\nexpected='${t.expected}'\n  actual='${t.leaf.value()}'`;
+    expect(approx(desc, t.leaf.value(), t.expected, precision)).toEqual(true);
   });
-});
+}
 
-test('2: FM 010 Benchmark', () => {
-  const name = 'fm010';
-  const dag = new Dag(name);
-  const { tree } = dag;
-  expect(tree.name()).toEqual(name);
+test('1: Benchmark FM 124', () => {
+//  runTest('FM 124 Fuel', BenchmarkFm124In, BenchmarkFm124FuelOut, 12);
+//  runTest('FM 124 Fire', BenchmarkFm124In, BenchmarkFm124FireOut, 7);
+  runTest('FM 124 Ellipse', BenchmarkFm124In, BenchmarkFm124EllipseOut, 6);
+})
 
-  setInputs(tree, BenchmarkFm010In);
-  tests = [];
-  getTests(tree, BenchmarkFm010Out);
-
-  const selected = [];
-  tests.forEach((t) => {
-    selected.push(t.leaf);
-  });
-  dag.setSelected(selected);
-
-  tests.forEach((t) => {
-    let desc = `${t.leaf.label()}: expected='${t.expected}', actual='${t.leaf.value()}'`;
-    expect(approx(desc, t.leaf.value(), t.expected)).toEqual(true);
-  });
-});
+test('2: Benchmark FM 10', () => {
+//  runTest('FM 10 Fuel', BenchmarkFm010In, BenchmarkFm010FuelOut, 12);
+//  runTest('FM 10 Fire', BenchmarkFm010In, BenchmarkFm010FireOut, 8);
+  runTest('FM 10 Ellipse', BenchmarkFm010In, BenchmarkFm010EllipseOut, 7);
+})

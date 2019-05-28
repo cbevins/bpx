@@ -6,7 +6,7 @@
  * @copyright 2019 Systems for Environmental Management
 */
 
-import BpxLibCOmpass from './BpxLibCompass';
+import BpxLibCompass from './BpxLibCompass';
 
 export default class BpxLibFireEllipse {
   /**
@@ -72,22 +72,22 @@ export default class BpxLibFireEllipse {
   /**
    * Calculate the fire ellipse eccentricity.
    *
-   * @param float ellipseLengthToWidthRatio Fire ellipse length-to-width ratio.
+   * @param float lwr Fire ellipse length-to-width ratio.
    * @return float The fire ellipse eccentricity (ratio).
    */
-  static ecc(lwr) {
+  static eccentricity(lwr) {
     const x = lwr * lwr - 1;
     return (x <= 0 || lwr <= 0 ) ? 0 : (Math.sqrt(x) / lwr);
   }
 
   /*!	\brief Caluclate the fireline intensity at some azimuth.
    */
-  static fliAtAz(fliHead, rosHead, rosAz) {
+  static fliAtAzimuth(fliHead, rosHead, rosAz) {
     return (rosHead <= 0) ? 0 : fliHead * rosAz / rosHead;
   }
 
   // Map area
-  static marea(area, mapScale) {
+  static mapArea(area, mapScale) {
     return (mapScale <= 0) ? 0 : area / (mapScale * mapScale);
   }
 
@@ -99,7 +99,7 @@ export default class BpxLibFireEllipse {
     *
     *	@return float The fire ellipse perimeter (in same distance units-of-measure as length).
     */
-  static perim(len, wid) {
+  static perimeter(len, wid) {
     const a = 0.5 * len;
     const b = 0.5 * wid;
     const xm = ( ( a + b ) <= 0 ) ? 0 : ( (a-b) / (a+b) );
@@ -153,13 +153,13 @@ export default class BpxLibFireEllipse {
    * NOTE this differs from FireSPread::spreadRateATBeta(), which takes the ellipse
    * length-to-width ratio as its second argument.
    *
+   * @param betaHead Fire spread vector of interest (degrees clockwise from heading direction).
    * @param rosHead Fire spread rate at the head (ft+1 min-1).
    * @param eccent Fire ellipse eccentricity (ratio).
-   * @param betaHead Fire spread vector of interest (degrees clockwise from heading direction).
    *
    * @return float The fire spread rate along the specified vector (ft+1 min-1).
    */
-  static rosBeta(rosHead, eccent, betaHead) {
+  static rosBeta(betaHead, rosHead, eccent) {
     let rosBeta = rosHead;
     // Calculate the fire spread rate in this azimuth
     // if it deviates more than a tenth degree from the maximum azimuth

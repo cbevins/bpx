@@ -12,7 +12,10 @@ import DagLeafQuantity from './DagLeafQuantity';
 import BpxLibMath from './BpxLibMath';
 import BpxLibSurfaceFire from './BpxLibSurfaceFire';
 
-export default class BpxTreeFireWeighted extends DagBranch {
+/**
+ * Defines the surface fuel weighted fire behavior tree-leaf structure.
+ */
+export class TreeFireWeighted extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'primaryCover')
@@ -75,7 +78,16 @@ export default class BpxTreeFireWeighted extends DagBranch {
       .desc('harmonic mean maximum spread rate')
       .units('fireRos').value(0);
   }
+}
 
+/**
+ * Implements the Bpx surface fire weighted subtree
+ * with the following structue:
+ * - tree.surface.fuel.primary
+ * - tree.surface.fuel.secondary
+ * - tree.surface.fire.weighted
+ */
+export default class BpxTreeFireWeighted extends TreeFireWeighted {
   connect(tree) {
     const cfgFuel = tree.configs.fuel.secondary;
     const cfgWtg = tree.configs.fire.weightingMethod;

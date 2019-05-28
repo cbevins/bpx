@@ -15,7 +15,7 @@ export const BenchmarkFm010In = {
       direction: 'sourceFromNorth',
       speed: 'atMidflame',
     },
-  },
+  },  // configs
   site: {
     map: {
       scale: 24000,
@@ -55,7 +55,7 @@ export const BenchmarkFm010In = {
         atMidflame: 880,  // 10 mph
       },
     },
-  },
+  },  // site
   surface: {
     fuel: {
       primary: {
@@ -67,7 +67,7 @@ export const BenchmarkFm010In = {
   },
 };
 
-export const BenchmarkFm010Out = {
+export const BenchmarkFm010FuelOut = {
   surface: {
     fuel: {
       primary: {
@@ -214,7 +214,7 @@ export const BenchmarkFm010Out = {
               },
             },
           }, // live
-        },
+        },  // bed
         model: {
           key: '10',
           domain: 'behave',
@@ -235,14 +235,23 @@ export const BenchmarkFm010Out = {
               liveHeat: 8000,
             },
           },
-        },
+        },  // model
+      },  // primary
+    },  // fuel
+  },  // surface
+}
+
+export const BenchmarkFm010FireOut = {
+  surface: {
+    fuel: {
+      primary: {
         fire: {
           direction: {
-            slopeRos: 0.67900860922904482 * 1.1144632487759358,
-            windRos: 0.67900860922904482 * 26.298112107312534,
-            vectorRos: null,
-            xComp: null,
-            yComp: null,
+            slopeRos: 0.75673014058823118, // 0.67900860922904482 * 1.1144632487759358,
+            windRos: 17.856644527335789, // 0.67900860922904482 * 26.298112107312534,
+            vectorRos: 17.872671716374864,
+            xComp: 0.75673013692577218,
+            yComp: 17.856644527335789,
           },
           limit: {
             ews: 5215.2258602062057,
@@ -266,34 +275,108 @@ export const BenchmarkFm010Out = {
             waf: 1,
           },
           effectiveWindSpeed: 880.55194372010692,
-          firelineIntensity: 389.954137,
-          flameLength: 6.999689,
+          firelineIntensity: 389.95413667947145,
+          flameLength: 6.9996889013229229,
           flameResidenceTime: 0.21764611427384198,
           headingFromUpslope: 87.573367385837855,
-          heatPerUnitArea: 5794.6954002291168 * 0.21764611427384198, // about 1261.192937
-          lengthToWidthRatio: 3.501568,
+          heatPerUnitArea: 1261.1929372603729,
+          lengthToWidthRatio: 3.5015680219321221,
           phiEw: 26.321715915373524,
           reactionIntensity: 5794.6954002291168,
           ros: 18.551680325448835,
           ros0: 0.67900860922904482,
-        //   ellipse: {
-        //     area: 289850.691417,
-        //     length: 1136.772409,
-        //     perimeter: 2476.240100,
-        //     width: 324.646673,
-        //     head:{
-        //       distance: 1113.100820,
-        //       scorchHt: 39.580182,
-        //     },
-        //     flank: {
-        //       distance: 162.3233337,
-        //     },
-        //     back: {
-        //       distance: 23.671589,
-        //     },
-        //   },
         },  // fire
       },  // primary
     },  // fuel
+  },  // surface
+}
+
+export const BenchmarkFm010EllipseOut = {
+  surface: {
+    fire: {
+      ellipse: {
+        axis: {
+          eccentricity: 0.95835298387126711,
+          lengthToWidthRatio: 3.5015680219321221,
+          major: 0.39452649041938642 + 18.551680325448835,
+          minor: 2 * 2.7053889424963877,
+          f: 9.4731034079341114,
+          g: 9.0785769175147255,
+          h: 2.7053889424963877,
+        },
+        size: {
+          area: 289850.691417,
+          length: 1136.7724089520932,
+          perimeter: 2476.2400999186934,
+          width: 324.64667309956644,
+        },
+        map: {
+          area: 289850.691417 / 24000 / 24000,
+          length: 1136.7724089520932 / 24000,
+          perimeter: 2476.2400999186934 / 24000,
+          width: 324.64667309956644 / 24000,
+        },
+        head: {
+          ros: 18.551680325448835,
+          firelineIntensity: 389.95413667947145,
+          flameLength: 6.9996889013229229,
+          distance: 1113.1008195269301,
+          mapDistance: 1113.1008195269301 / 24000,
+          scorchHt: 39.580181786322299,
+        },
+        back: {
+          ros: 0.39452649041938642,
+          firelineIntensity: 8.2929003879841954,
+          flameLength: 1.1907414731175683,
+          distance: 23.671589425163184,
+          mapDistance: 23.671589425163184/24000,
+          scorchHt: 0.52018662032054752,
+        },
+        flank: {
+          ros: 2.7053889424963877,
+          firelineIntensity: 56.866957074505869,
+          flameLength: 2.8870088099013929,
+          distance: 162.32333654978328,
+          mapDistance: 162.32333654978328 / 24000,
+          scorchHt: 4.8023644521509334,
+        },
+        // beta: {
+        //   ros: 2.6256648650882601,
+        //   distance: 60 * 2.6256648650882601,
+        //   mapDistance: 60 * 2.6256648650882601 / 24000,
+        //   theta: 138.95912883244358,
+        //   psi: 108.16241745554537,
+        //   firelineIntensity: 22.809320529051977,
+        //   flameLength: 1.8964622135871170,
+        //   scorchHt: 1.6814949065754006,
+        //   azimuth: {
+        //     fromNorth: 45,
+        //     fromUpslope: 45,
+        //     fromFireHead, 360 - 42.573367385837855,
+        //   },
+        // },
+        // beta5: {
+        //   ros: 2.6256648650882601,
+        //   distance: 60 * 2.6256648650882601,
+        //   mapDistance: 60 * 2.6256648650882601 / 24000,
+        //   firelienIntensity: beta5fli010,
+        //   flameLength: beta5fl010,
+        //   scorchHt: beta5scht010,
+        //   azimuth: {
+        //     fromNorth: 45,
+        //     fromUpslope: 45,
+        //     fromFireHead, 360 - 42.573367385837855,
+        //   },
+        // },
+        // psi: {
+        //   ros: 13.89777958366360,
+        //   distance: 60 * 13.89777958366360,
+        //   mapDistance: 60 * 13.89777958366360 / 24000,
+        //   firelineIntensity: 292.12969090863300,
+        //   flameLength: 6.12882661647451,
+        //   scorchHt: 29.307635864149884,
+        // },
+      },  // ellipse
+    },  // fire
   },  // surface
 };

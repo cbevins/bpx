@@ -54,10 +54,10 @@ const BpxUnits = {
   },
   fireArea: {
     uom: {
-      base: { ac: 1 },
-      alt1: { ha: 1 },
-      alt2: { ft: 2 },
-      alt3: { m: 2 },
+      base: { ft: 2 },
+      alt1: { m: 2 },
+      alt2: { ac: 1 },
+      alt3: { ha: 1 },
     },
     min: 0,
   },
@@ -286,6 +286,24 @@ const BpxUnits = {
   index: {
     uom: {
       base: { integer: 0 },
+    },
+    min: 0,
+  },
+  mapArea: {
+    uom: {
+      base: { ft: 2 },
+      alt1: { m: 2 },
+      alt2: { in: 2 },
+      alt3: { cm: 2 },
+    },
+    min: 0,
+  },
+  mapDistance: {
+    uom: {
+      base: { ft: 1 },
+      alt1: { mi: 1 },
+      alt2: { in: 1 },
+      alt3: { cm: 1 },
     },
     min: 0,
   },

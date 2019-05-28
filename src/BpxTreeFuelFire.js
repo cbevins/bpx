@@ -14,7 +14,10 @@ import BpxLibMath from './BpxLibMath';
 import BpxLibSurfaceFire from './BpxLibSurfaceFire';
 import BpxLibWind from './BpxLibWind';
 
-export default class BpxTreeFuelFire extends DagBranch {
+/**
+ * Defines the surface fuel-fire tree-leaf structure.
+ */
+export class TreeFuelFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
@@ -168,9 +171,6 @@ export default class BpxTreeFuelFire extends DagBranch {
       .units('fraction').value(1);
 
     // Directly under *this* BpxTreeFuelFire branch:
-    // new DagLeafQuantity(this, 'distance')
-    //   .desc('maximum fire spread distance')
-    //   .units('fireDistance').value(0);
     new DagLeafQuantity(this, 'effectiveWindSpeed')
       .desc('effective wind speed')
       .units('windSpeed').value(0);
@@ -204,11 +204,15 @@ export default class BpxTreeFuelFire extends DagBranch {
     new DagLeafQuantity(this, 'ros0')
       .desc('no-wind no-slope spread rate')
       .units('fireRos').value(0);
-    // new DagLeafQuantity(this, 'scorchHt')
-    //   .desc('maximum scorch height')
-    //   .units('fireScorch').value(0);
   }
+}
 
+/**
+ * Implements the Bpx surface fuel-fire subtree
+ * where fuel bed leafs come from a sibling 'bed'
+ * and canopy, slope, and wind all come from tree.site
+ */
+export default class BpxTreeFuelFire extends TreeFuelFire {
   connect( tree ) {
     // Required external references
     // Requires 3 bed leafs: reactionIntensity, ros0, openWaf
