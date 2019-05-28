@@ -89,13 +89,13 @@ export class TreeFireWeighted extends DagBranch {
  */
 export default class BpxTreeFireWeighted extends TreeFireWeighted {
   connect(tree) {
-    const cfgFuel = tree.configs.fuel.secondary;
+    const cfgFuel2 = tree.configs.fuel.secondary;
     const cfgWtg = tree.configs.fire.weightingMethod;
     const fuel1 = tree.surface.fuel.primary;
-    const fuel2 = (cfgFuel === 'none') ? fuel1 : tree.surface.fuel.secondary;
+    const fuel2 = tree.surface.fuel.secondary;
 
     this.primaryCover
-      .fixedIf(cfgFuel, 'none', 1)
+      .fixedIf(cfgFuel2, 'none', 1)
       .input();
 
     // These are always bound to the Primary Surface Fuel and Fire
@@ -112,47 +112,53 @@ export default class BpxTreeFireWeighted extends TreeFireWeighted {
 
     // These are always assigned the maximum value
     this.firelineIntensity
+      .bindIf(cfgFuel2, 'none', fuel1.fire.firelineIntensity)
       .calc(BpxLibMath.max,
         fuel1.fire.firelineIntensity,
         fuel2.fire.firelineIntensity);
     this.flameLength
+      .bindIf(cfgFuel2, 'none', fuel1.fire.flameLength)
       .calc(BpxLibMath.max,
         fuel1.fire.flameLength,
         fuel2.fire.flameLength);
     this.heatPerUnitArea
+      .bindIf(cfgFuel2, 'none', fuel1.fire.heatPerUnitArea)
       .calc(BpxLibMath.max,
         fuel1.fire.heatPerUnitArea,
         fuel2.fire.heatPerUnitArea);
     this.reactionIntensity
+      .bindIf(cfgFuel2, 'none', fuel1.fire.reactionIntensity)
       .calc(BpxLibMath.max,
         fuel1.fire.reactionIntensity,
         fuel2.fire.reactionIntensity);
 
     // These are always assigned the minimum value
     this.effectiveWindSpeedLimit
+      .bindIf(cfgFuel2, 'none', fuel1.fire.limit.ews)
       .calc(BpxLibMath.min,
         fuel1.fire.limit.ews,
         fuel2.fire.limit.ews);
     this.effectiveWindSpeedExceeded
+      .bindIf(cfgFuel2, 'none', fuel1.fire.exceeded.ews)
       .calc(BpxLibMath.or,
         fuel1.fire.exceeded.ews,
         fuel2.fire.exceeded.ews);
 
     // Mean spread reactionIntensity
     this.rosArithmetic
-      .bindIf(cfgFuel, 'none', fuel1.fire.ros)
+      .bindIf(cfgFuel2, 'none', fuel1.fire.ros)
       .calc(BpxLibSurfaceFire.rosArithmetic,
         this.primaryCover,
         fuel1.fire.ros,
         fuel2.fire.ros);
     this.rosExpected
-      .bindIf(cfgFuel, 'none', fuel1.fire.ros)
+      .bindIf(cfgFuel2, 'none', fuel1.fire.ros)
       .calc(BpxLibSurfaceFire.rosExpectedMOCK,
         this.primaryCover,
         fuel1.fire.ros,
         fuel2.fire.ros);
     this.rosHarmonic
-      .bindIf(cfgFuel, 'none', fuel1.fire.ros)
+      .bindIf(cfgFuel2, 'none', fuel1.fire.ros)
       .calc(BpxLibSurfaceFire.rosHarmonic,
         this.primaryCover,
         fuel1.fire.ros,
