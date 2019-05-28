@@ -1,6 +1,6 @@
-import Dag from './Dag';
-import BpxTree from './BpxTree';
-import BpxLibFuelParticle from './BpxLibFuelParticle';
+import Dag from '../Dag';
+import BpxTree from '../BpxTree';
+import BpxLibFuelParticle from '../BpxLibFuelParticle';
 
 function approx(actual, expected, prec = 12) {
   if (typeof expected === 'number') {

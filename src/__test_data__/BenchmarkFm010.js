@@ -67,7 +67,7 @@ export const BenchmarkFm010In = {
   },
 };
 
-export const BenchmarkFm010FuelOut = {
+export const BenchmarkFm010Out = {
   surface: {
     fuel: {
       primary: {
@@ -236,15 +236,6 @@ export const BenchmarkFm010FuelOut = {
             },
           },
         },  // model
-      },  // primary
-    },  // fuel
-  },  // surface
-}
-
-export const BenchmarkFm010FireOut = {
-  surface: {
-    fuel: {
-      primary: {
         fire: {
           direction: {
             slopeRos: 0.75673014058823118, // 0.67900860922904482 * 1.1144632487759358,
@@ -288,15 +279,11 @@ export const BenchmarkFm010FireOut = {
         },  // fire
       },  // primary
     },  // fuel
-  },  // surface
-}
-
-export const BenchmarkFm010EllipseOut = {
-  surface: {
     fire: {
+      weighted: {},
       ellipse: {
         axis: {
-          eccentricity: 0.95835298387126711,
+          eccentricity: [0.95835298387126711, 11],
           lengthToWidthRatio: 3.5015680219321221,
           major: 0.39452649041938642 + 18.551680325448835,
           minor: 2 * 2.7053889424963877,
@@ -305,10 +292,10 @@ export const BenchmarkFm010EllipseOut = {
           h: 2.7053889424963877,
         },
         size: {
-          area: 289850.691417,
-          length: 1136.7724089520932,
-          perimeter: 2476.2400999186934,
-          width: 324.64667309956644,
+          area: [289850.691417, 7],
+          length: [1136.7724089520932, 11],
+          perimeter: [2476.2400999186934, 10],
+          width: [324.64667309956644, 9],
         },
         map: {
           area: 289850.691417 / 24000 / 24000,

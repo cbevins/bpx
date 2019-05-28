@@ -1,4 +1,4 @@
-import DagBranch from './DagBranch';
+import DagBranch from '../DagBranch';
 
 it('creates a new DagBranch named "mainBranch"', () => {
   const name = 'mainBranch';

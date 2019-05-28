@@ -1,4 +1,4 @@
-import DagLeafOption from './DagLeafOption';
+import DagLeafOption from '../DagLeafOption';
 
 it('creates a new DagLeafOption "optionDagLeaf"', () => {
   const leaf = new DagLeafOption(null, 'leafOption');

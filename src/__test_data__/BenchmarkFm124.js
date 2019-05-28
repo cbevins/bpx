@@ -67,7 +67,7 @@ export const BenchmarkFm124In = {
   },
 };
 
-export const BenchmarkFm124FuelOut = {
+export const BenchmarkFm124Out = {
   surface: {
     fuel: {
       primary: {
@@ -206,15 +206,6 @@ export const BenchmarkFm124FuelOut = {
             },
           },
         },  // model
-      },  // primary
-    },  // fuel
-  },  // surface
-}
-
-export const BenchmarkFm124FireOut = {
-  surface: {
-    fuel: {
-      primary: {
         fire: {
           direction: {
             slopeRos: 1.9584486222621447,
@@ -258,12 +249,8 @@ export const BenchmarkFm124FireOut = {
         },  // fire
       },  // primary
     },  // fuel
-  },  // surface
-}
-
-export const BenchmarkFm124EllipseOut = {
-  surface: {
     fire: {
+      weighted: {},
       ellipse: {
         axis: {
           eccentricity: 0.95835332217217739,
@@ -275,7 +262,7 @@ export const BenchmarkFm124EllipseOut = {
           h: 424.10436672371787 / 60.,
         },
         size: {
-          area: 45.422576205218135*(66.*660.),
+          area: [45.422576205218135*(66.*660.), 6],
           length: 2970.0723834794749,
           perimeter: 6469.7282289420209,
           width: 848.20873344743575,

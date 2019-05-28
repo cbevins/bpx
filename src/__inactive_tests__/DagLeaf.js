@@ -1,5 +1,5 @@
-import DagLeaf from './DagLeaf';
-import DagLeafConfig from './DagLeafConfig';
+import DagLeaf from '../DagLeaf';
+import DagLeafConfig from '../DagLeafConfig';
 
 const leaf = new DagLeaf(null, 'someLeaf');
 

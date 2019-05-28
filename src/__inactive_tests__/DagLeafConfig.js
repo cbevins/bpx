@@ -1,4 +1,4 @@
-import DagLeafConfig from './DagLeafConfig';
+import DagLeafConfig from '../DagLeafConfig';
 
 it('creates a new DagLeafConfig "leafConfig"', () => {
   const leaf = new DagLeafConfig(null, 'leafConfig');

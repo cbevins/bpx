@@ -1,4 +1,4 @@
-import Dag from './Dag';
+import Dag from '../Dag';
 
 test('1: verify BpxTreeConfigs branch structure', () => {
   const name = 'worksheet1';

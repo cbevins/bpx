@@ -1,4 +1,4 @@
-import Dag from './Dag';
+import Dag from '../Dag';
 
 it('1: Dag initial state', () => {
   const name = 'BehavePlusExplorer';

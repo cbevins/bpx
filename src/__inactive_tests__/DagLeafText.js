@@ -1,4 +1,4 @@
-import DagLeafText from './DagLeafText';
+import DagLeafText from '../DagLeafText';
 
 it('creates a new DagLeafText "leafText"', () => {
   const leaf = new DagLeafText(null, 'leafText');

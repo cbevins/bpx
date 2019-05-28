@@ -1,4 +1,4 @@
-import DagLeafBool from './DagLeafBool';
+import DagLeafBool from '../DagLeafBool';
 
 it('creates a new LeafBool "leafBool"', () => {
   const leaf = new DagLeafBool(null, 'leafBool');

@@ -1,4 +1,4 @@
-import DagLeafQuantity from './DagLeafQuantity';
+import DagLeafQuantity from '../DagLeafQuantity';
 
 it('creates a new DagLeafQuantity "leafQuantity"', () => {
   const leaf = new DagLeafQuantity(null, 'leafQuantity');

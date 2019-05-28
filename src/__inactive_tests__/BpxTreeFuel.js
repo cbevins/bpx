@@ -1,19 +1,18 @@
-import Dag from './Dag';
-import DagBranch from './DagBranch';
-import BpxTreeFuelBed from './BpxTreeFuelBed';
-import BpxTreeFuelFire from './BpxTreeFuelFire';
-import BpxTreeFuelBedCanopy from './BpxTreeFuelBedCanopy';
-import BpxTreeFuelModel from './BpxTreeFuelModel';
-import BpxTreeFuelParticle from './BpxTreeFuelParticle';
+import Dag from '../Dag';
+import DagBranch from '../DagBranch';
+import BpxTreeFuelBed from '../BpxTreeFuelBed';
+import BpxTreeFuelBedCanopy from '../BpxTreeFuelBedCanopy';
+import BpxTreeFuelModel from '../BpxTreeFuelModel';
+import BpxTreeFuelParticle from '../BpxTreeFuelParticle';
 import {
   BpxTreeFuelParticles,
   BpxTreeFuelCategory,
   BpxTreeFuelCategoryDead,
   BpxTreeFuelCategoryLive,
-} from './BpxTreeFuelCategory';
+} from '../BpxTreeFuelCategory';
 import {
   BpxTreeFuelComplex,
-} from './BpxTreeFuel';
+} from '../BpxTreeFuel';
 
 function approx(actual, expected, prec = 12) {
   if (typeof expected === 'number') {

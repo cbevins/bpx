@@ -28,7 +28,10 @@
       "**/*.{js,jsx}",
       "!**/coverage/**",
       "!**/node_modules/**",
-      "!**/ToBeRefactored/**"
+      "!**/__to_refactor__/**",
+      "!**/__tests__/**",
+      "!**/__test_data__/**",
+      "!**/__inactive_tests__/**"
     ],
     "coverageThreshold": {
       "global": {

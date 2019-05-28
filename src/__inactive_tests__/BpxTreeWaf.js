@@ -1,5 +1,4 @@
-import Dag from './Dag';
-import BpxLibCanopy from './BpxLibCanopy';
+import Dag from '../Dag';
 
 function approx(actual, expected, prec = 12) {
   if (typeof expected === 'number') {
