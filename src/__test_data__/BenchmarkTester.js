@@ -3,24 +3,24 @@ import Dag from '../Dag';
 export default class BenchmarkTester {
   constructor(desc, defaultPrecision=12) {
     this.desc = desc;
-    this.tests = [];
+    this.leafTests = [];
     this.defaultPrecision=defaultPrecision;
   }
 
-  approx(testPair) {
-    const actual = testPair.leaf.value();
-    const expected = testPair.expected;
-    const prec = testPair.precision;
+  approx(leafTest) {
+    const actual = leafTest.leaf.value();
+    const expected = leafTest.expected;
+    const prec = leafTest.precision;
     let result = true;
     if (typeof expected === 'number') {
       result = actual.toPrecision(prec) === expected.toPrecision(prec);
       if ( ! result ) {
-        console.log(`*** ${this.desc} ${testPair.leaf.label()}:\nexpected='${expected}'\n  actual='${actual}' at precision=${prec}`);
+        console.log(`*** ${this.desc} ${leafTest.leaf.label()}:\nexpected='${expected}'\n  actual='${actual}' at precision=${prec}`);
       }
     } else {
       result = actual === expected;
       if ( ! result ) {
-        console.log(`*** ${this.desc} ${testPair.leaf.label()}:\nexpected='${expected}'\n  actual='${actual}'`);
+        console.log(`*** ${this.desc} ${leafTest.leaf.label()}:\nexpected='${expected}'\n  actual='${actual}'`);
       }
     }
     return result;
@@ -29,7 +29,7 @@ export default class BenchmarkTester {
   getTests(treeItem, outItem) {
     if ( outItem !== null ) {
       if ( Array.isArray(outItem) ) {
-        this.tests.push({
+        this.leafTests.push({
           leaf: treeItem,
           expected: outItem[0],
           precision: outItem[1],
@@ -39,7 +39,7 @@ export default class BenchmarkTester {
           this.getTests(treeItem[child], outItem[child]);
         });
       } else {
-        this.tests.push({
+        this.leafTests.push({
           leaf: treeItem,
           expected: outItem,
           precision: this.defaultPrecision,
@@ -61,18 +61,18 @@ export default class BenchmarkTester {
   test(dag, dagInputTree, expectedInputTree,
       dagTree, outputTree ) {
     this.setInputs(dagInputTree, expectedInputTree);
-    this.tests = [];
+    this.leafTests = [];
     this.getTests(dagTree, outputTree);
 
-    const selected = [];
-    this.tests.forEach((t) => {
-      selected.push(t.leaf);
+    const selectedLeafs = [];
+    this.leafTests.forEach((leafTest) => {
+      selectedLeafs.push(leafTest.leaf);
     });
     dag.clearSelected();
-    dag.setSelected(selected);
+    dag.setSelected(selectedLeafs);
 
-    this.tests.forEach((t) => {
-      expect(this.approx(t)).toEqual(true);
+    this.leafTests.forEach((leafTest) => {
+      expect(this.approx(leafTest)).toEqual(true);
     });
   }
 }
