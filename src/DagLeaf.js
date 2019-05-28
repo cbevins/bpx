@@ -147,6 +147,11 @@ export default class DagLeaf extends DagBranch {
   }
 
   configRequired() {
+    // For 33 selected leafs, the following test reduces benchmark time
+    // from 25 sec to 0.5 sec!!!!!
+    if (this.isRequired()) {
+      return;
+    }
     this.setRequired();
     this.own.provider.forEach((leaf) => {
       leaf.configRequired();
