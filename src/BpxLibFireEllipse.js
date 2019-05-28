@@ -111,9 +111,9 @@ export default class BpxLibFireEllipse {
     if ( rosF <= 0 || rosH <= 0 || thetaFromHead <= 0) {
       return 0;
     }
-    const thetaRadians = BpxLibMath.radians(thetaFromHead);
+    const thetaRadians = BpxLibCompass.radians(thetaFromHead);
     const tanPsiRadians = Math.tan(thetaRadians) * rosF / rosH;
-    const psiRadians = Math.atan(tanPsiRadians);
+    let   psiRadians = Math.atan(tanPsiRadians);
     //psiRadians += ( psiRadians < 0) ? pi : 0;
     //psiradians += ( thetaRadians > pi) ? pi : 0;
     // Quadrant adjustment
@@ -299,7 +299,7 @@ export default class BpxLibFireEllipse {
     const num  = rosH * cosBeta * term - ( rosF * rosG * sin2Beta );
     const denom = h2 * cos2Beta + f2 * sin2Beta;
     const cosThetaRadians = num / denom;
-    const thetaRadians = Math.acos( cosThetaRadians );
+    let   thetaRadians = Math.acos( cosThetaRadians );
     // Quadrant adjustment
     if ( betaRadians < Math.PI ) {
       // nothing to adjust

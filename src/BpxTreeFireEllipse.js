@@ -287,26 +287,26 @@ export default class BpxTreeFireEllipse extends TreeFireEllipse {
     this.beta.theta
       .calc(BpxLibFireEllipse.thetaFromBeta,
         this.beta.azimuth.fromHead,
-        this.axis.rosF,
-        this.axis.rosG,
-        this.axis.rosH);
+        this.axis.f,
+        this.axis.g,
+        this.axis.h);
 
     // Step 2 - determine the PSI vector that intersects the BETA vector
     // at the fire perimeter
     this.beta.psi
       .calc(BpxLibFireEllipse.psiFromTheta,
         this.beta.theta,
-        this.axis.rosF,
-        this.axis.rosH);
+        this.axis.f,
+        this.axis.h);
 
     // Step 3 - determine the fire perimeter expansion rate
     // at BETA.PSI vector intersection
     this.beta.rosPsi
       .calc(BpxLibFireEllipse.rosPsi,
         this.beta.psi,
-        this.axis.rosF,
-        this.axis.rosG,
-        this.axis.rosH);
+        this.axis.f,
+        this.axis.g,
+        this.axis.h);
 
     // Step 4 - V6 fireline intensity at BETA uses the
     // FIRE PERIMETER expansion rate at BETA

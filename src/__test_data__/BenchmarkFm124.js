@@ -1,5 +1,16 @@
+import BpxLibSurfaceFire from '../BpxLibSurfaceFire';
+
+const beta5fli124 = 2467.9286450361865 * 6.8494531181657319 / 48.470425993990560;
+const beta5fl124  = 0.45 * Math.pow(beta5fli124, 0.46);
+const beta5scht124 = BpxLibSurfaceFire.scorchHt(beta5fli124, 880, 95);
+
 export const BenchmarkFm124In = {
   configs: {
+    fire: {
+      ewsLimit: 'applied',
+      weightingMethod: 'harmonic',
+      vector: 'fromNorth',
+    },
     fuel: {
       primary: 'catalog',
       secondary: 'none',
@@ -64,8 +75,22 @@ export const BenchmarkFm124In = {
         },
       },
     },
-  },
-};
+    fire: {
+      ellipse: {
+        beta: {
+          azimuth: {
+            fromNorth: 45,
+          },
+        },
+        psi: {
+          azimuth: {
+            fromNorth: 45,
+          },
+        },
+      },  // ellipse
+    },  // fire
+  },  // surface
+}
 
 export const BenchmarkFm124Out = {
   surface: {
@@ -250,7 +275,23 @@ export const BenchmarkFm124Out = {
       },  // primary
     },  // fuel
     fire: {
-      weighted: {},
+      weighted: {
+        effectiveWindSpeed: 880.55684333220040,
+        effectiveWindSpeedExceeded: false,
+        effectiveWindSpeedLimit: 11679.023599646920,
+        firelineIntensity: 2467.928645,
+        flameLength: 16.356317,
+        headingFromUpslope: 87.613728665173383,
+        heatPerUnitArea: 12976.692888496578 * 0.23541979977677915, // about 3054.970442,
+        lengthToWidthRatio: 3.501582,
+        primaryCover: 1,
+        reactionIntensity: 12976.692888496578,
+        ros: 48.470425993990560,
+        rosArithmetic: 48.470425993990560,
+        rosExpected: 48.470425993990560,
+        rosHarmonic: 48.470425993990560,
+        waf: 1,
+      },
       ellipse: {
         axis: {
           eccentricity: 0.95835332217217739,
@@ -296,6 +337,42 @@ export const BenchmarkFm124Out = {
           distance: 424.10436672371793,
           mapDistance: 424.10436672371793 / 24000,
           scorchHt: 36.440372402518008,
+        },
+        beta: {
+          azimuth: {
+            fromHead: 360 - 42.613728665173383,
+            fromNorth: 45,
+            fromUpslope: 45,
+          },
+          ros: 6.8494531181657319,
+          distance: 60 * 6.8494531181657319,
+          mapDistance: 60 * 6.8494531181657319 / 24000,
+          theta: 138.99842626716800,
+          psi: 108.18586769434800,
+          firelineIntensity: 144.22374220988746,
+          flameLength:4.4296501098298906,
+          scorchHt: 13.669401441568459,
+        },
+        beta5: {
+          ros: 6.8494531181657319,
+          distance: 60 * 6.8494531181657319,
+          mapDistance: 60 * 6.8494531181657319 / 24000,
+          firelineIntensity: beta5fli124,
+          flameLength: beta5fl124,
+          scorchHt: beta5scht124,
+        },
+        psi: {
+          azimuth: {
+            fromHead: 360 - 42.613728665173383,
+            fromNorth: 45,
+            fromUpslope: 45,
+          },
+          ros: 36.28927049813540,
+          distance: 60 * 36.28927049813540,
+          mapDistance: 60 * 36.28927049813540 / 24000,
+          firelineIntensity: 1847.7108119684900,
+          flameLength: 14.31739984718150,
+          scorchHt: [169.80644998818718, 6],
         },
       },  // ellipse
     },  // fire
