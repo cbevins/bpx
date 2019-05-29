@@ -1,7 +1,7 @@
 import DagBranch from './DagBranch';
 import DagLeafConfig from './DagLeafConfig';
 
-class BpxTreeConfigFuel extends DagBranch {
+export class BpxTreeConfigFuel extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
@@ -59,7 +59,7 @@ class BpxTreeConfigFuel extends DagBranch {
   }
 }
 
-class BpxTreeConfigSlope extends DagBranch {
+export class BpxTreeConfigSlope extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
@@ -74,7 +74,7 @@ class BpxTreeConfigSlope extends DagBranch {
   }
 }
 
-class BpxTreeConfigWind extends DagBranch {
+export class BpxTreeConfigWind extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
@@ -97,7 +97,7 @@ class BpxTreeConfigWind extends DagBranch {
   }
 }
 
-class BpxTreeConfigFire extends DagBranch {
+export class BpxTreeConfigFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
@@ -143,7 +143,7 @@ class BpxTreeConfigFire extends DagBranch {
   }
 }
 
-class BpxTreeConfigCrown extends DagBranch {
+export class BpxTreeConfigCrown extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 

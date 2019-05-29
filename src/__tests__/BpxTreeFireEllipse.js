@@ -18,8 +18,8 @@ function logNames(leafArray) {
   });
 }
 
-test('1: Vectors in StandAlone mode, Vector=fromHead', () => {
-  const dag = new Dag('BpxTreeStandAloneFireEllipse',
+test('1: Stand-alone fire ellipse fire vectors', () => {
+  const dag = new Dag('fireEllipse',
     new BpxTreeStandAloneFireEllipse('standAlone'));
   const { tree } = dag;
   const cfgVector = tree.configs.fire.vector;
@@ -108,5 +108,4 @@ test('1: Vectors in StandAlone mode, Vector=fromHead', () => {
     expect(vector.fromUpslope.value()).toEqual(vup);
     expect(vector.fromNorth.value()).toEqual(vno);
   })
-
 })

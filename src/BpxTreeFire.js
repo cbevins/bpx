@@ -109,7 +109,6 @@ export default class BpxTreeFire extends DagBranch {
     this.heatPerUnitArea.input();
     this.reactionIntensity.input();
     this.ros.input();
-    this.scorchHt.input();
     this.sinceIgnition.input();
     this.vector.fromHead.input();
     this.vector.fromNorth.input();
@@ -154,12 +153,13 @@ export default class BpxTreeFire extends DagBranch {
       .calc(BpxLibSurfaceFire.flameLength,
         this.firelineIntensity);
 
-    // Prefer to input or enter scorch height?
+    // Prefer to input or estimate scorch height?
     this.scorchHt
-      .inputIf(cfgScorch, 'input')
-      .calc(BpxLibSurfaceFire.scorchHt,
-        this.firelineIntensity,
-        this.midflameWindSpeed,
-        this.airTemp);
+      .calcIf(cfgScorch, 'estimated',
+        BpxLibSurfaceFire.scorchHt,
+          this.firelineIntensity,
+          this.midflameWindSpeed,
+          this.airTemp)
+      .input();
   }
 }
