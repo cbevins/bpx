@@ -23,7 +23,7 @@
  * @version 0.1.0
  */
 
-import Branch from './DagBranch';
+import DagBranch from './DagBranch';
 import BpxTreeCanopy from './BpxTreeCanopy';
 import BpxTreeFire from './BpxTreeFire';
 import BpxTreeFireEllipse from './BpxTreeFireEllipse';
@@ -35,7 +35,7 @@ import BpxTreeMap from './BpxTreeMap';
 import BpxTreeSlope from './BpxTreeSlope';
 import BpxTreeWind from './BpxTreeWind';
 
-class BpxTreeSite extends Branch {
+class BpxTreeSite extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeCanopy(this, 'canopy');
@@ -47,7 +47,7 @@ class BpxTreeSite extends Branch {
   }
 }
 
-class BpxTreeSurfaceFire extends Branch {
+class BpxTreeSurfaceFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeFireWeighted(this, 'weighted');
@@ -55,7 +55,7 @@ class BpxTreeSurfaceFire extends Branch {
   }
 }
 
-class BpxTreeSurface extends Branch {
+class BpxTreeSurface extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeFuel(this, 'fuel');
@@ -63,11 +63,21 @@ class BpxTreeSurface extends Branch {
   }
 }
 
-export default class BpxTree extends Branch {
+export default class BpxTree extends DagBranch {
   constructor(name) {
     super(null, name);
     new BpxTreeConfigs(this, 'configs');
     new BpxTreeSite(this, 'site');
     new BpxTreeSurface(this, 'surface');
+  }
+}
+
+export class BpxTreeStandAloneFireEllipse extends DagBranch {
+  constructor(name) {
+    super(null, name);
+    new BpxTreeConfigs(this, 'configs');
+    new BpxTreeSite(this, 'site');
+    new BpxTreeSurface(this, 'surface');
+    this.surface.fire.ellipse.setStandAlone();
   }
 }

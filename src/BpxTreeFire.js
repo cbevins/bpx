@@ -71,9 +71,9 @@ export default class BpxTreeFire extends DagBranch {
       .desc('fire ellipse length-to-width ratio')
       .units('fireLwr').value(1);
 
-    // new DagLeafQuantity(this, 'midflameWindSpeed')
-    //   .desc('wind speed at midflame height')
-    //   .units('windSpeed').value(0);
+    new DagLeafQuantity(this, 'midflameWindSpeed')
+      .desc('wind speed at midflame height')
+      .units('windSpeed').value(0);
 
     new DagLeafQuantity(this, 'reactionIntensity')
       .desc('reaction intensity')
@@ -129,8 +129,8 @@ export default class BpxTreeFire extends DagBranch {
         this.headingFromUpslope);
 
     // Delegate midflame wind speed to the wind speed module
-    // this.midflameWindSpeed
-    //   .bind(tree.site.wind.speed.atMidflame);
+    this.midflameWindSpeed
+      .bind(tree.site.wind.speed.atMidflame);
 
     // Prefer to enter 'lengthToWidthRatio' or 'effectiveWindSpeed'
     this.lengthToWidthRatio

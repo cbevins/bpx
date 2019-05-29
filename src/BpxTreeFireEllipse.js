@@ -205,6 +205,14 @@ export default class BpxTreeFireEllipse extends TreeFireEllipse {
     this.own.isLinked = isLinked;
   }
 
+  setLinked() {
+    this.own.isLinked = true;
+  }
+
+  setStandAlone() {
+    this.own.isLinked = false;
+  }
+
   connect(tree) {
     // Is this LINKED to surface fire model OR to fire inputs?
     const fireLink = tree.surface.fire.weighted;

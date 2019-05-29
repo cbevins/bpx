@@ -9,9 +9,9 @@ import DagLeaf from './DagLeaf';
 import BpxTree from './BpxTree';
 
 export default class Dag {
-  constructor(name) {
+  constructor(name, dagTree=undefined) {
     this.name = name;
-    this.tree = new BpxTree(name);
+    this.tree = (typeof dagTree === 'undefined' ) ? new BpxTree(name) : dagTree;
     this.leafs = [];
     this.requiredLeafs = [];
     this.requiredConfigLeafs = [];
@@ -34,12 +34,24 @@ export default class Dag {
       elapsed: 0, // elapsed milliseconds
       debug: false,
     };
+    this.build();
+  }
+
+  build() {
+    this.leafs = [];
     this.connectItems(this.tree);
     this.constructLeafsArray(this.tree);
     this.leafs.forEach((leaf) => {
       leaf.label(leaf.fullName());
     });
     this.reconfigure();
+  }
+
+  rebuild() {
+    this.leafs.forEach((leaf) => {
+      leaf.own.configs = [];
+    });
+    this.build();
   }
 
   clearSelected() {
