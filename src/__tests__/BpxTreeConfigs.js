@@ -97,9 +97,9 @@ test('1: verify BpxTreeConfigs branch structure', () => {
 
   leaf = configs.fire.vector;
   expect(leaf.name()).toEqual('vector');
-  expect(leaf.value()).toEqual('fromFireHead');
+  expect(leaf.value()).toEqual('fromHead');
   expect(leaf.value('fromUpslope').value()).toEqual('fromUpslope');
   expect(leaf.value('fromNorth').value()).toEqual('fromNorth');
-  expect(leaf.value('fromFireHead').value()).toEqual('fromFireHead');
+  expect(leaf.value('fromHead').value()).toEqual('fromHead');
   expect(() => { leaf.value('junk'); }).toThrow();
 });

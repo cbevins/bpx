@@ -43,12 +43,15 @@ export class TreeFireWeighted extends DagBranch {
     new DagLeafQuantity(this, 'firelineIntensity')
       .desc('maximum fireline intensity')
       .units('fireFli').value(1);
+
     new DagLeafQuantity(this, 'flameLength')
       .desc('maximum flame length')
       .units('fireFlame').value(1);
+
     new DagLeafQuantity(this, 'heatPerUnitArea')
       .desc('heat per unit area')
       .units('fireHpua').value(1);
+
     new DagLeafQuantity(this, 'reactionIntensity')
       .desc('reaction intensity')
       .units('fireRxi').value(1);

@@ -5,11 +5,10 @@
  *  - 'configs' BpxTreeConfigs
  *  - 'site' BpxTreeSite
  *    - 'canopy' BpxTreeCanopy
+ *    - 'fire' BpxTreeTemp
  *    - 'map' BpxTreeMap
  *    - 'moisture' BpxTreeMoisture
  *    - 'slope' BpxTreeSlope
- *    - 'temp' BpxTreeTemp
- *    - 'time' BpxTreeTime
  *    - 'wind' BpxTreeWind
  *  - 'surface' BpxTreeSurface
  *    - 'fuel' BpxTreeFuel
@@ -26,6 +25,7 @@
 
 import Branch from './DagBranch';
 import BpxTreeCanopy from './BpxTreeCanopy';
+import BpxTreeFire from './BpxTreeFire';
 import BpxTreeFireEllipse from './BpxTreeFireEllipse';
 import BpxTreeFireWeighted from './BpxTreeFireWeighted';
 import BpxTreeFuel from './BpxTreeFuel';
@@ -33,19 +33,16 @@ import BpxTreeMoisture from './BpxTreeMoisture';
 import BpxTreeConfigs from  './BpxTreeConfigs';
 import BpxTreeMap from './BpxTreeMap';
 import BpxTreeSlope from './BpxTreeSlope';
-import BpxTreeTemp from './BpxTreeTemp';
-import BpxTreeTime from './BpxTreeTime';
 import BpxTreeWind from './BpxTreeWind';
 
 class BpxTreeSite extends Branch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeCanopy(this, 'canopy');
+    new BpxTreeFire(this, 'fire');
     new BpxTreeMap(this, 'map');
     new BpxTreeMoisture(this, 'moisture');
     new BpxTreeSlope(this, 'slope');
-    new BpxTreeTemp(this, 'temp');
-    new BpxTreeTime(this, 'time');
     new BpxTreeWind(this, 'wind');
   }
 }

@@ -28,6 +28,13 @@ export const BenchmarkFm124In = {
     },
   },
   site: {
+    fire: {
+      airTemp: 95,
+      sinceIgnition: 60,
+      vector: {
+        fromNorth: 45,
+      },
+    },
     map: {
       scale: 24000,
     },
@@ -50,14 +57,6 @@ export const BenchmarkFm124In = {
         ratio: 0.25,
       },
     },
-    temp: {
-      air: 95,
-    },
-    time: {
-      fire: {
-        sinceIgnition: 60,
-      },
-    },
     wind: {
       direction: {
         sourceFromNorth: 270,
@@ -75,20 +74,6 @@ export const BenchmarkFm124In = {
         },
       },
     },
-    fire: {
-      ellipse: {
-        beta: {
-          azimuth: {
-            fromNorth: 45,
-          },
-        },
-        psi: {
-          azimuth: {
-            fromNorth: 45,
-          },
-        },
-      },  // ellipse
-    },  // fire
   },  // surface
 }
 
@@ -338,12 +323,12 @@ export const BenchmarkFm124Out = {
           mapDistance: 424.10436672371793 / 24000,
           scorchHt: 36.440372402518008,
         },
+        vector: {
+          fromHead: 360 - 42.613728665173383,
+          fromNorth: 45,
+          fromUpslope: 45,
+        },
         beta: {
-          azimuth: {
-            fromHead: 360 - 42.613728665173383,
-            fromNorth: 45,
-            fromUpslope: 45,
-          },
           ros: 6.8494531181657319,
           distance: 60 * 6.8494531181657319,
           mapDistance: 60 * 6.8494531181657319 / 24000,
@@ -362,11 +347,6 @@ export const BenchmarkFm124Out = {
           scorchHt: beta5scht124,
         },
         psi: {
-          azimuth: {
-            fromHead: 360 - 42.613728665173383,
-            fromNorth: 45,
-            fromUpslope: 45,
-          },
           ros: 36.28927049813540,
           distance: 60 * 36.28927049813540,
           mapDistance: 60 * 36.28927049813540 / 24000,

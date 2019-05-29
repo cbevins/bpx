@@ -53,6 +53,7 @@ export default class BenchmarkTester {
       if (typeof inpItem[child] === 'object') {
         this.setInputs(treeItem[child], inpItem[child]);
       } else {
+        //console.log('Input for: '+child);
         treeItem[child].value(inpItem[child]);
       }
     });

@@ -28,6 +28,13 @@ export const BenchmarkFm010In = {
     },
   },  // configs
   site: {
+    fire: {
+      airTemp: 95,
+      sinceIgnition: 60,
+      vector: {
+        fromNorth: 45,
+      },
+    },
     map: {
       scale: 24000,
     },
@@ -50,14 +57,6 @@ export const BenchmarkFm010In = {
         ratio: 0.25,
       },
     },
-    temp: {
-      air: 95,
-    },
-    time: {
-      fire: {
-        sinceIgnition: 60,
-      },
-    },
     wind: {
       direction: {
         sourceFromNorth: 270,
@@ -75,20 +74,6 @@ export const BenchmarkFm010In = {
         },
       },
     },
-    fire: {
-      ellipse: {
-        beta: {
-          azimuth: {
-            fromNorth: 45,
-          },
-        },
-        psi: {
-          azimuth: {
-            fromNorth: 45,
-          },
-        },
-      },  // ellipse
-    },  // fire
   },  // surface
 }
 
@@ -344,6 +329,11 @@ export const BenchmarkFm010Out = {
           perimeter: 2476.2400999186934 / 24000,
           width: 324.64667309956644 / 24000,
         },
+        vector: {
+          fromHead: 360 - 42.573367385837855,
+          fromUpslope: 45,
+          fromNorth: 45,
+        },
         head: {
           ros: 18.551680325448835,
           firelineIntensity: 389.95413667947145,
@@ -369,11 +359,6 @@ export const BenchmarkFm010Out = {
           scorchHt: 4.8023644521509334,
         },
         beta: {
-          azimuth: {
-            fromHead: 360 - 42.573367385837855,
-            fromNorth: 45,
-            fromUpslope: 45,
-          },
           ros: 2.6256648650882601,
           distance: 60 * 2.6256648650882601,
           mapDistance: 60 * 2.6256648650882601 / 24000,
@@ -392,11 +377,6 @@ export const BenchmarkFm010Out = {
           scorchHt: beta5scht010,
         },
         psi: {
-          azimuth: {
-            fromHead: 360 - 42.573367385837855,
-            fromNorth: 45,
-            fromUpslope: 45,
-          },
           ros: 13.89777958366360,
           distance: 60 * 13.89777958366360,
           mapDistance: 60 * 13.89777958366360 / 24000,

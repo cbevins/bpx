@@ -4,6 +4,7 @@ import DagLeafConfig from './DagLeafConfig';
 class BpxTreeConfigFuel extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     // bp6 #1 Surface > Input Options > Fuel:
     // [key, std, exp, harm, arith, pg, wa, ch]
     // Bpx splits bp6 config #1 into two configs; fuel.primary and fuel.secondary
@@ -14,6 +15,7 @@ class BpxTreeConfigFuel extends DagBranch {
       .item('chaparral', 'chaparral dynamic fuel parameters')
       .item('palmettoGallberry', 'palmetto-gallberry dynamic fuel parameters')
       .item('westernAspen', 'western aspen dynamic fuel models');
+
     // bp6 #1 Surface > Input Options > Fuel:
     // [key, std, exp, harm, arith, pg, wa, ch]
     // Bpx splits bp6 config #1 into two configs; fuel.primary and fuel.secondary
@@ -25,6 +27,7 @@ class BpxTreeConfigFuel extends DagBranch {
       .item('palmettoGallberry', 'palmetto-gallberry dynamic fuel parameters')
       .item('westernAspen', 'western aspen dynamic fuel models')
       .item('none', 'there are no secondary fuels', true);
+
     // bp6 #3 - Surface > Input Options > Moisture > Fuel Moisture:
     // [ind, cat, mixed, scen]
     new DagLeafConfig(this, 'moisture')
@@ -33,6 +36,7 @@ class BpxTreeConfigFuel extends DagBranch {
       .item('liveCategory', 'the 3 dead moistures and a singe live category moisture')
       .item('category', 'the dead and live category moistures only')
       .item('catalog', 'a fuel moisture catalog key');
+
     // bp6 #4 Surface > Input Options > Wind Speed > Entered at:
     // [mid, 20-wafInp, 20-wafEst, 10-wafInp, 10-wafEst]
     // Bpx slipts Bp6 config #4 into 2 configs, fuel.waf and wind.speed
@@ -40,11 +44,13 @@ class BpxTreeConfigFuel extends DagBranch {
       .header('Midflame wind speed adjustment factor is')
       .item('input', 'entered as input', true)
       .item('estimated', 'estimated from canopy and fuel parameters');
+
     // bp6 #2 - Surface > Input Options > Moisture > Herb Curing: [est, inp]
     new DagLeafConfig(this, 'curedHerbFraction')
       .header('Behave fuel model cured herb fraction is')
       .item('input', 'entered as input', true)
       .item('estimated', 'estimated from live fuel moisture');
+
     // bp6 #11 Surface > Input Options > Chaparral > Total load is: [specified, est]
     new DagLeafConfig(this, 'chaparralTotalLoad')
       .header('Chaparral total fuel load is')
@@ -56,6 +62,7 @@ class BpxTreeConfigFuel extends DagBranch {
 class BpxTreeConfigSlope extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     // bp6 #7 Surface > Input Options > Slope > Slope is [percent, degrees]
     // bp6 #8 Surface > Input Options > Slope > Slope is [input, map]
     // BPX combined Bp6 configs #7 and #8
@@ -70,6 +77,7 @@ class BpxTreeConfigSlope extends DagBranch {
 class BpxTreeConfigWind extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     // bp6 #5 Surface > Input Options > Wind Speed > Wind is:
     // [always upslope, specified]
     new DagLeafConfig(this, 'direction')
@@ -77,6 +85,7 @@ class BpxTreeConfigWind extends DagBranch {
       .item('sourceFromNorth', 'the direction FROM which the wind is blowing (degrees from NORTH)')
       .item('headingFromUpslope', 'the direcion TOWARDS which the wind is blowing (degrees from UPSLOPE)', true)
       .item('upslope', 'assumed to be blowing upslope');
+
     // bp6 #4 Surface > Input Options > Wind Speed > Entered at:
     // [mid, 20-wafInp, 20-wafEst, 10-wafInp, 10-wafEst]
     // Bpx slipts Bp6 config #4 into 2 configs, fuel.waf and wind.speed
@@ -91,22 +100,42 @@ class BpxTreeConfigWind extends DagBranch {
 class BpxTreeConfigFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
+    new DagLeafConfig(this, 'fli')
+      .header('The fireline intensity is')
+      .item('firelineIntensity', 'entered as input', true)
+      .item('flameLength', 'estimated from the flame length input');
+
+    new DagLeafConfig(this, 'lwr')
+      .header('The fire ellipse length-to-width ratio is')
+      .item('lengthToWidthRatio', 'entered as input', true)
+      .item('effectiveWindSpeed', 'estimated from the effective wind speed input');
+
+    // This basically implements the stand-alone scorch height model
+    // within BpxTreeFire
+    new DagLeafConfig(this, 'scorchHt')
+      .header('The fire scorch height is')
+      .item('input', 'entered as input', true)
+      .item('estimated', 'estimated from intensity, air temperature, and wind speed');
+
     // bp6 #6 Surface > Input Options > Wind Speed > Impose max wind speed limit?
     new DagLeafConfig(this,'ewsLimit')
       .header('The effective wind speed limit is')
       .item('applied', 'applied', true)
       .item('ignored', 'ignored');
+
     // New to BPX
     new DagLeafConfig(this, 'weightingMethod')
       .header('Maximum fire spread rate of 2 surface fuel types is based on')
       .item('arithmetic', 'arithmetic mean spread rate')
       .item('expected', 'expected value spread rate')
       .item('harmonic', 'harmonic mean spread rate', true);
+
     // bp6 #10 Surface > Input Options > Directions > Wind & Fire Dir:
     // [wrt upslope, wrt north]
     new DagLeafConfig(this, 'vector')
       .header('Fire vector direction inputs are')
-      .item('fromFireHead', 'degrees clockwise from direction of maximum spread', true)
+      .item('fromHead', 'degrees clockwise from direction of maximum spread', true)
       .item('fromUpslope', 'degrees clockwise from upslope')
       .item('fromNorth', 'degrees clockwise from north');
     // bp6 #9 Surface > Input Options > Directions > Spread is [head, back, flank, psi, beta]
@@ -117,6 +146,7 @@ class BpxTreeConfigFire extends DagBranch {
 class BpxTreeConfigCrown extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     // bp6 #12 - Crown > Input Options > Use [roth, s&r]
     // BPX - May not be necessary: S&R is applied only if passive ouputs requested
     // new DagLeafConfig(this, 'method')
@@ -137,26 +167,6 @@ class BpxTreeConfigCrown extends DagBranch {
     //   .header('Contain module allows')
     //   .item('single', 'a single firefighting resource')
     //   .item('multiple', 'multiple firefighting resources', true);
-
-    // This should replace Size, Scorch, and Crown fli/fl configurations
-    // new DagLeafConfig(this, 'sizeFli')
-    //   .header('The Size Module is')
-    //   .item('surface', 'linked to the Surface Module', true)
-    //   .item('flameLength', 'run stand-alone using flame length input')
-    //   .item('firelineIntensity', 'run stand-alone using fireline intensity input');
-
-    // #15 - Scorch > Input Options > FLI [fl, fli]
-    // bp7 #16 - stand alone only
-    // new DagLeafConfig(this, 'scorchFli')
-    //   .header('The Scorch Module is')
-    //   .item('surface', 'linked to the Surface Module', true)
-    //   .item('flameLength', 'run stand-alone using flame length input')
-    //   .item('firelineIntensity', 'run stand-alone using fireline intensity input');
-
-    // new DagLeafConfig(this, 'crownRatio')
-    //   .header('The canopy crown ratio is')
-    //   .item('estimated', 'estimated from canopy ht and crown base ht', true)
-    //   .item('input', 'entered as input');
   }
 }
 
