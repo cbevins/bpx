@@ -1,11 +1,5 @@
 import Dag from '../Dag';
-
-function approx(actual, expected, prec = 12) {
-  if (typeof expected === 'number') {
-    return actual.toPrecision(prec) === expected.toPrecision(prec);
-  }
-  return actual === expected;
-}
+import { approx, logNames } from '../__test_data__/Debug';
 
 test('1: Slope direction and steepness', () => {
   const name = 'worksheet1';

@@ -1,22 +1,6 @@
 import Dag from '../Dag';
+import { approx, logNames } from '../__test_data__/Debug';
 import { BpxTreeStandAloneFireEllipse } from '../BpxTree';
-
-function approx(actual, expected, prec = 12) {
-  if (typeof expected === 'number') {
-    let result = actual.toPrecision(prec) === expected.toPrecision(prec);
-    if ( ! result ) {
-      console.log('*** Expected='+expected+' Actual='+actual);
-    }
-    return result;
-  }
-  return actual === expected;
-}
-
-function logNames(leafArray) {
-  leafArray.forEach((leaf)=>{
-    console.log(leaf.fullName());
-  });
-}
 
 test('1: Stand-alone fire ellipse fire vectors', () => {
   const dag = new Dag('fireEllipse',

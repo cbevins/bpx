@@ -86,6 +86,22 @@ export default class BpxLibFireEllipse {
     return (rosHead <= 0) ? 0 : fliHead * rosAz / rosHead;
   }
 
+  /**
+   * Calculate the fire ellipse length.
+   *
+   * @param float majorAxisRos Fire ellipse expansion rate along its major axis
+   *  both heading and backing (arbitrary velocity units-of-measure).
+   *
+   * @param float elapsed Elapsed time since fire ignition
+   *  (in the same time units-of-measure being used for majorAxisRos).
+   *
+   * @return The fire ellipse length at time (in the same distance units-of-measure
+   * being used for majorAxisRos).
+   */
+  static length( majorAxisRos, elapsed ) {
+    return majorAxisRos * elapsed;
+  }
+
   // Map area
   static mapArea(area, mapScale) {
     return (mapScale <= 0) ? 0 : area / (mapScale * mapScale);
@@ -355,10 +371,10 @@ export default class BpxLibFireEllipse {
    *  (arbitrary velocity units-of-measure).
    *
    * @param float elapsed Elapsed time since fire ignition
-   *  (in the same time units-of-measure being used for minorAxisExpansionRate).
+   *  (in the same time units-of-measure being used for minorAxisRos).
    *
    * @return The fire ellipse width at time (in the same distance units-of-measure
-   * being used for minorAxisExpansionRate).
+   * being used for minorAxisRos).
    */
   static width( minorAxisRos, elapsed ) {
     return minorAxisRos * elapsed;

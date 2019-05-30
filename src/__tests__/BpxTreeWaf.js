@@ -1,21 +1,5 @@
 import Dag from '../Dag';
-
-function approx(actual, expected, prec = 12) {
-  if (typeof expected === 'number') {
-    let result = actual.toPrecision(prec) === expected.toPrecision(prec);
-    if ( ! result ) {
-      console.log('*** Expected='+expected+' Actual='+actual);
-    }
-    return result;
-  }
-  return actual === expected;
-}
-
-function logNames(leafArray) {
-  leafArray.forEach((leaf)=>{
-    console.log(leaf.name());
-  });
-}
+import { approx, logNames } from '../__test_data__/Debug';
 
 test('1: Select open-canopy WAF only', () => {
   const name = 'worksheet1';

@@ -1,23 +1,7 @@
 // Tests weighted standard fuel models 10 and 124 from the catalog
 // Tests basic weighted fuel bed and fire behavior
 import Dag from '../Dag';
-
-function approx(actual, expected, prec = 12) {
-  if (typeof expected === 'number') {
-    let result = actual.toPrecision(prec) === expected.toPrecision(prec);
-    if ( ! result ) {
-      console.log('*** Expected='+expected+' Actual='+actual);
-    }
-    return result;
-  }
-  return actual === expected;
-}
-
-function logNames(leafArray) {
-  leafArray.forEach((leaf)=>{
-    console.log(leaf.name());
-  });
-}
+import { approx } from '../__test_data__/Debug';
 
 test('1: FM10 and FM124 weighted', () => {
   const name = 'worksheet1';
