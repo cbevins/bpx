@@ -1,4 +1,3 @@
-"use strict"
 /**
  * @file BehavePlus Explorer Fire Ellipse Equations
  *
