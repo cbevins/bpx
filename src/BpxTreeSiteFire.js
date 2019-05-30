@@ -35,7 +35,7 @@ export class TreeFireVector extends DagBranch {
 /**
  * Defines all possible fire behavior inputs used by BPX.
  */
-export default class BpxTreeFire extends DagBranch {
+export default class BpxTreeSiteFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 

@@ -10,7 +10,7 @@ import DagLeafQuantity from './DagLeafQuantity';
 import DagLeafBool from './DagLeafBool';
 import BpxLibCanopy from './BpxLibCanopy';
 
-export default class BpxTreeCanopy extends DagBranch {
+export default class BpxTreeSiteCanopy extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'bulkDensity')

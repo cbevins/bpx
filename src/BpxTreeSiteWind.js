@@ -10,7 +10,7 @@ import DagLeafQuantity from './DagLeafQuantity';
 import BpxLibCompass from './BpxLibCompass';
 import BpxLibWind from './BpxLibWind';
 
-export class BpxTreeWindDirection extends DagBranch {
+export class BpxTreeSiteWindDirection extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'headingFromUpslope')
@@ -47,7 +47,7 @@ export class BpxTreeWindDirection extends DagBranch {
   }
 }
 
-export class BpxTreeWindSpeed extends DagBranch {
+export class BpxTreeSiteWindSpeed extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'at10m')
@@ -84,10 +84,10 @@ export class BpxTreeWindSpeed extends DagBranch {
   }
 }
 
-export default class BpxTreeWind extends DagBranch {
+export default class BpxTreeSiteWind extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
-    new BpxTreeWindDirection(this, 'direction');
-    new BpxTreeWindSpeed(this, 'speed');
+    new BpxTreeSiteWindDirection(this, 'direction');
+    new BpxTreeSiteWindSpeed(this, 'speed');
   }
 }

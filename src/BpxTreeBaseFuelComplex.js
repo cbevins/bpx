@@ -1,32 +1,6 @@
 /**
  * @file Composes the BehavePlus Explorer fuel sub-tree.
  *
- * BpxTreeFuel is composed of:
- * - 'primary' BpxTreeFuelComplex
- *  - 'bed' BpxTreeFuelBed
- *  - 'model' BpxTreeFuelModel
- *  - 'fire' BpxTreeFuelFire
- * - 'secondary' BpxTreeFuelComplex
- *  - 'bed' BpxTreeFuelBed
- *  - 'model' BpxTreeFuelModel
- *  - 'fire' BpxTreeFuelFire
- *
- * - Each BpxTreeFuelBed is composed of:
- *    - 'dead' BpxTreeFuelCategoryDead
- *      - 'particle' BpxTreeFuelBedPartricles
- *        - 'class1' - 'class5' BpxTreeFuelParticles
- *          - 8 DagLeafs (dens, heat, label, load, mois, savr, seff, stot, ...)
- *    - 'live' BpxTreeFuelCategoryLive
- *      - 'particle' BpxTreeFuelParticles
- *        - 'class1' - 'class5' BpxTreeFuelParticles
- *          - 8 DagLeafs (dens, heat, label, load, mois, savr, seff, stot, ...)
- *
- * - Each BpxTreeFuelModel is composed of:
- *    - 'behave' BpxTreeFuelModelBehave
- *    - 'chaparral' BpxTreeFuelModelChaparral
- *    - 'palmettoGallberry' BpxTreeFuelModelPalmettoGallberry
- *    - 'westernAspen' BpxTreeFuelModelWesternAspen
- *
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
@@ -34,16 +8,10 @@
 
 import DagBranch from './DagBranch';
 import BpxLibFuelBed from './BpxLibFuelBed';
-import BpxTreeFuelBed from './BpxTreeFuelBed';
-import BpxTreeFuelFire from './BpxTreeFuelFire';
-import BpxTreeFuelModel from './BpxTreeFuelModel';
 
-export class BpxTreeFuelComplex extends DagBranch {
+export default class BpxTreeBaseFuelComplex extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
-    new BpxTreeFuelBed(this, 'bed');
-    new BpxTreeFuelFire(this, 'fire');
-    new BpxTreeFuelModel(this, 'model');
   }
 
   /**
@@ -54,7 +22,7 @@ export class BpxTreeFuelComplex extends DagBranch {
    *  - Each FuelModel domain simply produces its own derived parameters,
    * and connect() here deals with complexity of assignment to the single FuelBed.
    */
-  connect(tree) {
+  baseConnect(tree) {
     // External leaf references
     const { tl1h, tl10h, tl100h } = tree.site.moisture.dead;
     const { herb, stem } = tree.site.moisture.live;
@@ -227,13 +195,5 @@ export class BpxTreeFuelComplex extends DagBranch {
       'Live leaves',
       'unused',
       'unused');
-  }
-}
-
-export default class BpxTreeFuel extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-    new BpxTreeFuelComplex(this, 'primary');
-    new BpxTreeFuelComplex(this, 'secondary');
   }
 }

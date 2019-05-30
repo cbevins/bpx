@@ -2,9 +2,8 @@ import Dag from '../Dag';
 import { approx, logNames } from '../__test_data__/Debug';
 
 import DagBranch from '../DagBranch';
-import BpxTreeFuelBed from '../BpxTreeFuelBed';
-import BpxTreeFuelBedCanopy from '../BpxTreeFuelBedCanopy';
-import BpxTreeFuelModel from '../BpxTreeFuelModel';
+import BpxTreeSurfaceFuelBed from '../BpxTreeSurfaceFuelBed';
+import BpxTreeSurfaceFuelModel from '../BpxTreeSurfaceFuelModel';
 import BpxTreeFuelParticle from '../BpxTreeFuelParticle';
 import {
   BpxTreeFuelParticles,
@@ -12,9 +11,7 @@ import {
   BpxTreeFuelCategoryDead,
   BpxTreeFuelCategoryLive,
 } from '../BpxTreeFuelCategory';
-import {
-  BpxTreeFuelComplex,
-} from '../BpxTreeFuel';
+import BpxTreeSurfaceFuel from '../BpxTreeSurfaceFuel';
 
  test('1: new BpxTreeFuelParticle()', () => {
   const root = new DagBranch(null, 'root');
@@ -51,71 +48,23 @@ test('5: new BpxTreeFuelCategoryLive()', () => {
   expect(subtree.name()).toEqual(name);
 });
 
-test('6: new BpxTreeFuelBed()', () => {
+test('6: new BpxTreeSurfaceFuelBed()', () => {
   const root = new DagBranch(null, 'root');
   const name = 'bed';
-  const subtree = new BpxTreeFuelBed(root, name);
+  const subtree = new BpxTreeSurfaceFuelBed(root, name);
   expect(subtree.name()).toEqual(name);
 });
 
-test('7: new BpxTreeFuelModel()', () => {
+test('7: new BpxTreeSurfaceFuelModel()', () => {
   const root = new DagBranch(null, 'root');
   const name = 'model';
-  const subtree = new BpxTreeFuelModel(root, name);
+  const subtree = new BpxTreeSurfaceFuelModel(root, name);
   expect(subtree.name()).toEqual(name);
 });
 
-test('8: new BpxTreeFuelComplex() Primary', () => {
+test('8: new BpxTreeSurfaceFuel()', () => {
   const root = new DagBranch(null, 'root');
   const name = 'primary';
-  const subtree = new BpxTreeFuelComplex(root, name);
+  const subtree = new BpxTreeSurfaceFuel(root, name);
   expect(subtree.name()).toEqual(name);
 });
-
-test('9: new BpxTreeFuelBedCanopy()', () => {
-  const root = new DagBranch(null, 'root');
-  const name = 'bed';
-  const subtree = new BpxTreeFuelBedCanopy(root, name);
-  expect(subtree.name()).toEqual(name);
-});
-
-xtest('10: Fuel bed wind and slope coefficients', () => {
-  const name = 'worksheet1';
-  const dag = new Dag(name);
-  const { tree } = dag;
-  const { canopy, slope, wind } = tree.site;
-  const { at10m, at20ft, atMidflame, waf } = wind.speed;
-  const { bed, model } = tree.surface.fuel.primary;
-  const cfgPrimary = tree.configs.fuel.primary;
-  const cfgCuredHerb = tree.configs.fuel.curedHerbFraction;
-  const cfgChaparral = tree.configs.fuel.chaparralTotalLoad;
-  const cfgWindSpeed = tree.configs.wind.speed;
-  const cfgSteepness = tree.configs.slope.steepness;
-  const cfgWaf = tree.configs.fuel.waf;
-
-  dag.setSelected([bed.slope.phi]);
-  let configLeafs = dag.getRequiredConfigLeafs();
-  expect(configLeafs.length).toEqual(4);
-  expect(configLeafs).toContain(cfgPrimary);
-  expect(configLeafs).toContain(cfgCuredHerb);
-  expect(configLeafs).toContain(cfgChaparral);
-  expect(configLeafs).toContain(cfgSteepness);
-
-  dag.setValues([
-    [cfgPrimary, 'catalog'],
-    [cfgCuredHerb, 'input'],
-    [cfgChaparral, 'input'],
-    [cfgWindSpeed, 'atMidflame'],
-    [cfgSteepness, 'ratio'],
-    [cfgWaf, 'input'],
-  ]);
-
-  let inputLeafs = dag.getRequiredInputLeafs();
-  //logNames(inputLeafs);
-  expect(inputLeafs.length).toEqual(3);
-  expect(inputLeafs).toContain(model.key);
-  expect(inputLeafs).toContain(model.behave.parms.curedHerbFraction);
-  expect(inputLeafs).toContain(slope.steepness.ratio);
-
-
-})

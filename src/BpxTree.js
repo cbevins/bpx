@@ -24,44 +24,10 @@
  */
 
 import DagBranch from './DagBranch';
-import BpxTreeCanopy from './BpxTreeCanopy';
-import BpxTreeFire from './BpxTreeFire';
-import BpxTreeFireEllipse from './BpxTreeFireEllipse';
-import BpxTreeFireWeighted from './BpxTreeFireWeighted';
-import BpxTreeFuel from './BpxTreeFuel';
-import BpxTreeMoisture from './BpxTreeMoisture';
+import BpxTreeCrown from './BpxTreeCrown';
+import BpxTreeSurface from './BpxTreeSurface';
 import BpxTreeConfigs from  './BpxTreeConfigs';
-import BpxTreeMap from './BpxTreeMap';
-import BpxTreeSlope from './BpxTreeSlope';
-import BpxTreeWind from './BpxTreeWind';
-
-class BpxTreeSite extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-    new BpxTreeCanopy(this, 'canopy');
-    new BpxTreeFire(this, 'fire');
-    new BpxTreeMap(this, 'map');
-    new BpxTreeMoisture(this, 'moisture');
-    new BpxTreeSlope(this, 'slope');
-    new BpxTreeWind(this, 'wind');
-  }
-}
-
-class BpxTreeSurfaceFire extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-    new BpxTreeFireWeighted(this, 'weighted');
-    new BpxTreeFireEllipse(this, 'ellipse');
-  }
-}
-
-class BpxTreeSurface extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-    new BpxTreeFuel(this, 'fuel');
-    new BpxTreeSurfaceFire(this, 'fire');
-  }
-}
+import BpxTreeSite from './BpxTreeSite';
 
 export default class BpxTree extends DagBranch {
   constructor(name) {
@@ -69,15 +35,6 @@ export default class BpxTree extends DagBranch {
     new BpxTreeConfigs(this, 'configs');
     new BpxTreeSite(this, 'site');
     new BpxTreeSurface(this, 'surface');
-  }
-}
-
-export class BpxTreeStandAloneFireEllipse extends DagBranch {
-  constructor(name) {
-    super(null, name);
-    new BpxTreeConfigs(this, 'configs');
-    new BpxTreeSite(this, 'site');
-    new BpxTreeSurface(this, 'surface');
-    this.surface.fire.ellipse.setStandAlone();
+    new BpxTreeCrown(this, 'crown');
   }
 }

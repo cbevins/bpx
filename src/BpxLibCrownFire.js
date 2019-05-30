@@ -42,7 +42,7 @@ export default class BpxLibCrownFire {
   static crownFractionBurned(rSurface, rInit, rSa) {
     const numer = rSurface - rInit;  // Rsurface - R'init
     const denom = rSa - rInit;       // R'sa - R'init
-    return BpxMathLib.fraction( BpxMathLib.div(numer, denom) );
+    return BpxLibMath.fraction( BpxLibMath.div(numer, denom) );
   }
 
   /**

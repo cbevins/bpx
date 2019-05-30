@@ -1,6 +1,6 @@
 import Dag from '../Dag';
 import { approx, logNames } from '../__test_data__/Debug';
-import { BpxTreeStandAloneFireEllipse } from '../BpxTree';
+import { BpxTreeStandAloneFireEllipse } from '../BpxTreeStandAloneFireEllipse';
 
 test('1: Stand-alone fire ellipse fire vectors', () => {
   const dag = new Dag('fireEllipse',

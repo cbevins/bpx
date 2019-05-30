@@ -1,5 +1,5 @@
 /**
- * @file Defines the BehavePlus Explorer Fuel Fire sub-tree.
+ * @file Defines the BehavePlus Explorer base fuel fire sub-tree.
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
@@ -22,7 +22,7 @@ import BpxLibWind from './BpxLibWind';
  * - no directions relative to north (so no aspect required)
  * - no scorch height (so no air temperature required)
  */
-export class TreeFuelFire extends DagBranch {
+export default class BpxTreeBaseFuelFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
@@ -257,15 +257,8 @@ export class TreeFuelFire extends DagBranch {
       .desc('no-wind no-slope spread rate')
       .units('fireRos').value(0);
   }
-}
 
-/**
- * Implements the Bpx surface fuel's fire spread subtree where
- * - fuel bed leaf references come from a sibling 'bed'
- * - canopy, slope, and wind leaf references all come from tree.site
- */
-export default class BpxTreeFuelFire extends TreeFuelFire {
-  connect( tree ) {
+  baseConnect( tree ) {
     // Required external references
     // Requires 3 fuel bed leafs: reactionIntensity, ros0, openWaf
     const bed = this.own.parent.bed;
@@ -287,20 +280,20 @@ export default class BpxTreeFuelFire extends TreeFuelFire {
     this.ros0
       .bind(bed.ros0);
 
-    this.slope.ratio
-      .bind(slope.steepness.ratio);
+    // this.slope.ratio
+    //   .bind(slope.steepness.ratio);
 
-    this.wind.headingFromUpslope
-      .bind(wind.direction.headingFromUpslope);
+    // this.wind.headingFromUpslope
+    //   .bind(wind.direction.headingFromUpslope);
 
-    // WAF is either from the site's input WAF
-    // or calculated from canopy inputs and fuel depth
-    this.wind.waf
-      .bindIf(cfgWaf, 'input', wind.speed.waf)
-      .calc(BpxLibFuelBed.waf,
-        canopy.sheltersFuel,
-        canopy.shelteredWaf,
-        bed.openWaf);
+    // // WAF is either from the site's input WAF
+    // // or calculated from canopy inputs and fuel depth
+    // this.wind.waf
+    //   .bindIf(cfgWaf, 'input', wind.speed.waf)
+    //   .calc(BpxLibFuelBed.waf,
+    //     canopy.sheltersFuel,
+    //     canopy.shelteredWaf,
+    //     bed.openWaf);
 
     // Midflame wind speed is either from the site midflame windspeed,
     // or estimated from the site's 20-ft windspeed and this fuel bed's WAF

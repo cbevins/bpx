@@ -13,7 +13,7 @@ import BpxLibMath from './BpxLibMath';
 import BpxLibFireEllipse from './BpxLibFireEllipse';
 import BpxLibSurfaceFire from './BpxLibSurfaceFire';
 
-import {TreeFireVector} from './BpxTreeFire';
+import {TreeFireVector} from './BpxTreeSiteFire';
 
 /**
  * Defines the fire ellipse's axis (shape) leafs.

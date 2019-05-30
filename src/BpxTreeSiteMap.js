@@ -10,7 +10,7 @@ import DagLeafQuantity from './DagLeafQuantity';
 import BpxLibMath from './BpxLibMath';
 import BpxLibCompass from './BpxLibCompass';
 
-export default class BpxTreeMap extends DagBranch {
+export default class BpxTreeSiteMap extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'scale')

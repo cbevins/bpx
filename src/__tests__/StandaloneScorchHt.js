@@ -1,7 +1,6 @@
 import Dag from '../Dag';
 import { approx, logNames } from '../__test_data__/Debug';
 import BpxLibSurfaceFire from '../BpxLibSurfaceFire';
-import { BpxTreeStandAloneFireEllipse } from '../BpxTree';
 
 test('1: Stand-alone scorch height', () => {
   const dag = new Dag('scorchHt');

@@ -1,5 +1,5 @@
 /**
- * @file Defines the BehavePlus Explorer Fuel Bed sub-tree.
+ * @file Defines the BehavePlus Explorer base fuel bed sub-tree.
  * @copyright Systems for Environmental Management 2019
  * @author Collin D. Bevins
  * @version 0.1.0
@@ -18,7 +18,7 @@ import {
   BpxTreeFuelCategoryLive,
 } from './BpxTreeFuelCategory';
 
-export default class BpxTreeFuelBed extends DagBranch {
+export default class BpxTreeBaseFuelBed extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     // Fuel bed level DagBranches
@@ -83,7 +83,7 @@ export default class BpxTreeFuelBed extends DagBranch {
       .units('factor').value(1);
   }
 
-  connect(/*tree*/) {
+  baseConnect(/*tree*/) {
     // Note that depth and dead mext are connected in FuelComplex,
     // which has access to, and is parent of, the FuelModel
 

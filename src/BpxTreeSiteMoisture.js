@@ -73,7 +73,7 @@ export class BpxTreeMoistureLive extends DagBranch {
   }
 }
 
-export default class BpxTreeMoisture extends DagBranch {
+export default class BpxTreeSiteMoisture extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new BpxTreeMoistureDead(this, 'dead');

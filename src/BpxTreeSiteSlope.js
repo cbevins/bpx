@@ -9,7 +9,7 @@ import DagBranch from './DagBranch';
 import DagLeafQuantity from './DagLeafQuantity';
 import BpxLibCompass from './BpxLibCompass';
 
-export class BpxTreeSlopeDirection extends DagBranch {
+export class BpxTreeSiteSlopeDirection extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'aspect')
@@ -26,7 +26,7 @@ export class BpxTreeSlopeDirection extends DagBranch {
   }
 }
 
-export class BpxTreeSlopeSteepness extends DagBranch {
+export class BpxTreeSiteSlopeSteepness extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
     new DagLeafQuantity(this, 'degrees')
@@ -53,10 +53,10 @@ export class BpxTreeSlopeSteepness extends DagBranch {
   }
 }
 
-export default class BpxTreeSlope extends DagBranch {
+export default class BpxTreeSiteSlope extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
-    new BpxTreeSlopeDirection(this, 'direction');
-    new BpxTreeSlopeSteepness(this, 'steepness');
+    new BpxTreeSiteSlopeDirection(this, 'direction');
+    new BpxTreeSiteSlopeSteepness(this, 'steepness');
   }
 }
