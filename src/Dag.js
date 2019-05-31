@@ -169,6 +169,9 @@ export default class Dag {
   reconfigure3LeafCostFor(leaf) {
     let cost = leaf.cost();
     if (cost === 0) {
+      // if (this.name === 'dumpCosts') {
+      //   console.log(leaf.fullName());
+      // }
       // During topological sorting, if multiple nodes have the same cost,
       // it is better that any input nodes are processed last.
       // So give non-input nodes twice the cost as input nodes.

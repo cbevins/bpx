@@ -117,12 +117,15 @@ export default class BpxTreeSiteFire extends DagBranch {
     // Is wind 'sourceFromNorth' or 'headingFromUpslope'?
     this.headingFromUpslope
       .inputIf(cfgDir, 'headingFromUpslope')
+      .fixedIf(cfgDir, 'upslope', 0)
       .calc(BpxLibCompass.diff,
         this.headingFromNorth,
         slope.direction.upslope);
 
+    // If wind is 'sourceFromNorth', then we are entered wrt north
     this.headingFromNorth
       .inputIf(cfgDir, 'sourceFromNorth')
+      .bindIf(cfgDir, 'upslope', slope.direction.upslope)
       .calc(BpxLibCompass.sum,
         slope.direction.upslope,
         this.headingFromUpslope);

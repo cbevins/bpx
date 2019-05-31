@@ -23,9 +23,9 @@ export default class BpxTreeCrownFire extends DagBranch {
   }
 
   connect(tree) {
-    // this.rActive
-    //   .calc(BpxLibCrownFire.rActive,
-    //     this.canopy.)
-
+    const crown = this.own.parent;
+    this.rActive
+      .calc(BpxLibCrownFire.rActive,
+        crown.fuel.canopy.fire.ros);
   }
 }

@@ -30,20 +30,37 @@ export class BpxTreeSiteWindDirection extends DagBranch {
   connect(tree) {
     const cfg = tree.configs.wind.direction;
     const upslope = tree.site.slope.direction.upslope;
+
     this.sourceFromNorth
-      .calcIf(cfg, 'headingFromUpslope', BpxLibCompass.opposite, this.headingFromNorth)
+      .calcIf(cfg, 'headingFromUpslope',
+        BpxLibCompass.opposite,
+          this.headingFromNorth)
       .inputIf(cfg, 'sourceFromNorth')
-      .calcIf(cfg, 'upslope', BpxLibCompass.opposite, upslope)
+      .calcIf(cfg, 'upslope',
+        BpxLibCompass.opposite,
+          upslope);
+
     this.headingFromNorth
-      .calcIf(cfg, 'headingFromUpslope', BpxLibCompass.sum, this.headingFromUpslope, upslope)
-      .calcIf(cfg, 'sourceFromNorth', BpxLibCompass.opposite, this.sourceFromNorth)
+      .calcIf(cfg, 'headingFromUpslope',
+        BpxLibCompass.sum,
+          this.headingFromUpslope,
+          upslope)
+      .calcIf(cfg, 'sourceFromNorth',
+        BpxLibCompass.opposite,
+          this.sourceFromNorth)
       .bindIf(cfg, 'upslope', upslope);
+
     this.headingFromUpslope
       .inputIf(cfg, 'headingFromUpslope')
-      .calcIf(cfg, 'sourceFromNorth', BpxLibCompass.diff, this.headingFromNorth, upslope)
+      .calcIf(cfg, 'sourceFromNorth',
+        BpxLibCompass.diff,
+          this.headingFromNorth,
+          upslope)
       .fixedIf(cfg, 'upslope', 0);
+
     this.sourceFromUpslope
-      .calc(BpxLibCompass.opposite, this.headingFromUpslope);
+      .calc(BpxLibCompass.opposite,
+        this.headingFromUpslope);
   }
 }
 
