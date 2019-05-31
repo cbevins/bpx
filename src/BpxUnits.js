@@ -99,6 +99,13 @@ const BpxUnits = {
     },
     min: 1,
   },
+  firePower: {
+    uom: {
+      base: { lb: 1, ft: -1, s: -1 },
+      alt2: { kg: 1, m:-1, s: -1 },
+    },
+    min: 0,
+  },
   fireRos: {
     uom: {
       base: { ft: 1, min: -1 },

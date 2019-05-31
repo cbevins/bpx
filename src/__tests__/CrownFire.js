@@ -5,9 +5,8 @@ test('1: Establish FM 10 benchmarks', () => {
   const name = 'dumpCostsNOT';
   const dag = new Dag(name);
   const { tree } = dag;
-  const { canopy, moisture, slope, wind } = tree.site;
-  const { at10m, at20ft, atMidflame, waf } = wind.speed;
-  const { bed, model, fire } = tree.surface.fuel.primary;
+  const { moisture, slope, wind } = tree.site;
+  const { model, fire } = tree.surface.fuel.primary;
   const cfgPrimary = tree.configs.fuel.primary;
   const cfgDir = tree.configs.wind.direction;
   const cfgSpeed = tree.configs.wind.speed;
@@ -47,7 +46,7 @@ test('1: Establish FM 10 benchmarks', () => {
     [moisture.dead.tl1h, 0.05],
     [moisture.dead.tl10h, 0.07],
     [moisture.dead.tl100h, 0.09],
-    [moisture.live.herb, 1.5],
+    [moisture.live.herb, 0.5],
     [moisture.live.stem, 1.5],
     [wind.speed.at20ft, 25 * 88],
     [wind.speed.waf, 0.4],
@@ -81,14 +80,19 @@ test('2: Rothermel crown fire', () => {
   const name = 'rothermel';
   const dag = new Dag(name);
   const { tree } = dag;
-  const { canopy, moisture, slope, wind } = tree.site;
+  const { crown, site } = tree;
+  const { canopy, moisture, slope, wind } = site;
+  const { model } = tree.surface.fuel.primary;
+  const { fire, fuel } = crown;
+  const fm10 = fuel.canopy.fire;
 
-  const { rActive } = tree.crown.fire;
-  const fm10 = tree.crown.fuel.canopy.fire;
-
+  // These require the minimum set of inputs
   dag.setSelected([
     fm10.ros0, fm10.ros, fm10.slope.phi, fm10.wind.phi, fm10.phiEw,
-    rActive]);
+    fire.lengthToWidthRatio,
+    fire.active.spreadRate,
+    fire.active.powerOfTheWind,
+  ]);
 
   // Just 6 inputs because waf, slope, and fuel model are fixed
   let inputLeafs = dag.getRequiredInputLeafs();
@@ -104,7 +108,7 @@ test('2: Rothermel crown fire', () => {
     [moisture.dead.tl1h, 0.05],
     [moisture.dead.tl10h, 0.07],
     [moisture.dead.tl100h, 0.09],
-    [moisture.live.herb, 1.5],
+    [moisture.live.herb, 0.5],
     [moisture.live.stem, 1.5],
     [wind.speed.at20ft, 25 * 88],
   ])
@@ -114,6 +118,52 @@ test('2: Rothermel crown fire', () => {
   expect(approx(fm10.wind.phi.value(), 26.298112107312534)).toEqual(true);
   expect(approx(fm10.phiEw.value(), 26.298112107312534)).toEqual(true);
   expect(approx(fm10.ros.value(), 18.535653136564)).toEqual(true);
-  expect(approx(rActive.value(), 3.34 * 18.535653136564832)).toEqual(true);
-  expect(approx(rActive.value(), 61.909081476126)).toEqual(true);
+  expect(approx(fire.lengthToWidthRatio.value(), 4.125)).toEqual(true);
+  expect(approx(fire.active.spreadRate.value(), 3.34 * 18.535653136564832)).toEqual(true);
+  expect(approx(fire.active.spreadRate.value(), 61.909081476126)).toEqual(true);
+  expect(approx(fire.active.powerOfTheWind.value(), 47.96568165233)).toEqual(true);
+
+  // By requesting power of the wind (or crown fire intensity),
+  // we need a surface fire
+  dag.setSelected([
+    fire.surface.heatPerUnitArea,
+    // fire.surface.firelineIntensity,
+    // fire.surface.flameLength,
+    fire.active.heatPerUnitArea,
+    fire.active.firelineIntensity,
+    fire.active.flameLength,
+    fire.active.powerOfTheFire,
+    fire.active.powerRatio,
+    fire.active.isPlumeDominated,
+    fire.active.isWindDriven,
+  ]);
+
+  inputLeafs = dag.getRequiredInputLeafs();
+  logNames(inputLeafs);
+  expect(inputLeafs.length).toEqual(11);
+  expect(inputLeafs).toContain(model.key);
+  expect(inputLeafs).toContain(model.behave.parms.curedHerbFraction);
+  expect(inputLeafs).toContain(canopy.crownBase);
+  expect(inputLeafs).toContain(canopy.crownHeight);
+  expect(inputLeafs).toContain(canopy.bulkDensity);
+
+  dag.setValues([
+    [model.key, '124'],
+    [model.behave.parms.curedHerbFraction, 0.778],
+    [canopy.crownBase, 10],
+    [canopy.crownHeight, 100],
+    [canopy.bulkDensity, 0.02],
+  ]);
+
+  expect(approx(fire.surface.heatPerUnitArea.value(), 12976.692888496578 * 0.23541979977677915)).toEqual(true);
+  expect(approx(fire.active.heatPerUnitArea.value(), 17454.97044157461)).toEqual(true);
+  expect(approx(fire.active.firelineIntensity.value(), 18010.35312051372)).toEqual(true);
+  expect(approx(fire.active.powerOfTheFire.value(), 139.615140469098)).toEqual(true);
+  expect(approx(fire.active.powerRatio.value(), 2.9107298314046)).toEqual(true);
+  expect(fire.active.isPlumeDominated.value()).toEqual(true);
+  expect(fire.active.isWindDriven.value()).toEqual(false);
+
+  // expect(approx(fire.surface.firelineIntensity.value(), 2467.9286450361865)).toEqual(true);
+  // expect(approx(fire.surface.flameLength.value(), 16.356316633171140)).toEqual(true);
+  // expect(approx(fire.surface.ros.value(), 48.470425993990560)).toEqual(true);
 })

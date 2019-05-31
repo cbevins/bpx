@@ -80,7 +80,7 @@ export default class BpxLibCrownFire {
    * @param wspd20 Wind speed at 20-ft (ft+1 min-1).
    * @return The crown fire length-to-width ratio (ratio).
   */
-  static crownFireLengthToWidthRatio( wspd20 ) {
+  static lengthToWidthRatio( wspd20 ) {
     return 1 + 0.125 * (wspd20/88); // Wind speed must be in miles per hour
   }
 
@@ -170,7 +170,7 @@ export default class BpxLibCrownFire {
   }
 
   // Active crown fire heat per unit area,
-  // sume of the surface fire HPUA and the entire active canopy HPUA
+  // sum of the surface fire HPUA and the entire active canopy HPUA
   // (i.e., the canopy load * canopy heat content,
   // and NOT the canopy fuel model 10 HPUA)
   static hpuaActive(surfHpua, cpyHpua) {
@@ -208,7 +208,7 @@ export default class BpxLibCrownFire {
   }
 
   static isWindDriven(powerRatio) {
-    return powerRatio < 1.0;
+    return powerRatio < 1;
   }
 
   /**
@@ -225,11 +225,11 @@ export default class BpxLibCrownFire {
   /**
    * Calculate the crown fire power-of-the-fire(ft+11 lb+1 ft-2 s-1).
    *
-   * @param rActive Crown fire fireline intensity (Btu+1 ft-1 s-1).
+   * @param fliActive Crown fire active fireline intensity (Btu+1 ft-1 s-1).
    * @return Rothermel's power of the fire (ft+1 lb+1 ft-2 s-1).
    */
-  static powerOfTheFire(rActive) {
-    return rActive / 129;
+  static powerOfTheFire(fliActive) {
+    return fliActive / 129;
   }
 
   /**
