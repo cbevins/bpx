@@ -234,7 +234,10 @@ class CrownFireSpreadTest extends PHPUnit_Framework_TestCase
         $this->assertEquals( 137.418376789506, $crown->getActiveCrownFireFlameLengthAtHead(), __LINE__ );
         $this->assertEquals( 3714.544888567592, $crown->getActiveCrownFireLength( 60. ), __LINE__ );
         $this->assertEquals( 900.495730561840, $crown->getActiveCrownFireWidth( 60. ), __LINE__ );
+        // The following uses the surface fire ellipse method
         $this->assertEquals( 7938.77291469162, $crown->getActiveCrownFirePerimeter( 60. ), __LINE__ );
+        // The following uses the crown fire ellipse method
+        $this->assertEquals( 7249.28885253776, $crown->getActiveCrownFirePerimeter( 60. ), __LINE__ );
         $this->assertEquals( 2627103.30, $crown->getActiveCrownFireArea( 60. ), __LINE__, 0.01 );
         $this->assertEquals( 2467.92864505662, $crown->getFirelineIntensityAtHead(), __LINE__ );
         $this->assertEquals( 21.851930596532, $crown->getCrownFireTransitionRatio(), __LINE__ );

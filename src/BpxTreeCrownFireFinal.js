@@ -25,9 +25,13 @@ export class BpxTreeCrownFireEllipseSizeFinal extends TreeFireEllipseSize {
     const elapsed = tree.site.fire.sinceIgnition;
 
     this.length.calc(BpxLibSurfaceFire.distance, ros, elapsed);
-    this.width.calc(BpxLibMath.div, lwr, this.length);
+    this.width.calc(BpxLibMath.div, this.length, lwr);
+    // BehavePlus always uses Rothermel's crown fire periemeter & area equations
     this.perimeter.calc(BpxLibCrownFire.perimeter, this.length, lwr);
     this.area.calc(BpxLibCrownFire.area, this.length, lwr);
+    // The following are NOT used!
+    //this.perimeter.calc(BpxLibFireEllipse.perimeter, this.length, this.width);
+    //this.area.calc(BpxLibFireEllipse.area, this.length, lwr);
   }
 }
 
@@ -71,25 +75,55 @@ export default class BpxTreeCrownFireFinal extends DagBranch {
     new DagLeafQuantity(this, 'crownFractionBurned')
       .desc('crown fire crown fraction burned')
       .units('fraction').value(0);
+
+    new DagLeafQuantity(this, 'ros')
+      .desc('final crown fire spread rate per Scott & Reinhardt (2001)')
+      .units('fireRos').value(0);
+
+    new DagLeafQuantity(this, 'firelineIntensity')
+      .desc('final crown fire fireline intensity rate per Scott & Reinhardt (2001)')
+      .units('fireFli').value(0);
+
+    new DagLeafQuantity(this, 'flameLength')
+      .desc('final crown fire fireline intensity rate per Scott & Reinhardt (2001)')
+      .units('fireFli').value(0);
   }
 
   connect( tree ) {
-    const { primary } = tree.surface.fuel;
     const crown = tree.crown;
+    const { canopy } = tree.site;
+    const { primary } = tree.surface.fuel;
 
     this.rSa
       .calc(BpxLibCrownFire.rSa,
         crown.fire.initiation.oActive,
         primary.bed.ros0,
-        primary.fire.waf,
-        primary.bed.windB,
-        primary.bed.windK,
+        primary.fire.wind.waf,
+        primary.fire.wind.b,
+        primary.fire.wind.k,
         primary.fire.slope.phi);
 
     this.crownFractionBurned
       .calc(BpxLibCrownFire.crownFractionBurned,
         primary.fire.ros,
         crown.fire.initiation.ros,
-        this.rsa);
+        this.rSa);
+
+    this.ros
+      .calc(BpxLibCrownFire.rFinal,
+        primary.fire.ros,
+        crown.fire.active.ros,
+        this.crownFractionBurned);
+
+    this.firelineIntensity
+      .calc(BpxLibCrownFire.fliFinal,
+        this.ros,
+        this.crownFractionBurned,
+        canopy.heatPerUnitArea,
+        crown.fire.surface.heatPerUnitArea);
+
+    this.flameLength
+      .calc(BpxLibCrownFire.flThomas,
+        this.firelineIntensity);
   }
 }

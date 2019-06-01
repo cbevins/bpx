@@ -187,7 +187,7 @@ export default class BpxLibCrownFire {
    * @param phis Slope coefficient (0 for crown fire)
    * @return The O`active wind speed (ft+1 min-1).
    */
-  static oActive(cpyBulk, crownRxi, crownSink, phis=0) {
+  static oActive(cpyBulk, crownRxi, crownSink, phis) {
     // In native units
     const cbd     = 16.0185 * cpyBulk;      // Convert from lb/ft3 to kg/m3
     const ractive = 3.28084 * (3 / cbd);    // R'active, ft/min

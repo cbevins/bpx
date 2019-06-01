@@ -65,6 +65,10 @@ export default class BpxTreeCrownFireInitiation extends DagBranch {
       .desc('the fire is an active crown fire')
       .value(false);
 
+    new DagLeafBool(this, 'isCrownFire')
+      .desc('the fire is a crown fire')
+      .value(false);
+
     new DagLeafBool(this, 'isPassiveCrownFire')
       .desc('the fire is a passive crown fire')
       .value(false);
@@ -133,6 +137,11 @@ export default class BpxTreeCrownFireInitiation extends DagBranch {
         this.transitionRatio,
         this.activeRatio);
 
+    this.isCrownFire
+      .calc(BpxLibCrownFire.isCrown,
+        this.transitionRatio,
+        this.activeRatio);
+
     this.isPassiveCrownFire
       .calc(BpxLibCrownFire.isPassive,
         this.transitionRatio,
@@ -146,7 +155,7 @@ export default class BpxTreeCrownFireInitiation extends DagBranch {
     this.oActive
       .calc(BpxLibCrownFire.oActive,
         canopy.bulkDensity,
-        crown.fuel.canopy.fire.firelineIntensity,
+        crown.fuel.canopy.fire.reactionIntensity,
         crown.fuel.canopy.bed.heatSink,
         crown.fuel.canopy.fire.slope.phi);
 

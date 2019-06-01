@@ -26,9 +26,13 @@ export class BpxTreeCrownFireEllipseSizeActive extends TreeFireEllipseSize {
     const elapsed = tree.site.fire.sinceIgnition;
 
     this.length.calc(BpxLibSurfaceFire.distance, ros, elapsed);
-    this.width.calc(BpxLibMath.div, lwr, this.length);
+    this.width.calc(BpxLibMath.div, this.length, lwr);
+    // BehavePlus always uses Rothermel's crown fire periemeter & area equations
     this.perimeter.calc(BpxLibCrownFire.perimeter, this.length, lwr);
     this.area.calc(BpxLibCrownFire.area, this.length, lwr);
+    // The following are NOT used!
+    //this.perimeter.calc(BpxLibFireEllipse.perimeter, this.length, this.width);
+    //this.area.calc(BpxLibFireEllipse.area, this.length, lwr);
   }
 }
 

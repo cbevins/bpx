@@ -1,7 +1,7 @@
 import Dag from '../Dag';
 import { approx, logNames } from '../__test_data__/Debug';
 
-test('1: Establish FM 10 benchmarks', () => {
+test('1: Establish Crown Fire Canopy Fuel (FM 10) benchmarks', () => {
   const name = 'dumpCostsNOT';
   const dag = new Dag(name);
   const { tree } = dag;
@@ -17,9 +17,12 @@ test('1: Establish FM 10 benchmarks', () => {
     fire.wind.phi,
     fire.phiEw,
     fire.ros0,
-    fire.ros]);
+    fire.ros,
+    fire.reactionIntensity
+  ]);
 
   let windDir = 'upslope';
+
   dag.setValues([
     [cfgDir, windDir],
     [cfgPrimary, 'catalog'],
@@ -74,9 +77,10 @@ test('1: Establish FM 10 benchmarks', () => {
   expect(approx(fire.phiEw.value(), 26.298112107312534)).toEqual(true);
   let ros = 1 + 0.67900860922904482 * 26.298112107312534;
   expect(approx(fire.ros.value(), 18.535653136564)).toEqual(true);
+  expect(approx(fire.reactionIntensity.value(), 5794.6954002291168)).toEqual(true);
 })
 
-test('2: Rothermel crown fire', () => {
+test('2: Rothermel active crown fire', () => {
   const name = 'rothermel';
   const dag = new Dag(name);
   const { tree } = dag;
@@ -158,12 +162,9 @@ test('2: Rothermel crown fire', () => {
   expect(approx(fire.surface.heatPerUnitArea.value(), 12976.692888496578 * 0.23541979977677915)).toEqual(true);
   expect(approx(fire.active.heatPerUnitArea.value(), 17454.97044157461)).toEqual(true);
   expect(approx(fire.active.firelineIntensity.value(), 18010.35312051372)).toEqual(true);
+  expect(approx(fire.active.flameLength.value(), 137.418376789506)).toEqual(true);
   expect(approx(fire.active.powerOfTheFire.value(), 139.615140469098)).toEqual(true);
   expect(approx(fire.active.powerRatio.value(), 2.9107298314046)).toEqual(true);
   expect(fire.active.isPlumeDominated.value()).toEqual(true);
   expect(fire.active.isWindDriven.value()).toEqual(false);
-
-  // expect(approx(fire.surface.firelineIntensity.value(), 2467.9286450361865)).toEqual(true);
-  // expect(approx(fire.surface.flameLength.value(), 16.356316633171140)).toEqual(true);
-  // expect(approx(fire.surface.ros.value(), 48.470425993990560)).toEqual(true);
 })
