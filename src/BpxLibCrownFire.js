@@ -14,6 +14,17 @@ export default class BpxLibCrownFire {
   static SURFACE = 'Surface';
 
   /**
+   * Calculate the crown fire active ratio.
+   *
+   * @param rActive Actual active crown fire spread rate (ft+1 min-1)
+   * @param rPrime Crown spread rate required to maintain active crowning (ft+1 min-1)
+   * @return Scott & Reinhardt's active crowning ratio.
+  */
+ static activeRatio(rActive, rPrime) {
+  return (rPrime <= 0 ) ? 0 : (rActive / rPrime);
+}
+
+  /**
    * Crown fire area per Rothermel (1991) equation 11 (p 16)
    *
    * @param dist Crown fire spread distance (ft+1)
@@ -22,6 +33,18 @@ export default class BpxLibCrownFire {
   */
   static area(dist, lwr) {
     return Math.PI * dist * dist / (4 * lwr);
+  }
+
+  /**
+   * Calculate the crown fire fuel load (lb+1 ft-2) given the canopy bulk density and canopy height.
+   *
+   * @param cpyBulk Canopy bulk density (lb+1 ft-3).
+   * @param cpyHt Canopy height (ft+1).
+   * @param cpyBase Canopy base height (ft+1).
+   * @return The crown canopy fuel load (lb+1 ft-2).
+   */
+  static canopyLoad(cpyBulk, cpyHt, cpyBase) {
+    return cpyBulk * ( cpyHt - cpyBase);
   }
 
   static canTransition(transRatio) {
@@ -48,67 +71,27 @@ export default class BpxLibCrownFire {
   /**
    * Calculate the Scott & Reinhardt 'crowning index' (O'active),
    *	the 20-ft wind speed at which the crown canopy becomes fully available
-  *	for active fire spread (and the crown fraction burned approaches 1).
-  *
-  * @param cpyBulk Crown canopy bulk density (btu+1 ft-3).
-  * @param crownRxi Crown fire (fuel model 10) reaction intensity (btu+1 ft-2 min-1).
-  * @param crownSink Crown fire (fuel model 10) heat sink (btu+1 ft-3).
-  * @param phis Slope coefficient (0 for crown fire)
-  * @return The crowing index [O'active] (ft+1 min-1).
+   *	for active fire spread (and the crown fraction burned approaches 1).
+   *
+   * @param oActive Open wind speed sufficient for active xcrown fire (ft+1 min-1)
+   * @return The Scott & Reinhardt Crowning Index (km+1 h-1).
   */
-  static crowningIndex(cpyBulk, crownRxi, crownSink, phis) {
-    // In native units
-    const cbd     = 16.0185 * cpyBulk;      // Convert from lb/ft3 to kg/m3
-    const ractive = 3.28084 * (3 / cbd);    // R'active, ft/min
-    const r10     = ractive / 3.34;		      // R'active = 3.324 * r10
-    const pflux   = 0.048317062998571636;	  // Fuel model 10 actual propagating flux ratio
-    const ros0    = crownRxi * pflux  / crownSink;
-    const windB   = 1.4308256324729873;     // Fuel model 10 actual wind factor B
-    const windBInv= 1 / windB;			        // Fuel model 10 actual inverse of wind factor B
-    const windK   = 0.0016102128596515481;  // Fuel model 10 actual K = C*pow((beta/betOpt),-E)
-    const a       = ( (r10 / ros0) - 1 - phis ) / windK;
-    const uMid    = Math.pow(a, windBInv);
-    const u20     = uMid / 0.4;
-    const ci      = u20 / 54.680665;				// CI in km/h
-    return u20;
+  static crowningIndex(oActive) {
+    return oActive / 54.680665;				// CI in km/h
   }
 
   /**
-   * Calculate the crown fire length-to-width ratio given the 20-ft
-   * wind speed (Rothermel 1991, Equation 10, p16).
    *
-   * @param wspd20 Wind speed at 20-ft (ft+1 min-1).
-   * @return The crown fire length-to-width ratio (ratio).
+   * @param crownHpua Crown fire (surface plus canopy fuel) heat per unit area (Btu+1 ft-2)
+   * @param rActive Active crown fire spread rate (ft+1 min-1)
+   * @return Active crown fire fireline intensity (BTU+1 ft-1 s-1)
   */
-  static lengthToWidthRatio( wspd20 ) {
-    return 1 + 0.125 * (wspd20/88); // Wind speed must be in miles per hour
+  static fliActive(crownHpua, rActive) {
+    return (rActive/60) * crownHpua;
   }
 
-  /**
-   * Calculate the crown fire fuel load (lb+1 ft-2) given the canopy bulk density and canopy height.
-   *
-   * @param cpyBulk Canopy bulk density (lb+1 ft-3).
-   * @param cpyHt Canopy height (ft+1).
-   * @param cpyBase Canopy base height (ft+1).
-   * @return The crown canopy fuel load (lb+1 ft-2).
-  */
-  static canopyLoad(cpyBulk, cpyHt, cpyBase) {
-    return cpyBulk * ( cpyHt - cpyBase);
-  }
-
-  /**
-   * Calculate R'active, the critical crown (minimum) rate of spread for active crowning.
-   *
-   * Scott & Reinhardt (2001) equation 14, p 14.
-   *
-   * @param cpyBulk Crown canopy bulk density (lb+1 ft-3).
-   * @return The critical crown fire spread rate (ft+1 min-1).
-  */
-  static rPrimeActive(cpyBulk) {
-    const cbdSi = 16.0184663678 * cpyBulk;  // convert to Kg/m3
-    const rosSi = (cbdSi <= 0) ? 0 : (3 / cbdSi);  // m/min
-    const rosFpm = rosSi * 3.2808399;        // return as ft/min
-    return rosFpm;
+  static fliFinal(rFinal, cfb, cpyHpua, surfHpua) {
+    return rFinal * (surfHpua + (cfb * cpyHpua)) / 60;
   }
 
   /**
@@ -128,35 +111,6 @@ export default class BpxLibCrownFire {
     const cbh = Math.max( 0.1, (0.3048 * cpyBase)); // convert to meters with 10 cm min
     const kwm = Math.pow( (0.010 * cbh * (460 + 25.9 * fmc)), 1.5); // (kW/m)
     return kwm * 0.288672;							              // return as Btu/ft/s
-  }
-
-  /**
-   * Calculate the critical surface fire spread rate (R'initiation)
-   * sufficient to initiate a passive or active crown fire.
-   *
-   * This is Scott & Reinhardt (2001) equation 12 (p 13).
-   *
-   * @param critSurfFli Critical surface fireline intensity (btu_1 ft-1 s-1).
-   * @param surfHpua Surface fire heat per unit area (Btu+1 ft-2).
-   * @return Scott & Reinhardt's critical surface fire spread rate
-   *  [R'initiation] (ft+1 min-1)
-  */
-  static rInit(critSurfFli, surfHpua) {
-    return ( surfHpua <= 0 ) ? 1.0e+12 : (60 * critSurfFli)/surfHpua;
-  }
-
-  /**
-   *
-   * @param crownHpua Crown fire (surface plus canopy fuel) heat per unit area (Btu+1 ft-2)
-   * @param rActive Active crown fire spread rate (ft+1 min-1)
-   * @return Active crown fire fireline intensity (BTU+1 ft-1 s-1)
-  */
-  static fliActive(crownHpua, rActive) {
-    return (rActive/60) * crownHpua;
-  }
-
-  static fliFinal(rFinal, cfb, cpyHpua, surfHpua) {
-    return rFinal * (surfHpua + (cfb * cpyHpua)) / 60;
   }
 
   /**
@@ -209,6 +163,44 @@ export default class BpxLibCrownFire {
 
   static isWindDriven(powerRatio) {
     return powerRatio < 1;
+  }
+
+  /**
+   * Calculate the crown fire length-to-width ratio given the 20-ft
+   * wind speed (Rothermel 1991, Equation 10, p16).
+   *
+   * @param wspd20 Wind speed at 20-ft (ft+1 min-1).
+   * @return The crown fire length-to-width ratio (ratio).
+  */
+  static lengthToWidthRatio( wspd20 ) {
+    return 1 + 0.125 * (wspd20/88); // Wind speed must be in miles per hour
+  }
+
+  /**
+   * Calculate the Scott & Reinhardt 'crowning index' (O'active),
+   *	the 20-ft wind speed at which the crown canopy becomes fully available
+   *	for active fire spread (and the crown fraction burned approaches 1).
+   *
+   * @param cpyBulk Crown canopy bulk density (btu+1 ft-3).
+   * @param crownRxi Crown fire (fuel model 10) reaction intensity (btu+1 ft-2 min-1).
+   * @param crownSink Crown fire (fuel model 10) heat sink (btu+1 ft-3).
+   * @param phis Slope coefficient (0 for crown fire)
+   * @return The O`active wind speed (ft+1 min-1).
+   */
+  static oActive(cpyBulk, crownRxi, crownSink, phis=0) {
+    // In native units
+    const cbd     = 16.0185 * cpyBulk;      // Convert from lb/ft3 to kg/m3
+    const ractive = 3.28084 * (3 / cbd);    // R'active, ft/min
+    const r10     = ractive / 3.34;		      // R'active = 3.324 * r10
+    const pflux   = 0.048317062998571636;	  // Fuel model 10 actual propagating flux ratio
+    const ros0    = crownRxi * pflux  / crownSink;
+    const windB   = 1.4308256324729873;     // Fuel model 10 actual wind factor B
+    const windBInv= 1 / windB;			        // Fuel model 10 actual inverse of wind factor B
+    const windK   = 0.0016102128596515481;  // Fuel model 10 actual K = C*pow((beta/betOpt),-E)
+    const a       = ( (r10 / ros0) - 1 - phis ) / windK;
+    const uMid    = Math.pow(a, windBInv);
+    const u20     = uMid / 0.4;
+    return u20;
   }
 
   /**
@@ -275,6 +267,36 @@ export default class BpxLibCrownFire {
   }
 
   /**
+   * Calculate the critical surface fire spread rate (R'initiation)
+   * sufficient to initiate a passive or active crown fire.
+   *
+   * This is Scott & Reinhardt (2001) equation 12 (p 13).
+   *
+   * @param critSurfFli Critical surface fireline intensity (btu_1 ft-1 s-1).
+   * @param surfHpua Surface fire heat per unit area (Btu+1 ft-2).
+   * @return Scott & Reinhardt's critical surface fire spread rate
+   *  [R'initiation] (ft+1 min-1)
+  */
+  static rInit(critSurfFli, surfHpua) {
+    return ( surfHpua <= 0 ) ? 1.0e+12 : (60 * critSurfFli)/surfHpua;
+  }
+
+  /**
+   * Calculate R'active, the critical crown (minimum) rate of spread for active crowning.
+   *
+   * Scott & Reinhardt (2001) equation 14, p 14.
+   *
+   * @param cpyBulk Crown canopy bulk density (lb+1 ft-3).
+   * @return The critical crown fire spread rate (ft+1 min-1).
+  */
+  static rPrimeActive(cpyBulk) {
+    const cbdSi = 16.0184663678 * cpyBulk;  // convert to Kg/m3
+    const rosSi = (cbdSi <= 0) ? 0 : (3 / cbdSi);  // m/min
+    const rosFpm = rosSi * 3.2808399;        // return as ft/min
+    return rosFpm;
+  }
+
+  /**
    * Scott & Reinhardt (2001) R'sa, the theoretical surface fire spread rate
    * when the 20-ft wind speed equals O'active
    *
@@ -332,19 +354,19 @@ export default class BpxLibCrownFire {
    *
    * @param transRatio The ratio of the surface fireline intensity to the
    *		critical surface fireline intensity.
-  * @param activeRatio The ratio of the active crown fire spread rate to the
-  *		critical crown fire spread rate
-  * @return One of the following codes:
-  *  - 'surface fire' indicates a surface fire with no torching or crowning
-  *      (transition ratio < 1 && active ratio < 1)
-  *	- 'passive crown fire' indicates a passive/torching crown fire
-  *      (transition ratio >= 1 && active ratio < 1)
-  *	- 'conditional surface fire' indicates a surface fire that could conditionally
-  *      transition to an active crown fire
-  *      (transition ratio < 1 && active ratio >= 1)
-  *	- 'active crown fire' indicates an active crown fire
-  *      (transition ratio >= 1 && active ratio >= 1)
-  */
+   * @param activeRatio The ratio of the active crown fire spread rate to the
+   *		critical crown fire spread rate
+   * @return One of the following codes:
+   *  - 'surface fire' indicates a surface fire with no torching or crowning
+   *      (transition ratio < 1 && active ratio < 1)
+   *	- 'passive crown fire' indicates a passive/torching crown fire
+   *      (transition ratio >= 1 && active ratio < 1)
+   *	- 'conditional surface fire' indicates a surface fire that could conditionally
+   *      transition to an active crown fire
+   *      (transition ratio < 1 && active ratio >= 1)
+   *	- 'active crown fire' indicates an active crown fire
+   *      (transition ratio >= 1 && active ratio >= 1)
+   */
   static type(transRatio, activeRatio) {
     if (transRatio < 1) {
       return (activeRatio < 1)

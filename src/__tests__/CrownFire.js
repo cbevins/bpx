@@ -89,8 +89,8 @@ test('2: Rothermel crown fire', () => {
   // These require the minimum set of inputs
   dag.setSelected([
     fm10.ros0, fm10.ros, fm10.slope.phi, fm10.wind.phi, fm10.phiEw,
-    fire.lengthToWidthRatio,
-    fire.active.spreadRate,
+    fire.active.lengthToWidthRatio,
+    fire.active.ros,
     fire.active.powerOfTheWind,
   ]);
 
@@ -118,9 +118,9 @@ test('2: Rothermel crown fire', () => {
   expect(approx(fm10.wind.phi.value(), 26.298112107312534)).toEqual(true);
   expect(approx(fm10.phiEw.value(), 26.298112107312534)).toEqual(true);
   expect(approx(fm10.ros.value(), 18.535653136564)).toEqual(true);
-  expect(approx(fire.lengthToWidthRatio.value(), 4.125)).toEqual(true);
-  expect(approx(fire.active.spreadRate.value(), 3.34 * 18.535653136564832)).toEqual(true);
-  expect(approx(fire.active.spreadRate.value(), 61.909081476126)).toEqual(true);
+  expect(approx(fire.active.lengthToWidthRatio.value(), 4.125)).toEqual(true);
+  expect(approx(fire.active.ros.value(), 3.34 * 18.535653136564832)).toEqual(true);
+  expect(approx(fire.active.ros.value(), 61.909081476126)).toEqual(true);
   expect(approx(fire.active.powerOfTheWind.value(), 47.96568165233)).toEqual(true);
 
   // By requesting power of the wind (or crown fire intensity),
