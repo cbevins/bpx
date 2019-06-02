@@ -5,64 +5,7 @@
  * @version 0.1.0
  */
 
-const tpa = 2000.0 / 43560.0;
-
-const BpxLibFuelRecord = {
-  10: {
-    domain: 'behave',
-    label: 'Timber litter and understory',
-    depth: 1.0,
-    deadMext: 0.25,
-    dead1Load: 0.138,
-    dead10Load: 0.092,
-    dead100Load: 0.230,
-    totalHerbLoad: 0.0,
-    liveStemLoad: 0.092,
-    dead1Savr: 2000.0,
-    liveHerbSavr: 1500.0,
-    liveStemSavr: 1500.0,
-    deadHeat: 8000.0,
-    liveHeat: 8000.0,
-  },
-  124: {
-    domain: 'behave',
-    label: 'High load, humid climate grass-shrub',
-    depth: 2.1,
-    deadMext: 0.40,
-    dead1Load: tpa * 1.9,
-    dead10Load: tpa * 0.3,
-    dead100Load: tpa * 0.1,
-    totalHerbLoad: tpa * 3.4,
-    liveStemLoad: tpa * 7.1,
-    dead1Savr: 1800.0,
-    liveHerbSavr: 1600.0,
-    liveStemSavr: 1600.0,
-    deadHeat: 8000.0,
-    liveHeat: 8000.0,
-  },
-  chamise6: {
-    domain: 'chaparral',
-    label: '6-ft chamise 50%',
-    depth: 6.0,
-    totalLoad: 2.0,
-    deadFraction: 0.75,
-    fuelType: 'chamise',
-  },
-  pg6: {
-    domain: 'palmettoGallberry',
-    label: '6-ft pg',
-    age: 10.0,
-    basal: 30.0,
-    cover: 70.0,
-    height: 6.0,
-  },
-  aspenShrub50: {
-    domain: 'westernAspen',
-    label: 'Aspen-shrub 50%',
-    curingLevel: 0.50,
-    fuelType: 'aspenShrub',
-  },
-}; // fuel
+import { BpxLibFuelRecord } from './BpxLibFuelCatalogData';
 
 export default class BpxLibFuelCatalog {
   static domain(key) {
