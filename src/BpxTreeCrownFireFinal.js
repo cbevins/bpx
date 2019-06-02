@@ -122,6 +122,8 @@ export default class BpxTreeCrownFireFinal extends DagBranch {
         canopy.heatPerUnitArea,
         crown.fire.surface.heatPerUnitArea);
 
+    // NOTE that if this is a SURFACE fire,
+    // this flame length != the surface fire flame length
     this.flameLength
       .calc(BpxLibCrownFire.flThomas,
         this.firelineIntensity);

@@ -31,7 +31,6 @@ test('1: Establish Crown Fire Canopy Fuel (FM 10) benchmarks', () => {
   ]);
 
   let inputLeafs = dag.getRequiredInputLeafs();
-  //logNames(inputLeafs);
   expect(inputLeafs).toContain(model.key);
   expect(inputLeafs).toContain(model.behave.parms.curedHerbFraction);
   expect(inputLeafs).toContain(moisture.dead.tl1h)
@@ -143,7 +142,6 @@ test('2: Rothermel active crown fire', () => {
   ]);
 
   inputLeafs = dag.getRequiredInputLeafs();
-  logNames(inputLeafs);
   expect(inputLeafs.length).toEqual(11);
   expect(inputLeafs).toContain(model.key);
   expect(inputLeafs).toContain(model.behave.parms.curedHerbFraction);
@@ -160,6 +158,7 @@ test('2: Rothermel active crown fire', () => {
   ]);
 
   expect(approx(fire.surface.heatPerUnitArea.value(), 12976.692888496578 * 0.23541979977677915)).toEqual(true);
+  expect(approx(fire.surface.heatPerUnitArea.value(), 3054.970441574617)).toEqual(true);
   expect(approx(fire.active.heatPerUnitArea.value(), 17454.97044157461)).toEqual(true);
   expect(approx(fire.active.firelineIntensity.value(), 18010.35312051372)).toEqual(true);
   expect(approx(fire.active.flameLength.value(), 137.418376789506)).toEqual(true);
@@ -167,4 +166,7 @@ test('2: Rothermel active crown fire', () => {
   expect(approx(fire.active.powerRatio.value(), 2.9107298314046)).toEqual(true);
   expect(fire.active.isPlumeDominated.value()).toEqual(true);
   expect(fire.active.isWindDriven.value()).toEqual(false);
+
+  // Force coverage of 0 tests
+  dag.setValue(model.key, '0');
 })

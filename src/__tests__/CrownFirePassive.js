@@ -5,7 +5,7 @@ import { approx, logNames } from '../__test_data__/Debug';
  * Note that for the Benchmark124 case,
  * the wind is NOT blowing upslope, so S&R final results are invalid
  */
-test('1: Active crown fire per BP6', () => {
+test('1: Passive crown fire per BP6', () => {
   const name = 'benchmark124';
   const dag = new Dag(name);
   const { tree } = dag;
@@ -28,8 +28,9 @@ test('1: Active crown fire per BP6', () => {
   ]);
 
   // Set all possible input values up front
+  // ONLY THE CANOPY FACTORS ARE CHANGED!!
   dag.setValues([
-    [tree.site.canopy.bulkDensity, 0.02,],
+    [tree.site.canopy.bulkDensity, 0.005,], // changed from 0.02
     [tree.site.canopy.crownBase, 10],
     [tree.site.canopy.crownHeight, 100],
     [tree.site.canopy.foliarMoisture, 0.5],
@@ -117,19 +118,19 @@ test('1: Active crown fire per BP6', () => {
   expect(approx(tree.crown.fuel.canopy.fire.ros.value(), 18.535653136564)).toEqual(true);
   expect(approx(tree.crown.fuel.canopy.fire.reactionIntensity.value(), 5794.6954002291168)).toEqual(true);
 
-  expect(approx(tree.site.canopy.bulkDensity.value(), 0.02)).toEqual(true);
-  expect(approx(tree.site.canopy.fuelLoad.value(), 1.8)).toEqual(true);
-  expect(approx(tree.site.canopy.heatPerUnitArea.value(), 14400)).toEqual(true);
+  expect(approx(tree.site.canopy.bulkDensity.value(), 0.005)).toEqual(true);
+  expect(approx(tree.site.canopy.fuelLoad.value(), 0.45)).toEqual(true);
+  expect(approx(tree.site.canopy.heatPerUnitArea.value(), 3600)).toEqual(true);
   expect(approx(tree.crown.fire.surface.heatPerUnitArea.value(), 3054.970441574617)).toEqual(true);
-  expect(approx(tree.crown.fire.active.heatPerUnitArea.value(), 17454.97044157461)).toEqual(true);
+  expect(approx(tree.crown.fire.active.heatPerUnitArea.value(), 6654.970441574616)).toEqual(true);
 
   expect(approx(tree.crown.fire.active.lengthToWidthRatio.value(), 4.125)).toEqual(true);
   expect(approx(tree.crown.fire.active.ros.value(), 61.909081476126)).toEqual(true);
   expect(approx(tree.crown.fire.active.powerOfTheWind.value(), 47.96568165233)).toEqual(true);
-  expect(approx(tree.crown.fire.active.powerOfTheFire.value(), 139.615140469098)).toEqual(true);
-  expect(approx(tree.crown.fire.active.powerRatio.value(), 2.9107298314046)).toEqual(true);
-  expect(approx(tree.crown.fire.active.firelineIntensity.value(), 18010.35312051372)).toEqual(true);
-  expect(approx(tree.crown.fire.active.flameLength.value(), 137.418376789506)).toEqual(true);
+  expect(approx(tree.crown.fire.active.powerOfTheFire.value(), 53.23037561868951)).toEqual(true);
+  expect(approx(tree.crown.fire.active.powerRatio.value(), 1.1097595986338438)).toEqual(true);
+  expect(approx(tree.crown.fire.active.firelineIntensity.value(), 6866.718454810946)).toEqual(true);
+  expect(approx(tree.crown.fire.active.flameLength.value(), 72.25415444164292)).toEqual(true);
   expect(tree.crown.fire.active.isPlumeDominated.value()).toEqual(true);
   expect(tree.crown.fire.active.isWindDriven.value()).toEqual(false);
 
@@ -157,17 +158,16 @@ test('1: Active crown fire per BP6', () => {
 
   expect(approx(tree.crown.fire.initiation.firelineIntensity.value(), 112.938700503)).toEqual(true);
   expect(approx(tree.crown.fire.initiation.ros.value(), 2.21813014553, 11)).toEqual(true);
-  expect(approx(tree.crown.fire.initiation.rosPrime.value(), 30.7223522801, 5)).toEqual(true);
+  expect(approx(tree.crown.fire.initiation.rosPrime.value(), 122.88966339231122)).toEqual(true);
   expect(approx(tree.crown.fire.initiation.transitionRatio.value(), 21.851930596532, 11)).toEqual(true);
-  expect(approx(tree.crown.fire.initiation.activeRatio.value(), 2.015115278658, 5)).toEqual(true);
+  expect(approx(tree.crown.fire.initiation.activeRatio.value(), 0.5037777772935131)).toEqual(true);
   expect(tree.crown.fire.initiation.canTransition.value()).toEqual(true);
-  expect(tree.crown.fire.initiation.type.value()).toEqual('Active');
-  expect(tree.crown.fire.initiation.isActiveCrownFire.value()).toEqual(true);
+  expect(tree.crown.fire.initiation.type.value()).toEqual('Passive');
+  expect(tree.crown.fire.initiation.isActiveCrownFire.value()).toEqual(false);
   expect(tree.crown.fire.initiation.isConditionalCrownFire.value()).toEqual(false);
-  expect(tree.crown.fire.initiation.isPassiveCrownFire.value()).toEqual(false);
+  expect(tree.crown.fire.initiation.isPassiveCrownFire.value()).toEqual(true);
   expect(tree.crown.fire.initiation.isSurfaceFire.value()).toEqual(false);
-  expect(approx(tree.crown.fire.initiation.oActive.value(), 1311.5956871074688)).toEqual(true);
-  //expect(approx(tree.crown.fire.initiation.oActive.value(), 1472.7891731058)).toEqual(true);
+  expect(approx(tree.crown.fire.initiation.oActive.value(), 3599.1528163069893)).toEqual(true);
   //expect(approx(tree.crown.fire.initiation.crowningIndex.value(),)).toEqual(true);
 
   dag.setSelected([
@@ -181,11 +181,11 @@ test('1: Active crown fire per BP6', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(15);
 
-  expect(approx(tree.crown.fire.final.rSa.value(), 26.512798896145366)).toEqual(true);
-  expect(approx(tree.crown.fire.final.crownFractionBurned.value(), 1)).toEqual(true);
-  expect(approx(tree.crown.fire.final.ros.value(), 61.909081476126)).toEqual(true);
-  expect(approx(tree.crown.fire.final.firelineIntensity.value(), 18010.35312051372)).toEqual(true);
-  expect(approx(tree.crown.fire.final.flameLength.value(), 137.418376789506)).toEqual(true);
+  expect(approx(tree.crown.fire.final.rSa.value(), 95.70141510896958)).toEqual(true);
+  expect(approx(tree.crown.fire.final.crownFractionBurned.value(), 0.4947654103826835)).toEqual(true);
+  expect(approx(tree.crown.fire.final.ros.value(), 55.119407888803835)).toEqual(true);
+  expect(approx(tree.crown.fire.final.firelineIntensity.value(), 4442.739952139114)).toEqual(true);
+  expect(approx(tree.crown.fire.final.flameLength.value(), 54.05019409941576)).toEqual(true);
 
   // Finally, verify distances and sizes
   dag.setSelected([
@@ -221,12 +221,12 @@ test('1: Active crown fire per BP6', () => {
   expect(approx(tree.crown.fire.active.map.perimeter.value(), 7249.28885253776/12000)).toEqual(true);
   expect(approx(tree.crown.fire.active.map.area.value(), 2627103.302726261/12000/12000)).toEqual(true);
 
-  expect(approx(tree.crown.fire.final.size.length.value(), 3714.544888567592)).toEqual(true);
-  expect(approx(tree.crown.fire.final.size.width.value(), 900.495730561840)).toEqual(true);
-  expect(approx(tree.crown.fire.final.size.perimeter.value(), 7249.28885253776)).toEqual(true);
-  expect(approx(tree.crown.fire.final.size.area.value(), 2627103.302726261)).toEqual(true);
-  expect(approx(tree.crown.fire.final.map.length.value(), 3714.544888567592/12000)).toEqual(true);
-  expect(approx(tree.crown.fire.final.map.width.value(), 900.495730561840/12000)).toEqual(true);
-  expect(approx(tree.crown.fire.final.map.perimeter.value(), 7249.28885253776/12000)).toEqual(true);
-  expect(approx(tree.crown.fire.final.map.area.value(), 2627103.302726261/12000/12000)).toEqual(true);
+  expect(approx(tree.crown.fire.final.size.length.value(), 3307.16447332823)).toEqual(true);
+  expect(approx(tree.crown.fire.final.size.width.value(), 801.73684201896449)).toEqual(true);
+  expect(approx(tree.crown.fire.final.size.perimeter.value(), 6454.247093310093)).toEqual(true);
+  expect(approx(tree.crown.fire.final.size.area.value(), 2082464.0672270376)).toEqual(true);
+  expect(approx(tree.crown.fire.final.map.length.value(), 3307.16447332823/12000)).toEqual(true);
+  expect(approx(tree.crown.fire.final.map.width.value(), 801.73684201896449/12000)).toEqual(true);
+  expect(approx(tree.crown.fire.final.map.perimeter.value(), 6454.247093310093/12000)).toEqual(true);
+  expect(approx(tree.crown.fire.final.map.area.value(), 2082464.0672270376/12000/12000)).toEqual(true);
 })
