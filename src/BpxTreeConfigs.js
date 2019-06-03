@@ -144,9 +144,6 @@ export class BpxTreeConfigFire extends DagBranch {
 }
 
 export class BpxTreeConfigCrown extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-
     // bp6 #12 - Crown > Input Options > Use [roth, s&r]
     // BPX - May not be necessary: S&R is applied only if passive ouputs requested
     // new DagLeafConfig(this, 'method')
@@ -167,7 +164,6 @@ export class BpxTreeConfigCrown extends DagBranch {
     //   .header('Contain module allows')
     //   .item('single', 'a single firefighting resource')
     //   .item('multiple', 'multiple firefighting resources', true);
-  }
 }
 
 export default class BpxTreeConfigs extends DagBranch {

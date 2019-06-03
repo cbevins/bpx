@@ -27,10 +27,6 @@ export class BpxTreeCrownFireSurface extends DagBranch {
 }
 
 export default class BpxTreeCrownFireSurfaceLinked extends BpxTreeCrownFireSurface {
-  constructor(parent, name) {
-    super(parent, name);
-  }
-
   connect( tree ) {
     const surface = tree.surface.fire.weighted;
 

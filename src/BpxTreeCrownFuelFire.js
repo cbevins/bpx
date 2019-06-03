@@ -17,10 +17,6 @@ import BpxTreeBaseFuelFire from './BpxTreeBaseFuelFire';
  * - then connects the waf, slope, and fire heading.
  */
 export default class BpxTreeCrownFuelFire extends BpxTreeBaseFuelFire {
-  constructor(parent, name) {
-    super(parent, name);
-  }
-
   connect(tree) {
     BpxTreeBaseFuelFire.prototype.baseConnect.call(this, tree);
     this.wind.waf.fixed(0.4);

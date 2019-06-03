@@ -16,9 +16,6 @@ import BpxLibSurfaceFire from './BpxLibSurfaceFire';
 import { TreeFireEllipseSize, TreeFireEllipseMap } from './BpxTreeFireEllipse';
 
 export class BpxTreeCrownFireEllipseSizeFinal extends TreeFireEllipseSize {
-  constructor(parent, name) {
-    super(parent, name);
-  }
   connect( tree ) {
     const ros = tree.crown.fire.final.ros;
     const lwr = tree.crown.fire.active.lengthToWidthRatio;
@@ -36,10 +33,6 @@ export class BpxTreeCrownFireEllipseSizeFinal extends TreeFireEllipseSize {
 }
 
 export class BpxTreeCrownFireEllipseMapFinal extends TreeFireEllipseMap {
-  constructor(parent, name) {
-    super(parent, name);
-  }
-
   connect(tree) {
     const scale = tree.site.map.scale;
     const size = tree.crown.fire.final.size;

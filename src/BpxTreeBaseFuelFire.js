@@ -265,11 +265,6 @@ export default class BpxTreeBaseFuelFire extends DagBranch {
     // Requires 3 configurations:
     const cfgEws = tree.configs.fire.ewsLimit;
     const cfgSpd = tree.configs.wind.speed;
-    const cfgWaf = tree.configs.fuel.waf;
-    // Requires 2 canopy leafs: sheltersFuel, shelteredWaf
-    const canopy = tree.site.canopy;
-    // Requires 1 slope.steepness leaf: ratio
-    const slope = tree.site.slope;
     // Requires 3 wind.speed leafs: at20ft, atMidflame, waf
     // and 1 wind.direction leaf: headingFromUpslope
     const wind = tree.site.wind;

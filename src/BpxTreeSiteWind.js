@@ -83,9 +83,6 @@ export class BpxTreeSiteWindSpeed extends DagBranch {
 
   connect(tree) {
     const cfgSpd = tree.configs.wind.speed;
-    const cfgWaf = tree.configs.fuel.waf;
-    const canopy = tree.site.canopy;
-    const fuelDepth = tree.surface.fuel.primary.bed.depth;
 
     this.at10m
       .inputIf(cfgSpd, 'at10m')

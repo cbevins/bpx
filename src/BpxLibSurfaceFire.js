@@ -16,8 +16,6 @@
  * @license MIT
 **/
 
-import BpxLibFuelBed from './BpxLibFuelBed';
-
 export default class BpxLibSurfaceFire {
   /**
    * Calculate the distance given the velocity and elapsed time.

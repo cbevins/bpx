@@ -130,9 +130,6 @@ export class BpxTreeFuelCategory extends DagBranch {
 }
 
 export class BpxTreeFuelCategoryDead extends BpxTreeFuelCategory {
-  constructor(parent, name) {
-    super(parent, name);
-  }
   // Use the parent's connect() only!!
 }
 

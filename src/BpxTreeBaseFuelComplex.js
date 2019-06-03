@@ -10,10 +10,6 @@ import DagBranch from './DagBranch';
 import BpxLibFuelBed from './BpxLibFuelBed';
 
 export default class BpxTreeBaseFuelComplex extends DagBranch {
-  constructor(parent, name) {
-    super(parent, name);
-  }
-
   /**
    * FuelComplex provides connections between 4 possible FuelModel domains
    * and a resulting single FuelBed. There are two design possibilities:

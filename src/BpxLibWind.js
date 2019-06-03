@@ -5,8 +5,6 @@
  * @version 0.1.0
  */
 
-import BpxLibMath from './BpxLibMath';
-
 export default class BpxLibWind {
   static at10m(ws20ft) {
     return 1.13 * ws20ft;

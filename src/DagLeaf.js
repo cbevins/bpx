@@ -7,7 +7,6 @@
  */
 
 import DagBranch from './DagBranch';
-import { isFlowBaseAnnotation } from '@babel/types';
 
 // A helper/convenience class used by DagLeaf
 class DagLeafCfg {
@@ -175,7 +174,7 @@ export default class DagLeaf extends DagBranch {
 
   static ensureLeafConfig(obj) {
     return ( typeof(obj) === 'undefined'
-        || typeof(obj) === 'null'
+        || obj === 'null'
         || typeof(obj) !== 'object'
         || ! ('isConfig' in obj )
         || ! obj.isConfig() ) ? false : true;
