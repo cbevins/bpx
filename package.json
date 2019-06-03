@@ -14,6 +14,7 @@
     "react": "^16.8.6",
     "react-bootstrap": "1.0.0-beta.8",
     "react-dom": "^16.8.6",
+    "react-json-inspector": "7.1.1",
     "react-scripts": "3.0.1",
     "source-map-explorer": "1.8.0"
   },
@@ -23,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "jest":{
+  "jest": {
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!**/coverage/**",
@@ -41,8 +42,13 @@
         "statements": 90
       }
     },
-    "coverageReporters": ["lcov", "text", "clover", "json"]
-},
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "clover",
+      "json"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },

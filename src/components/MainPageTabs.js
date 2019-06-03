@@ -10,6 +10,7 @@ import ConfigPage from './ConfigPage';
 import InputPage from './InputPage';
 import ResultsPage from './ResultsPage';
 import SelectPage from './SelectPage';
+import TreeBrowserPage from './TreeBrowserPage';
 
 import Dag from  '../Dag';
 
@@ -22,16 +23,19 @@ export default function MainPageTabs(props) {
         <Col>
           <Tabs defaultActiveKey="select" id="uncontrolled-tab-example">
             <Tab eventKey="select" title="Select">
-              <SelectPage dag={dag}/>
+              <SelectPage dag={dag} />
             </Tab>
             <Tab eventKey="configure" title="Configure">
-                <ConfigPage />
+                <ConfigPage dag={dag} />
             </Tab>
             <Tab eventKey="input" title="Input">
-              <InputPage />
+              <InputPage dag={dag} />
             </Tab>
             <Tab eventKey="results" title="Results">
-              <ResultsPage />
+              <ResultsPage dag={dag} />
+            </Tab>
+            <Tab eventKey="tree" title="Tree Browser">
+              <TreeBrowserPage  dag={dag} />
             </Tab>
         </Tabs>
         </Col>

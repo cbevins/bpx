@@ -1,23 +1,40 @@
 import React from 'react';
-import {KeyedList} from './SimpleList';
+import Form from 'react-bootstrap/Form';
 
-function keyedListValueCompare(a, b) {
-  if (a.value < b.value) return -1;
-  if (a.value > b.value) return 1;
-  return 0;
+function selectionMade(dag, leaf, e) {
+  if (e.target.checked) {
+    dag.setSelected([leaf]);
+  } else {
+    dag.unSelect([leaf]);
+  }
 }
 
-export default function SelectTab(props) {
-  const items = [];
-  props.dag.leafs.forEach((leaf) => {
-    let name = leaf.fullName('/');
-    items.push({key: name, value: name});
-  });
-  items.sort(keyedListValueCompare);
+export function SelectionList(props) {
+  const { primary } = props.dag.tree.surface.fuel;
+  const selectableLeafs = [
+    primary.fire.ros,
+    primary.fire.firelineIntensity,
+    primary.fire.flameLength,
+  ];
+
+  const items = selectableLeafs.map((leaf) =>
+    <Form.Check type="checkbox"
+      onClick={(e) => selectionMade(props.dag, leaf, e)}
+      id={leaf.fullName('-')}
+      label={leaf.name()} />
+  );
   return (
     <div>
-      <h3>{items.length} BehavePlus Explorer Variables</h3>
-      <KeyedList items={items} />
+      <h3>Select from the following {items.length} variables:</h3>
+      {items}
     </div>
+  );
+}
+
+export default function SelectPage(props) {
+  return (
+    <Form.Group controlId="formBasicChecbox">
+      <SelectionList dag={props.dag} />
+    </Form.Group>
   );
 }

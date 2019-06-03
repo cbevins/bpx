@@ -12,6 +12,12 @@ export function SimpleList(props) {
   );
 }
 
+export function keyedListValueCompare(a, b) {
+  if (a.value < b.value) return -1;
+  if (a.value > b.value) return 1;
+  return 0;
+}
+
 function KeyedItem(props) {
   return <li>{props.value}</li>;
 }
