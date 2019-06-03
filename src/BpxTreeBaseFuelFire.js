@@ -405,7 +405,7 @@ export default class BpxTreeBaseFuelFire extends DagBranch {
 
     // Calculate wind-slope coefficient (phiEw') using method 1
     this.spread.step1.phiEw
-      .calc(BpxLibMath.sum,
+      .calc(BpxLibSurfaceFire.phiEw,
         this.phiW,
         this.phiS);
 

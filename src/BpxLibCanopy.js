@@ -20,10 +20,10 @@ export default class BpxLibCanopy {
     return Math.max( 0, ht - baseHt);
   }
 
-  // Crown length from crown ratio and canopy height
-  static crownLengthFromRatio(crownRatio, ht) {
-    return crownRatio * ht;
-  }
+  // // Crown length from crown ratio and canopy height
+  // static crownLengthFromRatio(crownRatio, ht) {
+  //   return crownRatio * ht;
+  // }
 
   // Crown ratio
   static crownRatio(length, ht) {

@@ -6,23 +6,6 @@
  */
 
  export default class BpxLibCompass {
-  /**
-   * Calculate the azimuth (degrees clockwise) from some base given:
-   *  - a reference azimuth relative to some base (i.e., north or up-slope); and
-   *  - a second azimuth relative to the first azimuth.
-   *
-   *  The first argument is relative to some base (i.e., north or up-slope),
-   *  the second argument is relative to the first argument,
-   *  and the result is relative to the base of the first argument.
-   *
-   * @param float baseAzimuth An azimuth (degrees clockwise) from some base (i.e., north or up-slope).
-   * @param float relativeAzimuth Some other azimuth (degrees clockwise) relative to the first azimuth.
-   *
-   * @return float The second azimuth relative to the base of the first argument.
-   */
-  static absAz(baseAz, relAz) {
-    return BpxLibCompass.constrain(baseAz + relAz);
-  }
 
   /**
    * Constrain compass degrees to the azimuth range [0 <= degrees < 360].
@@ -56,10 +39,6 @@
     return BpxLibCompass.constrain(x - y);
   }
 
-  static mapRatio(scale) {
-    return (scale <= 0) ? 0 : (1 / scale);
-  }
-
   /**
    * Get the opposite azimuth from degrees.
    *
@@ -80,27 +59,6 @@
    */
   static radians(degrees) {
     return degrees * Math.PI / 180;
-  }
-
-  /**
-   * Calculate the azimuth (degrees clockwise) between a beginning
-   * and ending pair of azimuths relative to the same base.
-   *
-   * Both arguments are azimuths relative to the same base (such as north or upslope),
-   * and the result is the second argument relative to the first.
-   *
-   * @param float beginDegrees Starting azimuth (degrees clockwise) from some base (north, up-slope, wind-heading, fire-heading)
-   * @param float endDegrees Ending azimuth (degrees clockwise) relative to the same base as beginAzimuth.
-   *
-   * @return float The relative azimuth (degrees clockwise) between the two input azimuths.
-   */
-  static relAz(begDeg, endDeg) {
-    return BpxLibCompass.constrain(360 + endDeg - begDeg);
-  }
-
-  static shortestArc(az1, az2) {
-    var arc = BpxLibCompass.constrain(az1 - az2);
-    return (arc > 180) ? (360 - arc) : arc;
   }
 
   /**

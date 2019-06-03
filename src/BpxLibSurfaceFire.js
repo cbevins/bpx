@@ -70,9 +70,9 @@ export default class BpxLibSurfaceFire {
    * @param rxi Fire reaction intensity (btu+1 ft-2 min-1).
    * @return The maximum effective wind speed limit (ft+1 min-1).
   */
-  static effectiveWindSpeedLimit(rxi) {
-    return 0.9 * rxi;
-  }
+  // static effectiveWindSpeedLimit(rxi) {
+  //   return 0.9 * rxi;
+  // }
 
   /**
    * Calculate the fire heading direction (degrees clockwise from north).
@@ -81,9 +81,9 @@ export default class BpxLibSurfaceFire {
    * @param headingFromUpslope Fire heading direction (degrees clockwise from the upslope direction).
    * @return The fire heading direction (degrees clockwise from north).
   */
-  static headingFromNorth(upslopeFromNorth, headingFromUpslope) {
-    return compass.constrain(upslopeFromNorth + headingFromUpslope);
-  }
+  // static headingFromNorth(upslopeFromNorth, headingFromUpslope) {
+  //   return compass.constrain(upslopeFromNorth + headingFromUpslope);
+  // }
 
   /**
    * Calculate the fireline intensity (btu+1 ft-1 s-1) from spread rate,
@@ -136,27 +136,22 @@ export default class BpxLibSurfaceFire {
    * Calculate the wind-slope coefficient (phiEw = phiW + phiS)
    * from the individual slope (phiS) and wind (phiW) coefficients.
    *
-   * There are 3 ways to calculate the wind-slope coefficient `phiEw`:
-   * - from `phiS` and `phiW`: windSlopeCoefficientCombined(phiS,phiW)
-   * - from `ros0` and `rosHead`: windSlopeCoefficientInferred(ros0,rosHead)
-   * - from `effWind`, `windB`, and `windK`: windSlopeCoefficientFromEffectivfeWindSpeed()
-   *
    * @param phiW Rothermel (1972) wind coefficient `phiW` (ratio)
    * @param phiS Rothermel (1972) slope coefficient `phiS` (ratio)
    * @return Rothermel's (1972) wind-slope coefficient `phiEw` (ratio).
   */
-  static phiEw(phiW, phiS) {
-    return phiW + phiS;
-  }
+  // static phiEw(phiW, phiS) {
+  //   return phiW + phiS;
+  // }
 
   /**
    * Calculate the wind-slope coefficient (phiEw = phiW + phiS)
    * from the no-wind, no-slope spread rate and an actual spread rate.
    *
    * There are 3 ways to calculate the wind-slope coefficient `phiEw`:
-   * - from `phiS` and `phiW`: windSlopeCoefficientCombined(phiS,phiW)
-   * - from `ros0` and `rosHead`: windSlopeCoefficientInferred(ros0,rosHead)
-   * - from `effWind`, `windB`, and `windK`: windSlopeCoefficientFromEffectivfeWindSpeed()
+   * - from `phiS` and `phiW`: see phiEw(phiS,phiW)
+   * - from `ros0` and `rosHead`: see phiEwInferred(ros0,rosHead)
+   * - from `ews`, `windB`, and `windK`: see phiEwFromEws(ews, windB, windK)
    *
    * @param ros0 No-wind, no-slope spread rate (ft+1 min-1).
    * @param rosHead The actual spread rate (ft+1 min-1) at the fire head
@@ -172,9 +167,9 @@ export default class BpxLibSurfaceFire {
    * from the effective wind speed.
    *
    * There are 3 ways to calculate the wind-slope coefficient `phiEw`:
-   * - from `phiS` and `phiW`: see windSlopeCoefficientCombined(phiS,phiW)
-   * - from `ros0` and `rosHead`: see windSlopeCoefficientInferred(ros0,rosHead)
-   * - from `effWind`, `windB`, and `windK`: see windSlopeCoefficientFromEffectivfeWindSpeed()
+   * - from `phiS` and `phiW`: see phiEw(phiS,phiW)
+   * - from `ros0` and `rosHead`: see phiEwInferred(ros0,rosHead)
+   * - from `ews`, `windB`, and `windK`: see phiEwFromEws(ews, windB, windK)
    *
    * @param ews The theoretical wind speed that produces
    *  the same spread rate coefficient as the current slope-wind combination.
@@ -182,9 +177,9 @@ export default class BpxLibSurfaceFire {
    * @param windK
    * @return Rothermel's (1972) wind-slope coefficient `phiEw` (ratio).
    */
-  static phiEwFromEws(ews, windB, windK) {
-    return (ews <= 0) ? 0 : (windK * Math.pow(ews, windB));
-  }
+  // static phiEwFromEws(ews, windB, windK) {
+  //   return (ews <= 0) ? 0 : (windK * Math.pow(ews, windB));
+  // }
 
   /** Calculate the fire spread rate slope coefficient (ratio).
    *
@@ -260,9 +255,9 @@ export default class BpxLibSurfaceFire {
    * @param phiEwLimited Rothermel's (1972) `phiEw` wind-slope coefficient (ratio)
    * AFTER applying the effective wind speed limit.
   */
-  static rosMaxEwslApplied(ros0, phiEwLimited) {
-    return ros0 * (1 + phiEwLimited);
-  }
+  // static rosMaxEwslApplied(ros0, phiEwLimited) {
+  //   return ros0 * (1 + phiEwLimited);
+  // }
 
   /**
    * Calculate the maximum spread rate after applying the effective wind speed upper limit.
@@ -395,14 +390,14 @@ export default class BpxLibSurfaceFire {
    * @param phiS The fuel bed slope coefficient (phi slope)
    * @return The midflame wind speed (ft+1 min-1) required to attain the target fire spread rate.
   */
-  static windSpeedAtRosTarget(rosTarget, ros0, windB, windK, phiS) {
-    if (ros0 <= 0 || windK <= 0) {
-      return 0;
-    }
-    const numerator = (rosTarget / ros0) - 1 - phiS;
-    const term = numerator / windK;
-    return Math.pow(term, (1/windB));
-  }
+  // static windSpeedAtRosTarget(rosTarget, ros0, windB, windK, phiS) {
+  //   if (ros0 <= 0 || windK <= 0) {
+  //     return 0;
+  //   }
+  //   const numerator = (rosTarget / ros0) - 1 - phiS;
+  //   const term = numerator / windK;
+  //   return Math.pow(term, (1/windB));
+  // }
 
   /**
    * Calculates the midflame wind speed required to attain a target fire spread rate.
@@ -414,15 +409,15 @@ export default class BpxLibSurfaceFire {
    * @param slopeRatio The fuel bed slope (ratio)
    * @return The midflame wind speed (ft+1 min-1) required to attain the target fire spread rate.
   */
-  static windSpeedAtRosTarget2(rosTarget, ros0, beta, bedSavr, slopeRatio) {
-    const windB = BpxLibFuelBed.windB(bedSavr);
-    const windC = BpxLibFuelBed.windC(bedSavr);
-    const windE = BpxLibFuelBed.windE(bedSavr);
-    const betaOpt = BpxLibFuelBed.beto(bedSavr);
-    const betaRatio = beta / betaOpt;
-    const windK = BpxLibFuelBed.windK(betaRatio, windE, windC);
-    const slopeK = BpxLibFuelBed.slopeK(beta);
-    const phiS = BpxLibSurfaceFire.phiS(slopeRatio, slopeK);
-    return BpxLibSurfaceFire.windSpeedAtRosTarget(rosTarget, ros0, windB, windK, phiS);
-  }
+  // static windSpeedAtRosTarget2(rosTarget, ros0, beta, bedSavr, slopeRatio) {
+  //   const windB = BpxLibFuelBed.windB(bedSavr);
+  //   const windC = BpxLibFuelBed.windC(bedSavr);
+  //   const windE = BpxLibFuelBed.windE(bedSavr);
+  //   const betaOpt = BpxLibFuelBed.beto(bedSavr);
+  //   const betaRatio = beta / betaOpt;
+  //   const windK = BpxLibFuelBed.windK(betaRatio, windE, windC);
+  //   const slopeK = BpxLibFuelBed.slopeK(beta);
+  //   const phiS = BpxLibSurfaceFire.phiS(slopeRatio, slopeK);
+  //   return BpxLibSurfaceFire.windSpeedAtRosTarget(rosTarget, ros0, windB, windK, phiS);
+  // }
 }

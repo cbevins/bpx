@@ -21,53 +21,6 @@ export default class BpxLibFireEllipse {
       return Math.PI * len * len / ( 4 * lwr );
   }
 
-  //--------------------------------------------------------------------------
-  /**	\brief Updates beta wrt head from theta.
-   *
-   * Calculate the degrees from the fire ignition point given the degrees
-   * from the ellipse center and some ellipse paramaters.
-   *
-   * @param theta Azimuth from the ellipse center wrt the fire head
-   * @param rosF spread rate at F
-   * @param rosG spread rate at G
-   * @param rosH spread rate at H
-   * @returns The azimuth from the fire ignition point.
-   */
-  static betaFromTheta( theta, rosF, rosG, rosH) {
-    const thetaRadians = BpxLibCompass.radians(theta);
-    const num = rosH * Math.sin( thetaRadians);
-    const denom = rosG + rosF* Math.cos(thetaRadians);
-    let betaRadians = ( denom <= 0 ) ? 0 : Math.atan( num / denom );
-    // Quandrant adjustment
-    const boundary1 = 150;
-    const boundary2 = 210;
-    if (theta <= boundary1) {
-      // no adjustment required
-    } else if (theta > boundary1 && theta <= boundary2) {
-      betaRadians += Math.PI
-    } else if (theta > boundary2) {
-      betaRadians += 2.0 * Math.PI;
-    }
-    // Convert beta radians to degrees
-    return BpxLibCompass.degrees(betaRadians);
-  }
-
-  /**
-   *  Approximate the crown fire ellipse perimeter from its length and length-to-width
-   *	ratio using Rothermel's (1991) equation 13 on page 16.
-    *
-    *	@param len Fire ellipse length (arbitrary distance units-of-measure).
-    *	@param lwr Fire ellipse length-to-width ratio (ratio).
-    *	@returns The crown fire ellipse perimeter (same distance units-of-measure as length).
-    */
-  static crownFirePerimeter( len, lwr ) {
-    return 0.5 * Math.PI * len * (1 + 1/lwr);
-  }
-
-  static dirFromHead(betaAzNo, fireHdNo) {
-    return BpxLibCompass.diff(betaAzNo, fireHdNo);
-  }
-
   /**
    * Calculate the fire ellipse eccentricity.
    *
@@ -329,40 +282,6 @@ export default class BpxLibFireEllipse {
     return thetaHead;
   }
 
-  static thetaFromPsi( psiHead, rosF, rosH ) {
-    if ( rosF <= 0 ) {
-      return 0.0
-    }
-    const tanThetaRadians = Math.tan( psiHead ) * rosH / rosF;
-    let thetaRadians = Math.atan( tanThetaRadians );
-    // Quadrant adjustment
-    if ( psiRadians <= 0.5 * Math.PI ) {
-      // no adjustment
-    } else if ( psiRadians > 0.5 * Math.PI && psiRadians <= 1.5 * Math.PI ) {
-      thetaRadians += Math.PI;
-    } else if ( psiRadians > 1.5 * Math.PI ) {
-      thetaRadians += 2 * Math.PI;
-    }
-    //thetaRadians += ( thetaRadians < 0. || psiradians > pi ) ? pi : 0.;
-    // Convert theta radians to degrees
-    thetaDegrees = BpxLibCompass.degrees( thetaRadians );
-    return thetaRadians;
-  }
-
-  /**
-   * Calculate the vector azimuth from north using:
-   *  - the up-slope azimuth from north; and
-   *  - the vector azimuth from up-slope.
-   *
-   * @param upNo The up-slope azimuth (degrees clockwise) from north.
-   * @param vecUp The vector azimuth (degrees clockwise) from up-slope.
-   *
-   * @return float The vector azimuth (degrees clockwise) from north.
-   */
-  static vectorNorth( upNo, vecUp ) {
-    return BpxLibCompass.sum( upNo, vecUp );
-  }
-
   /**
    * Calculate the fire ellipse width.
    *
@@ -378,4 +297,55 @@ export default class BpxLibFireEllipse {
   static width( minorAxisRos, elapsed ) {
     return minorAxisRos * elapsed;
   }
+
+  // //--------------------------------------------------------------------------
+  // /**	\brief Updates beta wrt head from theta.
+  //  *
+  //  * Calculate the degrees from the fire ignition point given the degrees
+  //  * from the ellipse center and some ellipse paramaters.
+  //  *
+  //  * @param theta Azimuth from the ellipse center wrt the fire head
+  //  * @param rosF spread rate at F
+  //  * @param rosG spread rate at G
+  //  * @param rosH spread rate at H
+  //  * @returns The azimuth from the fire ignition point.
+  //  */
+  // static betaFromTheta( theta, rosF, rosG, rosH) {
+  //   const thetaRadians = BpxLibCompass.radians(theta);
+  //   const num = rosH * Math.sin( thetaRadians);
+  //   const denom = rosG + rosF* Math.cos(thetaRadians);
+  //   let betaRadians = ( denom <= 0 ) ? 0 : Math.atan( num / denom );
+  //   // Quandrant adjustment
+  //   const boundary1 = 150;
+  //   const boundary2 = 210;
+  //   if (theta <= boundary1) {
+  //     // no adjustment required
+  //   } else if (theta > boundary1 && theta <= boundary2) {
+  //     betaRadians += Math.PI
+  //   } else if (theta > boundary2) {
+  //     betaRadians += 2.0 * Math.PI;
+  //   }
+  //   // Convert beta radians to degrees
+  //   return BpxLibCompass.degrees(betaRadians);
+  // }
+
+  // static thetaFromPsi( psiHead, rosF, rosH ) {
+  //   if ( rosF <= 0 ) {
+  //     return 0.0
+  //   }
+  //   const tanThetaRadians = Math.tan( psiHead ) * rosH / rosF;
+  //   let thetaRadians = Math.atan( tanThetaRadians );
+  //   // Quadrant adjustment
+  //   if ( psiRadians <= 0.5 * Math.PI ) {
+  //     // no adjustment
+  //   } else if ( psiRadians > 0.5 * Math.PI && psiRadians <= 1.5 * Math.PI ) {
+  //     thetaRadians += Math.PI;
+  //   } else if ( psiRadians > 1.5 * Math.PI ) {
+  //     thetaRadians += 2 * Math.PI;
+  //   }
+  //   //thetaRadians += ( thetaRadians < 0. || psiradians > pi ) ? pi : 0.;
+  //   // Convert theta radians to degrees
+  //   thetaDegrees = BpxLibCompass.degrees( thetaRadians );
+  //   return thetaRadians;
+  // }
 }

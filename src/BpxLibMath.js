@@ -6,17 +6,17 @@
  */
 
 export default class BpxLibMath {
-  static and(a, b) {
-    return a && b;
-  }
+  // static and(a, b) {
+  //   return a && b;
+  // }
 
-  static between(x, mn, mx) {
-    return (x > mn && x < mx);
-  }
+  // static between(x, mn, mx) {
+  //   return (x > mn && x < mx);
+  // }
 
-  static within(x, mn, mx) {
-    return (x >= mn && x <= mx);
-  }
+  // static within(x, mn, mx) {
+  //   return (x >= mn && x <= mx);
+  // }
 
   // Safe division
   static div(a, b) {
@@ -28,26 +28,26 @@ export default class BpxLibMath {
     return Math.max(0, Math.min(1, a));
   }
 
-  static ge(a, b) {
-    return a >= b;
-  }
+  // static ge(a, b) {
+  //   return a >= b;
+  // }
 
   static gt(a, b) {
     return a > b;
   }
 
-  // Safe division
-  static inverse(a) {
-    return (a === 0) ? 0 : 1 / a;
-  }
+  // // Safe division
+  // static inverse(a) {
+  //   return (a === 0) ? 0 : 1 / a;
+  // }
 
-  static le(a, b) {
-    return a <= b;
-  }
+  // static le(a, b) {
+  //   return a <= b;
+  // }
 
-  static lt(a, b) {
-    return a < b;
-  }
+  // static lt(a, b) {
+  //   return a < b;
+  // }
 
   static max(...args) {
     return Math.max(...args);

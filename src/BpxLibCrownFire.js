@@ -43,9 +43,9 @@ export default class BpxLibCrownFire {
    * @param cpyBase Canopy base height (ft+1).
    * @return The crown canopy fuel load (lb+1 ft-2).
    */
-  static canopyLoad(cpyBulk, cpyHt, cpyBase) {
-    return cpyBulk * ( cpyHt - cpyBase);
-  }
+  // static canopyLoad(cpyBulk, cpyHt, cpyBase) {
+  //   return cpyBulk * ( cpyHt - cpyBase);
+  // }
 
   static canTransition(transRatio) {
     return transRatio >= 1;
