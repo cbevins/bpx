@@ -140,9 +140,9 @@ export default class BpxLibSurfaceFire {
    * @param phiS Rothermel (1972) slope coefficient `phiS` (ratio)
    * @return Rothermel's (1972) wind-slope coefficient `phiEw` (ratio).
   */
-  // static phiEw(phiW, phiS) {
-  //   return phiW + phiS;
-  // }
+  static phiEw(phiW, phiS) {
+    return phiW + phiS;
+  }
 
   /**
    * Calculate the wind-slope coefficient (phiEw = phiW + phiS)
