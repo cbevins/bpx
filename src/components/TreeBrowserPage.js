@@ -1,5 +1,6 @@
 import React from 'react';
 import DagLeaf from '../DagLeaf';
+import AppDag from './AppDag';
 const Inspector = require('react-json-inspector');
 
 function constructDupTree(tree, dup) {
@@ -16,7 +17,8 @@ function constructDupTree(tree, dup) {
 export default function TreeBrowserPage(props) {
   // We need a clone of the DAG tree that has
   // an iterable version of the 'own' property
-  const dup = JSON.parse(JSON.stringify(props.dag.tree));
-  constructDupTree(props.dag.tree, dup);
+  const tree = AppDag.getTree();
+  const dup = JSON.parse(JSON.stringify(tree));
+  constructDupTree(tree, dup);
   return <Inspector data={dup} />
 }

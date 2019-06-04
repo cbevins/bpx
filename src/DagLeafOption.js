@@ -18,6 +18,10 @@ export default class DagLeafOption extends DagLeaf {
     };
   }
 
+  currentDesc() {
+    return this.own.option.items[this.own.value];
+  }
+
   dflt(itemName = undefined) {
     if (itemName !== undefined) {
       this.ensureOption(itemName, 'Option.dflt');
@@ -68,9 +72,13 @@ export default class DagLeafOption extends DagLeaf {
     return Object.keys(this.own.option.items).length;
   }
 
-  // itemKeys() {
-  //   return Object.keys(cfg.config.own.option.items);
-  // }
+  itemKeys() {
+    return Object.keys(this.own.option.items);
+  }
+
+  items() {
+    return this.own.option.items;
+  }
 
   value(itemName = undefined) {
     if (itemName !== undefined) {

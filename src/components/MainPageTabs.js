@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
@@ -12,30 +12,26 @@ import ResultsPage from './ResultsPage';
 import SelectPage from './SelectPage';
 import TreeBrowserPage from './TreeBrowserPage';
 
-import Dag from  '../Dag';
-
 export default function MainPageTabs(props) {
-  const dag = new Dag('Bpx');
-
   return (
     <Container fluid="true">
       <Row>
         <Col>
           <Tabs defaultActiveKey="select" id="uncontrolled-tab-example">
             <Tab eventKey="select" title="Select">
-              <SelectPage dag={dag} />
+              <SelectPage />
             </Tab>
             <Tab eventKey="configure" title="Configure">
-                <ConfigPage dag={dag} />
+                <ConfigPage />
             </Tab>
             <Tab eventKey="input" title="Input">
-              <InputPage dag={dag} />
+              <InputPage />
             </Tab>
             <Tab eventKey="results" title="Results">
-              <ResultsPage dag={dag} />
+              <ResultsPage />
             </Tab>
             <Tab eventKey="tree" title="Tree Browser">
-              <TreeBrowserPage  dag={dag} />
+              <TreeBrowserPage />
             </Tab>
         </Tabs>
         </Col>

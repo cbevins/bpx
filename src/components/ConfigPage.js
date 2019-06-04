@@ -2,87 +2,81 @@ import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import AppDag from './AppDag';
 
-function configChanged(dag, leaf, e) {
-  //alert(e.target.value);
-  dag.setValue(leaf, e.target.value);
+function configChanged(leaf, e) {
+  AppDag.setValue(leaf, e.target.value);
 }
 
 function ConfigOption(props) {
-  const label = props.leaf.own.option.items[props.value];
-  const current = props.leaf.own.value;
-  if (current === props.value) {
-    return <option value={props.value} selected>{label}</option>;
-  } else {
-    return <option value={props.value}>{label}</option>;
-  }
+  const {leaf, value} = props;
+  const label = leaf.own.option.items[value];
+  const current = leaf.value();
+  return (
+    <option value={value} key={value}>
+      {label}
+    </option>
+  );
 }
 
 function ConfigItem(props) {
-  const leaf = props.leaf;
-  const items = Object.keys(leaf.own.option.items);
-  const options = items.map((item) =>
-    <ConfigOption leaf={leaf} value={item} />
+  const { leaf } = props;
+  const options = leaf.itemKeys().map((item) =>
+    <ConfigOption leaf={leaf} value={item} key={item} />
   );
   return (
     <Form.Control as="select"
-      onChange={(e) => configChanged(props.dag, leaf, e)}>
+        defaultValue={leaf.value()}
+        onChange={(e) => configChanged(leaf, e)}>
       {options}
     </Form.Control>
   );
 }
 
 function ConfigLabel(props) {
-  return (
-    <Form.Label>{props.leaf.own.option.header}</Form.Label>
-  );
+  const { leaf } = props;
+  const req = ( leaf.isRequired() ) ? " (ACTIVE)" : "(inactive)";
+  return (<Form.Label>{leaf.header()} {req}</Form.Label>);
 }
 
-function ConfigList(props) {
-  const block = props.block;
-  const configs = Object.keys(block);
-  const items = configs.map((config) =>
-    <Form.Group controlId="formConfigPage">
+function ConfigGroup(props) {
+  const { block } = props;
+  const items = Object.keys(block).map((config) =>
+    <Form.Group controlId="formConfigPage" key={config}>
       <ConfigLabel leaf={block[config]} />
-      <ConfigItem dag={props.dag} leaf={block[config]}/>
+      <ConfigItem leaf={block[config]}/>
     </Form.Group>
   );
-  return (
-    <div>
-      {items}
-    </div>
-  );
+  return (<div>{items}</div>);
 }
 
 function ConfigBlock(props) {
-  const block = props.block;  // parent branch of the block config leafs
-  const title = block.fullName();
+  const { block, ekey } = props;  // parent branch of the block config leafs
+  const title = block.label();
   return (
     <Card>
-    <Card.Header>
-      <Accordion.Toggle as={Card.Header} variant="link"
-          eventKey={props.ekey}>
-        {title}
-      </Accordion.Toggle>
-    </Card.Header>
-    <Accordion.Collapse eventKey={props.ekey}>
-      <Card.Body>
-        <ConfigList dag={props.dag} block={block} />
-      </Card.Body>
-    </Accordion.Collapse>
-  </Card>
+      <Card.Header>
+        <Accordion.Toggle as={Card.Header} variant="link" eventKey={ekey}>
+          {title}
+        </Accordion.Toggle>
+      </Card.Header>
+      <Accordion.Collapse eventKey={ekey}>
+        <Card.Body>
+          <ConfigGroup block={block} key={ekey} />
+        </Card.Body>
+      </Accordion.Collapse>
+    </Card>
   );
 }
 
 export default function ConfigPage(props) {
-  const { fuel, slope, fire, wind, crown } = props.dag.tree.configs;
+  const configs = AppDag.getConfigs();
+  const blocks = Object.keys(configs).map((block, idx) =>
+    <ConfigBlock block={configs[block]} key={block} ekey={idx} />
+  );
   return (
     <Accordion defaultActiveKey="0">
-      <ConfigBlock dag={props.dag} block={fuel} ekey="0" />
-      <ConfigBlock dag={props.dag} block={slope} ekey="1" />
-      <ConfigBlock dag={props.dag} block={fire} ekey="2" />
-      <ConfigBlock dag={props.dag} block={wind} ekey="3" />
-      <ConfigBlock dag={props.dag} block={crown} ekey="4" />
+      {blocks}
     </Accordion>
   );
 }

@@ -4,7 +4,7 @@ import DagLeafConfig from './DagLeafConfig';
 export class BpxTreeConfigFuel extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
-
+    this.label('Fuel Configuration Options')
     // bp6 #1 Surface > Input Options > Fuel:
     // [key, std, exp, harm, arith, pg, wa, ch]
     // Bpx splits bp6 config #1 into two configs; fuel.primary and fuel.secondary
@@ -62,6 +62,7 @@ export class BpxTreeConfigFuel extends DagBranch {
 export class BpxTreeConfigSlope extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+    this.label('Slope Configuration Options')
 
     // bp6 #7 Surface > Input Options > Slope > Slope is [percent, degrees]
     // bp6 #8 Surface > Input Options > Slope > Slope is [input, map]
@@ -77,6 +78,7 @@ export class BpxTreeConfigSlope extends DagBranch {
 export class BpxTreeConfigWind extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+    this.label('Wind Speed & Direction Configuration Options')
 
     // bp6 #5 Surface > Input Options > Wind Speed > Wind is:
     // [always upslope, specified]
@@ -100,6 +102,7 @@ export class BpxTreeConfigWind extends DagBranch {
 export class BpxTreeConfigFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+    this.label('Surface Fire Configuration Options')
 
     new DagLeafConfig(this, 'fli')
       .header('The fireline intensity is')
@@ -144,6 +147,9 @@ export class BpxTreeConfigFire extends DagBranch {
 }
 
 export class BpxTreeConfigCrown extends DagBranch {
+  constructor(parent, name) {
+    super(parent, name);
+    this.label('Crown Fire Configuration Options')
     // bp6 #12 - Crown > Input Options > Use [roth, s&r]
     // BPX - May not be necessary: S&R is applied only if passive ouputs requested
     // new DagLeafConfig(this, 'method')
@@ -164,6 +170,7 @@ export class BpxTreeConfigCrown extends DagBranch {
     //   .header('Contain module allows')
     //   .item('single', 'a single firefighting resource')
     //   .item('multiple', 'multiple firefighting resources', true);
+  }
 }
 
 export default class BpxTreeConfigs extends DagBranch {

@@ -103,3 +103,13 @@ test('1: verify BpxTreeConfigs branch structure', () => {
   expect(leaf.value('fromHead').value()).toEqual('fromHead');
   expect(() => { leaf.value('junk'); }).toThrow();
 });
+
+test('2:Secondary fuel config', () => {
+  const name = 'worksheet1';
+  const dag = new Dag(name);
+  const { configs } = dag.tree;
+  const { primary, secondary } = configs.fuel;
+
+  expect(secondary.value()).toEqual('none');
+  expect(secondary.isRequired()).toEqual(false);
+});
