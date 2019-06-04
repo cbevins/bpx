@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import AppDag from './AppDag';
 import AppSelections from './AppSelections';
 
-function selectionMade(leaf, e) {
+function selectionHandler(leaf, e) {
   if (e.target.checked) {
     AppDag.select(leaf);
   } else {
@@ -17,7 +17,7 @@ function SelectItem(props) {
   const { leafs } = props;
   const items = leafs.map((item) =>
     <Form.Check type="checkbox"
-      onClick={(e) => selectionMade(item[0], e)}
+      onClick={(e) => selectionHandler(item[0], e)}
       id={item[0].fullName('-')}
       key={item[0].fullName('-')}
       label={`${item[1]} (${item[0].name()})`} />

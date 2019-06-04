@@ -24,10 +24,17 @@ export default class BpxTreeSurfaceFuelModel extends DagBranch {
     new BpxTreeFuelModelChaparral(this, 'chaparral');
     new BpxTreeFuelModelPalmettoGallberry(this, 'palmettoGallberry');
     new BpxTreeFuelModelWesternAspen(this, 'westernAspen');
+
     // Leaves
     new BpxLeafFuelDomain(this, 'domain');
+
+    // Hack to determine if primary or secondary
+    const prefix = parent.fullName().includes('primary')
+      ? 'Primary ' : 'Secondary ';
+
     new DagLeafText(this, 'key')
       .desc('fuel model catalog key')
+      .label(prefix+'Catalog Key')
       .units('fuelKey').value('10');
   }
 

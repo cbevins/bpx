@@ -42,7 +42,9 @@ export default class Dag {
     this.connectItems(this.tree);
     this.constructLeafsArray(this.tree);
     this.leafs.forEach((leaf) => {
-      leaf.label(leaf.fullName());
+      if (leaf.label() === null || leaf.label === '' ) {
+        leaf.label(leaf.fullName());
+      }
     });
     this.reconfigure();
   }

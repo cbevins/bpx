@@ -10,7 +10,7 @@ test('1: BpxTree initial state', () => {
   expect(branch.name()).toEqual(name);
   expect(branch.desc()).toEqual(desc);
   expect(branch.fullName()).toEqual(name);
-  expect(branch.label()).toEqual(name);
+  expect(branch.label()).toEqual(null);
   expect(branch.parent()).toEqual(null);
   expect(branch.connect()).toEqual(branch);
 

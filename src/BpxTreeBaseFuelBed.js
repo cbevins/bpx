@@ -21,6 +21,7 @@ import {
 export default class BpxTreeBaseFuelBed extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     // Fuel bed level DagBranches
     new BpxTreeFuelCategoryDead(this, 'dead');
     new BpxTreeFuelCategoryLive(this, 'live');
@@ -29,55 +30,73 @@ export default class BpxTreeBaseFuelBed extends DagBranch {
     new DagLeafQuantity(this, 'area')
       .desc('fuel bed total surface area')
       .units('fuelArea').value(0);
+
     new DagLeafQuantity(this, 'bulkDensity')
       .desc('fuel bed bulk density')
       .units('fuelDens').value(0);
+
     new DagLeafQuantity(this, 'depth')
       .desc('fuel bed depth')
       .units('fuelDepth').value(0.01);
+
     new BpxLeafFuelDomain(this, 'domain');
+
     new DagLeafQuantity(this, 'heatPreignition')
       .desc('fuel bed heat of pre-ignition')
       .units('fuelHeat').value(0)
+
     new DagLeafQuantity(this, 'heatSink')
       .desc('fuel bed heat sink')
       .units('fuelSink').value(0);
+
     new DagLeafQuantity(this, 'load')
       .desc('fuel bed total oven-dry load')
       .units('fuelLoad').value(0);
+
     new DagLeafQuantity(this, 'openWaf')
       .desc('fuel bed open-canopy midflame windspeed adjustment factor')
       .units('fraction').value(1);
+
     new DagLeafQuantity(this, 'packingRatio')
       .desc('fuel bed packing ratio')
       .units('fraction').value(0);
+
     new DagLeafQuantity(this, 'packingRatioOptimum')
       .desc('fuel bed optimum packing ratio')
       .units('fraction').value(0);
+
     new DagLeafQuantity(this, 'packingRatioRatio')
       .desc('ratio of fuel bed packing ratio-to-optimum packing ratio')
       .units('ratio').value(0);
+
     new DagLeafQuantity(this, 'propagatingFluxRatio')
       .desc('fuel bed propagating flux ratio')
       .units('fraction').value(0);
+
     new DagLeafQuantity(this, 'reactionIntensity')
       .desc('fuel bed reaction intensity')
       .units('fireRxi').value(0);
+
     new DagLeafQuantity(this, 'reactionVelocityExp')
       .desc('fuel bed reaction velocity exponent A')
       .units('factor').value(1);
+
     new DagLeafQuantity(this, 'reactionVelocityMax')
       .desc('fuel bed maximum reaction velocity')
       .units('fireRxv').value(0);
+
     new DagLeafQuantity(this, 'reactionVelocityOpt')
       .desc('fuel bed optimum reaction velocity')
       .units('fireRxv').value(0);
+
     new DagLeafQuantity(this, 'ros0')
       .desc('fuel bed no-wind, no-slope fire spread rate')
       .units('fireRos').value(0);
+
     new DagLeafQuantity(this, 'savr')
       .desc('fuel bed weighted surface area-to-volume ratio')
       .units('fuelSavr').value(1);
+
     new DagLeafQuantity(this, 'savr15')
       .desc('fuel bed weighted savr raised to the 1.5 power')
       .units('factor').value(1);

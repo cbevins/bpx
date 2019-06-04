@@ -12,12 +12,16 @@ import BpxLibCompass from './BpxLibCompass';
 export class BpxTreeSiteSlopeDirection extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     new DagLeafQuantity(this, 'aspect')
       .desc('slope aspect (downslope direction) from North')
+      .label('Aspect')
       .units('azimuth').value(180);
+
     new DagLeafQuantity(this, 'upslope')
       .desc('upslope from North')
-      .units('slopeSteepness').value(0);
+      .label('Upslope Dir from North')
+      .units('azimuth').value(0);
   }
 
   connect(/* tree */) {
@@ -29,11 +33,15 @@ export class BpxTreeSiteSlopeDirection extends DagBranch {
 export class BpxTreeSiteSlopeSteepness extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
+
     new DagLeafQuantity(this, 'degrees')
       .desc('slope steepness in degrees from horizontal')
+      .label('Slope Steepness (degrees)')
       .units('slopeSteepness').value(0);
+
     new DagLeafQuantity(this, 'ratio')
-      .desc('slope steepness ratio of vertical rise to horizonatl reach')
+      .desc('slope steepness ratio of vertical rise to horizontal reach')
+      .label('Slope Steepness (ratio)')
       .units('slopeSteepness').value(0);
   }
 

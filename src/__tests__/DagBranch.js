@@ -6,7 +6,7 @@ it('creates a new DagBranch named "mainBranch"', () => {
   expect(branch.name()).toEqual(name);
   expect(branch.desc()).toEqual('');
   expect(branch.fullName()).toEqual(name);
-  expect(branch.label()).toEqual(name);
+  expect(branch.label()).toEqual(null);
   expect(branch.parent()).toEqual(null);
   expect(branch.connect()).toEqual(branch);
 

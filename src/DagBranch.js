@@ -11,7 +11,7 @@ export default class DagBranch {
     this.own = {
       name,
       parent,
-      label: name,
+      label: null,
       desc,
     };
     if (parent) {

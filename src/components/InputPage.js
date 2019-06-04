@@ -1,25 +1,44 @@
 import React from 'react';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import AppDag from './AppDag';
-import {KeyedList, keyedListValueCompare} from './KeyedList';
 
-export function InputList(props) {
-  const dag = AppDag.getDag();
-  const items = [];
-  dag.requiredInputLeafs.forEach((leaf) => {
-    let name = leaf.fullName('/');
-    items.push({key: name, value: name});
-  });
-  items.sort(keyedListValueCompare);
-
-  const selected = dag.selectedLeafs.length;
+function InputText(props) {
+  const { leaf, id } = props;
+  const label = leaf.label();
+  const value = leaf.value();
+  const desc = leaf.desc();
   return (
-    <div>
-      <h3>The {selected} selected variables require {items.length} inputs:</h3>
-      <KeyedList items={items} />
-    </div>
+    <Form.Group as={Form.Row} controlId={id}>
+      <Form.Label column sm="2">{label}</Form.Label>
+      <Col sm="2">
+        <Form.Control size="sm" type="text" value={value} />
+        <Form.Text className="text-muted">{desc}</Form.Text>
+      </Col>
+    </Form.Group>
+  );
+}
+
+export function InputForm(props) {
+  const dag = AppDag.getDag();
+  const inputs = dag.requiredInputLeafs.map((leaf, idx) =>
+    <InputText leaf={leaf} id={idx} />
+  );
+  return (
+    <Form>
+      {inputs}
+    </Form>
   );
 }
 
 export default function InputPage(props) {
-  return <InputList />
+  const dag = AppDag.getDag();
+  const input = dag.requiredInputLeafs.length;
+  const selected = dag.selectedLeafs.length;
+  return (
+    <div>
+      <h3>The {selected} selected variables require {input} inputs:</h3>
+      <InputForm />
+    </div>
+  );
 }

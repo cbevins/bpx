@@ -11,14 +11,12 @@ export default class AppSelections {
   static surfacePrimary() {
     const dag = AppDag.getDag();
     const root = dag.tree.surface.fuel.primary;
-    const prefix = 'Primary Surface Fuel ';
     return {
-      title: prefix + 'Fire Behavior',
-      // An array of [leaf, label] pairs
+      title: 'Primary Surface Fuel and Fire Behavior',
       leafs: [
-        [root.fire.ros, prefix+'Fire Spread Rate'],
-        [root.fire.firelineIntensity, prefix+'Fireline Intensity'],
-        [root.fire.flameLength, prefix+'Flame Length'],
+        [root.fire.ros, 'Maximum Fire Spread Rate'],
+        [root.fire.firelineIntensity, 'Maximum Fireline Intensity'],
+        [root.fire.flameLength, 'Maximum Flame Length'],
       ],
     }
   }
@@ -26,13 +24,12 @@ export default class AppSelections {
   static surfaceSecondary() {
     const dag = AppDag.getDag();
     const root = dag.tree.surface.fuel.secondary;
-    const prefix = 'Secondary Surface Fuel ';
     return {
-      title: prefix + 'Fire Behavior',
+      title: 'Secondary Surface Fuel and Fire Behavior',
       leafs: [
-        [root.fire.ros, prefix+'Fire Spread Rate'],
-        [root.fire.firelineIntensity, prefix+'Fireline Intensity'],
-        [root.fire.flameLength, prefix+'Flame Length'],
+        [root.fire.ros, 'Maximum Fire Spread Rate'],
+        [root.fire.firelineIntensity, 'Maximum Fireline Intensity'],
+        [root.fire.flameLength, 'Maximum Flame Length'],
       ],
     }
   }
@@ -40,13 +37,18 @@ export default class AppSelections {
   static surfaceEllipse() {
     const dag = AppDag.getDag();
     const root = dag.tree.surface.fire.ellipse;
-    const prefix = 'Surface Fire Ellipse ';
     return {
-      title: prefix + 'Size and Shape',
+      title: 'Surface Fire Ellipse Size and Shape',
       leafs: [
-        [root.axis.lengthToWidthRatio, prefix+'Length-to-Width Ratio'],
-        [root.size.area, prefix+'Area'],
-        [root.size.perimeter, prefix+'Perimeter'],
+        [root.axis.lengthToWidthRatio, 'Length-to-Width Ratio'],
+        [root.size.area, 'Area'],
+        [root.size.perimeter, 'Perimeter'],
+        [root.head.ros, 'Spread Rate at Head'],
+        [root.back.ros, 'Spread Rate at Back'],
+        [root.flank.ros, 'Spread Rate at Flank'],
+        [root.beta.ros, 'Spread Rate at Beta'],
+        [root.beta5.ros, 'Spread Rate at Beta (BP5)'],
+        [root.psi.ros, 'Spread Rate at Psi'],
       ],
     }
   }
