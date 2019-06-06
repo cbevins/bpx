@@ -15,6 +15,39 @@ export default class DagLeafQuantity extends DagLeaf {
     this.own.units = 'factor';
   }
 
+  currentUnits() {
+    const {uom, apply} = BpxUnits[this.own.units];
+    return uom[apply];
+  }
+
+  currentUnitsString() {
+    let str = '';
+    let numer = 0;
+    let denom = 0;
+    const uom = this.currentUnits();
+    Object.keys(uom).forEach((unit) => {
+      let power = uom[unit];
+      if (power===0) {
+        str += ((numer>0) ? '-' : '') + unit;
+        numer+=1;
+      } else if (power>0) {
+        str += ((numer>0) ? '-' : '') + unit;
+        str += (power>1) ? ('^' + power) : '';
+        numer+=1;
+      } else {
+        str += ((denom>0) ? '-' : '/') + unit;
+        str += (power<-1) ? ('^' + Math.abs(power)) : '';
+        denom+=1;
+      }
+    })
+    if (str === 'percent') {
+      str = '%';
+    } else if (str==='ratio'||str==='real'||str==='factor') {
+      str = 'dl';
+    }
+    return str;
+  }
+
   ensureUnits(units, fn) {
     if (!DagLeafQuantity.hasUnits(units)) {
       throw new Error(`${fn}' called on '${this.name()}' with invalid units '${units}'`);
@@ -32,5 +65,10 @@ export default class DagLeafQuantity extends DagLeaf {
       return this;
     }
     return this.own.units;
+  }
+
+  unitsData(units) {
+    this.ensureUnits(units, 'DagLeafQuantity.units');
+    return BpxUnits[units];
   }
 }

@@ -11,7 +11,6 @@ function configChanged(leaf, e) {
 function ConfigOption(props) {
   const {leaf, value} = props;
   const label = leaf.own.option.items[value];
-  const current = leaf.value();
   return (
     <option value={value} key={value}>
       {label}

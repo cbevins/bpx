@@ -6,11 +6,10 @@
  */
 
 import DagBranch from './DagBranch';
-import DagLeafText from './DagLeafText';
 
 import BpxLibFuelCatalog from './BpxLibFuelCatalog';
 
-import { BpxLeafFuelDomain } from './BpxLeafOptions';
+import { BpxLeafFuelDomain, BpxLeafFuelCatalogKey } from './BpxLeafOptions';
 import BpxTreeFuelModelBehave from './BpxTreeFuelModelBehave';
 import BpxTreeFuelModelChaparral from './BpxTreeFuelModelChaparral';
 import BpxTreeFuelModelPalmettoGallberry from './BpxTreeFuelModelPalmettoGallberry';
@@ -30,12 +29,11 @@ export default class BpxTreeSurfaceFuelModel extends DagBranch {
 
     // Hack to determine if primary or secondary
     const prefix = parent.fullName().includes('primary')
-      ? 'Primary ' : 'Secondary ';
+      ? 'Primary Fuel, ' : 'Secondary Fuel, ';
 
-    new DagLeafText(this, 'key')
+    new BpxLeafFuelCatalogKey(this, 'key')
       .desc('fuel model catalog key')
-      .label(prefix+'Catalog Key')
-      .units('fuelKey').value('10');
+      .label(prefix+'Catalog Key');
   }
 
   connect(tree) {

@@ -232,7 +232,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '101':
   { domain: 'behave',
-    label: 'Short, sparse, dry climate grass (D)',
+    label: 'Short, sparse, dry climate grass',
     depth: 0.4,
     deadMext: 0.15,
     dead1Load: 0.004591368227731864,
@@ -247,7 +247,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '102':
   { domain: 'behave',
-    label: 'Low load, dry climate grass (D)',
+    label: 'Low load, dry climate grass',
     depth: 1,
     deadMext: 0.15,
     dead1Load: 0.004591368227731864,
@@ -262,7 +262,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '103':
   { domain: 'behave',
-    label: 'Low load, very coarse, humid climate grass (D)',
+    label: 'Low load, very coarse, humid climate grass',
     depth: 2,
     deadMext: 0.3,
     dead1Load: 0.004591368227731864,
@@ -277,7 +277,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '104':
   { domain: 'behave',
-    label: 'Moderate load, dry climate grass (D)',
+    label: 'Moderate load, dry climate grass',
     depth: 2,
     deadMext: 0.15,
     dead1Load: 0.01147842056932966,
@@ -292,7 +292,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '105':
   { domain: 'behave',
-    label: 'Low load, humid climate grass (D)',
+    label: 'Low load, humid climate grass',
     depth: 1.5,
     deadMext: 0.4,
     dead1Load: 0.018365472910927456,
@@ -307,7 +307,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '106':
   { domain: 'behave',
-    label: 'Moderate load, humid climate grass (D)',
+    label: 'Moderate load, humid climate grass',
     depth: 1.5,
     deadMext: 0.4,
     dead1Load: 0.004591368227731864,
@@ -322,7 +322,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 9000 },
 '107':
   { domain: 'behave',
-    label: 'High load, dry climate grass (D)',
+    label: 'High load, dry climate grass',
     depth: 3,
     deadMext: 0.15,
     dead1Load: 0.04591368227731864,
@@ -337,7 +337,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '108':
   { domain: 'behave',
-    label: 'High load, very coarse, humid climate grass (D)',
+    label: 'High load, very coarse, humid climate grass',
     depth: 4,
     deadMext: 0.3,
     dead1Load: 0.02295684113865932,
@@ -352,7 +352,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '109':
   { domain: 'behave',
-    label: 'Very high load, humid climate grass (D)',
+    label: 'Very high load, humid climate grass',
     depth: 5,
     deadMext: 0.4,
     dead1Load: 0.04591368227731864,
@@ -367,7 +367,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '121':
   { domain: 'behave',
-    label: 'Low load, dry climate grass-shrub (D)',
+    label: 'Low load, dry climate grass-shrub',
     depth: 0.9,
     deadMext: 0.15,
     dead1Load: 0.009182736455463728,
@@ -382,7 +382,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '122':
   { domain: 'behave',
-    label: 'Moderate load, dry climate grass-shrub (D)',
+    label: 'Moderate load, dry climate grass-shrub',
     depth: 1.5,
     deadMext: 0.15,
     dead1Load: 0.02295684113865932,
@@ -397,7 +397,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '123':
   { domain: 'behave',
-    label: 'Moderate load, humid climate grass-shrub (D)',
+    label: 'Moderate load, humid climate grass-shrub',
     depth: 1.8,
     deadMext: 0.4,
     dead1Load: 0.013774104683195591,
@@ -412,7 +412,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '124':
   { domain: 'behave',
-    label: 'High load, humid climate grass-shrub (D)',
+    label: 'High load, humid climate grass-shrub',
     depth: 2.1,
     deadMext: 0.4,
     dead1Load: 0.0872359963269054,
@@ -427,7 +427,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '141':
   { domain: 'behave',
-    label: 'Low load, dry climate shrub (D)',
+    label: 'Low load, dry climate shrub',
     depth: 1,
     deadMext: 0.15,
     dead1Load: 0.01147842056932966,
@@ -442,7 +442,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '142':
   { domain: 'behave',
-    label: 'Moderate load, dry climate shrub (S)',
+    label: 'Moderate load, dry climate shrub',
     depth: 1,
     deadMext: 0.15,
     dead1Load: 0.06198347107438017,
@@ -457,7 +457,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '143':
   { domain: 'behave',
-    label: 'Moderate load, humid climate shrub (S)',
+    label: 'Moderate load, humid climate shrub',
     depth: 2.4,
     deadMext: 0.4,
     dead1Load: 0.02066115702479339,
@@ -472,7 +472,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '144':
   { domain: 'behave',
-    label: 'Low load, humid climate timber-shrub (S)',
+    label: 'Low load, humid climate timber-shrub',
     depth: 3,
     deadMext: 0.3,
     dead1Load: 0.03902662993572084,
@@ -487,7 +487,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '145':
   { domain: 'behave',
-    label: 'High load, dry climate shrub (S)',
+    label: 'High load, dry climate shrub',
     depth: 6,
     deadMext: 0.15,
     dead1Load: 0.1652892561983471,
@@ -502,7 +502,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '146':
   { domain: 'behave',
-    label: 'Low load, humid climate shrub (S)',
+    label: 'Low load, humid climate shrub',
     depth: 2,
     deadMext: 0.3,
     dead1Load: 0.13314967860422405,
@@ -517,7 +517,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '147':
   { domain: 'behave',
-    label: 'Very high load, dry climate shrub (S)',
+    label: 'Very high load, dry climate shrub',
     depth: 6,
     deadMext: 0.15,
     dead1Load: 0.16069788797061524,
@@ -532,7 +532,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '148':
   { domain: 'behave',
-    label: 'High load, humid climate shrub (S)',
+    label: 'High load, humid climate shrub',
     depth: 3,
     deadMext: 0.4,
     dead1Load: 0.0941230486685032,
@@ -547,7 +547,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '149':
   { domain: 'behave',
-    label: 'Very high load, humid climate shrub (D)',
+    label: 'Very high load, humid climate shrub',
     depth: 4.4,
     deadMext: 0.4,
     dead1Load: 0.20661157024793386,
@@ -562,7 +562,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '161':
   { domain: 'behave',
-    label: 'Light load, dry climate timber-grass-shrub (D)',
+    label: 'Light load, dry climate timber-grass-shrub',
     depth: 0.6,
     deadMext: 0.2,
     dead1Load: 0.009182736455463728,
@@ -577,7 +577,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '162':
   { domain: 'behave',
-    label: 'Moderate load, humid climate timber-shrub (S)',
+    label: 'Moderate load, humid climate timber-shrub',
     depth: 1,
     deadMext: 0.3,
     dead1Load: 0.0436179981634527,
@@ -592,7 +592,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '163':
   { domain: 'behave',
-    label: 'Moderate load, humid climate timber-grass-shrub (D)',
+    label: 'Moderate load, humid climate timber-grass-shrub',
     depth: 1.3,
     deadMext: 0.3,
     dead1Load: 0.050505050505050504,
@@ -607,7 +607,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '164':
   { domain: 'behave',
-    label: 'Dwarf conifer understory (S)',
+    label: 'Dwarf conifer understory',
     depth: 0.5,
     deadMext: 0.12,
     dead1Load: 0.20661157024793386,
@@ -622,7 +622,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '165':
   { domain: 'behave',
-    label: 'Very high load, dry climate timber-shrub (S)',
+    label: 'Very high load, dry climate timber-shrub',
     depth: 1,
     deadMext: 0.25,
     dead1Load: 0.18365472910927455,
@@ -637,7 +637,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '181':
   { domain: 'behave',
-    label: 'Low load, compact conifer litter (S)',
+    label: 'Low load, compact conifer litter',
     depth: 0.2,
     deadMext: 0.3,
     dead1Load: 0.04591368227731864,
@@ -652,7 +652,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '182':
   { domain: 'behave',
-    label: 'Low load broadleaf litter (S)',
+    label: 'Low load broadleaf litter',
     depth: 0.2,
     deadMext: 0.25,
     dead1Load: 0.06427915518824609,
@@ -667,7 +667,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '183':
   { domain: 'behave',
-    label: 'Moderate load conifer litter (S)',
+    label: 'Moderate load conifer litter',
     depth: 0.3,
     deadMext: 0.2,
     dead1Load: 0.02295684113865932,
@@ -682,7 +682,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '184':
   { domain: 'behave',
-    label: 'Small downed logs (S)',
+    label: 'Small downed logs',
     depth: 0.4,
     deadMext: 0.25,
     dead1Load: 0.02295684113865932,
@@ -697,7 +697,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '185':
   { domain: 'behave',
-    label: 'High load conifer litter (S)',
+    label: 'High load conifer litter',
     depth: 0.6,
     deadMext: 0.25,
     dead1Load: 0.05280073461891643,
@@ -712,7 +712,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '186':
   { domain: 'behave',
-    label: 'High load broadleaf litter (S)',
+    label: 'High load broadleaf litter',
     depth: 0.3,
     deadMext: 0.25,
     dead1Load: 0.11019283746556473,
@@ -727,7 +727,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '187':
   { domain: 'behave',
-    label: 'Large downed logs (S)',
+    label: 'Large downed logs',
     depth: 0.4,
     deadMext: 0.25,
     dead1Load: 0.013774104683195591,
@@ -742,7 +742,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '188':
   { domain: 'behave',
-    label: 'Long-needle litter (S)',
+    label: 'Long-needle litter',
     depth: 0.3,
     deadMext: 0.35,
     dead1Load: 0.2662993572084481,
@@ -757,7 +757,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '189':
   { domain: 'behave',
-    label: 'Very high load broadleaf litter (S)',
+    label: 'Very high load broadleaf litter',
     depth: 0.6,
     deadMext: 0.35,
     dead1Load: 0.305325987144169,
@@ -772,7 +772,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '201':
   { domain: 'behave',
-    label: 'Low load activity fuel (S)',
+    label: 'Low load activity fuel',
     depth: 1,
     deadMext: 0.25,
     dead1Load: 0.06887052341597796,
@@ -787,7 +787,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '202':
   { domain: 'behave',
-    label: 'Moderate load activity or low load blowdown (S)',
+    label: 'Moderate load activity or low load blowdown',
     depth: 1,
     deadMext: 0.25,
     dead1Load: 0.20661157024793386,
@@ -802,7 +802,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '203':
   { domain: 'behave',
-    label: 'High load activity fuel or moderate load blowdown (S)',
+    label: 'High load activity fuel or moderate load blowdown',
     depth: 1.2,
     deadMext: 0.25,
     dead1Load: 0.2525252525252525,
@@ -817,7 +817,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 '204':
   { domain: 'behave',
-    label: 'High load blowdown (S)',
+    label: 'High load blowdown',
     depth: 2.7,
     deadMext: 0.25,
     dead1Load: 0.24104683195592286,
@@ -832,7 +832,7 @@ export const BpxLibFuelRecord = {
     liveHeat: 8000 },
 gr1:
   { domain: 'behave',
-    label: 'Short, sparse, dry climate grass (D)',
+    label: 'Short, sparse, dry climate grass',
     depth: 0.4,
     deadMext: 0.15,
     dead1Load: 0.004591368227731864,
@@ -847,7 +847,7 @@ gr1:
     liveHeat: 8000 },
 gr2:
   { domain: 'behave',
-    label: 'Low load, dry climate grass (D)',
+    label: 'Low load, dry climate grass',
     depth: 1,
     deadMext: 0.15,
     dead1Load: 0.004591368227731864,
@@ -862,7 +862,7 @@ gr2:
     liveHeat: 8000 },
 gr3:
   { domain: 'behave',
-    label: 'Low load, very coarse, humid climate grass (D)',
+    label: 'Low load, very coarse, humid climate grass',
     depth: 2,
     deadMext: 0.3,
     dead1Load: 0.004591368227731864,
@@ -877,7 +877,7 @@ gr3:
     liveHeat: 8000 },
 gr4:
   { domain: 'behave',
-    label: 'Moderate load, dry climate grass (D)',
+    label: 'Moderate load, dry climate grass',
     depth: 2,
     deadMext: 0.15,
     dead1Load: 0.01147842056932966,
@@ -892,7 +892,7 @@ gr4:
     liveHeat: 8000 },
 gr5:
   { domain: 'behave',
-    label: 'Low load, humid climate grass (D)',
+    label: 'Low load, humid climate grass',
     depth: 1.5,
     deadMext: 0.4,
     dead1Load: 0.018365472910927456,
@@ -907,7 +907,7 @@ gr5:
     liveHeat: 8000 },
 gr6:
   { domain: 'behave',
-    label: 'Moderate load, humid climate grass (D)',
+    label: 'Moderate load, humid climate grass',
     depth: 1.5,
     deadMext: 0.4,
     dead1Load: 0.004591368227731864,
@@ -922,7 +922,7 @@ gr6:
     liveHeat: 9000 },
 gr7:
   { domain: 'behave',
-    label: 'High load, dry climate grass (D)',
+    label: 'High load, dry climate grass',
     depth: 3,
     deadMext: 0.15,
     dead1Load: 0.04591368227731864,
@@ -937,7 +937,7 @@ gr7:
     liveHeat: 8000 },
 gr8:
   { domain: 'behave',
-    label: 'High load, very coarse, humid climate grass (D)',
+    label: 'High load, very coarse, humid climate grass',
     depth: 4,
     deadMext: 0.3,
     dead1Load: 0.02295684113865932,
@@ -952,7 +952,7 @@ gr8:
     liveHeat: 8000 },
 gr9:
   { domain: 'behave',
-    label: 'Very high load, humid climate grass (D)',
+    label: 'Very high load, humid climate grass',
     depth: 5,
     deadMext: 0.4,
     dead1Load: 0.04591368227731864,
@@ -967,7 +967,7 @@ gr9:
     liveHeat: 8000 },
 gs1:
   { domain: 'behave',
-    label: 'Low load, dry climate grass-shrub (D)',
+    label: 'Low load, dry climate grass-shrub',
     depth: 0.9,
     deadMext: 0.15,
     dead1Load: 0.009182736455463728,
@@ -982,7 +982,7 @@ gs1:
     liveHeat: 8000 },
 gs2:
   { domain: 'behave',
-    label: 'Moderate load, dry climate grass-shrub (D)',
+    label: 'Moderate load, dry climate grass-shrub',
     depth: 1.5,
     deadMext: 0.15,
     dead1Load: 0.02295684113865932,
@@ -997,7 +997,7 @@ gs2:
     liveHeat: 8000 },
 gs3:
   { domain: 'behave',
-    label: 'Moderate load, humid climate grass-shrub (D)',
+    label: 'Moderate load, humid climate grass-shrub',
     depth: 1.8,
     deadMext: 0.4,
     dead1Load: 0.013774104683195591,
@@ -1012,7 +1012,7 @@ gs3:
     liveHeat: 8000 },
 gs4:
   { domain: 'behave',
-    label: 'High load, humid climate grass-shrub (D)',
+    label: 'High load, humid climate grass-shrub',
     depth: 2.1,
     deadMext: 0.4,
     dead1Load: 0.0872359963269054,
@@ -1027,7 +1027,7 @@ gs4:
     liveHeat: 8000 },
 sh1:
   { domain: 'behave',
-    label: 'Low load, dry climate shrub (D)',
+    label: 'Low load, dry climate shrub',
     depth: 1,
     deadMext: 0.15,
     dead1Load: 0.01147842056932966,
@@ -1042,7 +1042,7 @@ sh1:
     liveHeat: 8000 },
 sh2:
   { domain: 'behave',
-    label: 'Moderate load, dry climate shrub (S)',
+    label: 'Moderate load, dry climate shrub',
     depth: 1,
     deadMext: 0.15,
     dead1Load: 0.06198347107438017,
@@ -1057,7 +1057,7 @@ sh2:
     liveHeat: 8000 },
 sh3:
   { domain: 'behave',
-    label: 'Moderate load, humid climate shrub (S)',
+    label: 'Moderate load, humid climate shrub',
     depth: 2.4,
     deadMext: 0.4,
     dead1Load: 0.02066115702479339,
@@ -1072,7 +1072,7 @@ sh3:
     liveHeat: 8000 },
 sh4:
   { domain: 'behave',
-    label: 'Low load, humid climate timber-shrub (S)',
+    label: 'Low load, humid climate timber-shrub',
     depth: 3,
     deadMext: 0.3,
     dead1Load: 0.03902662993572084,
@@ -1087,7 +1087,7 @@ sh4:
     liveHeat: 8000 },
 sh5:
   { domain: 'behave',
-    label: 'High load, dry climate shrub (S)',
+    label: 'High load, dry climate shrub',
     depth: 6,
     deadMext: 0.15,
     dead1Load: 0.1652892561983471,
@@ -1102,7 +1102,7 @@ sh5:
     liveHeat: 8000 },
 sh6:
   { domain: 'behave',
-    label: 'Low load, humid climate shrub (S)',
+    label: 'Low load, humid climate shrub',
     depth: 2,
     deadMext: 0.3,
     dead1Load: 0.13314967860422405,
@@ -1117,7 +1117,7 @@ sh6:
     liveHeat: 8000 },
 sh7:
   { domain: 'behave',
-    label: 'Very high load, dry climate shrub (S)',
+    label: 'Very high load, dry climate shrub',
     depth: 6,
     deadMext: 0.15,
     dead1Load: 0.16069788797061524,
@@ -1132,7 +1132,7 @@ sh7:
     liveHeat: 8000 },
 sh8:
   { domain: 'behave',
-    label: 'High load, humid climate shrub (S)',
+    label: 'High load, humid climate shrub',
     depth: 3,
     deadMext: 0.4,
     dead1Load: 0.0941230486685032,
@@ -1147,7 +1147,7 @@ sh8:
     liveHeat: 8000 },
 sh9:
   { domain: 'behave',
-    label: 'Very high load, humid climate shrub (D)',
+    label: 'Very high load, humid climate shrub',
     depth: 4.4,
     deadMext: 0.4,
     dead1Load: 0.20661157024793386,
@@ -1162,7 +1162,7 @@ sh9:
     liveHeat: 8000 },
 tu1:
   { domain: 'behave',
-    label: 'Light load, dry climate timber-grass-shrub (D)',
+    label: 'Light load, dry climate timber-grass-shrub',
     depth: 0.6,
     deadMext: 0.2,
     dead1Load: 0.009182736455463728,
@@ -1177,7 +1177,7 @@ tu1:
     liveHeat: 8000 },
 tu2:
   { domain: 'behave',
-    label: 'Moderate load, humid climate timber-shrub (S)',
+    label: 'Moderate load, humid climate timber-shrub',
     depth: 1,
     deadMext: 0.3,
     dead1Load: 0.0436179981634527,
@@ -1192,7 +1192,7 @@ tu2:
     liveHeat: 8000 },
 tu3:
   { domain: 'behave',
-    label: 'Moderate load, humid climate timber-grass-shrub (D)',
+    label: 'Moderate load, humid climate timber-grass-shrub',
     depth: 1.3,
     deadMext: 0.3,
     dead1Load: 0.050505050505050504,
@@ -1207,7 +1207,7 @@ tu3:
     liveHeat: 8000 },
 tu4:
   { domain: 'behave',
-    label: 'Dwarf conifer understory (S)',
+    label: 'Dwarf conifer understory',
     depth: 0.5,
     deadMext: 0.12,
     dead1Load: 0.20661157024793386,
@@ -1222,7 +1222,7 @@ tu4:
     liveHeat: 8000 },
 tu5:
   { domain: 'behave',
-    label: 'Very high load, dry climate timber-shrub (S)',
+    label: 'Very high load, dry climate timber-shrub',
     depth: 1,
     deadMext: 0.25,
     dead1Load: 0.18365472910927455,
@@ -1237,7 +1237,7 @@ tu5:
     liveHeat: 8000 },
 tl1:
   { domain: 'behave',
-    label: 'Low load, compact conifer litter (S)',
+    label: 'Low load, compact conifer litter',
     depth: 0.2,
     deadMext: 0.3,
     dead1Load: 0.04591368227731864,
@@ -1252,7 +1252,7 @@ tl1:
     liveHeat: 8000 },
 tl2:
   { domain: 'behave',
-    label: 'Low load broadleaf litter (S)',
+    label: 'Low load broadleaf litter',
     depth: 0.2,
     deadMext: 0.25,
     dead1Load: 0.06427915518824609,
@@ -1266,7 +1266,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl3: { domain: 'behave',
-    label: 'Moderate load conifer litter (S)',
+    label: 'Moderate load conifer litter',
     depth: 0.3,
     deadMext: 0.2,
     dead1Load: 0.02295684113865932,
@@ -1280,7 +1280,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl4: { domain: 'behave',
-    label: 'Small downed logs (S)',
+    label: 'Small downed logs',
     depth: 0.4,
     deadMext: 0.25,
     dead1Load: 0.02295684113865932,
@@ -1294,7 +1294,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl5: { domain: 'behave',
-    label: 'High load conifer litter (S)',
+    label: 'High load conifer litter',
     depth: 0.6,
     deadMext: 0.25,
     dead1Load: 0.05280073461891643,
@@ -1308,7 +1308,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl6: { domain: 'behave',
-    label: 'High load broadleaf litter (S)',
+    label: 'High load broadleaf litter',
     depth: 0.3,
     deadMext: 0.25,
     dead1Load: 0.11019283746556473,
@@ -1322,7 +1322,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl7: { domain: 'behave',
-    label: 'Large downed logs (S)',
+    label: 'Large downed logs',
     depth: 0.4,
     deadMext: 0.25,
     dead1Load: 0.013774104683195591,
@@ -1336,7 +1336,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl8: { domain: 'behave',
-    label: 'Long-needle litter (S)',
+    label: 'Long-needle litter',
     depth: 0.3,
     deadMext: 0.35,
     dead1Load: 0.2662993572084481,
@@ -1350,7 +1350,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   tl9: { domain: 'behave',
-    label: 'Very high load broadleaf litter (S)',
+    label: 'Very high load broadleaf litter',
     depth: 0.6,
     deadMext: 0.35,
     dead1Load: 0.305325987144169,
@@ -1364,7 +1364,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   sb1: { domain: 'behave',
-    label: 'Low load activity fuel (S)',
+    label: 'Low load activity fuel',
     depth: 1,
     deadMext: 0.25,
     dead1Load: 0.06887052341597796,
@@ -1378,7 +1378,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   sb2: { domain: 'behave',
-    label: 'Moderate load activity or low load blowdown (S)',
+    label: 'Moderate load activity or low load blowdown',
     depth: 1,
     deadMext: 0.25,
     dead1Load: 0.20661157024793386,
@@ -1392,7 +1392,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   sb3: { domain: 'behave',
-    label: 'High load activity fuel or moderate load blowdown (S)',
+    label: 'High load activity fuel or moderate load blowdown',
     depth: 1.2,
     deadMext: 0.25,
     dead1Load: 0.2525252525252525,
@@ -1406,7 +1406,7 @@ tl2:
     deadHeat: 8000,
     liveHeat: 8000 },
   sb4: { domain: 'behave',
-    label: 'High load blowdown (S)',
+    label: 'High load blowdown',
     depth: 2.7,
     deadMext: 0.25,
     dead1Load: 0.24104683195592286,

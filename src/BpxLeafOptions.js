@@ -6,6 +6,7 @@
  */
 
 import DagLeafOption from './DagLeafOption';
+import BpxLibFuelCatalog from './BpxLibFuelCatalog';
 
 export class BpxLeafFuelAspenType extends DagLeafOption {
   constructor(branch, name) {
@@ -39,5 +40,17 @@ export class BpxLeafFuelChaparralType extends DagLeafOption {
       .header('chaparral fuel type')
       .item('chamise', 'chamise', true)
       .item('mixedBrush', 'mixed brush');
+  }
+}
+
+export class BpxLeafFuelCatalogKey extends DagLeafOption {
+  constructor(branch, name) {
+    super(branch, name)
+      .desc('fuel model catalog key')
+      .header('Fuel Model Catalog Key');
+
+    BpxLibFuelCatalog.list().forEach(([key, label]) => {
+      this.item(key, `${key}: ${label}`, key==='10');
+    })
   }
 }

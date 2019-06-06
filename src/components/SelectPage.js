@@ -15,18 +15,21 @@ function selectionHandler(leaf, e) {
 
 function SelectItem(props) {
   const { leafs } = props;
-  const items = leafs.map((item) =>
-    <Form.Check type="checkbox"
-      onClick={(e) => selectionHandler(item[0], e)}
-      id={item[0].fullName('-')}
-      key={item[0].fullName('-')}
-      label={`${item[1]} (${item[0].name()})`} />
-  );
+  const items = leafs.map((item) => {
+    let [leaf, label] = item;
+    return (
+      <Form.Check type="checkbox"
+        onClick={(e) => selectionHandler(leaf, e)}
+        id={leaf.fullName('-')}
+        key={leaf.fullName('-')}
+        label={`${label} (${leaf.name()})`} />
+    );
+  });
   return (<div>{items}</div>);
 }
 
 function SelectBlock(props) {
-  const { data, ekey } = props;
+  const { data, ekey, id } = props;
   return (
     <Card>
     <Card.Header>
@@ -36,7 +39,7 @@ function SelectBlock(props) {
     </Card.Header>
       <Accordion.Collapse eventKey={ekey}>
         <Card.Body>
-          <Form.Group controlId="formSelectPage">
+          <Form.Group controlId={id}>
             <SelectItem leafs={data.leafs} />
           </Form.Group>
         </Card.Body>
@@ -47,11 +50,7 @@ function SelectBlock(props) {
 
 export default function SelectPage(props) {
   const selections = AppSelections.all().map((cat, idx) =>
-    <SelectBlock key={idx} data={cat} ekey={idx.toString()} />
+    <SelectBlock key={idx} data={cat} id={idx} ekey={idx.toString()} />
   );
-  return (
-    <Accordion defaultActiveKey="0">
-      {selections}
-    </Accordion>
-  );
+  return (<Accordion defaultActiveKey="0">{selections}</Accordion>);
 }

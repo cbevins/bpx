@@ -14,22 +14,22 @@ export class BpxTreeMoistureDead extends DagBranch {
 
     new DagLeafQuantity(this, 'tl1h')
       .desc('site dead 1-h time-lag fuel moisture')
-      .label('Dead 1-h Fuel Moisture')
+      .label('Fuel Moisture, Dead 1-h')
       .units('fuelMois').value(5);
 
     new DagLeafQuantity(this, 'tl10h')
       .desc('site dead 10-h time-lag fuel moisture')
-      .label('Dead 10-h Fuel Moisture')
+      .label('Fuel Moisture, Dead 10-h')
       .units('fuelMois').value(5);
 
     new DagLeafQuantity(this, 'tl100h')
       .desc('site dead 100-h time-lag fuel moisture')
-      .label('Dead 100-h Fuel Moisture')
+      .label('Fuel Moisture, Dead 100-h')
       .units('fuelMois').value(5);
 
     new DagLeafQuantity(this, 'category')
       .desc('site dead category fuel moisture')
-      .label('Dead Category Fuel Moisture')
+      .label('Fuel Moisture, Dead Category')
       .units('fuelMois').value(5);
   }
 
@@ -56,17 +56,17 @@ export class BpxTreeMoistureLive extends DagBranch {
     super(parent, name);
     new DagLeafQuantity(this, 'herb')
       .desc('site live herbaceous fuel moisture')
-      .label('Live Herb Fuel Moisture')
+      .label('Fuel Moisture, Live Herb')
       .units('fuelMois').value(5);
 
     new DagLeafQuantity(this, 'stem')
       .desc('site live stem wood fuel moisture')
-      .label('Live Stem Fuel Moisture')
+      .label('Fuel Moisture, Live Stem')
       .units('fuelMois').value(5);
 
     new DagLeafQuantity(this, 'category')
       .desc('site live category fuel moisture')
-      .label('Live Category Fuel Moisture')
+      .label('Fuel Moisture, Live Category')
       .units('fuelMois').value(5);
   }
 

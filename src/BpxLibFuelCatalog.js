@@ -24,6 +24,16 @@ export default class BpxLibFuelCatalog {
     );
   }
 
+  static keys() {
+    return Object.keys(BpxLibFuelRecord).sort();
+  }
+
+  static list() {
+    return Object.keys(BpxLibFuelRecord).sort().map((key) =>
+      [key, BpxLibFuelRecord[key].label]
+    );
+  }
+
   static label(key) {
     return BpxLibFuelRecord[key].label;
   }

@@ -18,7 +18,7 @@ export default class BpxTreeFuelModelBehave extends DagBranch {
 
     // Hack to determine if primary or secondary
     const prefix = parent.fullName().includes('primary')
-      ? 'Primary ' : 'Secondary ';
+      ? 'Primary Fuel, ' : 'Secondary Fuel, ';
 
     new BpxLeafFuelDomain(this).value(BpxLibFuelBehave.domain());
 
@@ -33,51 +33,62 @@ export default class BpxTreeFuelModelBehave extends DagBranch {
     // Input when fuel modeling
     new DagLeafQuantity(parms, 'depth')
       .desc('standard fuel model depth')
-      .label(prefix+'Fuel Depth')
+      .label(prefix+'Bed Depth')
       .units('fuelDepth').value(0.01);
 
     new DagLeafQuantity(parms, 'deadMext')
       .desc('standard fuel model dead fuel moisture content of extinction')
+      .label(prefix+'Dead Extinction Moisture')
       .units('fuelMois').value(.01);
 
     new DagLeafQuantity(parms, 'totalHerbLoad')
       .desc('standard fuel model total (dead and live) herb oven-dry load')
+      .label(prefix+'Load Total Herb')
       .units('fuelLoad').value(0);
 
     new DagLeafQuantity(parms, 'dead1Load')
       .desc('standard fuel model dead 1-h time-lag dead-and-down oven-dry load')
+      .label(prefix+'Load Dead 1-h')
       .units('fuelLoad').value(0);
 
     new DagLeafQuantity(parms, 'dead10Load')
       .desc('standard fuel model dead 10-h time-lag dead-and-down oven-dry load')
+      .label(prefix+'Load Dead 10-h')
       .units('fuelLoad').value(0);
 
     new DagLeafQuantity(parms, 'dead100Load')
       .desc('standard fuel model dead 100-h time-lag dead-and-down oven-dry load')
+      .label(prefix+'Load Dead 100-h')
       .units('fuelLoad').value(0);
 
     new DagLeafQuantity(parms, 'liveStemLoad')
       .desc('standard fuel model live stem oven-dry load')
+      .label(prefix+'Load Live Stem')
       .units('fuelLoad').value(0);
 
     new DagLeafQuantity(parms, 'dead1Savr')
       .desc('standard fuel model dead 1-h time-lag fuel surface area-to-volume ratio')
+      .label(prefix+'SAVR Dead 1-h')
       .units('fuelSavr').value(1);
 
     new DagLeafQuantity(parms, 'liveHerbSavr')
       .desc('standard fuel model live herbaceous fuel surface area-to-volume ratio')
+      .label(prefix+'SAVR Live Herb')
       .units('fuelSavr').value(1);
 
     new DagLeafQuantity(parms, 'liveStemSavr')
       .desc('standard fuel model live stem wood fuel surface area-to-volume ratio')
+      .label(prefix+'SAVR Live Stem')
       .units('fuelSavr').value(1);
 
     new DagLeafQuantity(parms, 'deadHeat')
       .desc('standard fuel model dead fuel low heat of combustion')
+      .label(prefix+'Heat of Dead Category')
       .units('fuelHeat').value(8000);
 
     new DagLeafQuantity(parms, 'liveHeat')
       .desc('standard fuel model live fuel low heat of combustion')
+      .label(prefix+'Heat of Live Category')
       .units('fuelHeat').value(8000);
 
       // Always derived
@@ -85,10 +96,12 @@ export default class BpxTreeFuelModelBehave extends DagBranch {
 
     new DagLeafQuantity(derived, 'deadHerbLoad')
       .desc('standard fuel model dead herb oven-dry load')
+      .label(prefix+'Load Dead Herb')
       .units('fuelLoad').value(0);
 
     new DagLeafQuantity(derived, 'liveHerbLoad')
       .desc('standard fuel model live herb oven-dry load')
+      .label(prefix+'Load Live Herb')
       .units('fuelLoad').value(0);
   }
 

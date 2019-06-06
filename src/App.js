@@ -8,11 +8,11 @@ import './components/json-inspector.css';
 import AppDag from './components/AppDag';
 
 export function MainPage(props) {
-  const {dag, dagUpdate} = props;
+  const { dag } = props;
   return (
     <div>
       <MainPageNav />
-      <MainPageTabs dag={dag} dagUpdate={dagUpdate}/>
+      <MainPageTabs dag={dag} />
     </div>
   );
 }
@@ -24,13 +24,14 @@ export default function App() {
   // Handlers should call dagUpdate() instead of setDag()
   // so we can do debugging, logging, etc.
   function dagUpdate() {
-    return setDag(dag);
+    //alert('dagUpdate()');
+    setDag(dag);
   }
   AppDag.setStateUpdater(dagUpdate);
 
   return (
     <div>
-      <MainPage dag={dag} dagUpdate={dagUpdate}/>
+      <MainPage dag={dag} />
     </div>
   );
 }
