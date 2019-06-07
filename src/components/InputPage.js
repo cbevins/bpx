@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Badge from 'react-bootstrap/Badge'
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
+
 import AppDag from './AppDag';
 
 import DagLeafBool from '../DagLeafBool';
@@ -23,7 +26,24 @@ function optionInputHandler(leaf, e) {
 function quantityInputHandler(leaf, e) {
   // Validate and covert here
   const value = e.target.value;
-  AppDag.setValue(leaf, value);
+  let newValues = [];
+  let parts = value.replace(/,/g, ' ').split(' ');
+  parts.forEach((part) => {
+    let n = Number.parseFloat(part);
+    if (!Number.isNaN(n)) {
+      newValues.push(n);
+    }
+  })
+  let nv = newValues.join(' ');
+  if (newValues.length === 1 ) {
+    AppDag.setValue(leaf, value);
+    return [nv, '']
+  } else if (newValues.length > 1) {
+    AppDag.setBatchInputs(leaf, newValues);
+    return [nv, '']
+  } else {
+    return ['', 'You must enter a valid quantity'];
+  }
 }
 
 function textInputHandler(leaf, e) {
@@ -79,6 +99,19 @@ function InputOption(props) {
 function InputQuantity(props) {
   const { leaf, id, label, desc, value } = props;
   const units = '(' + leaf.currentUnitsString() + ')';
+  const [val, setVal] = useState(value);
+  const [err, setErr] = useState('');
+  function validate(leaf, e) {
+    const [newValue, msg] = quantityInputHandler(leaf, e);
+    //alert(`validate '${e.target.value}' into '${newValue}' msg='${msg}'`);
+    setVal(newValue);
+    setErr(err, msg);
+    e.target.focus();
+    if (err !== '') {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
 
   // Because this is a quantity, delay calling quantityInputHandler()
   // until 'onBlur' so the entire entry can be parsed and validated
@@ -87,10 +120,13 @@ function InputQuantity(props) {
       <Form.Label column sm="4">{label}</Form.Label>
       <Col sm="1">{units}</Col>
       <Col sm="4">
-        <Form.Control size="sm" type="text"
-          defaultValue={value}
-          onBlur={(e) => quantityInputHandler(leaf, e)} />
+        <Form.Control size="sm" type="text" required
+          defaultValue={val}
+          onBlur={(e) => validate(leaf, e)} />
         <Form.Text className="text-muted">{desc}</Form.Text>
+        <Form.Control.Feedback type="invalid">
+          {err}
+        </Form.Control.Feedback>
       </Col>
     </Form.Group>
   );
@@ -146,11 +182,29 @@ export function InputForm(props) {
 
 export default function InputPage(props) {
   const { dag } = props;
-  const selected = dag.selectedLeafs.length;
-  const inputs = dag.requiredInputLeafs.length
+  const nselected = dag.selectedLeafs.length;
+  const ninputs = dag.requiredInputLeafs.length
+  let dimensions = 0;
+  let runs = 1;
+  dag.requiredInputLeafs.forEach((leaf) => {
+    let n = leaf.own.inputs.length;
+    if (n > 1 ) {
+      dimensions += 1;
+      runs *= n;
+    }
+  });
   return (
     <div>
-      <h3>The {selected} selected variables require {inputs} inputts:</h3>
+      <p>
+      <Table responsive="sm" bordered>
+        <tr>
+        <td><Badge variant="secondary">{nselected}</Badge>Selected Outputs</td>
+        <td><Badge variant="secondary">{ninputs}</Badge>Required Inputs</td>
+        <td><Badge variant="secondary">{dimensions}</Badge>Ranged Inputs</td>
+        <td><Badge variant="secondary">{runs}</Badge>Result Sets</td>
+        </tr>
+      </Table>
+      </p>
       <InputForm dag={dag} />
     </div>
   );

@@ -84,7 +84,7 @@ export class BpxTreeSiteWindSpeed extends DagBranch {
     new DagLeafQuantity(this, 'at20ft')
       .desc('at 20-ft')
       .label('Wind Speed at 20-ft')
-      .units('windSpeed').value(0);
+      .units('windSpeed').value(880);
 
     new DagLeafQuantity(this, 'atMidflame')
       .desc('at midflame height')

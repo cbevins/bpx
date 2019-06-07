@@ -18,6 +18,10 @@ export default class AppDag {
     return this.dag.tree;
   }
 
+  static setBatchInputs(leaf, values) {
+    this.dag.setBatchInputs([[leaf, values]]);
+  }
+
   static setStateUpdater(stateUpdater) {
     this.stateUpdater = stateUpdater;
   }
