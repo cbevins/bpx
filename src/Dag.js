@@ -124,6 +124,17 @@ export default class Dag {
     return this.selectedLeafs;
   }
 
+  rangeLeafs() {
+    let ranged = [];
+    this.requiredInputLeafs.forEach((leaf) => {
+      let inputs = leaf.own.inputs.length;
+      if (inputs > 1 ) {
+        ranged.push(leaf);
+      }
+    });
+    return ranged;
+  }
+
   reconfigure() {
     this.reconfigure1Leafs();
     this.reconfigure2LeafEdges();
@@ -236,6 +247,17 @@ export default class Dag {
     this.results = [];
   }
 
+  runs() {
+    let runs = 1;
+    this.requiredInputLeafs.forEach((leaf) => {
+      let inputs = leaf.own.inputs.length;
+      if (inputs > 1 ) {
+        runs *= inputs;
+      }
+    });
+    return this.requiredInputLeafs.length < 1 ? 0 : runs;
+  }
+
   // Array of [leaf, [inputValues]] records
   // Does not trigger a reconfigure
   setBatchInputs(inputsArray) {
@@ -307,14 +329,13 @@ export default class Dag {
     });
   }
 
-  updateBatch() {
+  updateBatch(debug=false) {
     // \TODO Use local iterators for required input
     // instead of making them properties of the Variant itself
     // (That way, can even have multiple iterators simultaenously)
 
     // Yoyo the stack
-    let vidx = 0;
-    let delta = 1;
+     let delta = 1;
     const args = [];
     let leaf = null;
     this.batch = {
@@ -330,74 +351,89 @@ export default class Dag {
       runLimit: 1000, // maximum number of results (iterations)
       storeLimit: 10000, // maximum number of stored items
       elapsed: Date.now(), // elapsed milliseconds
-      debug: false,
+      store: [],  // LOCAL data store
     };
-    const { debug } = this.batch;
     let p = ''; // \TODO Remove after debugging
     let fid = null;
     let val = null;
+    let msg = '';
+    this.batch.store = [];
     this.reconfigure9ClearResults();
     // Thin the stack
     this.requiredLeafs.forEach((required) => {
       if (!required.isConfig() && !required.isFixed()) {
         this.batch.stack.push(required);
+        if ( required.own.inputs.length===0 ) {
+          required.own.inputs=[required.own.value];
+        }
       }
     });
     const last = this.batch.stack.length;
     if (debug) {
-      Dag.debug(`BATCH processing ${last} DagLeafs`);
+      msg = `BATCH processing ${last} DagLeafs`;
+      Dag.debug(msg);
+      alert(msg);
     }
+    let vidx = 0;
     while (vidx >= 0) {
       this.batch.steps += 1;
-      if (debug) {
-        p = `    ${this.batch.steps}@${vidx} `;
-      }
       leaf = this.batch.stack[vidx];
       if (debug) {
+        p = `    Step ${this.batch.steps}@vidx=${vidx} `;
         fid = leaf.fullName();
         val = leaf.value();
       }
       // If progressing down the stack in topological order (towards vidx===last)
       if (delta > 0) {
-        p += 'DOWN to ';
+        if ( debug ) {
+          p += 'DOWN to ';
+        }
         // If INPUT, reset the Variant's current value to the first input value
         if (leaf.isInput()) {
           leaf.own.iptr = 0;
           leaf.own.value = leaf.own.inputs[leaf.own.iptr];
           if (debug) {
             this.batch.input += 1;
-            Dag.debug(`${p}INPUT ${fid} idx=${leaf.own.iptr}, '${val}'`);
+            msg = `${p}INPUT ${fid} idx=${leaf.own.iptr}, val='${val}'`;
+            Dag.debug(msg);
+            alert(msg);
           }
         } else if (leaf.isConfig()) {
           // If CONFIG, nothing to do as the value is already set
           if (debug) {
             this.batch.config += 1;
-            Dag.debug(`${p}CONFIG ${fid} '${val}'`);
+            msg = `${p}CONFIG ${fid} '${val}'`;
+            Dag.debug(msg);
           }
         } else if (leaf.isFixed()) {
           // If FIXED, nothing to do as the value is already set
           if (debug) {
             this.batch.fixed += 1;
-            Dag.debug(`${p}FIXED ${fid} '${val}'`);
+            msg = `${p}FIXED ${fid} '${val}'`;
+            Dag.debug(msg);
           }
         } else if (leaf.isBound()) {
           // If BOUND, update the Variant's current value to the bound Variant's current value
           leaf.update();
           if (debug) {
             this.batch.bound += 1;
-            Dag.debug(`${p}BOUND ${fid} '${val}'`);
+            msg = `${p}BOUND ${fid} '${val}'`;
+            Dag.debug(msg);
           }
         } else {
           // Otherwise, update the Variant's current value by calling a function
           leaf.update();
           if (debug) {
             this.batch.derived += 1;
-            Dag.debug(`${p}DERIVED ${fid} '${val}', args=[${args.join(', ')}]`);
+            msg = `${p}DERIVED ${fid} '${val}', args=[${args.join(', ')}]`;
+            Dag.debug(msg);
           }
         }
       } else if (delta < 0) {
         // Else if progressing up the stack in toplogical order (towards vidx===0)
-        p += 'UP to ';
+        if ( debug ) {
+          p += 'UP to ';
+        }
         if (leaf.isInput()) {
           // this is an input Variant; does it have more values to process?
           leaf.own.iptr += 1;
@@ -407,28 +443,36 @@ export default class Dag {
             // so go back down the stack
             delta = 1;
             if (debug) {
-              Dag.debug(`${p}${fid}: iterating DOWN for idx=${leaf.own.iptr} '${val}'`);
+              msg = `${p}${fid}: iterating DOWN for idx=${leaf.own.iptr} '${val}'`;
+              Dag.debug(msg);
+              alert(msg);
             }
           } else {
             delta = -1;
             if (debug) {
-              Dag.debug(`${p}${fid}: DONE iterating`);
+              msg = `${p}${fid}: DONE iterating`;
+              Dag.debug(msg);
+              alert(msg);
             }
           }
         } else {
           // All other Variant types keep going up the stack
           delta = -1;
           if (debug) {
-            Dag.debug(`${p}${fid}`);
+            msg = `${p}${fid}`;
+            Dag.debug(msg);
           }
         }
       } // delta < 0
       vidx += delta;
       if (vidx === last) {
         // Store selected values and go back up the stack
+        let record = [];
         this.storedLeafs.forEach((storeLeaf) => {
           storeLeaf.store();
+          record.push(storeLeaf.value());
         });
+        this.batch.store.push(record);
         this.batch.results += 1;
         this.batch.stored += this.storedLeafs.length;
         if (this.batch.results >= this.batch.runLimit
@@ -436,7 +480,9 @@ export default class Dag {
           break;
         }
         if (debug) {
-          Dag.debug('At LAST LEAF: store results; heading back UP');
+          msg = 'At LAST LEAF: store results; heading back UP'
+          Dag.debug(msg);
+          alert(msg);
         }
         delta = -1;
         vidx += delta;
@@ -450,7 +496,7 @@ export default class Dag {
       Dag.debug(`  ${this.batch.config} config DagLeaf updates`);
       Dag.debug(`  ${this.batch.fixed} fixed DagLeaf updates`);
       Dag.debug(`  ${this.batch.input} input DagLeaf updates`);
-      Dag.debug(`  ${this.batch.elasped} elapsed milliseconds`);
+      Dag.debug(`  ${this.batch.elapsed} elapsed milliseconds`);
     }
   }
 }

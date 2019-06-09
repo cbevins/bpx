@@ -16,7 +16,9 @@
     "react-dom": "^16.8.6",
     "react-json-inspector": "7.1.1",
     "react-scripts": "3.0.1",
-    "source-map-explorer": "1.8.0"
+    "react-table": "6.10.0",
+    "source-map-explorer": "1.8.0",
+    "victory": "32.2.3"
   },
   "scripts": {
     "start": "react-scripts start",

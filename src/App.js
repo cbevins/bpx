@@ -4,34 +4,43 @@ import MainPageTabs from './components/MainPageTabs';
 
 import './App.css';
 import './components/json-inspector.css';
+import 'react-table/react-table.css';
 
 import AppDag from './components/AppDag';
+import Dashboard from './components/Dashboard';
 
 export function MainPage(props) {
-  const { dag } = props;
+  const { dag, numUpdates } = props;
   return (
     <div>
       <MainPageNav />
+      <Dashboard dag={dag} numUpdates={numUpdates} />
       <MainPageTabs dag={dag} />
     </div>
   );
 }
 
+// Simply intitializes data, so must never be called a second time!
 export default function App() {
   AppDag.init('Bpx');
-  const [dag, setDag] = useState(AppDag.getDag());
+  return <AppData />
+}
 
+export function AppData(props) {
+  const [dag, setDag] = useState(AppDag.getDag());
+  const [numUpdates, setNumUpdates] = useState(0);
   // Handlers should call dagUpdate() instead of setDag()
   // so we can do debugging, logging, etc.
   function dagUpdate() {
-    //alert('dagUpdate()');
     setDag(dag);
+    setNumUpdates(numUpdates+1);
+    //alert('dagUpdate() #'+numUpdates);
   }
   AppDag.setStateUpdater(dagUpdate);
 
   return (
     <div>
-      <MainPage dag={dag} />
+      <MainPage dag={dag} numUpdates={numUpdates} />
     </div>
   );
 }

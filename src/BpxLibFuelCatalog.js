@@ -9,6 +9,7 @@ import { BpxLibFuelRecord } from './BpxLibFuelCatalogData';
 
 export default class BpxLibFuelCatalog {
   static domain(key) {
+    BpxLibFuelCatalog.ensureKey(key)   ;
     return BpxLibFuelRecord[key].domain;
   }
 

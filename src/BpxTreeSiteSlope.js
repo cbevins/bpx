@@ -42,7 +42,7 @@ export class BpxTreeSiteSlopeSteepness extends DagBranch {
     new DagLeafQuantity(this, 'ratio')
       .desc('slope steepness ratio of vertical rise to horizontal reach')
       .label('Slope Steepness')
-      .units('slopeSteepness').value(0.25);
+      .units('slopeSteepness').value(0);
   }
 
   connect(tree) {
