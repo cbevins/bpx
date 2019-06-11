@@ -60,4 +60,31 @@ export default class DagBranch {
   parent() {
     return this.own.parent;
   }
+
+  splitCamelCase(str) {
+    let s = str.charAt(0).toUpperCase(0);
+    for ( let idx=1; idx<str.length; idx+=1 ) {
+      let char = str.charAt(idx);
+      s += (char===char.toUpperCase() && char<'0' && char>'9')
+        ? ' '+char : char;
+    }
+    return s;
+  }
+
+  ucFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  prettyName() {
+    let str = this.splitCamelCase(this.own.name);
+    let parentObj = this.own.parent;
+    while (parentObj) {
+      // Don't prefix the tree's root name
+      if ( parentObj.own.parent !== null ) {
+        str = this.splitCamelCase(parentObj.own.name) + ' ' + str;
+      }
+      parentObj = parentObj.own.parent;
+    }
+    return str;
+  }
 }

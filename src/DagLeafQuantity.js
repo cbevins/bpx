@@ -17,6 +17,7 @@ export default class DagLeafQuantity extends DagLeaf {
 
   currentUnits() {
     const {uom, apply} = BpxUnits[this.own.units];
+    //console.log(this.fullName()+' units='+this.own.units+' base='+uom.base+' apply='+apply);
     return uom[apply];
   }
 

@@ -43,7 +43,7 @@ export default class Dag {
     this.constructLeafsArray(this.tree);
     this.leafs.forEach((leaf) => {
       if (leaf.label() === null || leaf.label === '' ) {
-        leaf.label(leaf.fullName());
+        leaf.label(leaf.prettyName());
       }
     });
     this.reconfigure();
@@ -351,7 +351,7 @@ export default class Dag {
       runLimit: 1000, // maximum number of results (iterations)
       storeLimit: 10000, // maximum number of stored items
       elapsed: Date.now(), // elapsed milliseconds
-      store: [],  // LOCAL data store
+      //store: [],  // LOCAL data store
     };
     let p = ''; // \TODO Remove after debugging
     let fid = null;
@@ -467,12 +467,12 @@ export default class Dag {
       vidx += delta;
       if (vidx === last) {
         // Store selected values and go back up the stack
-        let record = [];
+        //let record = [];
         this.storedLeafs.forEach((storeLeaf) => {
           storeLeaf.store();
-          record.push(storeLeaf.value());
+          //record.push(storeLeaf.value());
         });
-        this.batch.store.push(record);
+        //this.batch.store.push(record);
         this.batch.results += 1;
         this.batch.stored += this.storedLeafs.length;
         if (this.batch.results >= this.batch.runLimit

@@ -11,6 +11,7 @@ import InputPage from './InputPage';
 import ResultsPage from './ResultsPage';
 import SelectPage from './SelectPage';
 import TreeBrowserPage from './TreeBrowserPage';
+import GraphPage from './GraphPage';
 import TablePage from './TablePage';
 
 export default function MainPageTabs(props) {
@@ -29,11 +30,14 @@ export default function MainPageTabs(props) {
             <Tab eventKey="input" title="Input">
               <InputPage dag={dag} />
             </Tab>
-            <Tab eventKey="results" title="Results">
+            <Tab eventKey="results" title="Record View">
               <ResultsPage dag={dag} />
             </Tab>
-            <Tab eventKey="wdr" title="Table">
+            <Tab eventKey="table" title="Results Table">
               <TablePage dag={dag} />
+            </Tab>
+            <Tab eventKey="graph" title="Graphs">
+              <GraphPage dag={dag} />
             </Tab>
             <Tab eventKey="tree" title="Tree Browser">
               <TreeBrowserPage dag={dag} />

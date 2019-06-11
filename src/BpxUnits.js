@@ -397,7 +397,7 @@ const BpxUnits = {
   },
   temperature: {
     uom: {
-      dflt: { F: 0 },
+      base: { F: 0 },
       alt1: { C: 0 },
     },
     apply: 'base',

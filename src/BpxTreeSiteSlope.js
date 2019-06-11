@@ -15,12 +15,10 @@ export class BpxTreeSiteSlopeDirection extends DagBranch {
 
     new DagLeafQuantity(this, 'aspect')
       .desc('slope aspect (downslope direction) from North')
-      .label('Aspect')
       .units('azimuth').value(180);
 
     new DagLeafQuantity(this, 'upslope')
       .desc('upslope from North')
-      .label('Upslope Dir from North')
       .units('azimuth').value(0);
   }
 
@@ -36,12 +34,10 @@ export class BpxTreeSiteSlopeSteepness extends DagBranch {
 
     new DagLeafQuantity(this, 'degrees')
       .desc('slope steepness in degrees from horizontal')
-      .label('Slope Steepness')
       .units('slopeSteepness').value(0);
 
     new DagLeafQuantity(this, 'ratio')
       .desc('slope steepness ratio of vertical rise to horizontal reach')
-      .label('Slope Steepness')
       .units('slopeSteepness').value(0);
   }
 

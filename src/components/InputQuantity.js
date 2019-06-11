@@ -4,11 +4,9 @@ import Form from 'react-bootstrap/Form';
 
 import AppDag from './AppDag';
 
-function quantityInputHandler(leaf, e) {
-  // Validate and covert here
-  const value = e.target.value;
-  let newValues = [];
-  let parts = value.replace(/,/g, ' ').split(' ');
+function quantityInputParser(str) {
+  let values = [];
+  let parts = str.replace(/,/g, ' ').split(' ');
   let n = 0;
   parts.forEach((part) => {
     // Is this part a from/thru/step loop?
@@ -21,13 +19,13 @@ function quantityInputHandler(leaf, e) {
         if (from <= thru) {
           if (step!==0) {
             for (n=from; n<=thru; n+=step) {
-              newValues.push(n);
+              values.push(n);
             }
           }
         } else if (thru < from) {
           if (step!==0) {
             for(n=from; n>=thru; n-=step) {
-              newValues.push(n);
+              values.push(n);
             }
           }
         }
@@ -35,18 +33,20 @@ function quantityInputHandler(leaf, e) {
     } else {
       n = Number.parseFloat(part);
       if (!Number.isNaN(n)) {
-        newValues.push(n);
+        values.push(n);
       }
     }
   })
-  let nv = newValues.join(' ');
-  if (newValues.length === 1 ) {
-    AppDag.setValue(leaf, value);
-    return [nv, '']
-  } else if (newValues.length > 1) {
-    AppDag.setBatchInputs(leaf, newValues);
+  return values;
+}
+
+function quantityInputHandler(leaf, e) {
+  // Validate and covert here
+  const values = quantityInputParser(e.target.value);
+  if (values.length > 0) {
+    AppDag.setBatchInputs(leaf, values);
     AppDag.updateBatch(false);
-    return [nv, '']
+    return [values.join(' '), ''];
   } else {
     return ['', 'You must enter a valid quantity'];
   }

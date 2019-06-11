@@ -4,7 +4,15 @@ import DagLeafQuantity from '../DagLeafQuantity';
 
 export default function TablePage(props) {
   const { dag } = props;
-  let data = dag.batch.store;
+  let data = [];
+  for(let idx=0; idx<dag.batch.results; idx+=1) {
+    let row = [];
+    dag.storedLeafs.forEach((leaf) => {
+      row.push(leaf.fetch(idx));
+    })
+    data.push(row);
+  }
+
   let columns = [];
   dag.storedLeafs.forEach((leaf, idx) => {
     if (leaf instanceof DagLeafQuantity) {
@@ -12,7 +20,7 @@ export default function TablePage(props) {
         id: idx+'-'+leaf.name(),
         Header: leaf.name(),
         accessor: (d) => d[idx],
-        Cell: row => (row.value.toPrecision(2)),
+        Cell: row => (Number.parseFloat(row.value).toFixed(2)),
       });
     } else {
       columns.push({
