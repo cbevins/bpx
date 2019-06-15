@@ -1,6 +1,7 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import AppDag from './AppDag';
 
@@ -15,12 +16,16 @@ export default function InputText(props) {
   return (
     <Form.Group as={Form.Row} controlId={id}>
       <Form.Label column sm="4">{label}</Form.Label>
-      <Col sm="1"></Col>
-      <Col sm="4">
+      <Col sm={1}>
+        <Button size="sm">?</Button>
+      </Col>
+      <Col sm="3">
         <Form.Control size="sm" type="text"
           defaultValue={value}
           onBlur={(e) => textInputHandler(leaf, e)} />
-        <Form.Text className="text-muted">{desc}</Form.Text>
+        <Form.Control.Feedback type="invalid">
+          {leaf.own.form.errors.join(', ')}
+        </Form.Control.Feedback>
       </Col>
     </Form.Group>
   );

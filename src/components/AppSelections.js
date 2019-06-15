@@ -145,8 +145,8 @@ export default class AppSelections {
 
   static all() {
     return [
-      AppSelections.surfaceEllipseSize(),
       AppSelections.surfaceEllipseHead(),
+      AppSelections.surfaceEllipseSize(),
       AppSelections.surfaceEllipseBack(),
       AppSelections.surfaceEllipseFlank(),
       AppSelections.surfaceEllipseBeta(),

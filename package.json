@@ -16,8 +16,10 @@
     "react-bootstrap": "1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-json-inspector": "7.1.1",
+    "react-lightweight-forms": "git+https://github.com/shanplourde/react-hooks-form-util.git#master",
     "react-scripts": "3.0.1",
     "react-table": "6.10.0",
+    "react-valida-hook": "0.0.9",
     "source-map-explorer": "1.8.0",
     "victory": "32.2.3"
   },

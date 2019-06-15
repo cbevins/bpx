@@ -4,6 +4,10 @@ import DagLeafQuantity from '../DagLeafQuantity';
 
 export default function TablePage(props) {
   const { dag } = props;
+  if (dag.runs()===0) {
+    return (<h3>There are currently no run results</h3>);
+  }
+
   let data = [];
   for(let idx=0; idx<dag.batch.results; idx+=1) {
     let row = [];

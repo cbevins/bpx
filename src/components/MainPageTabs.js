@@ -8,14 +8,16 @@ import Row from 'react-bootstrap/Row'
 
 import ConfigPage from './ConfigPage';
 import InputPage from './InputPage';
+import InputPage2 from './InputPage2';
 import ResultsPage from './ResultsPage';
 import SelectPage from './SelectPage';
 import TreeBrowserPage from './TreeBrowserPage';
 import GraphPage from './GraphPage';
 import TablePage from './TablePage';
+//import UserFormPage from './UserFormPage';
+import DynamicForm from './DynamicForm';
 
-export default function MainPageTabs(props) {
-  const { dag } = props;
+export default function MainPageTabs({dag}) {
   return (
     <Container fluid="true">
       <Row>
@@ -30,6 +32,9 @@ export default function MainPageTabs(props) {
             <Tab eventKey="input" title="Input">
               <InputPage dag={dag} />
             </Tab>
+            <Tab eventKey="input2" title="Input2">
+              <InputPage2 dag={dag} />
+            </Tab>
             <Tab eventKey="results" title="Record View">
               <ResultsPage dag={dag} />
             </Tab>
@@ -38,6 +43,9 @@ export default function MainPageTabs(props) {
             </Tab>
             <Tab eventKey="graph" title="Graphs">
               <GraphPage dag={dag} />
+            </Tab>
+            <Tab eventKey="dynamic" title="Dynamic Form">
+              <DynamicForm dag={dag} />
             </Tab>
             <Tab eventKey="tree" title="Tree Browser">
               <TreeBrowserPage dag={dag} />

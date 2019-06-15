@@ -1,6 +1,7 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import AppDag from './AppDag';
 
@@ -26,13 +27,17 @@ export default function InputOption(props) {
   return (
     <Form.Group as={Form.Row} controlId={id}>
       <Form.Label column sm="4">{label}</Form.Label>
-      <Col sm="1">(select one)</Col>
-      <Col sm="4">
+      <Col sm={1}>
+        <Button size="sm">?</Button>
+      </Col>
+      <Col sm="3">
         <Form.Control as="select" size="sm" value={value}
           onChange={(e) => optionInputHandler(leaf, e)}>
           {options}
         </Form.Control>
-        <Form.Text className="text-muted">{desc}</Form.Text>
+        <Form.Control.Feedback type="invalid">
+          {leaf.own.form.errors.join(', ')}
+        </Form.Control.Feedback>
       </Col>
     </Form.Group>
   );

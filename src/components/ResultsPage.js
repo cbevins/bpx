@@ -17,6 +17,9 @@ function ResultsRows(props) {
 
 export default function ResultsPage(props) {
   const { dag } = props;
+  if (dag.runs()===0) {
+    return (<h3>There are currently no run results</h3>);
+  }
   return (
     <Table responsive="md" size="sm" striped>
       <thead><tr colSpan="3" align="center"><th>Input Conditions</th></tr></thead>

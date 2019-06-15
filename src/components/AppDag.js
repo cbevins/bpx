@@ -20,7 +20,7 @@ export default class AppDag {
 
   static setBatchInputs(leaf, values) {
     this.dag.setBatchInputs([[leaf, values]]);
-    this.stateUpdater();
+    //this.stateUpdater();
   }
 
   static setStateUpdater(stateUpdater) {
@@ -44,6 +44,10 @@ export default class AppDag {
 
   static updateBatch(debug=false) {
     this.dag.updateBatch(debug);
+    this.stateUpdater();
+  }
+
+  static updateState() {
     this.stateUpdater();
   }
 }

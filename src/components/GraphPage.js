@@ -83,12 +83,12 @@ function GraphIndependents(props) {
 
 export default function GraphPage(props) {
   const { dag } = props;
-  if (dag.selectedLeafs.length<1) {
-    return (<h3>There are no variables selected for output</h3>);
+  if (dag.runs()===0) {
+    return (<h3>There are currently no run results</h3>);
   }
   const rangeLeafs = dag.rangeLeafs();
   if (rangeLeafs.length<1) {
-    return (<h3>There are no input variables with multiple values</h3>);
+    return (<h3>There are currently no input variables with multiple values</h3>);
   }
   const graphs = rangeLeafs.map((rangeLeaf) =>
     <GraphIndependents dag={dag} xleaf={rangeLeaf} />

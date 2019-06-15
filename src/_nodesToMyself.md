@@ -34,3 +34,20 @@ Each FuelBed ('primary' and 'secondary') has its own:
   - has a connect() implementation.
 
 - This isolates tree implementation, especially relating to leaf bindings and inputs, from the (re-usable) structure.
+
+# Analysis
+
+- Always produce a table of batch run results (1 result per run)
+
+- Always produce a pageable record view report (1 page per run)
+
+- If 1 multi-valued input leafs
+  - Offer table/graph from menu of all selected leafs v the range leaf
+    - Ros over TL1h
+    - FLI over TL1h
+    - Flame over TL1h
+
+- If 2 multi-valued input leafs:
+  - Offer 2-way table/graph of all selected by range var a/b and b/a
+    - Ros over tl1h at each ws20
+    - Ros over ws20 at each tl1h
