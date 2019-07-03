@@ -7,11 +7,11 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 import ConfigPage from './ConfigPage';
+import GraphPage from './GraphPage';
 import InputPage from './InputPage';
 import ResultsPage from './ResultsPage';
 import SelectPage from './SelectPage';
 import TreeBrowserPage from './TreeBrowserPage';
-import GraphPage from './GraphPage';
 import TablePage from './TablePage';
 
 export default function MainPageTabs({dag}) {

@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// used by react-bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
+// used by mdbreact
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import './assets/scss/mdb.scss';
+//import 'mdbreact/dist/css/mdb.css'; // moved from mdbreact/dist into src/assets
+
 //import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
