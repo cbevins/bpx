@@ -12,7 +12,7 @@ function textInputHandler(leaf, e) {
 }
 
 export default function InputText(props) {
-  const { leaf, id, label, desc, value } = props;
+  const { leaf, id, label, value } = props;
   return (
     <Form.Group as={Form.Row} controlId={id}>
       <Form.Label column sm="4">{label}</Form.Label>

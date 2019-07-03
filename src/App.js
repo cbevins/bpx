@@ -5,7 +5,7 @@ import MainPageTabs from './components/MainPageTabs';
 import './App.css';
 import './components/json-inspector.css';
 import 'react-table/react-table.css';
-import './components/UserForm.css';
+//import './components/UserForm.css';
 
 import AppDag from './components/AppDag';
 import Dashboard from './components/Dashboard';

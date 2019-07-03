@@ -17,7 +17,7 @@ function InputOptionItem(props) {
 }
 
 export default function InputOption(props) {
-  const { leaf, id, label, desc, value } = props;
+  const { leaf, id, label, value } = props;
   const options = leaf.itemKeys().map((item) =>
     <InputOptionItem value={item} key={item}
       label={leaf.item(item)} />

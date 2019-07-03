@@ -10,14 +10,14 @@ const commonProperties = {
   enableSlices: 'x',
 };
 
-const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter'];
+// const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter'];
 
-const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
-  <g>
-    <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
-    <circle r={size / 5} strokeWidth={borderWidth} stroke={borderColor} fill={color} fillOpacity={0.35} />
-  </g>
-);
+// const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
+//   <g>
+//     <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
+//     <circle r={size / 5} strokeWidth={borderWidth} stroke={borderColor} fill={color} fillOpacity={0.35} />
+//   </g>
+// );
 
 function GraphContainer(props) {
   const { dag, xleaf, yleaf } = props;
