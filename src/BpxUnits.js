@@ -32,7 +32,35 @@ const BpxUnits = {
     apply: 'base',
     min: 0,
   },
-  distanceFt: { // distances on the order of inches to feet
+  // distances on the order of inches to feet
+  distanceFt: {
+    units: {
+      'ft' : {
+        fromBase: (value) => value,
+        intoBase: (value) => value,
+      },
+      'm' : {
+        fromBase: (value) => value / 3.28084,
+        intoBase: (value) => value * 3.28084,
+      },
+      'in' : {
+        fromBase: (value) => value * 12,
+        intoBase: (value) => value / 12,
+      },
+      'cm' : {
+        fromBase: (value) => value / 0.0328084,
+        intoBase: (value) => value * 0.0328084,
+      },
+},
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      real: [],
+      gt: [0],
+    },
     uom: {
       base: { ft: 1 },
       alt1: { in: 1 },
@@ -42,7 +70,8 @@ const BpxUnits = {
     apply: 'base',
     min: 0,
   },
-  distanceMi: { // distances on the order of feet to miles
+  // distances on the order of feet to miles
+  distanceMi: {
     uom: {
       base: { ft: 1 },
       alt1: { mi: 1 },
@@ -52,7 +81,22 @@ const BpxUnits = {
     apply: 'base',
     min: 0,
   },
-  factor: { // a generic real value with no limits or conversions
+  // a generic real value with no limits or conversions
+  factor: {
+    units: {
+      'dl': {
+        fromBase: (value) => value,
+        intoBase: (value) => value,
+      },
+    },
+    base: 'dl',
+    display: {
+      units: 'dl',
+      decimals: 4,
+    },
+    validate: {
+      real: [],
+    },
     uom: {
       base: { real: 0 },
     },
@@ -120,6 +164,25 @@ const BpxUnits = {
     min: 0,
   },
   fireRos: {
+    units: {
+      'ft/min' : {
+        fromBase: (value) => value,
+        intoBase: (value) => value,
+      },
+      'm/min' : {
+        fromBase: (value) => value / 3.28084,
+        intoBase: (value) => value * 3.28084,
+      }
+    },
+    base: 'ft/min',
+    display: {
+      units: 'ft/min',
+      decimals: 2,
+    },
+    validate: {
+      real: [],
+      gt: [0],
+    },
     uom: {
       base: { ft: 1, min: -1 },
       alt1: { mi: 1, h: -1 },
