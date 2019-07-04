@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 import ConfigPage from './ConfigPage';
+import ExamplesPage from '../closet/ExamplesPage'
 import GraphPage from './GraphPage';
 import InputPage from './InputPage';
 import ResultsPage from './ResultsPage';
@@ -40,6 +41,9 @@ export default function MainPageTabs({dag}) {
             </Tab>
             <Tab eventKey="tree" title="Tree Browser">
               <TreeBrowserPage dag={dag} />
+            </Tab>
+            <Tab eventKey="examples" title="Examples">
+              <ExamplesPage dag={dag} />
             </Tab>
         </Tabs>
         </Col>
