@@ -20,7 +20,7 @@ export class BpxTreeCrownFireEllipseSizeActive extends TreeFireEllipseSize {
  connect( tree ) {
     const ros = tree.crown.fire.active.ros;
     const lwr = tree.crown.fire.active.lengthToWidthRatio;
-    const elapsed = tree.site.fire.sinceIgnition;
+    const elapsed = tree.site.fire.time.sinceIgnition;
 
     this.length.calc(BpxLibSurfaceFire.distance, ros, elapsed);
     this.width.calc(BpxLibMath.div, this.length, lwr);

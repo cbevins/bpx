@@ -24,8 +24,8 @@ export default function basicWorksheet(dag) {
     [configs.wind.speed, 'atMidflame'],
   ]);
   dag.setBatchInputs([
-    [site.fire.airTemp, [95]],
-    [site.fire.sinceIgnition, [60]],
+    [site.temperature.air, [95]],
+    [site.fire.time.sinceIgnition, [60]],
     [site.fire.vector.fromNorth, [45]],
     [site.map.scale, [24000]],
     [site.moisture.dead.tl1h, [0.05]],

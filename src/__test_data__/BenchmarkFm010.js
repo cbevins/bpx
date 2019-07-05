@@ -29,8 +29,9 @@ export const BenchmarkFm010In = {
   },  // configs
   site: {
     fire: {
-      airTemp: 95,
-      sinceIgnition: 60,
+      time: {
+        sinceIgnition: 60,
+      },
       vector: {
         fromNorth: 45,
       },
@@ -56,6 +57,9 @@ export const BenchmarkFm010In = {
       steepness: {
         ratio: 0.25,
       },
+    },
+    temperature: {
+      air: 95,
     },
     wind: {
       direction: {

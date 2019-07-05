@@ -34,8 +34,8 @@ test('1: Passive crown fire per BP6', () => {
     [tree.site.canopy.crownBase, 10],
     [tree.site.canopy.crownHeight, 100],
     [tree.site.canopy.foliarMoisture, 0.5],
-    [tree.site.fire.airTemp, 95],
-    [tree.site.fire.sinceIgnition, 60],
+    [tree.site.temperature.air, 95],
+    [tree.site.fire.time.sinceIgnition, 60],
     [tree.site.fire.vector.fromNorth, 45],
     [tree.site.map.scale, 12000],
     [tree.site.moisture.dead.tl1h, 0.05],
@@ -209,7 +209,7 @@ test('1: Passive crown fire per BP6', () => {
 
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(17);
-  expect(inputLeafs).toContain(tree.site.fire.sinceIgnition);
+  expect(inputLeafs).toContain(tree.site.fire.time.sinceIgnition);
   expect(inputLeafs).toContain(tree.site.map.scale);
 
   expect(approx(tree.crown.fire.active.size.length.value(), 3714.544888567592)).toEqual(true);

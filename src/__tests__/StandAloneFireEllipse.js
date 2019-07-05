@@ -104,8 +104,8 @@ test('1: Stand-alone fire ellipse', () => {
   // Now requires ros and elapsed time as input
   expect(inputLeafs.length).toEqual(2);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
-  dag.setValue(input.sinceIgnition, elapsed);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
+  dag.setValue(input.time.sinceIgnition, elapsed);
   expect(head.ros.value()).toEqual(headRos);
   expect(head.distance.value()).toEqual(headDist);
 
@@ -121,7 +121,7 @@ test('1: Stand-alone fire ellipse', () => {
   // Now requires ros, elapsed time, and length-to-width ratio as inputs
   expect(inputLeafs.length).toEqual(3);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   dag.setValue(input.lengthToWidthRatio, lwr);
   expect(head.ros.value()).toEqual(headRos);
@@ -150,7 +150,7 @@ test('1: Stand-alone fire ellipse', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(4);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   expect(inputLeafs).toContain(input.vector.fromHead);
   dag.setValue(input.vector.fromHead, vectorHead);
@@ -171,7 +171,7 @@ test('1: Stand-alone fire ellipse', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(5);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   expect(inputLeafs).toContain(input.vector.fromHead);
   expect(inputLeafs).toContain(tree.site.map.scale);
@@ -199,7 +199,7 @@ test('1: Stand-alone fire ellipse', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(6);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   expect(inputLeafs).toContain(input.vector.fromHead);
   expect(inputLeafs).toContain(tree.site.map.scale);
@@ -227,15 +227,15 @@ test('1: Stand-alone fire ellipse', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(8);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   expect(inputLeafs).toContain(input.vector.fromHead);
   expect(inputLeafs).toContain(tree.site.map.scale);
   expect(inputLeafs).toContain(input.firelineIntensity);
-  expect(inputLeafs).toContain(input.airTemp);
+  expect(inputLeafs).toContain(tree.site.temperature.air);
   expect(inputLeafs).toContain(tree.site.wind.speed.atMidflame);
   dag.setValues([
-    [input.airTemp, air],
+    [tree.site.temperature.air, air],
     [tree.site.wind.speed.atMidflame, wind],
   ]);
   expect(head.scorchHt.value()).toEqual(headScorch);
@@ -251,11 +251,11 @@ test('1: Stand-alone fire ellipse', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(9);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   expect(inputLeafs).toContain(tree.site.map.scale);
   expect(inputLeafs).toContain(input.firelineIntensity);
-  expect(inputLeafs).toContain(input.airTemp);
+  expect(inputLeafs).toContain(tree.site.temperature.air);
   expect(inputLeafs).toContain(tree.site.wind.speed.atMidflame);
   expect(inputLeafs).toContain(input.vector.fromUpslope);
   expect(inputLeafs).toContain(input.headingFromUpslope);
@@ -277,11 +277,11 @@ test('1: Stand-alone fire ellipse', () => {
   inputLeafs = dag.getRequiredInputLeafs();
   expect(inputLeafs.length).toEqual(10);
   expect(inputLeafs).toContain(input.ros);
-  expect(inputLeafs).toContain(input.sinceIgnition);
+  expect(inputLeafs).toContain(input.time.sinceIgnition);
   expect(inputLeafs).toContain(input.lengthToWidthRatio);
   expect(inputLeafs).toContain(tree.site.map.scale);
   expect(inputLeafs).toContain(input.firelineIntensity);
-  expect(inputLeafs).toContain(input.airTemp);
+  expect(inputLeafs).toContain(tree.site.temperature.air);
   expect(inputLeafs).toContain(tree.site.wind.speed.atMidflame);
   expect(inputLeafs).toContain(input.headingFromUpslope);
   expect(inputLeafs).toContain(tree.site.slope.direction.aspect);

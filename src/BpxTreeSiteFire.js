@@ -39,10 +39,6 @@ export default class BpxTreeSiteFire extends DagBranch {
   constructor(parent, name) {
     super(parent, name);
 
-    new DagLeafQuantity(this, 'airTemp')
-      .desc('ambient air temperature')
-      .units('temperature').value(77);
-
     new DagLeafQuantity(this, 'effectiveWindSpeed')
       .desc('effective wind speed')
       .units('windSpeed').value(0);
@@ -87,8 +83,9 @@ export default class BpxTreeSiteFire extends DagBranch {
       .desc('fire spread vector maximum scorch height')
       .units('fireScorch').value(0);
 
-    new DagLeafQuantity(this, 'sinceIgnition')
-      .desc('elapsed time since fire ignition')
+    const time = new DagBranch(this, 'time');
+    new DagLeafQuantity(time, 'sinceIgnition')
+      .desc('elapsed since ignition')
       .units('timeMin').value(0);
 
     new TreeFireVector(this, 'vector');
@@ -105,11 +102,10 @@ export default class BpxTreeSiteFire extends DagBranch {
     const slope = tree.site.slope;
 
     // Always input
-    this.airTemp.input();
     this.heatPerUnitArea.input();
     this.reactionIntensity.input();
     this.ros.input();
-    this.sinceIgnition.input();
+    this.time.sinceIgnition.input();
     this.vector.fromHead.input();
     this.vector.fromNorth.input();
     this.vector.fromUpslope.input();
@@ -162,7 +158,7 @@ export default class BpxTreeSiteFire extends DagBranch {
         BpxLibSurfaceFire.scorchHt,
           this.firelineIntensity,
           this.midflameWindSpeed,
-          this.airTemp)
+          tree.site.temperature.air)
       .input();
   }
 }

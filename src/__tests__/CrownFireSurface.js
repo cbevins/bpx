@@ -33,8 +33,8 @@ test('1: Non-crown fire fire per BP6', () => {
     [tree.site.canopy.crownBase, 10],
     [tree.site.canopy.crownHeight, 90],     // changed from 100
     [tree.site.canopy.foliarMoisture, 0.7], // changed from 0.5
-    [tree.site.fire.airTemp, 95],
-    [tree.site.fire.sinceIgnition, 60],
+    [tree.site.temperature.air, 95],
+    [tree.site.fire.time.sinceIgnition, 60],
     [tree.site.fire.vector.fromNorth, 45],
     [tree.site.map.scale, 12000],
     [tree.site.moisture.dead.tl1h, 0.05],

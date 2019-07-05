@@ -370,7 +370,7 @@ export default class BpxTreeFireEllipse extends TreeFireEllipse {
       vector.distance
         .calc(BpxLibSurfaceFire.distance,
           vector.ros,
-          fireInput.sinceIgnition);
+          fireInput.time.sinceIgnition);
 
       vector.flameLength
         .calc(BpxLibSurfaceFire.flameLength,
@@ -385,18 +385,18 @@ export default class BpxTreeFireEllipse extends TreeFireEllipse {
         .calc(BpxLibSurfaceFire.scorchHt,
           vector.firelineIntensity,
           this.midflameWindSpeed,
-          fireInput.airTemp);
+          tree.site.temperature.air);
     });
 
     this.size.length
       .calc(BpxLibSurfaceFire.distance,
         this.axis.major,
-        fireInput.sinceIgnition);
+        fireInput.time.sinceIgnition);
 
     this.size.width
       .calc(BpxLibSurfaceFire.distance,
         this.axis.minor,
-        fireInput.sinceIgnition);
+        fireInput.time.sinceIgnition);
 
     this.size.perimeter
       .calc(BpxLibFireEllipse.perimeter,

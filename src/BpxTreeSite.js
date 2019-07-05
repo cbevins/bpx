@@ -4,6 +4,7 @@ import BpxTreeSiteFire from './BpxTreeSiteFire';
 import BpxTreeSiteMoisture from './BpxTreeSiteMoisture';
 import BpxTreeSiteMap from './BpxTreeSiteMap';
 import BpxTreeSiteSlope from './BpxTreeSiteSlope';
+import BpxTreeSiteTemperature from './BpxTreeSiteTemperature';
 import BpxTreeSiteWind from './BpxTreeSiteWind';
 
 export default class BpxTreeSite extends DagBranch {
@@ -14,6 +15,7 @@ export default class BpxTreeSite extends DagBranch {
     new BpxTreeSiteMap(this, 'map');
     new BpxTreeSiteMoisture(this, 'moisture');
     new BpxTreeSiteSlope(this, 'slope');
+    new BpxTreeSiteTemperature(this, 'temperature');
     new BpxTreeSiteWind(this, 'wind');
   }
 }
