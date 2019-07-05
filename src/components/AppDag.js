@@ -1,8 +1,10 @@
 import Dag from '../Dag';
+import basicWorksheet from '../worksheet/BasicWorksheet';
 
 export default class AppDag {
   static init(name) {
     this.dag = new Dag(name);
+    basicWorksheet(this.dag);
     this.stateUpdater = null;
   }
 
