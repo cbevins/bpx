@@ -4,7 +4,9 @@ import basicWorksheet from '../worksheet/BasicWorksheet';
 export default class AppDag {
   static init(name) {
     this.dag = new Dag(name);
+    //this.dag.autoUpdate = false;
     basicWorksheet(this.dag);
+    this.dag.updateBatch();
     this.stateUpdater = null;
   }
 
@@ -22,7 +24,8 @@ export default class AppDag {
 
   static setBatchInputs(leaf, values) {
     this.dag.setBatchInputs([[leaf, values]]);
-    //this.stateUpdater();
+    this.dag.updateBatch(); // added
+    this.stateUpdater();
   }
 
   static setStateUpdater(stateUpdater) {
@@ -31,16 +34,19 @@ export default class AppDag {
 
   static select(leaf) {
     this.dag.setSelected([leaf]);
+    this.dag.updateBatch(); // added
     this.stateUpdater();
   }
 
-  static setValue(leaf, value) {
+  static setConfig(leaf, value) {
     this.dag.setValue(leaf, value);
+    this.dag.updateBatch(); // added
     this.stateUpdater();
   }
 
   static unselect(leaf) {
     this.dag.unSelect([leaf]);
+    this.dag.updateBatch(); // added
     this.stateUpdater();
   }
 

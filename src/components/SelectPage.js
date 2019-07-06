@@ -19,6 +19,7 @@ function SelectItem(props) {
     let [leaf, label] = item;
     return (
       <Form.Check type="checkbox"
+        defaultChecked={leaf.isSelected()}
         onClick={(e) => selectionHandler(leaf, e)}
         id={leaf.fullName('-')}
         key={leaf.fullName('-')}

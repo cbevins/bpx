@@ -33,7 +33,8 @@ export default class BpxTreeSurfaceFuelModel extends DagBranch {
 
     new BpxLeafFuelCatalogKey(this, 'key')
       .desc('fuel model catalog key')
-      .label(prefix+'Catalog Key');
+      .value('10')
+      //.label(prefix+'Catalog Key');
   }
 
   connect(tree) {

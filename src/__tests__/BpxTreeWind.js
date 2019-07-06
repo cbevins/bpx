@@ -207,15 +207,18 @@ test('1: Wind direction', () => {
   expect(approx(sourceFromUpslope.value(), 45)).toEqual(true);
 
   // Select remaining directions
-  dag.setSelected([aspect, sourceFromUpslope, headingFromNorth]);
+  dag.setSelected([aspect, sourceFromNorth, headingFromNorth]);
 
   // Change wind direction config
   dag.setValue(cfgDir, 'headingFromUpslope');
-  expect(approx(upslope.value(), 45)).toEqual(true);
-  expect(approx(headingFromUpslope.value(), 225)).toEqual(true);
-  expect(approx(sourceFromUpslope.value(), 45)).toEqual(true);
-  expect(approx(headingFromNorth.value(), 270)).toEqual(true);
-  expect(approx(sourceFromNorth.value(), 90)).toEqual(true);
+  dag.setValue(headingFromUpslope, 45);
+
+  expect(aspect.value()).toEqual(225);
+  expect(upslope.value()).toEqual(45);
+  expect(headingFromUpslope.value()).toEqual(45);
+  expect(approx(sourceFromUpslope.value(), 225)).toEqual(true);
+  expect(approx(headingFromNorth.value(), 90)).toEqual(true);
+  expect(approx(sourceFromNorth.value(), 270)).toEqual(true);
 })
 
 test('2: Wind directions', () => {

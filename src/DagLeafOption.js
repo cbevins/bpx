@@ -85,9 +85,7 @@ export default class DagLeafOption extends DagLeaf {
       this.ensureOption(itemName, 'Option.value');
       this.own.value = itemName;
       this.own.args = itemName; // ?
-      if (this.isInput()) {
-        this.own.inputs = [itemName];
-      }
+      this.own.inputs = [itemName];
       return this;
     }
     return this.own.value;

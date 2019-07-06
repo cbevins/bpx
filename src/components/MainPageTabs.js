@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
+import ConditionsPage from './ConditionsPage';
 import ConfigPage from './ConfigPage';
 import ExamplesPage from '../closet/ExamplesPage'
 import GraphPage from './GraphPage';
@@ -29,6 +30,9 @@ export default function MainPageTabs({dag}) {
             </Tab>
             <Tab eventKey="input" title="Input">
               <InputPage dag={dag} />
+            </Tab>
+            <Tab eventKey="conditions" title="Conditions">
+              <ConditionsPage dag={dag} />
             </Tab>
             <Tab eventKey="results" title="Record View">
               <ResultsPage dag={dag} />

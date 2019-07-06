@@ -75,8 +75,8 @@ function GraphDependent(props) {
 
 function GraphIndependents(props) {
   const { dag, xleaf } = props;
-  const graphs = dag.selectedLeafs.map((yleaf) =>
-    <GraphContainer dag={dag} xleaf={xleaf} yleaf={yleaf} />
+  const graphs = dag.selectedLeafs.map((yleaf, idx) =>
+    <GraphContainer dag={dag} key={idx} xleaf={xleaf} yleaf={yleaf} />
   )
   return (<div>{graphs}</div>)
 }
@@ -90,8 +90,8 @@ export default function GraphPage(props) {
   if (rangeLeafs.length<1) {
     return (<h3>There are currently no input variables with multiple values</h3>);
   }
-  const graphs = rangeLeafs.map((rangeLeaf) =>
-    <GraphIndependents dag={dag} xleaf={rangeLeaf} />
+  const graphs = rangeLeafs.map((rangeLeaf, idx) =>
+    <GraphIndependents dag={dag} key={idx} xleaf={rangeLeaf} />
   );
   return (<div>{graphs}</div>);
 }

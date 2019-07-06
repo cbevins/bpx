@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import AppDag from './AppDag';
 
 function configChanged(leaf, e) {
-  AppDag.setValue(leaf, e.target.value);
+  AppDag.setConfig(leaf, e.target.value);
 }
 
 function ConfigOption(props) {

@@ -105,7 +105,7 @@ export default class DagLeaf extends DagBranch {
     this.own.provider = [];
     this.own.user = [];
     this.own.idx = 0;
-    this.own.inputs = [];
+    //this.own.inputs = [];
     this.own.iptr = 0;
     this.own.cost = 0;
     this.own.order = 0;
@@ -378,9 +378,7 @@ export default class DagLeaf extends DagBranch {
   value(val = undefined) {
     if (val !== undefined) {
       this.own.value = val;
-      if (this.isInput()) {
-        this.own.inputs = [val];
-      }
+      this.own.inputs = [val];
       return this;
     }
     return this.own.value;

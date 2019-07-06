@@ -28,7 +28,7 @@ export default function basicWorksheet(dag) {
     [site.fire.time.sinceIgnition, [60]],
     [site.fire.vector.fromNorth, [45]],
     [site.map.scale, [24000]],
-    [site.moisture.dead.tl1h, [0.05]],
+    [site.moisture.dead.tl1h, [0.05, 0.07, 0.09]],
     [site.moisture.dead.tl10h, [0.07]],
     [site.moisture.dead.tl100h, [0.09]],
     [site.moisture.live.herb, [0.5]],
