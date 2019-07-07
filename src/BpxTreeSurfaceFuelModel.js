@@ -28,8 +28,8 @@ export default class BpxTreeSurfaceFuelModel extends DagBranch {
     new BpxLeafFuelDomain(this, 'domain');
 
     // Hack to determine if primary or secondary
-    const prefix = parent.fullName().includes('primary')
-      ? 'Primary Fuel, ' : 'Secondary Fuel, ';
+    // const prefix = parent.fullName().includes('primary')
+    //   ? 'Primary Fuel, ' : 'Secondary Fuel, ';
 
     new BpxLeafFuelCatalogKey(this, 'key')
       .desc('fuel model catalog key')

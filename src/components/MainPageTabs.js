@@ -8,9 +8,7 @@ import Row from 'react-bootstrap/Row'
 
 import ConditionsPage from './ConditionsPage';
 import ConfigPage from './ConfigPage';
-import ExamplesPage from '../closet/ExamplesPage'
 import GraphPage from './GraphPage';
-import InputPage from './InputPage';
 import ResultsPage from './ResultsPage';
 import SelectPage from './SelectPage';
 import TreeBrowserPage from './TreeBrowserPage';
@@ -28,9 +26,6 @@ export default function MainPageTabs({dag}) {
             <Tab eventKey="configure" title="Configure">
               <ConfigPage dag={dag} />
             </Tab>
-            <Tab eventKey="input" title="Input">
-              <InputPage dag={dag} />
-            </Tab>
             <Tab eventKey="conditions" title="Conditions">
               <ConditionsPage dag={dag} />
             </Tab>
@@ -45,9 +40,6 @@ export default function MainPageTabs({dag}) {
             </Tab>
             <Tab eventKey="tree" title="Tree Browser">
               <TreeBrowserPage dag={dag} />
-            </Tab>
-            <Tab eventKey="examples" title="Examples">
-              <ExamplesPage dag={dag} />
             </Tab>
         </Tabs>
         </Col>
