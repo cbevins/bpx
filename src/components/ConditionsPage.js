@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 
-import DagLeafQuantity from '../DagLeafQuantity';
 import QuantityEditor, {freshData} from './QuantityEditor';
 
 function ConditionsButton(props) {
@@ -25,14 +24,15 @@ function ConditionsRows(props) {
   const { dag, leafs, setLeaf, setShow } = props;
   const rows = leafs.map((leaf, idx) =>
     <tr key={idx}>
-      <td align='left' valign='center'>
-        <ConditionsButton leaf={leaf} setLeaf={setLeaf} setShow={setShow}/>
+      <td align='left'>
+        <ConditionsButton
+          leaf={leaf}
+          setLeaf={setLeaf}
+          setShow={setShow}/>
+        {leaf.label()}
       </td>
-      <td align='left'>{leaf.label()}</td>
-      <td align='right'>{leaf.value()}</td>
-      <td align='left'>{(leaf instanceof DagLeafQuantity)
-          ? leaf.currentUnitsString() : ''}</td>
-      <td align='left'>[{leaf.own.inputs.join()}]</td>
+      <td align='center' ><em>{leaf.displayUnits()}</em></td>
+      <td align='left'>{leaf.own.inputs.join()}</td>
     </tr>
   );
   return (<tbody>{rows}</tbody>);
@@ -58,7 +58,7 @@ export default function ConditionsPage(props) {
         setShow={setShow}
         data={data}
         setData={setData}/>
-      <Table responsive='md' striped size='sm'>
+      <Table responsive='sm' striped size='sm'>
         <ConditionsRows
           dag={dag}
           leafs={dag.requiredInputLeafs}

@@ -24,7 +24,7 @@ export default class BpxTreeSiteCanopy extends DagBranch {
 
     new DagLeafQuantity(this, 'crownBase')
       .desc('canopy crown base height above the surface')
-      .units('distanceFt').value(0);
+      .units('treeHt').value(0);
 
     new DagLeafQuantity(this, 'crownFill')
       .desc('fraction of canopy volume filled by crown fuel')
@@ -32,11 +32,11 @@ export default class BpxTreeSiteCanopy extends DagBranch {
 
     new DagLeafQuantity(this, 'crownHeight')
       .desc('canopy crown top height above the surfface')
-      .units('distanceFt').value(0);
+      .units('treeHt').value(0);
 
     new DagLeafQuantity(this, 'crownLength')
       .desc('canopy crown length')
-      .units('distanceFt').value(0);
+      .units('treeHt').value(0);
 
     new DagLeafQuantity(this, 'crownRatio')
       .desc('canopy crown lengtrh-to-height ratio')

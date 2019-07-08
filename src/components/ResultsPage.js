@@ -9,7 +9,7 @@ function ResultsRows(props) {
     <tr key={idx}>
       <td>{leaf.label()}</td>
       <td align="right">{leaf.value()}</td>
-      <td>{(leaf instanceof DagLeafQuantity) ? leaf.currentUnitsString() : ''}</td>
+      <td>{leaf.displayUnits()}</td>
     </tr>
   );
   return (<tbody>{rows}</tbody>);

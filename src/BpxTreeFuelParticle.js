@@ -67,7 +67,7 @@ export default class BpxTreeFuelParticle extends DagBranch {
       .units('fuelHeat').value(0);
     new DagLeafQuantity(this, 'size')
       .desc('fuel particle size class [0..6]')
-      .units('index').value(6);
+      .units('count').value(6);
     new DagLeafQuantity(this, 'swtg')
       .desc('fuel particle size class surface area weighting factor')
       .units('fraction').value(0);

@@ -20,7 +20,7 @@ export class TreeFireWeighted extends DagBranch {
     super(parent, name);
     new DagLeafQuantity(this, 'primaryCover')
       .desc('fraction of surface area covered by the primary fuel')
-      .units('fuelCover').value(1);
+      .units('fraction').value(1);
 
     // These are always bound to the Primary Surface Fuel and Fire
     new DagLeafQuantity(this, 'effectiveWindSpeed')

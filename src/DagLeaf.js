@@ -172,6 +172,14 @@ export default class DagLeaf extends DagBranch {
     return this.own.cost;
   }
 
+  displayDecimals() {
+    return 0;
+  }
+
+  displayUnits() {
+    return '';
+  }
+
   static ensureLeafConfig(obj) {
     return ( typeof(obj) === 'undefined'
         || obj === 'null'

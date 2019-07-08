@@ -15,38 +15,20 @@ export default class DagLeafQuantity extends DagLeaf {
     this.own.units = 'factor';
   }
 
-  currentUnits() {
-    const {uom, apply} = BpxUnits[this.own.units];
-    //console.log(this.fullName()+' units='+this.own.units+' base='+uom.base+' apply='+apply);
-    return uom[apply];
+  displayDecimals() {
+    const quantity = BpxUnits[this.own.units];
+    if (quantity.hasOwnProperty('units')) {
+      return quantity.display.decimals;
+    }
+    return 2;
   }
 
-  currentUnitsString() {
-    let str = '';
-    let numer = 0;
-    let denom = 0;
-    const uom = this.currentUnits();
-    Object.keys(uom).forEach((unit) => {
-      let power = uom[unit];
-      if (power===0) {
-        str += ((numer>0) ? '-' : '') + unit;
-        numer+=1;
-      } else if (power>0) {
-        str += ((numer>0) ? '-' : '') + unit;
-        str += (power>1) ? ('^' + power) : '';
-        numer+=1;
-      } else {
-        str += ((denom>0) ? '-' : '/') + unit;
-        str += (power<-1) ? ('^' + Math.abs(power)) : '';
-        denom+=1;
-      }
-    })
-    if (str === 'percent') {
-      str = '%';
-    } else if (str==='ratio'||str==='real'||str==='factor') {
-      str = 'dl';
+  displayUnits() {
+    const quantity = BpxUnits[this.own.units];
+    if (quantity.hasOwnProperty('units')) {
+      return quantity.display.units;
     }
-    return str;
+    return "TBD";
   }
 
   ensureUnits(units, fn) {

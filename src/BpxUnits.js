@@ -9,77 +9,122 @@
 
 const BpxUnits = {
   azimuth: {
-    uom: {
-      base: { deg: 0 },
+    units: {
+      'deg' : {
+        fromBase: (deg) => deg,
+        intoBase: (deg) => deg,
+      },
     },
-    apply: 'base',
-    min: 0,
-    max: 360,
+    base: 'deg',
+    display: {
+      units: 'deg',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 359,
+    },
   },
   basalArea: {
-    uom: {
-      base: { ft: 2, ac: -1 },
-      alt1: { m: 2, ha: -1 },
+    units: {
+      'ft2': {
+        fromBase: (ft2) => ft2,
+        intoBase: (ft2) => ft2,
+      },
+      'm2': {
+        fromBase: (ft2) => ft2 / 10.76391111,
+        intoBase: (m2) => m2 * 10.76391111,
+      },
+      'in2': {
+        fromBase: (ft2) => ft2 * 144,
+        intoBase: (in2) => in2 / 144,
+      },
+      'cm2': {
+        fromBase: (ft2) => ft2 / 0.001076391111,
+        intoBase: (cm2) => cm2 * 0.001076391111,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'ft2',
+    display: {
+      units: 'ft2',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
   bulkDensity: {
-    uom: {
-      base: { lb: 1, ft: -3 },
-      alt1: { kg: 1, m: -3 },
+    units: {
+      'lb/ft3': {
+        fromBase: (lbft3) => lbft3,
+        intoBase: (lbft3) => lbft3,
+      },
+      'kg/m3': {
+        fromBase: (lbft3) => lbft3 * 16.0185,
+        intoBase: (kgm3) => kgm3 / 16.0185,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'lb/ft3',
+    display: {
+      units: 'lb/ft3',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
-  // distances on the order of inches to feet
-  distanceFt: {
+  count: {
+    units: {
+      ' ': {
+        fromBase: (n) => n,
+        intoBase: (n) => n,
+      },
+    },
+    base: ' ',
+    display: {
+      units: ' ',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+      integer: true,
+    },
+  },
+  distance: {
     units: {
       'ft' : {
-        fromBase: (value) => value,
-        intoBase: (value) => value,
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
       },
       'm' : {
-        fromBase: (value) => value / 3.28084,
-        intoBase: (value) => value * 3.28084,
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
       },
       'in' : {
-        fromBase: (value) => value * 12,
-        intoBase: (value) => value / 12,
+        fromBase: (ft) => ft * 12,
+        intoBase: (inch) => inch / 12,
       },
       'cm' : {
-        fromBase: (value) => value / 0.0328084,
-        intoBase: (value) => value * 0.0328084,
+        fromBase: (ft) => ft / 0.0328084,
+        intoBase: (cm) => cm * 0.0328084,
       },
-},
+      'mi' : {
+        fromBase: (ft) => ft / 5280,
+        intoBase: (mi) => mi * 5280,
+      },
+      'km' : {
+        fromBase: (ft) => ft * 3280.84,
+        intoBase: (km) => km / 3280.84,
+      },
+    },
     base: 'ft',
     display: {
       units: 'ft',
       decimals: 2,
     },
     validate: {
-      real: [],
-      gt: [0],
+      minVal: 0,
     },
-    uom: {
-      base: { ft: 1 },
-      alt1: { in: 1 },
-      alt2: { m: 1 },
-      alt3: { cm: 1 },
-    },
-    apply: 'base',
-    min: 0,
-  },
-  // distances on the order of feet to miles
-  distanceMi: {
-    uom: {
-      base: { ft: 1 },
-      alt1: { mi: 1 },
-      alt2: { m: 1 },
-      alt3: { km: 1 },
-    },
-    apply: 'base',
-    min: 0,
   },
   // a generic real value with no limits or conversions
   factor: {
@@ -95,84 +140,187 @@ const BpxUnits = {
       decimals: 4,
     },
     validate: {
-      real: [],
     },
-    uom: {
-      base: { real: 0 },
-    },
-    apply: 'base',
   },
   fireArea: {
-    uom: {
-      base: { ft: 2 },
-      alt1: { m: 2 },
-      alt2: { ac: 1 },
-      alt3: { ha: 1 },
+    units: {
+      'ft2': {
+        fromBase: (ft2) => ft2,
+        intoBase: (ft2) => ft2,
+      },
+      'm2': {
+        fromBase: (ft2) => ft2 / 10.76391111,
+        intoBase: (m2) => m2 * 10.76391111,
+      },
+      'ac': {
+        fromBase: (ft2) => ft2 / 43560,
+        intoBase: (ac) => ac * 43560,
+      },
+      'ha': {
+        fromBase: (ft2) => ft2 / 107639.1111,
+        intoBase: (ha) => ha * 107639.1111,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'ft2',
+    display: {
+      units: 'ft2',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
-  fireDistance: { // distances on the order of feet to miles
-    uom: {
-      base: { ft: 1 },
-      alt1: { mi: 1 },
-      alt2: { m: 1 },
-      alt3: { km: 1 },
+  fireDistance: {
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
+      'mi' : {
+        fromBase: (ft) => ft / 5280,
+        intoBase: (mi) => mi * 5280,
+      },
+      'km' : {
+        fromBase: (ft) => ft * 3280.84,
+        intoBase: (km) => km / 3280.84,
+      },
     },
-    apply: 'base',
-    min: 0,
-    precision: 12,
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
   fireFlame: { // distances on the order of feet to miles
-    uom: {
-      base: { ft: 1 },
-      alt1: { m: 1 },
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
+      'in' : {
+        fromBase: (ft) => ft * 12,
+        intoBase: (inch) => inch / 12,
+      },
+      'cm' : {
+        fromBase: (ft) => ft / 0.0328084,
+        intoBase: (cm) => cm * 0.0328084,
+      },
     },
-    apply: 'base',
-    min: 0,
-  },
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 300,
+    },
+ },
   fireFli: {
-    uom: {
-      base: { btu: 1, ft: -1, s: -1 },
-      alt1: { kJ: 1, m: -1, s: -1 },
+    units: {
+      'btu/ft-s': {
+        fromBase: (bfs) => bfs,
+        intoBase: (bfs) => bfs,
+      },
+      'kJ/m-s': {
+        fromBase: (bfs) => bfs * 3.46414,
+        intoBase: (Jms) => Jms / 3.46414,
+      }
     },
-    apply: 'base',
-    min: 0,
+    base: 'btu/ft-2',
+    display: {
+      units: 'btu/ft-2',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    }
   },
   fireHpua: {
-    uom: {
-      base: { btu: 1, ft: -2 },
-      alt1: { kJ: 1, m: -2 },
+    units: {
+      'btu/ft2' : {
+        fromBase: (bf2) => bf2,
+        intoBase: (bf2) => bf2,
+      },
+      'kJ/m2' : {
+        fromBase: (bf2) => bf2 * 11.3653,
+        intoBase: (kJm2) => kJm2 / 11.3653,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'btu/ft2',
+    display: {
+      units: 'btu/ft2',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    }
   },
   fireLwr: {
-    uom: {
-      base: { fraction: 1 },
-      alt1: { percent: 1 },
+    units: {
+      'ratio': {
+        fromBase: (ratio) => ratio,
+        intoBase: (ratio) => ratio,
+      }
     },
-    apply: 'base',
-    min: 1,
+    base: 'ratio',
+    display: {
+      units: 'ratio',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 1,
+    }
   },
   firePower: {
-    uom: {
-      base: { lb: 1, ft: -1, s: -1 },
-      alt2: { kg: 1, m:-1, s: -1 },
+    units: {
+      'lb/ft-s': {
+        fromBase: (pfs) => pfs,
+        intoBase: (pfs) => pfs,
+      },
+      'kg/m-s': {
+        fromBase: (pfs) => pfs * 1.48816,
+        intoBase: (kms) => kms / 1.48816,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'lb/ft-s',
+    display: {
+      units: 'lb/ft-s',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+    }
   },
   fireRos: {
     units: {
       'ft/min' : {
-        fromBase: (value) => value,
-        intoBase: (value) => value,
+        fromBase: (fpm) => fpm,
+        intoBase: (fpm) => fpm,
       },
       'm/min' : {
-        fromBase: (value) => value / 3.28084,
-        intoBase: (value) => value * 3.28084,
-      }
+        fromBase: (fpm) => fpm / 3.28084,
+        intoBase: (mpm) => mpm * 3.28084,
+      },
+      'mi/hr' : {
+        fromBase: (fpm) => fpm / 88,
+        intoBase: (mph) => mph * 88,
+      },
+      'km/h' : {
+        fromBase: (fpm) => fpm / 54.6807,
+        intoBase: (mpm) => mpm * 54.6807,
+      },
     },
     base: 'ft/min',
     display: {
@@ -180,196 +328,338 @@ const BpxUnits = {
       decimals: 2,
     },
     validate: {
-      real: [],
-      gt: [0],
+      minVal: 0,
     },
-    uom: {
-      base: { ft: 1, min: -1 },
-      alt1: { mi: 1, h: -1 },
-      alt2: { ch: 1, min: -1 },
-      alt3: { m: 1, min: -1 },
-      alt4: { km: 1, h: -1 },
-    },
-    apply: 'base',
-    min: 0,
   },
   fireRxi: {
-    uom: {
-      base: { btu: 1, ft: -2, min: -1 },
-      alt1: { kJ: 1, m: -2, min: -1 },
+    units: {
+      'btu/ft2-min': {
+        fromBase: (bft2m) => bft2m,
+        intoBase: (bft2m) => bft2m,
+      },
+      'kJ/m2-min': {
+        fromBase: (bft2m) => bft2m * 11.3653,
+        intoBase: (kJm2m) => kJm2m / 11.3653,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'btu/ft2-min',
+    display: {
+      units: 'btu/ft2-min',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    }
   },
   fireRxv: {
-    uom: {
-      base: { min: -1 },
+    units: {
+      'min' : {
+        fromBase: (min) => min,
+        intoBase: (min) => min,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'min',
+    display: {
+      units: 'min',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+    }
   },
   fireScorch: {
-    uom: {
-      base: { ft: 1 },
-      alt1: { m: 1 },
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
+      'in' : {
+        fromBase: (ft) => ft * 12,
+        intoBase: (inch) => inch / 12,
+      },
+      'cm' : {
+        fromBase: (ft) => ft / 0.0328084,
+        intoBase: (cm) => cm * 0.0328084,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 500,
+    },
   },
   fraction: { // ratios within the range [0..1]
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+    units: {
+      'fraction' : {
+        fromBase: (fraction) => fraction,
+        intoBase: (fraction) => fraction,
+      },
+      '%' : {
+        fromBase: (fraction) => fraction * 100,
+        intoBase: (percent) => percent / 100,
+      }
     },
-    apply: 'base',
+    base: 'fraction',
+    display: {
+      units: 'fraction',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 1,
+    },
   },
   fuelAge: {
-    uom: {
-      base: { y: 1 },
+    units: {
+      'y' : {
+        fromBase: (y) => y,
+        intoBase: (y) => y,
+      }
     },
-    apply: 'base',
-    min: 0,
+    base: 'y',
+    display: {
+      units: 'y',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+    }
   },
   fuelArea: {
-    uom: {
-      base: { ft: 2 },
-      alt1: { m: 2 },
-      alt2: { in: 2 },
-      alt3: { cm: 2 },
+    units: {
+      'ft2': {
+        fromBase: (ft2) => ft2,
+        intoBase: (ft2) => ft2,
+      },
+      'm2': {
+        fromBase: (ft2) => ft2 / 10.76391111,
+        intoBase: (m2) => m2 * 10.76391111,
+      },
+      'in2': {
+        fromBase: (ft2) => ft2 * 144,
+        intoBase: (in2) => in2 / 144,
+      },
+      'cm2': {
+        fromBase: (ft2) => ft2 / 0.001076391111,
+        intoBase: (cm2) => cm2 * 0.001076391111,
+      },
     },
-    apply: 'base',
-    min: 0,
-  },
-  fuelAwtg: {
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+    base: 'ft2',
+    display: {
+      units: 'ft2',
+      decimals: 0,
     },
-    apply: 'base',
-    min: 0,
-    max: 1,
-  },
-  fuelCover: {
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+    validate: {
+      minVal: 0,
     },
-    apply: 'base',
-    min: 0,
-    max: 1,
-  },
-  fuelCured: {
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
-    },
-    apply: 'base',
-    min: 0,
-    max: 1,
   },
   fuelDens: {
-    uom: {
-      base: { lb: 1, ft: -3 },
-      alt1: { kg: 1, m: -3 },
+    units: {
+      'lb/ft3': {
+        fromBase: (lbft3) => lbft3,
+        intoBase: (lbft3) => lbft3,
+      },
+      'kg/m3': {
+        fromBase: (lbft3) => lbft3 * 16.0185,
+        intoBase: (kgm3) => kgm3 / 16.0185,
+      },
     },
-    apply: 'base',
-    min: 10,
-    max: 50,
+    base: 'lb/ft3',
+    display: {
+      units: 'lb/ft3',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 50,
+    },
   },
   fuelDepth: {
-    uom: {
-      base: { ft: 1 },
-      alt1: { m: 1 },
-      alt2: { in: 1 },
-      alt3: { cm: 1 },
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
+      'in' : {
+        fromBase: (ft) => ft * 12,
+        intoBase: (inch) => inch / 12,
+      },
+      'cm' : {
+        fromBase: (ft) => ft / 0.0328084,
+        intoBase: (cm) => cm * 0.0328084,
+      },
     },
-    apply: 'base',
-    min: 0,
-    max: 10,
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 10,
+    },
   },
   fuelDiam: {
-    uom: {
-      base: { ft: 1 },
-      alt1: { m: 1 },
-      alt2: { in: 1 },
-      alt3: { cm: 1 },
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
+      'in' : {
+        fromBase: (ft) => ft * 12,
+        intoBase: (inch) => inch / 12,
+      },
+      'cm' : {
+        fromBase: (ft) => ft / 0.0328084,
+        intoBase: (cm) => cm * 0.0328084,
+      },
     },
-    apply: 'base',
-    min: 0,
-    max: 1,
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 6,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 1,
+    },
   },
   fuelHeat: {
-    uom: {
-      base: { btu: 1, lb: -1 },
-      alt1: { kJ: 1, kg: -1 },
+    units: {
+      'btu/lb' : {
+        fromBase: (bpp) => bpp,
+        intoBase: (bpp) => bpp,
+      },
+      'kJ/kg' : {
+        fromBase: (bpp) => bpp * 2.32779,
+        intoBase: (kJkg) => kJkg / 2.32779,
+      },
     },
-    apply: 'base',
-    min: 6000,
-    max: 15000,
-  },
-  fuelHeight: {
-    uom: {
-      base: { ft: 1 },
-      alt1: { m: 1 },
-      alt2: { in: 1 },
-      alt3: { cm: 1 },
-    },
+    base: 'btu/lb',
     display: {
-      base: 'ft',
-      alt1: 'm',
-      alt2: 'in',
-      alt3: 'cm',
+      units: 'btu/lb',
+      decimals: 0,
     },
-    apply: 'base',
-    min: 0,
-    max: 100,
+    validate: {
+      minVal: 8000,
+      maxVal: 15000,
+    }
   },
   fuelLoad: {
-    uom: {
-      base: { lb: 1, ft: -2 },
-      alt1: { ton: 1, ac: -1 },
-      alt2: { kg: 1, m: -2 },
-      alt3: { tonne: 1, ha: -1 },
+    units: {
+      'lb/ft2' : {
+        fromBase: (pft2) => pft2,
+        intoBase: (pft2) => pft2,
+      },
+      'kg/m2' : {
+        fromBase: (pft2) => pft2,
+        intoBase: (kgm2) => kgm2,
+      },
+      't/ac' : {
+        fromBase: (pft2) => pft2 * 21.78,
+        intoBase: (tpa) => tpa / 21.78,
+      },
+      'T/ha' : {
+        fromBase: (pft2) => pft2 * 48.8243,
+        intoBase: (Tha) => Tha / 48.8243,
+      },
     },
+    base: 'lb/ft2',
     display: {
-      base: 'lb/ft2',
-      alt1: 't/ac',
-      alt2: 'kg/m2',
-      alt3: 'T/ha',
+      units: 'lb/ft2',
+      decimals: 4,
     },
-    apply: 'base',
-    min: 0,
+    validate: {
+      minVal: 0,
+      maxVal: 10,
+    },
   },
   fuelMois: {
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+    units: {
+      'ratio' : {
+        fromBase: (ratio) => ratio,
+        intoBase: (ratio) => ratio,
+      },
+      '%' : {
+        fromBase: (ratio) => ratio * 100,
+        intoBase: (percent) => percent / 100,
+      }
     },
+    base: 'ratio',
     display: {
-      base: 'fraction',
-      alt1: '%',
+      units: 'ratio',
+      decimals: 2,
     },
-    apply: 'base',
-    min: 0.01,
-    max: 5,
+    validate: {
+      minVal: 0.01,
+      maxVal: 5,
+    },
   },
   fuelSavr: {
-    uom: {
-      base: { ft: -1 },
-      alt1: { cm: -1 },
+    units: {
+      'ft2/ft3' : {
+        fromBase: (ft2ft3) => ft2ft3,
+        intoBase: (ft2ft3) => ft2ft3,
+      },
+      'm2/m3' : {
+        fromBase: (ft2ft3) => ft2ft3 * 3.28084,
+        intoBase: (m2m3) => m2m3 / 3.28084,
+      },
+      'in2/in3' : {
+        fromBase: (ft2ft3) => ft2ft3 / 12,
+        intoBase: (in2in3) => in2in3 * 12,
+      },
+      'cm2/cm3' : {
+        fromBase: (ft2ft3) => ft2ft3 * 0.0328084,
+        intoBase: (cm2cm3) => cm2cm3 / 0.0328084,
+      },
     },
-    apply: 'base',
-    min: 1,
-    max: 4000,
+    base: 'ft2/ft3',
+    display: {
+      units: 'ft2/ft3',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 1,
+      maxVal: 4000,
+    },
   },
   fuelSeff: {
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+    units: {
+      'fraction' : {
+        fromBase: (ratio) => ratio,
+        intoBase: (ratio) => ratio,
+      },
+      '%' : {
+        fromBase: (ratio) => ratio * 100,
+        intoBase: (percent) => percent / 100,
+      }
     },
-    apply: 'base',
-    min: 0,
-    max: 0.05,
+    base: 'fraction',
+    display: {
+      units: 'fraction',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 0.05,
+    },
   },
   fuelSink: {
     uom: {
@@ -379,23 +669,26 @@ const BpxUnits = {
     apply: 'base',
     min: 0,
   },
-  fuelStot: { // ratios within the range [0..1]
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+  fuelStot: {
+    units: {
+      'fraction' : {
+        fromBase: (ratio) => ratio,
+        intoBase: (ratio) => ratio,
+      },
+      '%' : {
+        fromBase: (ratio) => ratio * 100,
+        intoBase: (percent) => percent / 100,
+      }
     },
-    apply: 'base',
-    min: 0,
-    max: 0.1,
-  },
-  fuelSwtg: {
-    uom: {
-      base: { fraction: 0 },
-      alt1: { percent: 0 },
+    base: 'fraction',
+    display: {
+      units: 'fraction',
+      decimals: 2,
     },
-    apply: 'base',
-    min: 0,
-    max: 1,
+    validate: {
+      minVal: 0,
+      maxVal: 0.1,
+    },
   },
   fuelVolm: {
     uom: {
@@ -405,94 +698,213 @@ const BpxUnits = {
     apply: 'base',
     min: 0,
   },
-  index: {
-    uom: {
-      base: { integer: 0 },
-    },
-    apply: 'base',
-    min: 0,
-  },
   mapArea: {
-    uom: {
-      base: { ft: 2 },
-      alt1: { m: 2 },
-      alt2: { in: 2 },
-      alt3: { cm: 2 },
+    units: {
+      'ft2': {
+        fromBase: (ft2) => ft2,
+        intoBase: (ft2) => ft2,
+      },
+      'm2': {
+        fromBase: (ft2) => ft2 / 10.76391111,
+        intoBase: (m2) => m2 * 10.76391111,
+      },
+      'in2': {
+        fromBase: (ft2) => ft2 * 144,
+        intoBase: (in2) => in2 / 144,
+      },
+      'cm2': {
+        fromBase: (ft2) => ft2 / 0.001076391111,
+        intoBase: (cm2) => cm2 * 0.001076391111,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'ft2',
+    display: {
+      units: 'ft2',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
   mapDistance: {
-    uom: {
-      base: { ft: 1 },
-      alt1: { mi: 1 },
-      alt2: { in: 1 },
-      alt3: { cm: 1 },
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
+      'in' : {
+        fromBase: (ft) => ft * 12,
+        intoBase: (inch) => inch / 12,
+      },
+      'cm' : {
+        fromBase: (ft) => ft / 0.0328084,
+        intoBase: (cm) => cm * 0.0328084,
+      },
+      'mi' : {
+        fromBase: (ft) => ft / 5280,
+        intoBase: (mi) => mi * 5280,
+      },
+      'km' : {
+        fromBase: (ft) => ft * 3280.84,
+        intoBase: (km) => km / 3280.84,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
-  nonNegative: { // a generic non-negative real value
-    uom: {
-      base: { real: 0 },
+  // ratios outside the range [0..1] that convert fraction-to-percent
+  ratio: {
+    units: {
+      'ratio' : {
+        fromBase: (ratio) => ratio,
+        intoBase: (ratio) => ratio,
+      },
+      '%' : {
+        fromBase: (ratio) => ratio * 100,
+        intoBase: (percent) => percent / 100,
+      }
     },
-    apply: 'base',
-    min: 0,
-  },
-  ratio: { // ratios outside the range [0..1] that convert fraction-to-percent
-    uom: {
-      base: { fraction: 1 },
-      alt1: { percent: 1 },
+    base: 'ratio',
+    display: {
+      units: 'ratio',
+      decimals: 2,
     },
-    apply: 'base',
+    validate: {
+    },
   },
   slopeSteepness: {
-    uom: {
-      base: { ratio: 0 },
-      alt1: { degrees: 0 },
+    units: {
+      'ratio' : {
+        fromBase: (ratio) => ratio,
+        intoBase: (ratio) => ratio,
+      },
+      '%' : {
+        fromBase: (ratio) => ratio * 100,
+        intoBase: (percent) => percent / 100,
+      },
+      'deg': {
+        fromBase: (ratio) => Math.atan(ratio),
+        intoBase: (deg) => Math.tan(deg)
+      }
     },
+    base: 'ratio',
     display: {
-      base: 'ratio',
-      alt1: 'degrees',
+      units: 'ratio',
+      decimals: 2,
     },
-    apply: 'base',
-    min: 0,
+    validate: {
+      minVal: 0,
+      maxVal: 60, // about 89.04 deg
+    },
   },
   temperature: {
-    uom: {
-      base: { F: 0 },
-      alt1: { C: 0 },
+    units: {
+      'F' : {
+        fromBase: (f) => f,
+        intoBase: (f) => f,
+      },
+      'C' : {
+        fromBase: (f) => (f-32) * 5/9,
+        intoBase: (c) => 32 + c*9/5,
+      },
     },
-    apply: 'base',
-    min: -40,
-    max: 140,
+    base: 'F',
+    display: {
+      units: 'F',
+      decimals: 0,
+    },
+    validate: {
+      minVal: -40,
+      maxVal: 140,
+    },
   },
   timeMin: {
-    uom: {
-      base: { min: 1 },
-      alt1: { s: 1 },
-      alt2: { h: 1 },
+    units: {
+      'min': {
+        fromBase: (min) => min,
+        intoBase: (min) => min,
+      },
+      's': {
+        fromBase: (min) => min * 60,
+        intoBase: (s) => s / 60,
+      },
+      'h': {
+        fromBase: (min) => min / 3600,
+        intoBase: (h) => h * 3600,
+      },
+      'day': {
+        fromBase: (min) => min / (24*3600),
+        intoBase: (day) => day * 24 * 3600,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'min',
+    display: {
+      units: 'min',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+    },
   },
-  timeYear: {
-    uom: {
-      base: { y: 1 },
+  treeHt: {
+    units: {
+      'ft' : {
+        fromBase: (ft) => ft,
+        intoBase: (ft) => ft,
+      },
+      'm' : {
+        fromBase: (ft) => ft / 3.28084,
+        intoBase: (m) => m * 3.28084,
+      },
     },
-    apply: 'base',
-    min: 0,
+    base: 'ft',
+    display: {
+      units: 'ft',
+      decimals: 2,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 400,
+    },
   },
   windSpeed: {
-    uom: {
-      base: { ft: 1, min: -1 },
-      alt1: { mi: 1, h: -1 },
-      alt3: { m: 1, min: -1 },
-      alt4: { km: 1, h: -1 },
+    units: {
+      'ft/min' : {
+        fromBase: (fpm) => fpm,
+        intoBase: (fpm) => fpm,
+      },
+      'm/min' : {
+        fromBase: (fpm) => fpm / 3.28084,
+        intoBase: (mpm) => mpm * 3.28084,
+      },
+      'mi/hr' : {
+        fromBase: (fpm) => fpm / 88,
+        intoBase: (mph) => mph * 88,
+      },
+      'km/h' : {
+        fromBase: (fpm) => fpm / 54.6807,
+        intoBase: (mpm) => mpm * 54.6807,
+      },
     },
-    apply: 'base',
-    min: 0,
-    max: 88 * 100,
+    base: 'ft/min',
+    display: {
+      units: 'ft/min',
+      decimals: 0,
+    },
+    validate: {
+      minVal: 0,
+      maxVal: 88*50,
+    },
   },
 };
 

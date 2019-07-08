@@ -162,6 +162,7 @@ export default function QuantityEditor (props) {
                 {data.from.errors}
               </Form.Control.Feedback>
             </InputGroup>
+
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text>Thru</InputGroup.Text>
@@ -174,6 +175,7 @@ export default function QuantityEditor (props) {
                 {data.thru.errors}
               </Form.Control.Feedback>
             </InputGroup>
+
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text>Step</InputGroup.Text>

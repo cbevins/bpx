@@ -84,7 +84,7 @@ export class BpxTreeFuelCategory extends DagBranch {
       .units('fuelSeff').value(0.01);
     new DagLeafQuantity(this, 'swtg') // Actually an Array of weights
       .desc('life category surface area weighting factors by size class')
-      .units('index'); //.value([0,0,0,0,0,0]);
+      .units('fraction'); //.value([0,0,0,0,0,0]);
     new DagLeafQuantity(this, 'wnet')
       .desc('life category weighted effective (mineral-free) fuel load')
       .units('fuelLoad').value(0);

@@ -21,13 +21,13 @@ export default class BpxTreeSiteMap extends DagBranch {
       .units('factor').value(1);
     new DagLeafQuantity(this, 'interval')
       .desc('map contour interval')
-      .units('distanceFt').value(1);
+      .units('fireDistance').value(1);
     new DagLeafQuantity(this, 'contours')
       .desc('number of map contours crossed over the measured map distance')
-      .units('nonNegative').value(0);
+      .units('count').value(0);
     new DagLeafQuantity(this, 'distance')
       .desc('measured map distance')
-      .units('distanceFt').value(1);
+      .units('fireDistance').value(1);
     new DagLeafQuantity(this, 'slope')
       .desc('measured map slope ratio')
       .units('slopeSteepness').value(0);
