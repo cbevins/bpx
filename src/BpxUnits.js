@@ -16,9 +16,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'deg',
-      imperial: 'deg',
-      metric: 'deg'
+      base: ['deg', 0],
+      imperial: ['deg', 0],
+      metric: ['deg', 0]
     },
     display: {
       units: 'deg',
@@ -49,15 +49,13 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft2',
-      imperial: 'ft2',
-      metric: 'm2'
+      base: ['ft2', 2],
+      imperial: ['ft2', 2],
+      metric: ['m2', 2],
     },
     display: {
       units: 'ft2',
-      decimals: 0,
-      imperial: 'deg',
-      metric: 'm2',
+      decimals: 2,
     },
     validate: {
       minVal: 0,
@@ -75,9 +73,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'lb/ft3',
-      imperial: 'lb/ft3',
-      metric: 'kg/m3'
+      base: ['lb/ft3', 0],
+      imperial: ['lb/ft3', 0],
+      metric: ['kg/m3', 0],
     },
     display: {
       units: 'lb/ft3',
@@ -95,9 +93,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: ' ',
-      imperial: ' ',
-      metric: ' '
+      base: [' ', 0],
+      imperial: [' ', 0],
+      metric: [' ', 0],
     },
     display: {
       units: ' ',
@@ -136,9 +134,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 2],
+      imperial: ['ft', 2],
+      metric: ['m', 2],
     },
     display: {
       units: 'ft',
@@ -157,13 +155,13 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'dl',
-      imperial: 'dl',
-      metric: 'dl'
+      base: ['dl', 2],
+      imperial: ['dl', 2],
+      metric: ['dl', 2],
     },
     display: {
       units: 'dl',
-      decimals: 4,
+      decimals: 2,
     },
     validate: {
     },
@@ -188,11 +186,11 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft2',
-      imperial: 'ac',
-      metric: 'ha'
+      base: ['ft2', 0],
+      imperial: ['ac', 2],
+      metric: ['ha', 2],
     },
-   display: {
+    display: {
       units: 'ft2',
       decimals: 0,
     },
@@ -220,9 +218,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 2],
+      imperial: ['ft', 2],
+      metric: ['m', 2],
     },
     display: {
       units: 'ft',
@@ -252,9 +250,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 2],
+      imperial: ['ft', 2],
+      metric: ['m', 2],
     },
     display: {
       units: 'ft',
@@ -277,12 +275,12 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'btu/ft-s',
-      imperial: 'btu/ft-s',
-      metric: 'kJ/m-s'
+      base: ['btu/ft-s', 0],
+      imperial: ['btu/ft-s', 0],
+      metric: ['kJ/m-s', 0],
     },
     display: {
-      units: 'btu/ft-2',
+      units: 'btu/ft-s',
       decimals: 0,
     },
     validate: {
@@ -301,9 +299,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'btu/ft2',
-      imperial: 'btu/ft2',
-      metric: 'kJ/m2'
+      base: ['btu/ft2', 0],
+      imperial: ['btu/ft2', 0],
+      metric: ['kJ/m2', 0],
     },
     display: {
       units: 'btu/ft2',
@@ -321,9 +319,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'ratio',
-      imperial: 'ratio',
-      metric: 'ratio'
+      base: ['ratio', 2],
+      imperial: ['ratio', 2],
+      metric: ['ratio', 2],
     },
     display: {
       units: 'ratio',
@@ -345,9 +343,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'lb/ft-s',
-      imperial: 'lb/ft-s',
-      metric: 'kJ/m-s'
+      base: ['lb/ft-s', 2],
+      imperial: ['lb/ft-s', 2],
+      metric: ['kJ/m-s', 2],
     },
     display: {
       units: 'lb/ft-s',
@@ -381,9 +379,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft/min',
-      imperial: 'ft/min',
-      metric: 'm/min'
+      base: ['ft/min', 2],
+      imperial: ['ft/min', 2],
+      metric: ['m/min', 2],
     },
     display: {
       units: 'ft/min',
@@ -405,9 +403,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'btu/ft2-min',
-      imperial: 'btu/ft2-min',
-      metric: 'kJ/m2-min'
+      base: ['btu/ft2-min', 0],
+      imperial: ['btu/ft2-min', 0],
+      metric: ['kJ/m2-min', 0],
     },
     display: {
       units: 'btu/ft2-min',
@@ -425,13 +423,13 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'min',
-      imperial: 'min',
-      metric: 'min'
+      base: ['min', 4],
+      imperial: ['min', 4],
+      metric: ['min', 4],
     },
     display: {
       units: 'min',
-      decimals: 2,
+      decimals: 4,
     },
     validate: {
       minVal: 0,
@@ -457,9 +455,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 2],
+      imperial: ['ft', 2],
+      metric: ['m', 2],
     },
     display: {
       units: 'ft',
@@ -482,9 +480,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'fraction',
-      imperial: '%',
-      metric: '%'
+      base: ['fraction', 2],
+      imperial: ['%', 0],
+      metric: ['%', 0],
     },
     display: {
       units: 'fraction',
@@ -503,9 +501,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'y',
-      imperial: 'y',
-      metric: 'y'
+      base: ['y', 2],
+      imperial: ['y', 2],
+      metric: ['y', 2],
     },
     display: {
       units: 'y',
@@ -535,9 +533,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft2',
-      imperial: 'ft2',
-      metric: 'm2'
+      base: ['ft2', 2],
+      imperial: ['ft2', 2],
+      metric: ['m2', 2],
     },
     display: {
       units: 'ft2',
@@ -559,9 +557,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'lb/ft3',
-      imperial: 'lb/ft3',
-      metric: 'kg/m3'
+      base: ['lb/ft3', 0],
+      imperial: ['lb/ft3', 0],
+      metric: ['kg/m3', 0],
     },
     display: {
       units: 'lb/ft3',
@@ -592,9 +590,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 2],
+      imperial: ['ft', 2],
+      metric: ['m', 2],
     },
     display: {
       units: 'ft',
@@ -625,13 +623,13 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'cm'
+      base: ['ft', 4],
+      imperial: ['ft', 4],
+      metric: ['cm', 2],
     },
     display: {
       units: 'ft',
-      decimals: 6,
+      decimals: 4,
     },
     validate: {
       minVal: 0,
@@ -650,9 +648,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'btu/lb',
-      imperial: 'btu/lb',
-      metric: 'kJ/kg'
+      base: ['btu/lb', 0],
+      imperial: ['btu/lb', 0],
+      metric: ['kJ/kg', 0],
     },
     display: {
       units: 'btu/lb',
@@ -683,9 +681,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'lb/ft2',
-      imperial: 'lb/ft2',
-      metric: 'kg/m2'
+      base: ['lb/ft2', 4],
+      imperial: ['t/ac', 2],
+      metric: ['T/ha', 2],
     },
     display: {
       units: 'lb/ft2',
@@ -708,9 +706,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'ratio',
-      imperial: '%',
-      metric: '%'
+      base: ['ratio', 2],
+      imperial: ['%', 0],
+      metric: ['%', 0],
     },
     display: {
       units: 'ratio',
@@ -741,9 +739,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft2/ft3',
-      imperial: 'ft2/ft3',
-      metric: 'm2/m3'
+      base: ['ft2/ft3', 0],
+      imperial: ['ft2/ft3', 0],
+      metric: ['m2/m3', 0],
     },
     display: {
       units: 'ft2/ft3',
@@ -766,9 +764,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'fraction',
-      imperial: '%',
-      metric: '%'
+      base: ['fraction', 2],
+      imperial: ['%', 0],
+      metric: ['%', 0],
     },
     display: {
       units: 'fraction',
@@ -791,9 +789,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'btu/ft3',
-      imperial: 'btu/ft3',
-      metric: 'kJ/m3',
+      base: ['btu/ft3', 2],
+      imperial: ['btu/ft3', 2],
+      metric: ['kJ/m3', 2],
     },
     display: {
       units: 'btu/ft3',
@@ -815,9 +813,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'fraction',
-      imperial: '%',
-      metric: '%'
+      base: ['fraction', 2],
+      imperial: ['%', 0],
+      metric: ['%', 0],
     },
     display: {
       units: 'fraction',
@@ -840,13 +838,13 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft3',
-      imperial: 'ft3',
-      metric: 'm3'
+      base: ['ft3', 4],
+      imperial: ['ft3', 4],
+      metric: ['m3', 4],
     },
     display: {
       units: 'ft3',
-      decimals: 2,
+      decimals: 4,
     },
     validate: {
       minVal: 0,
@@ -872,9 +870,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft2',
-      imperial: 'in2',
-      metric: 'cm2'
+      base: ['ft2', 6],
+      imperial: ['in2', 2],
+      metric: ['cm2', 2],
     },
     display: {
       units: 'ft2',
@@ -912,9 +910,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 2],
+      imperial: ['ft', 2],
+      metric: ['m', 2],
     },
     display: {
       units: 'ft',
@@ -937,9 +935,9 @@ const BpxUnits = {
       }
     },
     set: {
-      base: 'ratio',
-      imperial: '%',
-      metric: '%'
+      base: ['ratio', 2],
+      imperial: ['%', 0],
+      metric: ['%', 0],
     },
     display: {
       units: 'ratio',
@@ -964,9 +962,9 @@ const BpxUnits = {
       // }
     },
     set: {
-      base: 'ratio',
-      imperial: '%',
-      metric: '%'
+      base: ['ratio', 2],
+      imperial: ['%', 0],
+      metric: ['%', 0],
     },
     display: {
       units: 'ratio',
@@ -989,9 +987,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'F',
-      imperial: 'F',
-      metric: 'C'
+      base: ['F', 0],
+      imperial: ['F', 0],
+      metric: ['C', 0],
     },
     display: {
       units: 'F',
@@ -1022,9 +1020,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'min',
-      imperial: 'min',
-      metric: 'min'
+      base: ['min', 0],
+      imperial: ['min', 0],
+      metric: ['min', 0],
     },
     display: {
       units: 'min',
@@ -1046,13 +1044,13 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft',
-      imperial: 'ft',
-      metric: 'm'
+      base: ['ft', 0],
+      imperial: ['ft', 0],
+      metric: ['m', 1],
     },
     display: {
       units: 'ft',
-      decimals: 2,
+      decimals: 0,
     },
     validate: {
       minVal: 0,
@@ -1069,7 +1067,7 @@ const BpxUnits = {
         fromBase: (fpm) => fpm / 3.28084,
         intoBase: (mpm) => mpm * 3.28084,
       },
-      'mi/hr' : {
+      'mi/h' : {
         fromBase: (fpm) => fpm / 88,
         intoBase: (mph) => mph * 88,
       },
@@ -1079,9 +1077,9 @@ const BpxUnits = {
       },
     },
     set: {
-      base: 'ft/min',
-      imperial: 'mi/h',
-      metric: 'km/h'
+      base: ['ft/min', 0],
+      imperial: ['mi/h', 2],
+      metric: ['km/h', 2],
     },
     display: {
       units: 'ft/min',
@@ -1096,19 +1094,22 @@ const BpxUnits = {
 
 export function displayBase() {
   Object.keys(BpxUnits).forEach((uom) => {
-    uom.display.units = uom.set.base;
+    BpxUnits[uom].display.units = BpxUnits[uom].set.base[0];
+    BpxUnits[uom].display.decimals = BpxUnits[uom].set.base[1];
   })
 }
 
 export function displayImperial() {
   Object.keys(BpxUnits).forEach((uom) => {
-    uom.display.units = uom.set.imperial;
+    BpxUnits[uom].display.units = BpxUnits[uom].set.imperial[0];
+    BpxUnits[uom].display.decimals = BpxUnits[uom].set.imperial[1];
   })
 }
 
 export function displayMetric() {
   Object.keys(BpxUnits).forEach((uom) => {
-    uom.display.units = uom.set.metric;
+    BpxUnits[uom].display.units = BpxUnits[uom].set.metric[0];
+    BpxUnits[uom].display.decimals = BpxUnits[uom].set.metric[1];
   })
 }
 

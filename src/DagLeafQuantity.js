@@ -16,7 +16,7 @@ export default class DagLeafQuantity extends DagLeaf {
   }
 
   baseUnits() {
-    return BpxUnits[this.own.units].set.base;
+    return BpxUnits[this.own.units].set.base[0];
   }
 
   baseValueToDisplayValue(baseValue) {
@@ -29,6 +29,10 @@ export default class DagLeafQuantity extends DagLeaf {
     return BpxUnits[this.own.units].display.decimals;
   }
 
+  displayInputs() {
+    return this.own.inputs.map(x => this.baseValueToDisplayValue(x));
+  }
+
   displayUnits() {
     return BpxUnits[this.own.units].display.units;
   }
@@ -38,7 +42,7 @@ export default class DagLeafQuantity extends DagLeaf {
   }
 
   displayValueToBaseValue(displayValue) {
-    return BpxUnits[this.own.units].units[quantity.display.units]
+    return BpxUnits[this.own.units].units[this.displayUnits()]
       .intoBase(displayValue);
   }
 

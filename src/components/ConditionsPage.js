@@ -31,8 +31,8 @@ function ConditionsRows(props) {
           setShow={setShow}/>
         {leaf.label()}
       </td>
-      <td align='center' ><em>{leaf.displayUnits()}</em></td>
-      <td align='left'>{leaf.own.inputs.join()}</td>
+      <td align='right'>{leaf.displayInputs().join(', ')}</td>
+      <td align='left' ><em>{leaf.displayUnits()}</em></td>
     </tr>
   );
   return (<tbody>{rows}</tbody>);

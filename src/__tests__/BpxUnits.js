@@ -46,4 +46,12 @@ test('1: BpxUnits conversion', () => {
   head.ros.value(2);
   expect(head.ros.value()).toEqual(2);
   expect(head.ros.displayValue()).toEqual('0.609600');
+
+  head.ros.setInputValues([1, 2, 3]);
+  const dv = head.ros.displayInputs();
+  expect(dv[0]).toEqual('0.304800');
+  expect(dv[1]).toEqual('0.609600');
+  expect(dv[2]).toEqual('0.914400');
+
+  expect(head.ros.displayValueToBaseValue(1)).toEqual(3.28084);
 });

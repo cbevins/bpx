@@ -175,11 +175,23 @@ export default class DagLeaf extends DagBranch {
   // The following 6 functions are default base methods that are reimplemented
   // as necessary by derived classes such as DagLeafQuantity
   baseUnits() {
-    return BpxUnits[this.own.units].set.base;
+    return '';
   }
 
   baseValueToDisplayValue(baseValue) {
     return baseValue;
+  }
+
+  displayDecimals() {
+    return 0;
+  }
+
+  displayInputs() {
+    return this.own.inputs;
+  }
+
+  displayUnits() {
+    return '';
   }
 
   displayValue() {
@@ -190,13 +202,7 @@ export default class DagLeaf extends DagBranch {
     return displayValue;
   }
 
-  displayDecimals() {
-    return 0;
-  }
-
-  displayUnits() {
-    return '';
-  }
+  // END of default base methods
 
   static ensureLeafConfig(obj) {
     return ( typeof(obj) === 'undefined'

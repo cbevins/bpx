@@ -130,8 +130,11 @@ export default function QuantityEditor (props) {
             <Button variant='primary'
                 onClick={() => {
                   if (data.values.isValid) {
-                    // Store the values back onto the leaf
-                    AppDag.setBatchInputs(leaf, data.values.values);
+                    // Convert from display units values to base units values
+                    const baseValues = data.values.values.map(x =>
+                      leaf.displayValueToBaseValue(x));
+                    // Store the base units values back onto the leaf
+                    AppDag.setBatchInputs(leaf, baseValues);
                     setData(freshData());
                     setShow(false);
                   } else {
@@ -192,9 +195,11 @@ export default function QuantityEditor (props) {
             <Button variant='primary'
                 onClick={() => {
                   if (data.from.isValid && data.thru.isValid && data.step.isValid) {
-                    // Store the values back onto the leaf
-                    //alert(`Set the loop values ${data.from.values[0]},${data.thru.values[0]}.${data.step.values[0]}`);
-                    AppDag.setBatchInputs(leaf, loopValues());
+                    // Convert from display units values to base units values
+                    const baseValues = loopValues().map(x =>
+                      leaf.displayValueToBaseValue(x));
+                    // Store the base units values back onto the leaf
+                    AppDag.setBatchInputs(leaf, baseValues);
                     setData(freshData());
                     setShow(false);
                   } else {

@@ -8,8 +8,8 @@ function ResultsRows(props) {
   const rows = leafs.map((leaf, idx) =>
     <tr key={idx}>
       <td>{leaf.label()}</td>
-      <td align="right">{leaf.value()}</td>
-      <td>{leaf.displayUnits()}</td>
+      <td align="right">{leaf.displayValue()}</td>
+      <td align='left'><em>{leaf.displayUnits()}</em></td>
     </tr>
   );
   return (<tbody>{rows}</tbody>);
