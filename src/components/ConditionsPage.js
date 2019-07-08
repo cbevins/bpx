@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 
 import DagLeafQuantity from '../DagLeafQuantity';
-import ConditionsEditor from './ConditionsEditor';
+import QuantityEditor, {freshData} from './QuantityEditor';
 
 function ConditionsButton(props) {
   const {leaf, setLeaf, setShow} = props;
@@ -42,10 +42,7 @@ export default function ConditionsPage(props) {
   const { dag } = props;
   const [show, setShow] = useState(false);
   const [leaf, setLeaf] = useState(dag.tree);
-  const [isValid, setIsValid] = useState(null);
-  const [isInvalid, setIsInvalid] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [values, setValues] = useState([]);
+  const [data, setData] = useState(freshData());
 
   if (dag.selectedLeafs.length===0) {
     return (<h3>There are currently no outputs selected</h3>);
@@ -54,19 +51,13 @@ export default function ConditionsPage(props) {
   return (
     <Container>
       <h3>Input Conditions</h3>
-      <ConditionsEditor
+      <QuantityEditor
         dag={dag}
         leaf={leaf}
         show={show}
         setShow={setShow}
-        isValid={isValid}
-        setIsValid={setIsValid}
-        isInvalid={isInvalid}
-        setIsInvalid={setIsInvalid}
-        errorMsg={errorMsg}
-        setErrorMsg={setErrorMsg}
-        values={values}
-        setValues={setValues}/>
+        data={data}
+        setData={setData}/>
       <Table responsive='md' striped size='sm'>
         <ConditionsRows
           dag={dag}
