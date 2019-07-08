@@ -15,20 +15,31 @@ export default class DagLeafQuantity extends DagLeaf {
     this.own.units = 'factor';
   }
 
+  baseUnits() {
+    return BpxUnits[this.own.units].set.base;
+  }
+
+  baseValueToDisplayValue(baseValue) {
+    return BpxUnits[this.own.units].units[this.displayUnits()]
+      .fromBase(baseValue)
+      .toFixed(this.displayDecimals());
+  }
+
   displayDecimals() {
-    const quantity = BpxUnits[this.own.units];
-    if (quantity.hasOwnProperty('units')) {
-      return quantity.display.decimals;
-    }
-    return 2;
+    return BpxUnits[this.own.units].display.decimals;
   }
 
   displayUnits() {
-    const quantity = BpxUnits[this.own.units];
-    if (quantity.hasOwnProperty('units')) {
-      return quantity.display.units;
-    }
-    return "TBD";
+    return BpxUnits[this.own.units].display.units;
+  }
+
+  displayValue() {
+    return this.baseValueToDisplayValue(this.own.value);
+  }
+
+  displayValueToBaseValue(displayValue) {
+    return BpxUnits[this.own.units].units[quantity.display.units]
+      .intoBase(displayValue);
   }
 
   ensureUnits(units, fn) {
