@@ -8,7 +8,6 @@ import 'react-table/react-table.css';
 
 import AppDag from './components/AppDag';
 import Dashboard from './components/Dashboard';
-import {displayBase, displayImperial, displayMetric} from './BpxUnits';
 
 export function MainPage(props) {
   const { dag, numUpdates } = props;
@@ -29,7 +28,7 @@ export default function App() {
 
 export function AppData(props) {
   const initialDag = AppDag.getDag();
-  displayImperial();
+  initialDag.units.applyConfig('imperial');
   const [dag, setDag] = useState(initialDag);
   const [numUpdates, setNumUpdates] = useState(0);
 
