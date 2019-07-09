@@ -27,7 +27,7 @@ export default class BpxTreeCrownFuelModel extends DagBranch {
     new BpxLeafFuelDomain(this, 'domain');
     new DagLeafText(this, 'key')
       .desc('fuel model catalog key')
-      .units('fuelKey').value('10');
+      .value('10');
   }
 
   connect(tree) {

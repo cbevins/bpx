@@ -7,10 +7,12 @@
 
 import DagLeaf from './DagLeaf';
 import BpxTree from './BpxTree';
+import BpxUnits from './BpxUnits';
 
 export default class Dag {
-  constructor(name, dagTree=undefined) {
+  constructor(name, dagTree=undefined, dagUnits=undefined) {
     this.name = name;
+    this.units = (typeof dagUnits === 'undefined' ) ? new BpxUnits() : dagUnits;
     this.tree = (typeof dagTree === 'undefined' ) ? new BpxTree(name) : dagTree;
     this.leafs = [];
     this.requiredLeafs = [];
@@ -42,6 +44,7 @@ export default class Dag {
     this.connectItems(this.tree);
     this.constructLeafsArray(this.tree);
     this.leafs.forEach((leaf) => {
+      leaf.own.dag = this;
       if (leaf.label() === null || leaf.label === '' ) {
         leaf.label(leaf.prettyName());
       }
@@ -122,6 +125,10 @@ export default class Dag {
   // Returns array of references to selected Leafs.
   getSelectedLeafs() {
     return this.selectedLeafs;
+  }
+
+  hasUnits(units) {
+    return this.units.hasUnits(units);
   }
 
   rangeLeafs() {

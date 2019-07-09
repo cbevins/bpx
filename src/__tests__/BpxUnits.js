@@ -33,12 +33,12 @@ test('1: BpxUnits conversion', () => {
   ]);
 
   expect(head.ros.baseUnits()).toEqual('ft/min');
-  expect(head.ros.displayUnits()).toEqual('ft/min');
   expect(head.ros.displayDecimals()).toEqual(2);
+  expect(head.ros.displayUnits()).toEqual('ft/min');
 
-  BpxUnits.fireRos.display.decimals = 6;
+  dag.units.uom.fireRos.display.decimals = 6;
   expect(head.ros.displayDecimals()).toEqual(6);
-  BpxUnits.fireRos.display.units = 'm/min';
+  dag.units.uom.fireRos.display.units = 'm/min';
   expect(head.ros.displayUnits()).toEqual('m/min');
 
   expect(head.ros.baseValueToDisplayValue(1)).toEqual('0.304800');

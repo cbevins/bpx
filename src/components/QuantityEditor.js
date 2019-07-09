@@ -8,6 +8,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import AppDag from './AppDag';
+import {validMin, validMax} from '../BpxUnits';
 
 export function freshData() {
   return {
@@ -39,17 +40,18 @@ export default function QuantityEditor (props) {
     return values;
   }
 
-  // Returns null errorMsg and a value on success.
-  // Returns a literal string error message and null value on failure.
+  // Returns a 2-element array [errorMsg, value]
+  // On success errorMsg is null and value non-null.
+  // On error, errorMsg is a string lietral and value is null.
   function isValidQuantityValue(text) {
     //alert(`validating '${text}'`);
     const content = text.trim();
     if ( content==='') {
-      return [`INPUT_REQUIRED`, null];
+      return [`INPUT_IS_REQUIRED`, null];
     }
     let val = Number.parseFloat(content);
     if (Number.isNaN(val)) {
-      return [`VALUE_IS_NaN: '${content}'`, null];
+      return [`VALUE_MUST_BE_NUMBERIC: '${content}'`, null];
     }
     // \TODO Add min, max validation here
     return [null, val];

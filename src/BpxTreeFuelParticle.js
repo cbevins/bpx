@@ -23,7 +23,7 @@ export default class BpxTreeFuelParticle extends DagBranch {
       .units('fuelHeat').value(8000);
     new DagLeafText(this, 'label')
       .desc('brief fuel particle description')
-      .units('fuelLabel').value('unspecified');
+      .value('unspecified');
     new DagLeafQuantity(this, 'load')
       .desc('fuel particle oven-dry fuel load')
       .units('fuelLoad').value(0);

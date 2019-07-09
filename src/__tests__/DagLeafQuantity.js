@@ -1,6 +1,7 @@
 import DagLeafQuantity from '../DagLeafQuantity';
+import Dag from '../Dag';
 
-it('creates a new DagLeafQuantity "leafQuantity"', () => {
+it('creates new DagLeafQuantity "leafQuantity"', () => {
   const leaf = new DagLeafQuantity(null, 'leafQuantity');
   expect(leaf.name()).toEqual('leafQuantity');
   expect(leaf.cost()).toEqual(0);
@@ -11,8 +12,14 @@ it('creates a new DagLeafQuantity "leafQuantity"', () => {
   expect(leaf.isOption()).toEqual(false);
   expect(leaf.isConfig()).toEqual(false);
 
-  expect(DagLeafQuantity.hasUnits('ft')).toEqual(false);
-  expect(DagLeafQuantity.hasUnits('fireDistance')).toEqual(true);
+  // Before leaf is assigned its own.dag.units
+  expect(leaf.hasUnits('ft')).toEqual(true);
+  expect(leaf.hasUnits('fireDistance')).toEqual(true);
+
+  const dag = new Dag('ws');
+  leaf.own.dag = dag;
+  expect(leaf.hasUnits('ft')).toEqual(false);
+  expect(leaf.hasUnits('fireDistance')).toEqual(true);
 
   expect(leaf.units('fireDistance')).toEqual(leaf);
   expect(leaf.units()).toEqual('fireDistance');

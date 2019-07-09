@@ -7,7 +7,6 @@
  */
 
 import DagLeaf from './DagLeaf';
-import BpxUnits from './BpxUnits';
 
 export default class DagLeafQuantity extends DagLeaf {
   constructor(branch, name) {
@@ -16,17 +15,15 @@ export default class DagLeafQuantity extends DagLeaf {
   }
 
   baseUnits() {
-    return BpxUnits[this.own.units].set.base[0];
+    return this.own.dag.units.baseUnits(this.own.units);
   }
 
   baseValueToDisplayValue(baseValue) {
-    return BpxUnits[this.own.units].units[this.displayUnits()]
-      .fromBase(baseValue)
-      .toFixed(this.displayDecimals());
+    return this.own.dag.units.baseValueToDisplayValue(this.own.units, baseValue);
   }
 
   displayDecimals() {
-    return BpxUnits[this.own.units].display.decimals;
+    return this.own.dag.units.displayDecimals(this.own.units);
   }
 
   displayInputs() {
@@ -34,26 +31,27 @@ export default class DagLeafQuantity extends DagLeaf {
   }
 
   displayUnits() {
-    return BpxUnits[this.own.units].display.units;
+    return this.own.dag.units.displayUnits(this.own.units);
   }
 
   displayValue() {
-    return this.baseValueToDisplayValue(this.own.value);
+    return this.own.dag.units.baseValueToDisplayValue(this.own.units, this.own.value);
   }
 
   displayValueToBaseValue(displayValue) {
-    return BpxUnits[this.own.units].units[this.displayUnits()]
-      .intoBase(displayValue);
+    return this.own.dag.units.displayValueToBaseValue(this.own.units, displayValue);
   }
 
   ensureUnits(units, fn) {
-    if (!DagLeafQuantity.hasUnits(units)) {
+    if (!this.hasUnits(units)) {
       throw new Error(`${fn}' called on '${this.name()}' with invalid units '${units}'`);
     }
   }
 
-  static hasUnits(units) {
-    return Object.keys(BpxUnits).includes(units);
+  hasUnits(units) {
+    // Modified to defer an actual test until this.own.dag.units has been set
+    return (this.own.dag===undefined || this.own.dag.units===undefined)
+      ? true : this.own.dag.units.hasUnits(units);
   }
 
   units(units = undefined) {
@@ -65,8 +63,8 @@ export default class DagLeafQuantity extends DagLeaf {
     return this.own.units;
   }
 
-  unitsData(units) {
-    this.ensureUnits(units, 'DagLeafQuantity.units');
-    return BpxUnits[units];
-  }
+  // unitsData(units) {
+  //   this.ensureUnits(units, 'DagLeafQuantity.units');
+  //   return BpxUnits[units];
+  // }
 }
