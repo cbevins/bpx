@@ -216,6 +216,10 @@ export default class DagLeaf extends DagBranch {
     return this.own.results[runIdx];
   }
 
+  fetchDisplay(runIdx) {
+    return this.baseValueToDisplayValue(this.fetch(runIdx));
+  }
+
   fixed(fixedValue) {
     if (typeof(fixedValue) === 'undefined') {
       throw new Error(`Config error on '${this.fullName()}':\nfixed() has undefined fixed value\n`);

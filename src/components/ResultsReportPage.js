@@ -15,7 +15,7 @@ function ResultsRows(props) {
   return (<tbody>{rows}</tbody>);
 }
 
-export default function ResultsPage(props) {
+export default function ResultsReportPage(props) {
   const { dag } = props;
   if (dag.runs()===0) {
     return (<h3>There are currently no run results</h3>);
@@ -31,7 +31,7 @@ export default function ResultsPage(props) {
 }
 
 // Version using react-table
-export function ResultsPage2(props) {
+export function ResultsReportPage2(props) {
   const { dag } = props;
   let data = [];
   dag.requiredInputLeafs.forEach((leaf) => {

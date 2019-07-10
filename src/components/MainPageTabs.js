@@ -9,10 +9,11 @@ import Row from 'react-bootstrap/Row'
 import ConditionsPage from './ConditionsPage';
 import ConfigPage from './ConfigPage';
 import GraphPage from './GraphPage';
-import ResultsPage from './ResultsPage';
+import ResultsReportPage from './ResultsReportPage';
+import ResultsTablePage from './ResultsTablePage';
+import ResultsTablePage2 from './ResultsTablePage2';
 import SelectPage from './SelectPage';
 import TreeBrowserPage from './TreeBrowserPage';
-import TablePage from './TablePage';
 
 export default function MainPageTabs({dag}) {
   return (
@@ -29,11 +30,11 @@ export default function MainPageTabs({dag}) {
             <Tab eventKey="conditions" title="Conditions">
               <ConditionsPage dag={dag} />
             </Tab>
-            <Tab eventKey="results" title="Record View">
-              <ResultsPage dag={dag} />
+            <Tab eventKey="results" title="Results Report">
+              <ResultsReportPage dag={dag} />
             </Tab>
             <Tab eventKey="table" title="Results Table">
-              <TablePage dag={dag} />
+              <ResultsTablePage2 dag={dag} />
             </Tab>
             <Tab eventKey="graph" title="Graphs">
               <GraphPage dag={dag} />

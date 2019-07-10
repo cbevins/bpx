@@ -28,7 +28,7 @@ export default function App() {
 
 export function AppData(props) {
   const initialDag = AppDag.getDag();
-  initialDag.units.applyDisplay(['percent','metric']);
+  initialDag.units.applyDisplay(['percent','imperial']);
   const [dag, setDag] = useState(initialDag);
   const [numUpdates, setNumUpdates] = useState(0);
 
