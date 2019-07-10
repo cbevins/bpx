@@ -42,6 +42,14 @@ export default class DagLeafQuantity extends DagLeaf {
     return this.own.dag.units.displayValueToBaseValue(this.own.units, displayValue);
   }
 
+  validateBaseValue(baseValue) {
+    return this.own.dag.units.validateBaseValue(this.own.units, baseValue);
+  }
+
+  validateDisplayValue(displayValue) {
+    return this.own.dag.units.validateDisplayValue(this.own.units, displayValue);
+  }
+
   ensureUnits(units, fn) {
     if (!this.hasUnits(units)) {
       throw new Error(`${fn}' called on '${this.name()}' with invalid units '${units}'`);

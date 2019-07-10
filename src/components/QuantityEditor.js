@@ -8,7 +8,6 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import AppDag from './AppDag';
-import {validMin, validMax} from '../BpxUnits';
 
 export function freshData() {
   return {
@@ -51,9 +50,12 @@ export default function QuantityEditor (props) {
     }
     let val = Number.parseFloat(content);
     if (Number.isNaN(val)) {
-      return [`VALUE_MUST_BE_NUMBERIC: '${content}'`, null];
+      return [`VALUE_MUST_BE_NUMERIC: '${content}'`, null];
     }
-    // \TODO Add min, max validation here
+    const result = leaf.validateDisplayValue(val);
+    if (result !== null ) {
+      return [result[0], null];
+    }
     return [null, val];
   }
 

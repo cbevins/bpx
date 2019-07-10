@@ -12,132 +12,40 @@ import DagUnits from './DagUnits';
 export default class BpxUnits extends DagUnits {
   constructor() {
     super();
-    this.uom = {
-      azimuth: {
-        units: {
-          'deg' : {
-            fromBase: (deg) => deg,
-            intoBase: (deg) => deg,
-          },
-        },
-        config: {
-          base: ['deg', 0],
-          imperial: ['deg', 0],
-          metric: ['deg', 0]
-        },
-        display: {
-          units: 'deg',
-          decimals: 0,
-        },
-        validate: {
-          minVal: 0,
-          maxVal: 359,
-        },
+    this.uom.basalArea = {...this.uom.area,
+      config: {
+        base: ['ft2', 2],
+        imperial: ['ft2', 2],
+        metric: ['m2', 2],
       },
-      basalArea: {
-        units: {
-          'ft2': {
-            fromBase: (ft2) => ft2,
-            intoBase: (ft2) => ft2,
-          },
-          'm2': {
-            fromBase: (ft2) => ft2 / 10.76391111,
-            intoBase: (m2) => m2 * 10.76391111,
-          },
-          'in2': {
-            fromBase: (ft2) => ft2 * 144,
-            intoBase: (in2) => in2 / 144,
-          },
-          'cm2': {
-            fromBase: (ft2) => ft2 / 0.001076391111,
-            intoBase: (cm2) => cm2 * 0.001076391111,
-          },
-        },
-        config: {
-          base: ['ft2', 2],
-          imperial: ['ft2', 2],
-          metric: ['m2', 2],
-        },
-        display: {
-          units: 'ft2',
-          decimals: 2,
-        },
-        validate: {
-          minVal: 0,
-        },
+      display: {
+        units: 'ft2',
+        decimals: 2,
       },
-      bulkDensity: {
-        units: {
-          'lb/ft3': {
-            fromBase: (lbft3) => lbft3,
-            intoBase: (lbft3) => lbft3,
-          },
-          'kg/m3': {
-            fromBase: (lbft3) => lbft3 * 16.0185,
-            intoBase: (kgm3) => kgm3 / 16.0185,
-          },
-        },
-        config: {
-          base: ['lb/ft3', 0],
-          imperial: ['lb/ft3', 0],
-          metric: ['kg/m3', 0],
-        },
-        display: {
-          units: 'lb/ft3',
-          decimals: 0,
-        },
-        validate: {
-          minVal: 0,
-        },
+    };
+    this.uom.bulkDensity = {...this.uom.density,
+      config: {
+        base: ['lb/ft3', 2],
+        imperial: ['lb/ft3', 2],
+        metric: ['kg/m3', 2],
       },
-      count: {
-        units: {
-          ' ': {
-            fromBase: (n) => n,
-            intoBase: (n) => n,
-          },
-        },
-        config: {
-          base: [' ', 0],
-          imperial: [' ', 0],
-          metric: [' ', 0],
-        },
-        display: {
-          units: ' ',
-          decimals: 0,
-        },
-        validate: {
-          minVal: 0,
-          integer: true,
-        },
+      display: {
+        units: 'lb/ft3',
+        decimals: 2,
       },
-      distance: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'in' : {
-            fromBase: (ft) => ft * 12,
-            intoBase: (inch) => inch / 12,
-          },
-          'cm' : {
-            fromBase: (ft) => ft / 0.0328084,
-            intoBase: (cm) => cm * 0.0328084,
-          },
-          'mi' : {
-            fromBase: (ft) => ft / 5280,
-            intoBase: (mi) => mi * 5280,
-          },
-          'km' : {
-            fromBase: (ft) => ft * 3280.84,
-            intoBase: (km) => km / 3280.84,
-          },
-        },
+    };
+    this.uom.fireArea = {...this.uom.area,
+      config: {
+        base: ['ft2', 2],
+        imperial: ['ft2', 2],
+        metric: ['m2', 2],
+      },
+      display: {
+        units: 'ft2',
+        decimals: 2,
+      },
+    };
+    this.uom.fireDistance = {...this.uom.length,
         config: {
           base: ['ft', 2],
           imperial: ['ft', 2],
@@ -147,113 +55,8 @@ export default class BpxUnits extends DagUnits {
           units: 'ft',
           decimals: 2,
         },
-        validate: {
-          minVal: 0,
-        },
-      },
-      // a generic real value with no limits or conversions
-      factor: {
-        units: {
-          'dl': {
-            fromBase: (value) => value,
-            intoBase: (value) => value,
-          },
-        },
-        config: {
-          base: ['dl', 2],
-          imperial: ['dl', 2],
-          metric: ['dl', 2],
-        },
-        display: {
-          units: 'dl',
-          decimals: 2,
-        },
-        validate: {
-        },
-      },
-      fireArea: {
-        units: {
-          'ft2': {
-            fromBase: (ft2) => ft2,
-            intoBase: (ft2) => ft2,
-          },
-          'm2': {
-            fromBase: (ft2) => ft2 / 10.76391111,
-            intoBase: (m2) => m2 * 10.76391111,
-          },
-          'ac': {
-            fromBase: (ft2) => ft2 / 43560,
-            intoBase: (ac) => ac * 43560,
-          },
-          'ha': {
-            fromBase: (ft2) => ft2 / 107639.1111,
-            intoBase: (ha) => ha * 107639.1111,
-          },
-        },
-        config: {
-          base: ['ft2', 0],
-          imperial: ['ac', 2],
-          metric: ['ha', 2],
-        },
-        display: {
-          units: 'ft2',
-          decimals: 0,
-        },
-        validate: {
-          minVal: 0,
-        },
-      },
-      fireDistance: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'mi' : {
-            fromBase: (ft) => ft / 5280,
-            intoBase: (mi) => mi * 5280,
-          },
-          'km' : {
-            fromBase: (ft) => ft * 3280.84,
-            intoBase: (km) => km / 3280.84,
-          },
-        },
-        config: {
-          base: ['ft', 2],
-          imperial: ['ft', 2],
-          metric: ['m', 2],
-        },
-        display: {
-          units: 'ft',
-          decimals: 2,
-        },
-        validate: {
-          minVal: 0,
-        },
-      },
-      fireFlame: { // distances on the order of feet to miles
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'in' : {
-            fromBase: (ft) => ft * 12,
-            intoBase: (inch) => inch / 12,
-          },
-          'cm' : {
-            fromBase: (ft) => ft / 0.0328084,
-            intoBase: (cm) => cm * 0.0328084,
-          },
-        },
+      };
+    this.uom.fireFlame = {...this.uom.length,
         config: {
           base: ['ft', 2],
           imperial: ['ft', 2],
@@ -267,8 +70,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 300,
         },
-      },
-      fireFli: {
+      };
+    this.uom.fireFli = {
         units: {
           'btu/ft-s': {
             fromBase: (bfs) => bfs,
@@ -291,8 +94,8 @@ export default class BpxUnits extends DagUnits {
         validate: {
           minVal: 0,
         }
-      },
-      fireHpua: {
+      };
+    this.uom.fireHpua = {
         units: {
           'btu/ft2' : {
             fromBase: (bf2) => bf2,
@@ -315,18 +118,10 @@ export default class BpxUnits extends DagUnits {
         validate: {
           minVal: 0,
         }
-      },
-      fireLwr: {
-        units: {
-          'ratio': {
-            fromBase: (ratio) => ratio,
-            intoBase: (ratio) => ratio,
-          }
-        },
+      };
+    this.uom.fireLwr = {...this.uom.ratio,
         config: {
           base: ['ratio', 2],
-          imperial: ['ratio', 2],
-          metric: ['ratio', 2],
         },
         display: {
           units: 'ratio',
@@ -335,8 +130,8 @@ export default class BpxUnits extends DagUnits {
         validate: {
           minVal: 1,
         }
-      },
-      firePower: {
+      };
+    this.uom.firePower = {
         units: {
           'lb/ft-s': {
             fromBase: (pfs) => pfs,
@@ -359,44 +154,20 @@ export default class BpxUnits extends DagUnits {
         validate: {
           minVal: 0,
         }
-      },
-      fireRos: {
-        units: {
-          'ft/min' : {
-            fromBase: (fpm) => fpm,
-            intoBase: (fpm) => fpm,
-          },
-          'm/min' : {
-            fromBase: (fpm) => fpm / 3.28084,
-            intoBase: (mpm) => mpm * 3.28084,
-          },
-          'mi/hr' : {
-            fromBase: (fpm) => fpm / 88,
-            intoBase: (mph) => mph * 88,
-          },
-          'km/h' : {
-            fromBase: (fpm) => fpm / 54.6807,
-            intoBase: (mpm) => mpm * 54.6807,
-          },
-          'ch/hr' : {
-            fromBase: (fpm) => fpm / 1.1,
-            intoBase: (cph) => cph * 1.1,
-          },
-        },
+      };
+    this.uom.fireRos = {...this.uom.velocity,
         config: {
           base: ['ft/min', 2],
           imperial: ['ft/min', 2],
           metric: ['m/min', 2],
+          survey: ['ch/h', 2],
         },
         display: {
           units: 'ft/min',
           decimals: 2,
         },
-        validate: {
-          minVal: 0,
-        },
-      },
-      fireRxi: {
+      };
+    this.uom.fireRxi = {
         units: {
           'btu/ft2-min': {
             fromBase: (bft2m) => bft2m,
@@ -419,46 +190,17 @@ export default class BpxUnits extends DagUnits {
         validate: {
           minVal: 0,
         }
-      },
-      fireRxv: {
-        units: {
-          'min' : {
-            fromBase: (min) => min,
-            intoBase: (min) => min,
-          },
-        },
+      };
+    this.uom.fireRxv = {...this.uom.time,
         config: {
           base: ['min', 4],
-          imperial: ['min', 4],
-          metric: ['min', 4],
         },
         display: {
           units: 'min',
           decimals: 4,
         },
-        validate: {
-          minVal: 0,
-        }
-      },
-      fireScorch: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'in' : {
-            fromBase: (ft) => ft * 12,
-            intoBase: (inch) => inch / 12,
-          },
-          'cm' : {
-            fromBase: (ft) => ft / 0.0328084,
-            intoBase: (cm) => cm * 0.0328084,
-          },
-        },
+      };
+    this.uom.fireScorch = {...this.uom.length,
         config: {
           base: ['ft', 2],
           imperial: ['ft', 2],
@@ -472,43 +214,10 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 500,
         },
-      },
-      fraction: { // ratios within the range [0..1]
-        units: {
-          'fraction' : {
-            fromBase: (fraction) => fraction,
-            intoBase: (fraction) => fraction,
-          },
-          '%' : {
-            fromBase: (fraction) => fraction * 100,
-            intoBase: (percent) => percent / 100,
-          }
-        },
-        config: {
-          base: ['fraction', 2],
-          imperial: ['%', 0],
-          metric: ['%', 0],
-        },
-        display: {
-          units: 'fraction',
-          decimals: 2,
-        },
-        validate: {
-          minVal: 0,
-          maxVal: 1,
-        },
-      },
-      fuelAge: {
-        units: {
-          'y' : {
-            fromBase: (y) => y,
-            intoBase: (y) => y,
-          }
-        },
+      };
+    this.uom.fuelAge = {...this.uom.time,
         config: {
           base: ['y', 2],
-          imperial: ['y', 2],
-          metric: ['y', 2],
         },
         display: {
           units: 'y',
@@ -516,27 +225,10 @@ export default class BpxUnits extends DagUnits {
         },
         validate: {
           minVal: 0,
+          maxVal: 50,
         }
-      },
-      fuelArea: {
-        units: {
-          'ft2': {
-            fromBase: (ft2) => ft2,
-            intoBase: (ft2) => ft2,
-          },
-          'm2': {
-            fromBase: (ft2) => ft2 / 10.76391111,
-            intoBase: (m2) => m2 * 10.76391111,
-          },
-          'in2': {
-            fromBase: (ft2) => ft2 * 144,
-            intoBase: (in2) => in2 / 144,
-          },
-          'cm2': {
-            fromBase: (ft2) => ft2 / 0.001076391111,
-            intoBase: (cm2) => cm2 * 0.001076391111,
-          },
-        },
+      };
+    this.uom.fuelArea = {...this.uom.area,
         config: {
           base: ['ft2', 2],
           imperial: ['ft2', 2],
@@ -546,21 +238,8 @@ export default class BpxUnits extends DagUnits {
           units: 'ft2',
           decimals: 0,
         },
-        validate: {
-          minVal: 0,
-        },
-      },
-      fuelDens: {
-        units: {
-          'lb/ft3': {
-            fromBase: (lbft3) => lbft3,
-            intoBase: (lbft3) => lbft3,
-          },
-          'kg/m3': {
-            fromBase: (lbft3) => lbft3 * 16.0185,
-            intoBase: (kgm3) => kgm3 / 16.0185,
-          },
-        },
+      };
+    this.uom.fuelDens = {...this.uom.density,
         config: {
           base: ['lb/ft3', 0],
           imperial: ['lb/ft3', 0],
@@ -574,26 +253,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 50,
         },
-      },
-      fuelDepth: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'in' : {
-            fromBase: (ft) => ft * 12,
-            intoBase: (inch) => inch / 12,
-          },
-          'cm' : {
-            fromBase: (ft) => ft / 0.0328084,
-            intoBase: (cm) => cm * 0.0328084,
-          },
-        },
+      };
+    this.uom.fuelDepth = {...this.uom.length,
         config: {
           base: ['ft', 2],
           imperial: ['ft', 2],
@@ -607,26 +268,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 10,
         },
-      },
-      fuelDiam: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'in' : {
-            fromBase: (ft) => ft * 12,
-            intoBase: (inch) => inch / 12,
-          },
-          'cm' : {
-            fromBase: (ft) => ft / 0.0328084,
-            intoBase: (cm) => cm * 0.0328084,
-          },
-        },
+      };
+    this.uom.fuelDiam = {...this.uom.length,
         config: {
           base: ['ft', 4],
           imperial: ['ft', 4],
@@ -640,18 +283,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 1,
         },
-      },
-      fuelHeat: {
-        units: {
-          'btu/lb' : {
-            fromBase: (bpp) => bpp,
-            intoBase: (bpp) => bpp,
-          },
-          'kJ/kg' : {
-            fromBase: (bpp) => bpp * 2.32779,
-            intoBase: (kJkg) => kJkg / 2.32779,
-          },
-        },
+      };
+    this.uom.fuelHeat = {...this.uom.specificInternalEnergy,
         config: {
           base: ['btu/lb', 0],
           imperial: ['btu/lb', 0],
@@ -665,30 +298,12 @@ export default class BpxUnits extends DagUnits {
           minVal: 8000,
           maxVal: 15000,
         }
-      },
-      fuelLoad: {
-        units: {
-          'lb/ft2' : {
-            fromBase: (pft2) => pft2,
-            intoBase: (pft2) => pft2,
-          },
-          'kg/m2' : {
-            fromBase: (pft2) => pft2,
-            intoBase: (kgm2) => kgm2,
-          },
-          't/ac' : {
-            fromBase: (pft2) => pft2 * 21.78,
-            intoBase: (tpa) => tpa / 21.78,
-          },
-          'T/ha' : {
-            fromBase: (pft2) => pft2 * 48.8243,
-            intoBase: (Tha) => Tha / 48.8243,
-          },
-        },
+      };
+    this.uom.fuelLoad = {...this.uom.load,
         config: {
           base: ['lb/ft2', 4],
-          imperial: ['t/ac', 2],
-          metric: ['T/ha', 2],
+          imperial: ['ton/ac', 2],
+          metric: ['tonne/ha', 2],
         },
         display: {
           units: 'lb/ft2',
@@ -698,22 +313,12 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 10,
         },
-      },
-      fuelMois: {
-        units: {
-          'ratio' : {
-            fromBase: (ratio) => ratio,
-            intoBase: (ratio) => ratio,
-          },
-          '%' : {
-            fromBase: (ratio) => ratio * 100,
-            intoBase: (percent) => percent / 100,
-          }
-        },
+      };
+    this.uom.fuelMois = {...this.uom.ratio,
         config: {
           base: ['ratio', 2],
-          imperial: ['%', 0],
-          metric: ['%', 0],
+          ratio: ['ratio', 0],
+          percent: ['%', 0],
         },
         display: {
           units: 'ratio',
@@ -723,8 +328,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0.01,
           maxVal: 5,
         },
-      },
-      fuelSavr: {
+      };
+    this.uom.fuelSavr = {
         units: {
           'ft2/ft3' : {
             fromBase: (ft2ft3) => ft2ft3,
@@ -756,23 +361,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 1,
           maxVal: 4000,
         },
-      },
-      fuelSeff: {
-        units: {
-          'fraction' : {
-            fromBase: (ratio) => ratio,
-            intoBase: (ratio) => ratio,
-          },
-          '%' : {
-            fromBase: (ratio) => ratio * 100,
-            intoBase: (percent) => percent / 100,
-          }
-        },
-        config: {
-          base: ['fraction', 2],
-          imperial: ['%', 0],
-          metric: ['%', 0],
-        },
+      };
+    this.uom.fuelSeff = {...this.uom.fraction,
         display: {
           units: 'fraction',
           decimals: 2,
@@ -781,8 +371,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 0.05,
         },
-      },
-      fuelSink: {
+      };
+    this.uom.fuelSink = {
         units: {
           'btu/ft3' : {
             fromBase: (bpf3) => bpf3,
@@ -805,23 +395,8 @@ export default class BpxUnits extends DagUnits {
         validate: {
           minVal: 0,
         },
-      },
-      fuelStot: {
-        units: {
-          'fraction' : {
-            fromBase: (ratio) => ratio,
-            intoBase: (ratio) => ratio,
-          },
-          '%' : {
-            fromBase: (ratio) => ratio * 100,
-            intoBase: (percent) => percent / 100,
-          }
-        },
-        config: {
-          base: ['fraction', 2],
-          imperial: ['%', 0],
-          metric: ['%', 0],
-        },
+      };
+    this.uom.fuelStot = {...this.uom.fraction,
         display: {
           units: 'fraction',
           decimals: 2,
@@ -830,50 +405,19 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 0.1,
         },
+      };
+    this.uom.fuelVolm = {...this.uom.volume,
+      config: {
+        base: ['ft3', 4],
+        imperial: ['ft3', 4],
+        metric: ['m3', 4],
       },
-      fuelVolm: {
-        units: {
-          'ft3': {
-            fromBase: (ft3) => ft3,
-            intoBase: (ft3) => ft3,
-          },
-          'm3': {
-            fromBase: (ft3) => ft3 / 35.3147,
-            intoBase: (m3) => m3 * 35.3147,
-          },
-        },
-        config: {
-          base: ['ft3', 4],
-          imperial: ['ft3', 4],
-          metric: ['m3', 4],
-        },
-        display: {
-          units: 'ft3',
-          decimals: 4,
-        },
-        validate: {
-          minVal: 0,
-        },
+      display: {
+        units: 'ft3',
+        decimals: 4,
       },
-      mapArea: {
-        units: {
-          'ft2': {
-            fromBase: (ft2) => ft2,
-            intoBase: (ft2) => ft2,
-          },
-          'm2': {
-            fromBase: (ft2) => ft2 / 10.76391111,
-            intoBase: (m2) => m2 * 10.76391111,
-          },
-          'in2': {
-            fromBase: (ft2) => ft2 * 144,
-            intoBase: (in2) => in2 / 144,
-          },
-          'cm2': {
-            fromBase: (ft2) => ft2 / 0.001076391111,
-            intoBase: (cm2) => cm2 * 0.001076391111,
-          },
-        },
+    };
+    this.uom.mapArea = {...this.uom.area,
         config: {
           base: ['ft2', 6],
           imperial: ['in2', 2],
@@ -883,37 +427,8 @@ export default class BpxUnits extends DagUnits {
           units: 'ft2',
           decimals: 0,
         },
-        validate: {
-          minVal: 0,
-        },
-      },
-      mapDistance: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-          'in' : {
-            fromBase: (ft) => ft * 12,
-            intoBase: (inch) => inch / 12,
-          },
-          'cm' : {
-            fromBase: (ft) => ft / 0.0328084,
-            intoBase: (cm) => cm * 0.0328084,
-          },
-          'mi' : {
-            fromBase: (ft) => ft / 5280,
-            intoBase: (mi) => mi * 5280,
-          },
-          'km' : {
-            fromBase: (ft) => ft * 3280.84,
-            intoBase: (km) => km / 3280.84,
-          },
-        },
+      };
+    this.uom.mapDistance = {...this.uom.length,
         config: {
           base: ['ft', 2],
           imperial: ['ft', 2],
@@ -923,35 +438,8 @@ export default class BpxUnits extends DagUnits {
           units: 'ft',
           decimals: 2,
         },
-        validate: {
-          minVal: 0,
-        },
-      },
-      // ratios outside the range [0..1] that convert fraction-to-percent
-      ratio: {
-        units: {
-          'ratio' : {
-            fromBase: (ratio) => ratio,
-            intoBase: (ratio) => ratio,
-          },
-          '%' : {
-            fromBase: (ratio) => ratio * 100,
-            intoBase: (percent) => percent / 100,
-          }
-        },
-        config: {
-          base: ['ratio', 2],
-          imperial: ['%', 0],
-          metric: ['%', 0],
-        },
-        display: {
-          units: 'ratio',
-          decimals: 2,
-        },
-        validate: {
-        },
-      },
-      slopeSteepness: {
+     };
+    this.uom.slopeSteepness = {
         units: {
           'ratio' : {
             fromBase: (ratio) => ratio,
@@ -968,8 +456,8 @@ export default class BpxUnits extends DagUnits {
         },
         config: {
           base: ['ratio', 2],
-          imperial: ['%', 0],
-          metric: ['%', 0],
+          ratio: ['ratio', 0],
+          percent: ['%', 0],
         },
         display: {
           units: 'ratio',
@@ -979,75 +467,20 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 60, // about 89.04 deg
         },
+      };
+    this.uom.timeMin = {...this.uom.time,
+      config: {
+        base: ['min', 0],
+        sec: ['sec', 0],
+        min: ['min', 0],
+        h: ['h', 0],
       },
-      temperature: {
-        units: {
-          'F' : {
-            fromBase: (f) => f,
-            intoBase: (f) => f,
-          },
-          'C' : {
-            fromBase: (f) => (f-32) * 5/9,
-            intoBase: (c) => 32 + c*9/5,
-          },
-        },
-        config: {
-          base: ['F', 0],
-          imperial: ['F', 0],
-          metric: ['C', 0],
-        },
-        display: {
-          units: 'F',
-          decimals: 0,
-        },
-        validate: {
-          minVal: -40,
-          maxVal: 140,
-        },
+      display: {
+        units: 'min',
+        decimals: 2,
       },
-      timeMin: {
-        units: {
-          'min': {
-            fromBase: (min) => min,
-            intoBase: (min) => min,
-          },
-          's': {
-            fromBase: (min) => min * 60,
-            intoBase: (s) => s / 60,
-          },
-          'h': {
-            fromBase: (min) => min / 3600,
-            intoBase: (h) => h * 3600,
-          },
-          'day': {
-            fromBase: (min) => min / (24*3600),
-            intoBase: (day) => day * 24 * 3600,
-          },
-        },
-        config: {
-          base: ['min', 0],
-          imperial: ['min', 0],
-          metric: ['min', 0],
-        },
-        display: {
-          units: 'min',
-          decimals: 2,
-        },
-        validate: {
-          minVal: 0,
-        },
-      },
-      treeHt: {
-        units: {
-          'ft' : {
-            fromBase: (ft) => ft,
-            intoBase: (ft) => ft,
-          },
-          'm' : {
-            fromBase: (ft) => ft / 3.28084,
-            intoBase: (m) => m * 3.28084,
-          },
-        },
+    };
+    this.uom.treeHt = {...this.uom.length,
         config: {
           base: ['ft', 0],
           imperial: ['ft', 0],
@@ -1061,26 +494,8 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 400,
         },
-      },
-      windSpeed: {
-        units: {
-          'ft/min' : {
-            fromBase: (fpm) => fpm,
-            intoBase: (fpm) => fpm,
-          },
-          'm/min' : {
-            fromBase: (fpm) => fpm / 3.28084,
-            intoBase: (mpm) => mpm * 3.28084,
-          },
-          'mi/h' : {
-            fromBase: (fpm) => fpm / 88,
-            intoBase: (mph) => mph * 88,
-          },
-          'km/h' : {
-            fromBase: (fpm) => fpm / 54.6807,
-            intoBase: (mpm) => mpm * 54.6807,
-          },
-        },
+      };
+    this.uom.windSpeed = {...this.uom.velocity,
         config: {
           base: ['ft/min', 0],
           imperial: ['mi/h', 2],
@@ -1094,7 +509,6 @@ export default class BpxUnits extends DagUnits {
           minVal: 0,
           maxVal: 88*50,
         },
-      },
-    }
+      };
   }
 };
