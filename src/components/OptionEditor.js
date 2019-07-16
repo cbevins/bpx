@@ -37,14 +37,13 @@ export default function OptionEditor({leaf, setShowEditor}) {
         <InputGroup.Prepend>
           <InputGroup.Text>Select</InputGroup.Text>
         </InputGroup.Prepend>
-        <Form.Control as='select' multiple defaultValue={leaf.item(leaf.value())}
+        <Form.Control as='select' multiple
+            defaultValue={leaf.item(leaf.value())}
             onChange={(e) => saveOptions(e)}>
           {
             leaf.itemKeys().map((item) => {
               let desc = leaf.item(item);
-              return (
-                <option>{desc}</option>
-              );
+              return (<option>{desc}</option>);
             })
           }
         </Form.Control>
