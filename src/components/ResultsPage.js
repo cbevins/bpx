@@ -8,7 +8,7 @@ function ResultsHeaderRow({dag, title, color}) {
   );
   return (
     <thead>
-      <tr style={{'width':'100%','text-align':'left','background-color':color,}}>
+      <tr style={{'width':'100%','textAlign':'left','backgroundColor':color,}}>
         <th key='a'>{title} by Run #</th>
         <th key='b'><em>Units</em></th>
         {cols}

@@ -1,11 +1,12 @@
 import React from 'react';
 import Badge from 'react-bootstrap/Badge'
+import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table';
 
 export default function Dashboard(props) {
   const { dag, numUpdates } = props;
   return (
-    <div id={dag.name}>
+    <Container>
       <Table responsive="sm">
         <tbody>
           <tr>
@@ -42,6 +43,6 @@ export default function Dashboard(props) {
           </tr>
         </tbody>
       </Table>
-    </div>
+      </Container>
   );
 }

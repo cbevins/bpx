@@ -42,14 +42,6 @@ export default class DagLeafQuantity extends DagLeaf {
     return this.own.dag.units.displayValueToBaseValue(this.own.units, displayValue);
   }
 
-  validateBaseValue(baseValue) {
-    return this.own.dag.units.validateBaseValue(this.own.units, baseValue);
-  }
-
-  validateDisplayValue(displayValue) {
-    return this.own.dag.units.validateDisplayValue(this.own.units, displayValue);
-  }
-
   ensureUnits(units, fn) {
     if (!this.hasUnits(units)) {
       throw new Error(`${fn}' called on '${this.name()}' with invalid units '${units}'`);
@@ -71,8 +63,24 @@ export default class DagLeafQuantity extends DagLeaf {
     return this.own.units;
   }
 
-  // unitsData(units) {
-  //   this.ensureUnits(units, 'DagLeafQuantity.units');
-  //   return BpxUnits[units];
-  // }
+  // Validates raw input string
+  // Returns a 2-element array [errorMsg, value]
+  // On success errorMsg is null and value non-null.
+  // On error, errorMsg is a string lietral and value is null.
+  validateInput(input) {
+    //alert(`validating '${input}'`);
+    const content = input.trim();
+    if ( content==='') {
+      return [`INPUT_IS_REQUIRED`, null];
+    }
+    let val = Number.parseFloat(content);
+    if (Number.isNaN(val)) {
+      return [`VALUE_MUST_BE_NUMERIC: '${content}'`, null];
+    }
+    const result = this.validateDisplayValue(val);
+    if (result !== null ) {
+      return [result[0], null];
+    }
+    return [null, val];
+  }
 }

@@ -557,6 +557,7 @@ export default class DagUnits {
     return this.uom.hasOwnProperty(quantity);
   }
 
+  // Returns null if valid, [errorMsg, badValue] on error
   validateBaseValue(quantity, baseValue) {
     const validate = this.uom[quantity].validate;
     if (validate.hasOwnProperty('minVal')) {
@@ -572,6 +573,7 @@ export default class DagUnits {
     return null;
   }
 
+  // Returns null if valid, [errorMsg, [badValues]] on error
   validateDisplayValue(quantity, displayValue) {
     const baseValue = this.displayValueToBaseValue(quantity, displayValue);
     const result = this.validateBaseValue(quantity, baseValue);
@@ -585,14 +587,15 @@ export default class DagUnits {
     return result;
   }
 
+  // Returns null on success, max bound on error
   validMax(quantity) {
     return this.uom[quantity].validate.hasOwnProperty('maxVal')
       ? this.uom[quantity].validate.maxVal : null;
   }
 
+  // Returns null on success, min bound on error
   validMin(quantity) {
     return this.uom[quantity].validate.hasOwnProperty('minVal')
       ? this.uom[quantity].validate.minVal : null;
   }
-
 }

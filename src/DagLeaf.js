@@ -411,6 +411,33 @@ export default class DagLeaf extends DagBranch {
     return this.own.user;
   }
 
+  // Validates the base value
+  validateBaseValue(baseValue) {
+    return this.own.dag.units.validateBaseValue(this.own.units, baseValue);
+  }
+
+  // Validates the quantity's display value
+  validateDisplayValue(displayValue) {
+    return this.own.dag.units.validateDisplayValue(this.own.units, displayValue);
+  }
+
+  // Validates raw input string
+  // Returns a 2-element array [errorMsg, value]
+  // On success errorMsg is null and value non-null.
+  // On error, errorMsg is a string lietral and value is null.
+  validateInput(input) {
+    //alert(`validating '${input}'`);
+    const value = input.trim();
+    if ( value==='') {
+      return [`INPUT_IS_REQUIRED`, null];
+    }
+    const result = this.validateDisplayValue(value);
+    if (result !== null ) {
+      return [result[0], null];
+    }
+    return [null, value];
+  }
+
   value(val = undefined) {
     if (val !== undefined) {
       this.own.value = val;

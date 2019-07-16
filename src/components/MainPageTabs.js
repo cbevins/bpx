@@ -3,6 +3,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Nav from 'react-bootstrap/Nav';
@@ -47,7 +48,9 @@ export function MainPageTabsTop({dag}) {
 
 export function MainPageTabsLeft({dag}) {
   return (
-    <Tab.Container id="left-tabs-example" defaultActiveKey="select">
+    <Card>
+      <Card.Body>
+    <Tab.Container fluid='true' id="left-tabs-example" defaultActiveKey="select">
       <Row>
         <Col sm={2}>
           <Nav variant="pills" className="flex-column">
@@ -95,6 +98,7 @@ export function MainPageTabsLeft({dag}) {
         </Col>
       </Row>
     </Tab.Container>
+    </Card.Body></Card>
   );
 }
 
