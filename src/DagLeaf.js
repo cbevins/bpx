@@ -407,6 +407,12 @@ export default class DagLeaf extends DagBranch {
   }
   /* eslint-disable prefer-destructuring */
 
+  // Returns an array of valid units-of-measure for this leaf
+  // Reimplemented by DagLeafQuantity
+  unitsOfMeasure() {
+    return [];
+  }
+
   users() {
     return this.own.user;
   }

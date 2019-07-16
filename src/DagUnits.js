@@ -557,6 +557,35 @@ export default class DagUnits {
     return this.uom.hasOwnProperty(quantity);
   }
 
+  hasUom(quantity, uom) {
+    return this.uom.hasOwnProperty(quantity)
+      && this.uom[quantity].units.hasOwnProperty(uom);
+  }
+
+  // Returns current display decimal digits for `quantity`
+  setDisplayDecimals(quantity, newDecimals) {
+    if (this.hasUnits(quantity)) {
+      const dec = Math.min(Math.max(0, newDecimals), 9);
+      alert('Setting '+quantity+' display decimals to '+dec);
+      this.uom[quantity].display.decimals = dec;
+    }
+    return this;
+  }
+
+  // Returns current display units name for `quantity`
+  setDisplayUnits(quantity, newUnits) {
+    alert('Checking if '+quantity+' has uom '+newUnits);
+    if (this.hasUom(quantity, newUnits)) {
+      alert('Setting '+quantity+' display units to '+newUnits);
+      this.uom[quantity].display.units = newUnits;
+    }
+    return this;
+  }
+
+  unitsOfMeasure(quantity) {
+    return ( Object.keys(this.uom[quantity].units));
+  }
+
   // Returns null if valid, [errorMsg, badValue] on error
   validateBaseValue(quantity, baseValue) {
     const validate = this.uom[quantity].validate;

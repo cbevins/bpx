@@ -63,6 +63,11 @@ export default class DagLeafQuantity extends DagLeaf {
     return this.own.units;
   }
 
+  // Returns an array of valid units-of-measure for this leaf
+  unitsOfMeasure() {
+    return this.own.dag.units.unitsOfMeasure(this.own.units);
+  }
+
   // Validates raw input string
   // Returns a 2-element array [errorMsg, value]
   // On success errorMsg is null and value non-null.

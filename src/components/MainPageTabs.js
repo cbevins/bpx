@@ -50,55 +50,56 @@ export function MainPageTabsLeft({dag}) {
   return (
     <Card>
       <Card.Body>
-    <Tab.Container fluid='true' id="left-tabs-example" defaultActiveKey="select">
-      <Row>
-        <Col sm={2}>
-          <Nav variant="pills" className="flex-column">
-            <Nav.Item>
-              <Nav.Link eventKey="select">1 Select Outputs</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="config">2 Configure</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="input">3 Enter Inputs</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="results">4 View Results</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="analysis">5 Tables &amp; Graphs</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="treeBrowser">Tree Browser</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col sm={10}>
-          <Tab.Content>
-            <Tab.Pane eventKey="select">
-              <SelectPage dag={dag} />
-            </Tab.Pane>
-            <Tab.Pane eventKey="config">
-              <ConfigPage dag={dag} />
-            </Tab.Pane>
-            <Tab.Pane eventKey="input">
-              <ConditionsPage dag={dag} />
-            </Tab.Pane>
-            <Tab.Pane eventKey="results">
-              <ResultsPage dag={dag} />
-            </Tab.Pane>
-            <Tab.Pane eventKey="analysis">
-              <GraphPage dag={dag} />
-            </Tab.Pane>
-            <Tab.Pane eventKey="treeBrowser">
-              <TreeBrowserPage dag={dag} />
-            </Tab.Pane>
-          </Tab.Content>
-        </Col>
-      </Row>
-    </Tab.Container>
-    </Card.Body></Card>
+        <Tab.Container fluid='true' id="left-tabs-example" defaultActiveKey="select">
+          <Row>
+            <Col sm={2}>
+              <Nav variant="pills" className="flex-column">
+                <Nav.Item>
+                  <Nav.Link eventKey="select">1 Select Outputs</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="config">2 Configure</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="input">3 Enter Inputs</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="results">4 View Results</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="analysis">5 Tables &amp; Graphs</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="treeBrowser">Tree Browser</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+            <Col sm={10}>
+              <Tab.Content>
+                <Tab.Pane eventKey="select">
+                  <SelectPage dag={dag} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="config">
+                  <ConfigPage dag={dag} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="input">
+                  <ConditionsPage dag={dag} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="results">
+                  <ResultsPage dag={dag} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="analysis">
+                  <GraphPage dag={dag} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="treeBrowser">
+                  <TreeBrowserPage dag={dag} />
+                </Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </Card.Body>
+    </Card>
   );
 }
 

@@ -7,19 +7,6 @@ import Table from 'react-bootstrap/Table';
 
 import QuantityEditorModal from './QuantityEditorModal';
 
-export function freshInput() {
-  return {isValid: null, isInvalid: null, visited: false, values: [], errors: []};
-}
-
-export function freshForm() {
-  return {
-    values: freshInput(),
-    from: freshInput(),
-    thru: freshInput(),
-    step: freshInput(),
-  };
-}
-
 function ConditionsButton(props) {
   const {leaf, setLeaf, setShow} = props;
   return (
@@ -53,17 +40,14 @@ function ConditionsRows(props) {
   return (<tbody>{rows}</tbody>);
 }
 
-export default function ConditionsPage(props) {
-  const { dag } = props;
+export default function ConditionsPage({dag}) {
   const [show, setShow] = useState(false);
   const [leaf, setLeaf] = useState(dag.tree);
-  const [form, setForm] = useState(freshForm());
 
   if (dag.selectedLeafs.length===0) {
     return (<h3>There are currently no outputs selected</h3>);
   }
 
-  const visited = {isValid: true, isInvalid: false, visited: true, values: [], errors: [] };
   return (
     <Container>
       <h3>Input Conditions</h3>
@@ -71,11 +55,7 @@ export default function ConditionsPage(props) {
         dag={dag}
         leaf={leaf}
         show={show}
-        setShow={setShow}
-        form={form}
-        setForm={setForm}
-        freshForm={freshForm}
-        visited={visited} />
+        setShow={setShow} />
       <Table responsive='sm' striped size='sm'>
         <ConditionsRows
           dag={dag}

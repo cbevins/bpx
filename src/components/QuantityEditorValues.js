@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -7,8 +7,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 import AppDag from './AppDag';
 
-export default function QuantityEditorValues(props) {
-  const {leaf, setShow, form, setForm, freshForm, visited} = props;
+export default function QuantityEditorValues({leaf, setShow}) {
+  const pristine = {isValid: null, isInvalid: null, visited: false, values: [], errors: []};
+  const visited = {isValid: true, isInvalid: false, visited: true, values: [], errors: [] };
+
+  const [form, setForm] = useState({values: pristine});
 
   function validateQuantityValues(leaf, text) {
     const newForm = {...form};
@@ -51,7 +54,7 @@ export default function QuantityEditorValues(props) {
                 leaf.displayValueToBaseValue(x));
               // Store the base units values back onto the leaf
               AppDag.setBatchInputs(leaf, baseValues);
-              setForm(freshForm());
+              setForm({values: pristine});
               setShow(false);
             } else {
               alert('Please complete all fields and fix any errors');
@@ -61,7 +64,7 @@ export default function QuantityEditorValues(props) {
       </Button>
       <Button variant='secondary'
           onClick={() => {
-            setForm(freshForm());
+            setForm({values: pristine});
             setShow(false);
           }}>
         Cancel

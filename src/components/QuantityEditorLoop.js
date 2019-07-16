@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -25,22 +25,29 @@ function loopValues(from, thru, step) {
   return values;
 }
 
-export default function QuantityEditorLoop(props) {
-  const {leaf, setShow, form, setForm, freshForm, visited} = props;
+export default function QuantityEditorLoop({leaf, setShow}) {
+  const pristineField = {isValid: null, isInvalid: null, visited: false, values: [], errors: []};
+  const visitedField = {isValid: true, isInvalid: false, visited: true, values: [], errors: [] };
+  const pristineForm = {
+    from: {...pristineField},
+    thru: {...pristineField},
+    step: {...pristineField},
+  };
+  const [form, setForm] = useState({...pristineForm});
 
-  function validateQuantity(leaf, text, item) {
+  function validateQuantity(leaf, text, field) {
     const newForm = {...form};
-    newForm[item] = {...visited};
+    newForm[field] = {...visitedField};
     let [errMsg, val] = leaf.validateInput(text);
     if (errMsg) {
-      newForm[item].errors.push(errMsg);
-      newForm[item].isValid = false;
-      newForm[item].isInvalid = true;
+      newForm[field].errors.push(errMsg);
+      newForm[field].isValid = false;
+      newForm[field].isInvalid = true;
     } else {
-      newForm[item].values.push(val);
+      newForm[field].values.push(val);
     }
     setForm(newForm);
-    return (newForm.from.errors.length===0)
+    return (newForm[field].errors.length===0)
   }
 
   return (
@@ -96,7 +103,7 @@ export default function QuantityEditorLoop(props) {
               // Store the base units values back onto the leaf
               AppDag.setBatchInputs(leaf, baseValues);
               // Clear the form and drop the modal dialog
-              setForm(freshForm());
+              setForm({...pristineForm});
               setShow(false);
             } else {
               alert('Please complete all fields and fix any errors');
@@ -107,7 +114,7 @@ export default function QuantityEditorLoop(props) {
       <Button variant='secondary'
           onClick={() => {
             // Clear the form and drop the modal dialog
-            setForm(freshForm());
+            setForm({...pristineForm});
             setShow(false);
           }}>
         Cancel

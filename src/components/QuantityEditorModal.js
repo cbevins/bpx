@@ -9,7 +9,7 @@ import QuantityEditorLoop from './QuantityEditorLoop';
 import QuantityEditorValues from './QuantityEditorValues';
 
 export default function QuantityEditorModal(props) {
-  const {leaf, show, setShow, form, setForm, freshForm, visited} = props;
+  const {leaf, show, setShow} = props;
 
   return (
     <Modal show={show} centered onHide={() => setShow(false)}>
@@ -17,26 +17,18 @@ export default function QuantityEditorModal(props) {
         <Modal.Title>{leaf.label()}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Tabs defaultActiveKey='individual' id='quantity-input-tab-example'>
+        <Tabs defaultActiveKey='individual' id='quantity-input-tab'>
 
           <Tab eventKey='individual' title='Enter All Values'>
             <QuantityEditorValues
               leaf={leaf}
-              setShow={setShow}
-              form={form}
-              setForm={setForm}
-              freshForm={freshForm}
-              visited={visited}/>
+              setShow={setShow} />
           </Tab>
 
           <Tab eventKey='loop' title='Enter Loop Values'>
             <QuantityEditorLoop
               leaf={leaf}
-              setShow={setShow}
-              form={form}
-              setForm={setForm}
-              freshForm={freshForm}
-              visited={visited}/>
+              setShow={setShow} />
           </Tab>
 
           <Tab eventKey='wizard' title='Wizard'>
