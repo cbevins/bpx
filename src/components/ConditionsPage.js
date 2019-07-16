@@ -8,12 +8,12 @@ import Table from 'react-bootstrap/Table';
 import QuantityEditorModal from './QuantityEditorModal';
 
 function ConditionsButton(props) {
-  const {leaf, setLeaf, setShow} = props;
+  const {leaf, setLeaf, setShowEditor} = props;
   return (
     <Button variant="link" size="sm"
         onClick={() => {
           setLeaf(leaf);
-          setShow(true)}
+          setShowEditor(true)}
         }>
       <Badge variant='info'>Edit</Badge>
     </Button>
@@ -21,14 +21,14 @@ function ConditionsButton(props) {
 }
 
 function ConditionsRows(props) {
-  const {leafs, setLeaf, setShow} = props;
+  const {leafs, setLeaf, setShowEditor} = props;
   const rows = leafs.map((leaf, idx) =>
     <tr key={idx}>
       <td align='left'>
         <ConditionsButton
           leaf={leaf}
           setLeaf={setLeaf}
-          setShow={setShow}/>
+          setShowEditor={setShowEditor}/>
       </td>
       <td align='left'>
         {leaf.label()}
@@ -41,7 +41,7 @@ function ConditionsRows(props) {
 }
 
 export default function ConditionsPage({dag}) {
-  const [show, setShow] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
   const [leaf, setLeaf] = useState(dag.tree);
 
   if (dag.selectedLeafs.length===0) {
@@ -51,16 +51,18 @@ export default function ConditionsPage({dag}) {
   return (
     <Container>
       <h3>Input Conditions</h3>
+
       <QuantityEditorModal
         dag={dag}
         leaf={leaf}
-        show={show}
-        setShow={setShow} />
+        showEditor={showEditor}
+        setShowEditor={setShowEditor} />
+
       <Table responsive='sm' striped size='sm'>
         <ConditionsRows
           dag={dag}
           leafs={dag.requiredInputLeafs}
-          setShow={setShow}
+          setShowEditor={setShowEditor}
           setLeaf={setLeaf}/>
       </Table>
     </Container>

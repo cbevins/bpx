@@ -7,15 +7,18 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 import AppDag from './AppDag';
 
-export default function QuantityEditorValues({leaf, setShow}) {
-  const pristine = {isValid: null, isInvalid: null, visited: false, values: [], errors: []};
-  const visited = {isValid: true, isInvalid: false, visited: true, values: [], errors: [] };
+export default function QuantityEditorValues({leaf, setShowEditor}) {
+  const pristineField = {isValid: null, isInvalid: null, visited: false, values: [], errors: []};
+  const visitedField = {isValid: true, isInvalid: false, visited: true, values: [], errors: [] };
+  const pristineForm = {
+    values: {...pristineField},
+  };
 
-  const [form, setForm] = useState({values: pristine});
+  const [form, setForm] = useState({...pristineForm});
 
   function validateQuantityValues(leaf, text) {
     const newForm = {...form};
-    newForm.values = {...visited};
+    newForm.values = {...visitedField};
     let parts = text.replace(/,/g, ' ').split(' ');
     parts.forEach((part) => {
       let [errMsg, val] = leaf.validateInput(part);
@@ -54,8 +57,8 @@ export default function QuantityEditorValues({leaf, setShow}) {
                 leaf.displayValueToBaseValue(x));
               // Store the base units values back onto the leaf
               AppDag.setBatchInputs(leaf, baseValues);
-              setForm({values: pristine});
-              setShow(false);
+              setForm({...pristineForm});
+              setShowEditor(false);
             } else {
               alert('Please complete all fields and fix any errors');
             }
@@ -64,8 +67,8 @@ export default function QuantityEditorValues({leaf, setShow}) {
       </Button>
       <Button variant='secondary'
           onClick={() => {
-            setForm({values: pristine});
-            setShow(false);
+            setForm({...pristineForm});
+            setShowEditor(false);
           }}>
         Cancel
       </Button>

@@ -25,7 +25,7 @@ function loopValues(from, thru, step) {
   return values;
 }
 
-export default function QuantityEditorLoop({leaf, setShow}) {
+export default function QuantityEditorLoop({leaf, setShowEditor}) {
   const pristineField = {isValid: null, isInvalid: null, visited: false, values: [], errors: []};
   const visitedField = {isValid: true, isInvalid: false, visited: true, values: [], errors: [] };
   const pristineForm = {
@@ -104,7 +104,7 @@ export default function QuantityEditorLoop({leaf, setShow}) {
               AppDag.setBatchInputs(leaf, baseValues);
               // Clear the form and drop the modal dialog
               setForm({...pristineForm});
-              setShow(false);
+              setShowEditor(false);
             } else {
               alert('Please complete all fields and fix any errors');
             }
@@ -115,7 +115,7 @@ export default function QuantityEditorLoop({leaf, setShow}) {
           onClick={() => {
             // Clear the form and drop the modal dialog
             setForm({...pristineForm});
-            setShow(false);
+            setShowEditor(false);
           }}>
         Cancel
       </Button>

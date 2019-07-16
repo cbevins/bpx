@@ -9,10 +9,10 @@ import QuantityEditorLoop from './QuantityEditorLoop';
 import QuantityEditorValues from './QuantityEditorValues';
 
 export default function QuantityEditorModal(props) {
-  const {leaf, show, setShow} = props;
+  const {leaf, showEditor, setShowEditor} = props;
 
   return (
-    <Modal show={show} centered onHide={() => setShow(false)}>
+    <Modal show={showEditor} centered onHide={() => setShowEditor(false)}>
       <Modal.Header closeButton>
         <Modal.Title>{leaf.label()}</Modal.Title>
       </Modal.Header>
@@ -22,13 +22,13 @@ export default function QuantityEditorModal(props) {
           <Tab eventKey='individual' title='Enter All Values'>
             <QuantityEditorValues
               leaf={leaf}
-              setShow={setShow} />
+              setShowEditor={setShowEditor} />
           </Tab>
 
           <Tab eventKey='loop' title='Enter Loop Values'>
             <QuantityEditorLoop
               leaf={leaf}
-              setShow={setShow} />
+              setShowEditor={setShowEditor} />
           </Tab>
 
           <Tab eventKey='wizard' title='Wizard'>
