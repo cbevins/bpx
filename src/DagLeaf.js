@@ -273,6 +273,10 @@ export default class DagLeaf extends DagBranch {
   }
 
   /* eslint-disable class-methods-use-this */
+  isBool() {
+    return false;
+  }
+
   isConfig() {
     return false;
   }
@@ -280,6 +284,15 @@ export default class DagLeaf extends DagBranch {
   isOption() {
     return false;
   }
+
+  isQuantity() {
+    return false;
+  }
+
+  isText() {
+    return false;
+  }
+
   /* eslint-enable class-methods-use-this */
 
   isFixed() {

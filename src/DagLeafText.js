@@ -11,4 +11,8 @@ export default class DagLeafText extends DagLeaf {
   constructor(branch, name) {
     super(branch, name).value('');
   }
+
+  isText() {
+    return true;
+  }
 }

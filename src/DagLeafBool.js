@@ -11,4 +11,8 @@ export default class DagLeafBool extends DagLeaf {
   constructor(branch, name) {
     super(branch, name).value(false);
   }
+
+  isBool() {
+    return true;
+  }
 }

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 
-import QuantityEditorModal from './QuantityEditorModal';
+import ConditionsEditorModal from './ConditionsEditorModal';
 
 function ConditionsButton(props) {
   const {leaf, setLeaf, setShowEditor} = props;
@@ -52,7 +52,7 @@ export default function ConditionsPage({dag}) {
     <Container>
       <h3>Input Conditions</h3>
 
-      <QuantityEditorModal
+      <ConditionsEditorModal
         dag={dag}
         leaf={leaf}
         showEditor={showEditor}

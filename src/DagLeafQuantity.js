@@ -54,6 +54,10 @@ export default class DagLeafQuantity extends DagLeaf {
       ? true : this.own.dag.units.hasUnits(units);
   }
 
+  isQuantity() {
+    return true;
+  }
+
   units(units = undefined) {
     if (units !== undefined) {
       this.ensureUnits(units, 'DagLeafQuantity.units');
