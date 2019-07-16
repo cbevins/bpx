@@ -29,10 +29,12 @@ function ConditionsRows(props) {
           leaf={leaf}
           setLeaf={setLeaf}
           setShow={setShow}/>
+      </td>
+      <td align='left'>
         {leaf.label()}
       </td>
-      <td align='right'>{leaf.displayInputs().join(', ')}</td>
-      <td align='left' ><em>{leaf.displayUnits()}</em></td>
+      <td align='right' ><em>{leaf.displayUnits()}</em></td>
+      <td align='left'>{leaf.displayInputs().join(', ')}</td>
     </tr>
   );
   return (<tbody>{rows}</tbody>);

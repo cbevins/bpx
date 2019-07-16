@@ -37,7 +37,9 @@ function GraphDependent(props) {
   const { dag, xleaf, yleaf } = props;
   let pts = [];
   for(let idx=0; idx<dag.batch.results; idx+=1) {
-    pts.push( { x: xleaf.fetch(idx), y: yleaf.fetch(idx) } );
+    pts.push({
+      x: xleaf.fetchDisplay(idx),
+      y: yleaf.fetchDisplay(idx)} );
   }
   const data = [{
     id: yleaf.prettyName(),
