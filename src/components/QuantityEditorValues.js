@@ -51,7 +51,7 @@ export default function QuantityEditorValues(props) {
                 leaf.displayValueToBaseValue(x));
               // Store the base units values back onto the leaf
               AppDag.setBatchInputs(leaf, baseValues);
-              setForm({...freshForm});
+              setForm(freshForm());
               setShow(false);
             } else {
               alert('Please complete all fields and fix any errors');
@@ -61,7 +61,7 @@ export default function QuantityEditorValues(props) {
       </Button>
       <Button variant='secondary'
           onClick={() => {
-            setForm({...freshForm});
+            setForm(freshForm());
             setShow(false);
           }}>
         Cancel

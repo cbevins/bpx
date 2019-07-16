@@ -96,7 +96,7 @@ export default function QuantityEditorLoop(props) {
               // Store the base units values back onto the leaf
               AppDag.setBatchInputs(leaf, baseValues);
               // Clear the form and drop the modal dialog
-              setForm({...freshForm});
+              setForm(freshForm());
               setShow(false);
             } else {
               alert('Please complete all fields and fix any errors');
@@ -107,7 +107,7 @@ export default function QuantityEditorLoop(props) {
       <Button variant='secondary'
           onClick={() => {
             // Clear the form and drop the modal dialog
-            setForm({...freshForm});
+            setForm(freshForm());
             setShow(false);
           }}>
         Cancel
