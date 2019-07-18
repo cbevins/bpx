@@ -71,17 +71,22 @@ export default class DagBranch {
     return s;
   }
 
+  camel2title(camelCase) {
+    return camelCase.replace(/([A-Z])/g, (match) => ` ${match}`)
+    .replace(/^./, (match) => match.toUpperCase());
+  }
+
   ucFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   prettyName() {
-    let str = this.splitCamelCase(this.own.name);
+    let str = this.camel2title(this.own.name);
     let parentObj = this.own.parent;
     while (parentObj) {
       // Don't prefix the tree's root name
       if ( parentObj.own.parent !== null ) {
-        str = this.splitCamelCase(parentObj.own.name) + ' ' + str;
+        str = this.camel2title(parentObj.own.name) + ' ' + str;
       }
       parentObj = parentObj.own.parent;
     }
