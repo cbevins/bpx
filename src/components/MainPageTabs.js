@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Nav from 'react-bootstrap/Nav';
 
+import AnalysisPage from './AnalysisPage';
 import ConditionsPage from './ConditionsPage';
 import ConfigPage from './ConfigPage';
 import GraphPage from './GraphPage';
@@ -34,7 +35,7 @@ export function MainPageTabsTop({dag}) {
               <ResultsPage dag={dag} />
             </Tab>
             <Tab eventKey="graph" title="View Graphs &amp; Tables">
-              <GraphPage dag={dag} />
+              <AnalysisPage dag={dag} />
             </Tab>
             <Tab eventKey="tree" title="Tree Browser">
               <TreeBrowserPage dag={dag} />
@@ -89,7 +90,7 @@ export function MainPageTabsLeft({dag}) {
                   <ResultsPage dag={dag} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="analysis">
-                  <GraphPage dag={dag} />
+                  <AnalysisPage dag={dag} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="treeBrowser">
                   <TreeBrowserPage dag={dag} />
