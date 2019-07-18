@@ -336,13 +336,13 @@ export default class Dag {
     });
   }
 
-  updateBatch(debug=false) {
+  updateBatch(debug=false, progressCallback=undefined) {
     // \TODO Use local iterators for required input
     // instead of making them properties of the Variant itself
     // (That way, can even have multiple iterators simultaenously)
 
     // Yoyo the stack
-     let delta = 1;
+    let delta = 1;
     const args = [];
     let leaf = null;
     this.batch = {
@@ -355,8 +355,8 @@ export default class Dag {
       results: 0, // number of results stored
       stored: 0, // number of items stored (results * stored)
       steps: 0,
-      runLimit: 1000, // maximum number of results (iterations)
-      storeLimit: 10000, // maximum number of stored items
+      runLimit: 10000, // maximum number of results (iterations)
+      storeLimit: 100000, // maximum number of stored items
       elapsed: Date.now(), // elapsed milliseconds
       //store: [],  // LOCAL data store
     };
@@ -364,6 +364,7 @@ export default class Dag {
     let fid = null;
     let val = null;
     let msg = '';
+    const runs = this.runs();
     this.batch.store = [];
     this.reconfigure9ClearResults();
     // Thin the stack
@@ -482,6 +483,9 @@ export default class Dag {
         //this.batch.store.push(record);
         this.batch.results += 1;
         this.batch.stored += this.storedLeafs.length;
+        if (progressCallback) {
+          progressCallback(this.batch.results, runs);
+        }
         if (this.batch.results >= this.batch.runLimit
             || this.batch.stored >= this.batch.storeLimit) {
           break;

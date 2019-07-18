@@ -22,9 +22,9 @@ export default class AppDag {
     return this.dag.tree;
   }
 
-  static setBatchInputs(leaf, values) {
+  static setBatchInputs(leaf, values, updateProgress=undefined) {
     this.dag.setBatchInputs([[leaf, values]]);
-    this.dag.updateBatch(); // added
+    this.dag.updateBatch(false, updateProgress);
     this.stateUpdater();
   }
 
@@ -32,26 +32,26 @@ export default class AppDag {
     this.stateUpdater = stateUpdater;
   }
 
-  static select(leaf) {
+  static select(leaf, updateProgress=undefined) {
     this.dag.setSelected([leaf]);
-    this.dag.updateBatch(); // added
+    this.dag.updateBatch(false, updateProgress);
     this.stateUpdater();
   }
 
-  static setConfig(leaf, value) {
+  static setConfig(leaf, value, updateProgress=undefined) {
     this.dag.setValue(leaf, value);
-    this.dag.updateBatch(); // added
+    this.dag.updateBatch(false, updateProgress);
     this.stateUpdater();
   }
 
-  static unselect(leaf) {
+  static unselect(leaf, updateProgress=undefined) {
     this.dag.unSelect([leaf]);
-    this.dag.updateBatch(); // added
+    this.dag.updateBatch(false, updateProgress);
     this.stateUpdater();
   }
 
-  static updateBatch(debug=false) {
-    this.dag.updateBatch(debug);
+  static updateBatch(debug=false, updateProgress=undefined) {
+    this.dag.updateBatch(false, updateProgress);
     this.stateUpdater();
   }
 
