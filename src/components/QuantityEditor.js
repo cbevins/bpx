@@ -7,7 +7,7 @@ import Tab from 'react-bootstrap/Tab';
 import QuantityEditorLoop from './QuantityEditorLoop';
 import QuantityEditorValues from './QuantityEditorValues';
 
-export default function QuantityEditor(props) {
+export default function QuantityEditor (props) {
   const {leaf, setShowEditor} = props;
 
   return (
